@@ -1,0 +1,118 @@
+// WooCommerce Notifications
+.wc-notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 9999;
+  max-width: 350px;
+  width: calc(100% - 4rem);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  &__content {
+    background: #fff;
+    border-left: 4px solid #4CAF50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 1.25rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: #333;
+
+    // Message text
+    &__message {
+      margin-bottom: 0.75rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      p {
+        margin: 0 0 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    // Buttons container
+    &__buttons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+
+      a.button {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: #eee;
+          text-decoration: none;
+        }
+
+        &.wc-forward {
+          background-color: #4CAF50;
+          border-color: #45a049;
+          color: white;
+
+          &:hover {
+            background-color: #45a049;
+          }
+        }
+      }
+    }
+
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    // Message types
+    &.woocommerce-message,
+    &.woocommerce-info {
+      border-left-color: #2196F3;
+
+      a {
+        color: #2196F3;
+      }
+    }
+
+    &.woocommerce-error {
+      border-left-color: #f44336;
+
+      a {
+        color: #f44336;
+      }
+    }
+  }
+
+  // Make sure notifications are visible on mobile
+  @media (max-width: 768px) {
+    .wc-notification {
+      left: 1rem;
+      bottom: 1rem;
+      width: calc(100% - 2rem);
+    }
+  }
+}

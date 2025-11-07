@@ -1,0 +1,31 @@
+/*
+  Fluid Typography using clamp().
+  Format: clamp(MIN_SIZE, PREFERRED_SIZE, MAX_SIZE)
+  PREFERRED_SIZE is usually a viewport-based unit like vw, vi, or vb.
+*/
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+/* Fluid H1: Scales from 30px to 60px */
+h1 { font-size: clamp(1.875rem, 1.302rem + 2.864vw, 3.75rem); }
+
+/* Fluid H2: Scales from 26px to 48px */
+h2 { font-size: clamp(1.625rem, 1.208rem + 2.083vw, 3rem); }
+
+/* Fluid H3: Scales from 22px to 36px */
+h3 { font-size: clamp(1.375rem, 1.115rem + 1.302vw, 2.25rem); }
+
+/* Fluid H4: Scales from 18px to 24px */
+h4 { font-size: clamp(1.125rem, 0.969rem + 0.781vw, 1.5rem); }
+
+p, body {
+  /* Fluid Body: Scales from 16px to 18px */
+  font-size: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
+  margin-bottom: 1rem;
+  line-height: 1.625;
+}

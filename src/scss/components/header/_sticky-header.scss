@@ -1,0 +1,73 @@
+// Sticky Header Styles
+
+html {
+   margin-top: 0px !important;
+}
+.sticky-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform, background-color, box-shadow;
+    
+    // When header is hidden (scrolling down)
+    &.header-hidden {
+        transform: translateY(-100%);
+    }
+    
+    // When header is visible (scrolling up or at top)
+    &.header-visible {
+        transform: translateY(0);
+    }
+    
+    // When scrolled past threshold
+    &.header-scrolled {
+        background-color: rgba(255, 255, 255, 0.98) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        
+        // Dark mode support
+        @media (prefers-color-scheme: dark) {
+            background-color: rgba(17, 24, 39, 0.98) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+      .admin-bar & {
+        top: 0;
+
+        @media screen and (max-width: 782px) {
+          top: 0;
+        }
+      }
+    }
+    
+    // Smooth transition for admin bar
+    .admin-bar & {
+        top: 32px;
+
+        @media screen and (max-width: 782px) {
+            top: 45px;
+        }
+    }
+}
+
+// Add padding to body when sticky header is active
+body.has-sticky-header {
+    padding-top: 0px;
+    
+    @media screen and (max-width: 782px) {
+        padding-top: 60px; // Smaller padding on mobile
+    }
+    
+    .admin-bar & {
+        padding-top: calc(80px + 32px); // Account for admin bar
+        
+        @media screen and (max-width: 782px) {
+            padding-top: calc(60px + 46px); // Account for thicker admin bar on mobile
+        }
+    }
+}

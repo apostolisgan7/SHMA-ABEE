@@ -14,7 +14,7 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class('bg-white dark:bg-dark-900 text-dark-900 dark:text-gray-100'); ?>>
+<body <?php body_class('bg-white text-dark-900'); ?>>
 <?php wp_body_open(); ?>
 
 <div id="page" class="site flex flex-col min-h-screen">

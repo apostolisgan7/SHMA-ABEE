@@ -6,15 +6,18 @@ import '../scss/main.scss';
 
 // Import Alpine.js
 import Alpine from 'alpinejs';
+
 window.Alpine = Alpine;
 
 // Import Utils
-import { initSmoothScroll } from './utils/smooth-scroll';
+import {initSmoothScroll} from './utils/smooth-scroll';
 import './utils/helpers';
 
 // Import UI Components
-import { initStickyHeader } from './modules/ui/sticky-header';
-import { initMobileMenu } from './modules/ui/mobile-menu';
+import {initStickyHeader} from './modules/ui/sticky-header';
+import {initCatalogMenu} from './modules/ui/menus/catalog-menu.js';
+import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
+import {initMobileMenu} from './modules/ui/menus/mobile-menu';
 
 // Import GSAP core and plugins
 let gsap;
@@ -26,13 +29,13 @@ const loadGSAP = async () => {
         // Use dynamic imports to handle potential loading issues
         const gsapModule = await import('gsap');
         gsap = gsapModule.default || gsapModule;
-        
+
         const scrollTriggerModule = await import('gsap/ScrollTrigger');
         ScrollTrigger = scrollTriggerModule.default || scrollTriggerModule;
-        
+
         const scrollToPluginModule = await import('gsap/ScrollToPlugin');
         ScrollToPlugin = scrollToPluginModule.default || scrollToPluginModule;
-        
+
         if (gsap && ScrollTrigger && ScrollToPlugin) {
             gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
             window.gsap = gsap; // Make available globally
@@ -48,8 +51,8 @@ const loadGSAP = async () => {
 import Splitting from 'splitting';
 
 // Import WooCommerce
-import { initWooCommerce } from './modules/woocommerce';
-import { initOffcanvasCart } from './modules/woocommerce/offcanvas-cart';
+import {initWooCommerce} from './modules/woocommerce';
+import {initOffcanvasCart} from './modules/woocommerce/offcanvas-cart';
 
 import SearchPopup from './modules/ui/SearchPopup';
 
@@ -60,29 +63,35 @@ document.addEventListener('DOMContentLoaded', () => {
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Theme initialized');
-    
+
     // Initialize Alpine.js
     Alpine.start();
-    
-    
+
+
     // Initialize smooth scrolling
     initSmoothScroll();
-    
+
     // Initialize text splitting
     if (typeof Splitting !== 'undefined') {
         Splitting();
     }
-    
+
     // Load GSAP
     loadGSAP().then(() => {
         // Initialize components that depend on GSAP
         if (typeof initStickyHeader === 'function') {
             initStickyHeader();
         }
-        
+
         // Initialize mobile menu with GSAP fallback
         if (typeof initMobileMenu === 'function') {
             initMobileMenu();
+        }
+        if (typeof initMegaMenu === 'function') {
+            initMegaMenu();
+        }
+        if (typeof initCatalogMenu === 'function') {
+            initCatalogMenu();
         }
     }).catch((error) => {
         console.error('Error loading GSAP:', error);
@@ -94,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }, 50);
         }
     });
-    
+
     // Initialize WooCommerce if on WooCommerce pages
     if (document.body.classList.contains('woocommerce') && typeof initWooCommerce === 'function') {
         initWooCommerce();

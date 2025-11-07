@@ -30,7 +30,7 @@ remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wra
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 
 add_action('woocommerce_before_main_content', function() {
-    echo '<div class="container mx-auto px-4 py-xl">';
+    echo '<div class="container mx-auto px-0 py-xl">';
 }, 10);
 
 add_action('woocommerce_after_main_content', function() {

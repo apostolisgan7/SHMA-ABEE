@@ -1,3 +1,6 @@
+
+<div class="search-overlay"></div>
+
 <div class="search-popup" aria-hidden="true">
     <div class="search-container" data-lenis-prevent>
         <div class="search-header">

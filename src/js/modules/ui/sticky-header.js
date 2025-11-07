@@ -4,18 +4,14 @@
  */
 
 export function initStickyHeader() {
-    // Check if sticky header is enabled in customizer
-    const stickyEnabled = document.body.classList.contains('has-sticky-header');
-    if (!stickyEnabled) {
-        console.log('Sticky header is disabled in theme customizer');
-        return;
-    }
-
     const header = document.querySelector('.site-header');
     if (!header) {
         console.error('Sticky Header: No .site-header element found');
         return;
     }
+    
+    // Always enable sticky header
+    document.body.classList.add('has-sticky-header');
 
     let lastScroll = 0;
     const scrollThreshold = 100; // Pixels to scroll before showing/hiding

@@ -1,0 +1,172 @@
+.catalog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 18, 25, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 98;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.catalog-menu {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;              // κολλάει αριστερά όπως στο figma
+  width: min(1030px, 96vw);  // το 1031 που έδειξες
+  height: 100%;
+  max-height: calc(100vh - 3rem);
+  background: radial-gradient(circle at bottom, #e0f2e9 0%, #ffffff 32%, #ffffff 100%);
+  border: 2px solid #0ea5e9;
+  border-radius: 16px;
+  z-index: 9999;
+  box-shadow: 0 20px 60px rgba(0,0,0,.15);
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-menu__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.3rem 1.6rem 1rem;
+
+  .custom-logo {
+    max-height: 38px;
+    width: auto;
+  }
+
+  .catalog-menu__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .catalog-menu__close {
+    margin-left: auto;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: background .15s ease;
+
+    &:hover {
+      background: #0ea5e9;
+      color: #fff;
+    }
+  }
+}
+
+.catalog-menu__body {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 2rem;
+  padding: 0 1.6rem 1.25rem 1.6rem;
+  overflow-y: auto;
+}
+
+.catalog-menu__left {
+  border-right: 1px solid rgba(15,23,42,.08);
+  padding-right: 1.2rem;
+}
+
+.catalog-menu__subtitle {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 1rem;
+}
+
+.catalog-menu__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  margin: 0;
+  padding: 0;
+
+  li a {
+    text-decoration: none;
+    color: #111;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    transition: color .15s ease;
+
+    &:hover {
+      color: #0ea5e9;
+    }
+  }
+
+  li.current-menu-item > a {
+    color: #0ea5e9;
+    font-weight: 600;
+  }
+}
+
+.catalog-menu__right {
+  .catalog-menu__sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+
+    li {
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    li.is-active::before,
+    li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .4rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #0ea5e9;
+    }
+
+    li.is-active {
+      color: #0ea5e9;
+      font-weight: 600;
+    }
+  }
+}
+
+.catalog-menu__footer {
+  display: flex;
+  gap: 1rem;
+  padding: .85rem 1.6rem 1rem;
+  border-top: 1px solid rgba(15,23,42,.05);
+
+  a {
+    font-size: .7rem;
+    text-decoration: none;
+    color: #0f172a;
+  }
+}
+
+@media (max-width: 900px) {
+  .catalog-menu {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96vw;
+  }
+
+  .catalog-menu__body {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-menu__left {
+    border-right: none;
+    padding-right: 0;
+  }
+}

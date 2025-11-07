@@ -14,7 +14,6 @@ import './utils/helpers';
 
 // Import UI Components
 import { initStickyHeader } from './modules/ui/sticky-header';
-import { initThemeToggle } from './modules/ui/theme-toggle';
 import { initMobileMenu } from './modules/ui/mobile-menu';
 
 // Import GSAP core and plugins
@@ -65,10 +64,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize Alpine.js
     Alpine.start();
     
-    // Initialize theme toggle (runs immediately)
-    if (typeof initThemeToggle === 'function') {
-        initThemeToggle();
-    }
     
     // Initialize smooth scrolling
     initSmoothScroll();

@@ -4,12 +4,18 @@
 
 // Enable AJAX add to cart on single product pages
 add_action('wp_enqueue_scripts', function() {
-    if (is_product()) {
-        wp_enqueue_script('wc-add-to-cart');
+    // Only proceed if WooCommerce is active
+    if (!class_exists('WooCommerce')) {
+        return;
     }
     
     // Ensure cart fragments script is enqueued
     wp_enqueue_script('wc-cart-fragments');
+    
+    // Check if we're on a single product page
+    if (function_exists('is_product') && is_product()) {
+        wp_enqueue_script('wc-add-to-cart');
+    }
     
     // Add AJAX URL and nonce for our JavaScript
     wp_localize_script('wc-cart-fragments', 'wc_cart_fragments_params', array(
@@ -102,9 +108,12 @@ add_action('woocommerce_before_shop_loop', 'ruined_add_shop_view_toggle', 25);
  * Add body class for the current shop view.
  */
 function ruined_shop_view_body_class($classes) {
-    if (is_shop() || is_product_category() || is_product_tag()) {
-        $current_view = isset($_COOKIE['shop_view']) ? $_COOKIE['shop_view'] : 'grid';
-        $classes[] = 'shop-view-' . esc_attr($current_view);
+    // Only proceed if WooCommerce is active and functions exist
+    if (class_exists('WooCommerce') && function_exists('is_shop') && function_exists('is_product_category') && function_exists('is_product_tag')) {
+        if (is_shop() || is_product_category() || is_product_tag()) {
+            $current_view = isset($_COOKIE['shop_view']) ? $_COOKIE['shop_view'] : 'grid';
+            $classes[] = 'shop-view-' . esc_attr($current_view);
+        }
     }
     return $classes;
 }

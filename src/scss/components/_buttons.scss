@@ -2,22 +2,54 @@
 @use 'sass:color';
 @use 'sass:map';
 
+// Button variants mixin
+@mixin button-variant($background, $border, $color: #fff) {
+  $hover-background: darken($background, 7.5%);
+  $active-background: darken($background, 12.5%);
+  
+  color: $color;
+  background-color: $background;
+  border: 1px solid $border;
+  
+  &:hover {
+    color: $color;
+    background-color: $hover-background;
+    border-color: $hover-background;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    background-color: $active-background;
+    transform: translateY(0);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($background, 0.25);
+  }
+}
+
 // Base button styles
 .btn {
-  display: inline-block;
-  font-weight: 500;
-  line-height: 1.5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
   text-align: center;
   text-decoration: none;
+  white-space: nowrap;
   vertical-align: middle;
-  cursor: pointer;
   user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
-  padding: 0.5rem 1rem;
-  font-size: $font-size-base;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
   border-radius: $border-radius;
-  transition: $transition-base;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  gap: 0.5rem;
   
   &:hover {
     text-decoration: none;
@@ -30,52 +62,33 @@
   }
 }
 
-// Button variants
-@mixin button-variant($background, $border, $color: #fff) {
-  $hover-background: color.scale($background, $lightness: -7.5%);
-  $hover-border: color.scale($border, $lightness: -10%);
-  
-  color: $color;
-  background-color: $background;
-  border-color: $border;
-  
-  &:hover {
-    color: $color;
-    background-color: $hover-background;
-    border-color: $hover-border;
-  }
-  
-  &:focus {
-    box-shadow: 0 0 0 0.2rem rgba($background, 0.5);
-  }
-}
-
 // Button sizes
 .btn-sm {
-  padding: 0.25rem 0.5rem;
+  padding: 0.4rem 0.8rem;
   font-size: 0.875rem;
-  border-radius: $border-radius-sm;
 }
 
 .btn-lg {
-  padding: 0.75rem 1.5rem;
-  font-size: 1.25rem;
-  border-radius: $border-radius-lg;
+  padding: 0.9rem 2rem;
+  font-size: 1.1rem;
 }
 
 // Button variants
 .btn-primary {
-  @include button-variant($primary-color, $primary-color);
+  @include button-variant($primary-color, $primary-color, $white);
+  
+  &:hover {
+    color: $white;
+  }
 }
 
 .btn-secondary {
-  @include button-variant($secondary-color, $secondary-color);
+  @include button-variant($secondary-color, $secondary-color, $white);
+  
+  &:hover {
+    color: $white;
+  }
 }
-
-.btn-success {
-  @include button-variant($success-color, $success-color);
-}
-
 .btn-danger {
   @include button-variant($danger-color, $danger-color);
 }

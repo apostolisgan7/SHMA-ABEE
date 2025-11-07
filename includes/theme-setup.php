@@ -16,6 +16,8 @@ add_action('after_setup_theme', function () {
     // Register Nav Menus
     register_nav_menus([
         'primary' => __('Primary Menu', 'ruined'),
+        'catalog-menu' => __('Catalog Menu', 'ruined'),
+        'mobile-menu' => __('Mobile Menu', 'ruined'),
     ]);
 });
 

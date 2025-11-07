@@ -1,6 +1,21 @@
 /* ================================
    🔍 SEARCH POPUP STYLING (Custom)
 ================================ */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 18, 25, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 9998; // ένα κάτω από το popup
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease-in-out;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
 
 .search-popup {
   position: fixed;
@@ -15,6 +30,15 @@
   pointer-events: none;
   transition: all 0.3s ease-in-out;
   z-index: 9999;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: min(1030px, 96vw);
+  height: 100%;
+  max-height: calc(100vh - 3rem);
+  background: radial-gradient(circle at bottom, #e0f2e9 0%, #ffffff 32%, #ffffff 100%);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  flex-direction: column;
 
   &.active {
     opacity: 1;
@@ -27,11 +51,10 @@
   background: rgb(255, 255, 255);
   backdrop-filter: blur(2px);
   border-radius: 20px;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
   padding: 40px;
-  width: 92%;
+  width: 100%;
+  height: 100%;
   max-width: 1031px;
-  max-height: 90vh;
   overflow-y: clip;
   position: relative;
   display: flex;

@@ -29,4 +29,4 @@
     ?>
 
     <main id="content" class="site-content flex-grow">
-        <div class="container mx-auto py-8">
+        <div class="container mx-auto ">

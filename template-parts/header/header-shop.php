@@ -8,8 +8,6 @@
 <header id="masthead" class="site-header header-shop">
     <div class="container">
         <div class="header-inner">
-
-            <!-- LEFT: logo + catalog -->
             <div class="header-left">
                 <div class="site-branding">
                     <?php
@@ -24,15 +22,12 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- second megamenu trigger -->
                 <button class="header-catalog" type="button" data-catalog-toggle>
                     <span><?php _e( 'Κατάλογος προϊόντων', 'ruined' ); ?></span>
-                    <span class="header-catalog__icon">▾</span>
                 </button>
 
             </div>
 
-            <!-- RIGHT: actions -->
             <div class="header-right">
 
                 <?php if ( class_exists( 'WooCommerce' ) ) : ?>
@@ -48,27 +43,24 @@
                         </a>
                     </div>
 
-                    <!-- cart / “προσφορά” -->
                     <div class="header-cart">
                         <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="header-link has-badge">
                             <?php _e( 'ΠΡΟΣΦΟΡΑ', 'ruined' ); ?>
-                            <?php if ( WC()->cart ) : ?>
-                                <span class="cart-contents-count">
-                                    <?php echo WC()->cart->get_cart_contents_count(); ?>
-                                </span>
-                            <?php endif; ?>
+<!--                            --><?php //if ( WC()->cart ) : ?>
+<!--                                <span class="cart-contents-count">-->
+<!--                                    --><?php //echo WC()->cart->get_cart_contents_count(); ?>
+<!--                                </span>-->
+<!--                            --><?php //endif; ?>
                         </a>
                     </div>
                 <?php endif; ?>
 
-                <!-- languages -->
                 <div class="header-lang desktop-only">
                     <a href="#" class="is-active">EL</a>
                     <span>/</span>
                     <a href="#">EN</a>
                 </div>
 
-                <!-- mobile burger -->
                 <button class="mobile-menu-button" type="button" aria-label="<?php esc_attr_e( 'Open menu', 'ruined' ); ?>">
                     <span></span>
                     <span></span>
@@ -79,6 +71,6 @@
         </div>
     </div>
 </header>
-<?php get_template_part( 'template-parts/menus/catalog-menu' ); ?>
 
+<?php get_template_part( 'template-parts/menus/catalog-menu' ); ?>
 <?php get_template_part( 'template-parts/search/popup' ); ?>

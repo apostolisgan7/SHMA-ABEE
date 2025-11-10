@@ -4,6 +4,12 @@
   PREFERRED_SIZE is usually a viewport-based unit like vw, vi, or vb.
 */
 
+a{
+  &:hover{
+    text-decoration: unset;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   font-weight: 700;

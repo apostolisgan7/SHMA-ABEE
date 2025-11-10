@@ -1,0 +1,126 @@
+@use '../abstracts' as *;
+$button-radius: 12px;
+
+
+.button-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1;
+  position: relative;
+  transition: color 0.3s ease;
+
+  &__icon {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border: 1.5px solid currentColor;
+    border-radius: $button-radius;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  &__fill {
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 1;
+    transition: transform 0.35s ease;
+  }
+
+  &__arrow {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: currentColor;
+    -webkit-mask: url("../../img/btn-arrow.svg") center/contain no-repeat;
+    mask: url("../../img/btn-arrow.svg") center/contain no-repeat;
+    z-index: 2;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  &__arrow--front {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  &__arrow--back {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+
+  &__text {
+    font-size: 21px;
+    font-weight: 400;
+    transition: color 0.3s ease;
+  }
+
+  // hover animation
+  &:hover {
+    color: $secondary-color;
+
+    .button-arrow__icon {
+      border-color: $secondary-color;
+    }
+
+    .button-arrow__fill {
+      transform: scaleX(1);
+    }
+
+    .button-arrow__arrow--front {
+      transform: translateX(10px);
+      opacity: 0;
+    }
+
+    .button-arrow__arrow--back {
+      transform: translateX(0);
+      opacity: 1;
+      background-color: #fff;
+    }
+  }
+
+  /* variant πάνω σε σκούρο bg */
+  &--white {
+    color: #f8f8f8;
+
+    .button-arrow__icon {
+      border-color: rgba(248, 248, 248, 0.4);
+    }
+  }
+
+  /* variant πάνω σε ανοιχτό bg */
+  &--black {
+    color: #111;
+
+    .button-arrow__icon {
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  /* icon right (αν το ορίσεις με PHP) */
+  &.icon-right {
+    flex-direction: row-reverse;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.6rem;
+
+    &__icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__text {
+      font-size: 0.95rem;
+    }
+  }
+}

@@ -3,10 +3,9 @@
 
 // WooCommerce
 @use 'woocommerce' as *;
-@use 'base/mixins' as *;
-@use 'base/utilities';
-@use 'base/base';
-@use 'base/typography';
+
+// Base
+@use 'base' as *;
 
 // Components
  @use 'components';
@@ -19,4 +18,5 @@
  @use 'pages/home';
 
 
-
+// Blocks
+@use 'blocks';

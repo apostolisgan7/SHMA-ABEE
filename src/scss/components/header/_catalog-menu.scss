@@ -1,3 +1,6 @@
+@use '../../abstracts' as *;
+
+
 .catalog-overlay {
   position: fixed;
   inset: 0;
@@ -16,7 +19,6 @@
   height: 100%;
   max-height: calc(100vh - 3rem);
   background: radial-gradient(circle at bottom, #e0f2e9 0%, #ffffff 32%, #ffffff 100%);
-  border: 2px solid #0ea5e9;
   border-radius: 16px;
   z-index: 9999;
   box-shadow: 0 20px 60px rgba(0,0,0,.15);
@@ -55,7 +57,7 @@
     transition: background .15s ease;
 
     &:hover {
-      background: #0ea5e9;
+      background: $secondary-color;
       color: #fff;
     }
   }
@@ -98,12 +100,12 @@
     transition: color .15s ease;
 
     &:hover {
-      color: #0ea5e9;
+      color: $secondary-color;
     }
   }
 
   li.current-menu-item > a {
-    color: #0ea5e9;
+    color: $secondary-color;
     font-weight: 600;
   }
 }
@@ -131,11 +133,11 @@
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: #0ea5e9;
+      background: $secondary-color;
     }
 
     li.is-active {
-      color: #0ea5e9;
+      color: $secondary-color;
       font-weight: 600;
     }
   }

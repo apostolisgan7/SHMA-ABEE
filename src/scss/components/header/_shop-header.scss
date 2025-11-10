@@ -1,19 +1,33 @@
-.header-shop {
-  --header-bg: transparent;
-  --text-color: #1f2937;
-  --hover-color: #0f766e;
-  --border-color: #e5e7eb;
+@use '../../abstracts' as *;
 
-  background-color: var(--header-bg);
+.post-type-archive.post-type-archive-product, .single-product, .woocommerce-cart, .woocommerce-checkout {
+  .header-shop {
+    color: $primary-color;
+    background-color: transparent;
+    position: relative;
+    z-index: 50;
+
+    a {
+      color: $primary-color;
+    }
+  }
+}
+
+.header-shop {
+  color: #fff;
+  background-color: transparent;
   position: relative;
   z-index: 50;
 
+  a {
+    color: #fff;
+  }
 
   .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 80px;
+    min-height: 100px;
     gap: 1.5rem;
   }
 
@@ -27,9 +41,15 @@
   .site-branding {
     display: flex;
     align-items: center;
+
+    a {
+      font-size: 2.5rem;
+    }
+
     img {
       max-height: 150px;
-      width: auto;
+      width: 100%;
+      max-width: 250px;
     }
 
   }
@@ -42,7 +62,7 @@
     border: none;
     border-radius: 9999px;
     padding: 0 1.1rem;
-    font-size: 1rem;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: .04em;
     color: var(--text-color);
@@ -51,8 +71,9 @@
     white-space: nowrap;
 
     &:hover {
-      background:transparent;
+      background: transparent;
     }
+
     &__icon {
       font-size: .55rem;
       line-height: 1;
@@ -69,7 +90,7 @@
     li a {
       text-decoration: none;
       color: var(--text-color);
-      font-size: .7rem;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: .05em;
       position: relative;
@@ -78,6 +99,7 @@
       &:hover::after {
         width: 100%;
       }
+
       &::after {
         content: '';
         position: absolute;
@@ -85,7 +107,7 @@
         bottom: 0;
         height: 2px;
         width: 0;
-        background: var(--hover-color);
+        background: $secondary-color;
         transition: width .2s ease;
       }
     }
@@ -95,10 +117,12 @@
   .header-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 3rem;
 
     button.search-toggle.header-link {
-    padding: 0;
+      padding: 0;
+      position: relative;
+      top: 3px;
     }
   }
 
@@ -106,7 +130,7 @@
     background: none;
     border: none;
     color: var(--text-color);
-    font-size: 1rem;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: .08em;
     font-weight: 500;
@@ -116,7 +140,7 @@
     transition: color .15s ease;
 
     &:hover {
-      color: var(--hover-color);
+      color: $secondary-color;
     }
   }
 
@@ -124,7 +148,7 @@
     position: absolute;
     top: -8px;
     right: -12px;
-    background: #ef4444;
+    background: #000;
     color: #fff;
     width: 20px;
     height: 20px;
@@ -140,7 +164,9 @@
     display: flex;
     gap: .35rem;
     align-items: center;
-    font-size: .65rem;
+    font-size: 11px;
+    position: relative;
+    top: 1px;
 
     a {
       color: var(--text-color);
@@ -155,7 +181,6 @@
 
   /* burger */
   .mobile-menu-button {
-    display: none;
     width: 32px;
     height: 26px;
     flex-direction: column;
@@ -163,12 +188,12 @@
     background: none;
     border: none;
     cursor: pointer;
+    padding: 0;
 
     span {
       display: block;
       height: 2px;
-      background: var(--text-color);
-      border-radius: 999px;
+      background: #fff;
     }
   }
 
@@ -196,11 +221,5 @@
     .header-inner {
       min-height: 70px;
     }
-  }
-
-  /* dark */
-  @media (prefers-color-scheme: dark) {
-    --header-bg: transparent;
-    --text-color: #000;
   }
 }

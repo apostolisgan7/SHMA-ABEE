@@ -9,21 +9,6 @@ if (!defined('RUINED_VERSION')) {
     define('RUINED_VERSION', '1.0.0');
 }
 
-/**
- * Add theme support for custom logo
- */
-function ruined_theme_support() {
-    // Add support for custom logo
-    add_theme_support('custom-logo', array(
-        'height'      => 100,
-        'width'       => 300,
-        'flex-height' => true,
-        'flex-width'  => true,
-        'header-text' => array('site-title', 'site-description'),
-    ));
-}
-add_action('after_setup_theme', 'ruined_theme_support');
-
 // --- Theme Includes ---
 $includes = [
     'includes/theme-setup.php',       // Theme setup and features
@@ -46,15 +31,10 @@ function ruined_woocommerce_locate_template($template, $template_name, $template
     return $template;
 }
 
+// Load theme files
 foreach ($includes as $file) {
-	$filepath = get_template_directory() . '/' . $file;
-	if (file_exists($filepath)) {
-		require_once $filepath;
-	}
+    $filepath = get_template_directory() . '/' . $file;
+    if (file_exists($filepath)) {
+        require_once $filepath;
+    }
 }
-
-
-add_action('after_setup_theme', function() {
-	add_theme_support('woocommerce');
-});
-

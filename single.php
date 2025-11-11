@@ -10,7 +10,7 @@ get_header(); ?>
 <main id="main" class="site-main py-12 lg:py-16">
     <div class="container mx-auto px-4 max-w-4xl">
         <?php while (have_posts()) : the_post(); ?>
-            <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white dark:bg-dark-800 rounded-xl shadow-lg overflow-hidden'); ?>>
+            <article id="post-<?php the_ID(); ?>" <?php post_class('overflow-hidden'); ?>>
                 <?php if (has_post_thumbnail()) : ?>
                     <div class="h-64 md:h-96 w-full overflow-hidden">
                         <?php the_post_thumbnail('full', ['class' => 'w-full h-full object-cover']); ?>
@@ -24,12 +24,12 @@ get_header(); ?>
                     </div>
 
                     <!-- Post Title -->
-                    <h1 class="text-3xl md:text-4xl font-bold text-dark-900 dark:text-white mb-4 leading-tight">
+                    <h1 class="text-3xl">
                         <?php the_title(); ?>
                     </h1>
 
                     <!-- Post Meta -->
-                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-8">
+                    <div class="flex items-center text-sm">
                         <div class="flex items-center mr-6">
                             <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -45,7 +45,7 @@ get_header(); ?>
                     </div>
 
                     <!-- Post Content -->
-                    <div class="prose dark:prose-invert max-w-none">
+                    <div class="prose max-w-none">
                         <?php the_content(); ?>
                     </div>
 

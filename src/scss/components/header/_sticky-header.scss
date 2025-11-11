@@ -50,6 +50,18 @@ html {
         top: 0;
       }
     }
+
+    .site-branding img{
+      filter: invert(1);
+    }
+    .header-cart {
+      background: transparent;
+    }
+    .mobile-menu-button {
+      .line{
+        background: $primary-color;
+      }
+    }
   }
 
   // Smooth transition for admin bar

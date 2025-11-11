@@ -3,8 +3,8 @@
  * Theme setup and support - Minimal configuration
  */
 add_action('after_setup_theme', 'ruined_theme_setup');
-add_action('init', 'ruined_add_post_thumbnail_support', 999);
-add_action('admin_init', 'ruined_ensure_featured_image_support');
+add_action('init', 'ruined_add_post_thumbnail_support', 0); // Changed priority to 0 to run earlier
+add_action('current_screen', 'ruined_ensure_featured_image_support'); // Changed to current_screen hook
 
 function ruined_theme_setup() {
     // Let WordPress manage the document title
@@ -48,23 +48,36 @@ function ruined_add_post_thumbnail_support() {
 }
 
 /**
- * Forcefully ensure featured image support is enabled for posts and pages
+ * Ensure featured image support is enabled for posts and pages
  */
 function ruined_ensure_featured_image_support() {
-    // List of post types that should support featured images
-    $post_types = ['post', 'page'];
+    // Only run in admin and on post edit screens
+    if (!is_admin()) {
+        return;
+    }
     
-    foreach ($post_types as $post_type) {
-        // Add thumbnail support if it doesn't exist
+    $screen = get_current_screen();
+    if (!$screen || !in_array($screen->base, ['post', 'edit'])) {
+        return;
+    }
+    
+    // Get the post type
+    $post_type = $screen->post_type;
+    
+    // If it's a post or page, ensure thumbnail support is enabled
+    if (in_array($post_type, ['post', 'page'])) {
         if (!post_type_supports($post_type, 'thumbnail')) {
             add_post_type_support($post_type, 'thumbnail');
         }
-    }
-    
-    // Make sure the featured image meta box is shown
-    $hidden_meta_boxes = get_user_meta(get_current_user_id(), 'metaboxhidden_post', true);
-    if (is_array($hidden_meta_boxes)) {
-        $hidden_meta_boxes = array_diff($hidden_meta_boxes, ['postimagediv']);
-        update_user_meta(get_current_user_id(), 'metaboxhidden_post', $hidden_meta_boxes);
+        
+        // Force the meta box to be shown
+        add_meta_box(
+            'postimagediv',
+            __('Featured Image'),
+            'post_thumbnail_meta_box',
+            $post_type,
+            'side',
+            'low'
+        );
     }
 }

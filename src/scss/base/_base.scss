@@ -9,7 +9,7 @@
 body {
   background-color: $white;
   color: $dark-color;
-  font-family: $font-family-base;
+  font-family: $font-family-base !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: content-box;
@@ -37,7 +37,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: $spacer;
-  font-weight: $font-weight-bold;
+  font-weight: $w-bold;
   line-height: 1.2;
   color: $dark-color;
 }
@@ -48,7 +48,7 @@ button,
 input[type="button"],
 input[type="submit"] {
   display: inline-block;
-  font-weight: $font-weight-medium;
+  font-weight: $w-medium;
   line-height: 1.5;
   text-align: center;
   text-decoration: none;

@@ -7,18 +7,28 @@
 add_action('admin_head', 'ruined_force_featured_image_metabox');
 
 function ruined_force_featured_image_metabox() {
-    global $post_type;
-    
-    // Only run on post and page edit screens
-    if (!in_array($post_type, ['post', 'page'])) {
+    global $pagenow, $post_type;
+
+    // Only run on post type edit screens
+    if (!in_array($pagenow, ['post.php', 'post-new.php'])) {
         return;
     }
-    
-    // Add support for post thumbnails for this post type
+
+    // Skip if no post type is set
+    if (empty($post_type)) {
+        return;
+    }
+
+    // Skip ACF pages and other non-standard post type screens
+    if (function_exists('acf_get_instance') && strpos($post_type, 'acf-') === 0) {
+        return;
+    }
+
+    // Add support for post thumbnails for this post type if not already supported
     if (!post_type_supports($post_type, 'thumbnail')) {
         add_post_type_support($post_type, 'thumbnail');
     }
-    
+
     // Force the meta box to be shown
     add_meta_box(
         'postimagediv',
@@ -28,7 +38,7 @@ function ruined_force_featured_image_metabox() {
         'side',
         'default'
     );
-    
+
     // Ensure the meta box is not hidden
     $hidden_meta_boxes = get_user_meta(get_current_user_id(), 'metaboxhidden_' . $post_type, true);
     if (is_array($hidden_meta_boxes)) {
@@ -42,7 +52,7 @@ add_action('admin_notices', 'ruined_check_featured_image_support');
 
 function ruined_check_featured_image_support() {
     global $post_type;
-    
+
     if (in_array($post_type, ['post', 'page']) && !post_type_supports($post_type, 'thumbnail')) {
         echo '<div class="notice notice-error">';
         echo '<p><strong>Warning:</strong> Featured Image support is missing for ' . $post_type . '. Please check your theme settings.</p>';

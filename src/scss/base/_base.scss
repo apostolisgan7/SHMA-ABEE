@@ -26,7 +26,7 @@ a {
   color: $primary-color;
   text-decoration: none;
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: adjust-color($primary-color, $lightness: -10%);
     text-decoration: underline;
@@ -62,7 +62,7 @@ input[type="submit"] {
   border-radius: $border-radius;
   color: $white;
   transition: $transition-base;
-  
+
   &:hover {
     background-color: adjust-color($primary-color, $lightness: -10%);
     color: $white;

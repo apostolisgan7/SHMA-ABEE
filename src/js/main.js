@@ -18,6 +18,7 @@ import {initStickyHeader} from './modules/ui/sticky-header';
 import {initCatalogMenu} from './modules/ui/menus/catalog-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
 import {initMobileMenu} from './modules/ui/menus/mobile-menu';
+import {initSwipers} from './modules/ui/swipers-handler';
 
 // Import GSAP core and plugins
 let gsap;
@@ -67,6 +68,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize Alpine.js
     Alpine.start();
 
+    // Initialize Swiper carousels
+    initSwipers();
 
     // Initialize smooth scrolling
     initSmoothScroll();

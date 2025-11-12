@@ -1,0 +1,109 @@
+@use '../../abstracts' as *;
+
+.rv-product-card {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f3f5f3;
+
+  &:before {
+    content: '';
+    height: 1px; width: 100%;
+    background: #3317141A;
+    position: absolute; bottom: 0; left: 0;
+    transition: width .4s ease; z-index: 0;
+  }
+  &:after {
+    content: ''; height: 1px; width: 0;
+    background: $secondary-color;
+    position: absolute; bottom: 0; left: 0;
+    transition: width .4s ease; z-index: 1;
+  }
+
+  &__link {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    text-decoration: none;
+    height: 100%;
+  }
+
+  &__media {
+    position: relative;
+    padding-top: calc(650 / 544 * 100%); // ίδιο ratio με service
+    overflow: hidden; border-radius: 4px;
+  }
+
+  &__img, &__placeholder {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    transform: scale(1); transition: transform .45s ease;
+    display: block;
+  }
+  &__placeholder { background: #e6eae6; }
+
+  &__hover {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none;
+    background: linear-gradient(48deg, rgb(30,157,74) 0%, rgba(30,157,74,0) 60%);
+    opacity: 0; transition: opacity .5s ease;
+  }
+
+  /* stock badge πάνω αριστερά */
+  &__stock {
+    position: absolute; top: 12px; left: 12px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #2b2b2b; background: #fff;
+    padding: 6px 10px; border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    i { width: 7px; height: 7px; border-radius: 50%; background: $secondary-color; display: inline-block; }
+  }
+
+  &__meta {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px 16px; align-items: center;
+    padding: 14px 16px 10px;
+    border-top: 1px solid #cfe7cf; background: #fff;
+  }
+
+  &__tag {
+    grid-column: 1 / -1;
+    font-size: 12px; font-weight: 700; letter-spacing: .66px;
+    color: $secondary-color; text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: clamp(16px, 2.2vw, 28px);
+    line-height: 1.25; font-weight: 400; color: $primary-color; margin: 0;
+  }
+
+  /* κρύψε την τιμή προς το παρόν */
+  &__price { display: none; }
+
+  /* ίδιο “βέλος” κουμπί κάτω δεξιά – Add to cart / Read more */
+  &__btn {
+    width: 13px; height: 13px;
+    display: inline-grid; place-items: center;
+    border-radius: 3px; border: 1.5px solid #858585;
+    position: absolute; bottom: 15px; right: 10px;
+    transition: .4s ease; transition-delay: .3s;
+
+    svg { width: 0; height: 0; transition: .3s ease; transition-delay: .5s; }
+    svg rect { stroke: transparent; }
+    svg path { stroke: #000; }
+  }
+
+  &:hover {
+    .rv-product-card__img   { transform: scale(1.04); }
+    .rv-product-card__hover { opacity: 1; }
+    .rv-product-card__btn   {
+      width: 40px; height: 40px; border-color: $secondary-color;
+      svg { width: 20px; height: 20px; }
+    }
+    &:after { width: 100%; }
+  }
+
+  /* αν κάποιο plugin ρίχνει input checkbox μέσα στην κάρτα, κρύψ’ το */
+  input[type="checkbox"] { display: none; }
+}

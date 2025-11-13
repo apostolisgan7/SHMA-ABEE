@@ -19,6 +19,7 @@ import {initCatalogMenu} from './modules/ui/menus/catalog-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
 import {initMobileMenu} from './modules/ui/menus/mobile-menu';
 import {initSwipers} from './modules/ui/swipers-handler';
+import {initScrollVideo} from './modules/ui/scroll-video';
 
 // Import GSAP core and plugins
 let gsap;
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (typeof initStickyHeader === 'function') {
             initStickyHeader();
         }
+        initScrollVideo();
 
         // Initialize mobile menu with GSAP fallback
         if (typeof initMobileMenu === 'function') {

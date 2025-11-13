@@ -12,7 +12,7 @@ $product   = wc_get_product( $post_obj->ID );
 $permalink = get_permalink( $post_obj );
 $title     = get_the_title( $post_obj->ID );
 
-/** Image: featured ή Woo placeholder */
+/** Main Image: featured ή Woo placeholder */
 $img_id = get_post_thumbnail_id( $post_obj->ID );
 if ( $img_id ) {
     $img_src = wp_get_attachment_image_url( $img_id, 'large' );
@@ -22,6 +22,15 @@ if ( $img_id ) {
             ? wc_placeholder_img_src( 'woocommerce_single' )
             : ( wc()->plugin_url() . '/assets/images/placeholder.png' );
     $img_alt = $title;
+}
+
+/** Gallery Image (first image from gallery) */
+$gallery_img_src = '';
+$gallery_img_alt = '';
+$gallery_ids = $product ? $product->get_gallery_image_ids() : [];
+if ( !empty($gallery_ids) ) {
+    $gallery_img_src = wp_get_attachment_image_url( $gallery_ids[0], 'large' );
+    $gallery_img_alt = get_post_meta( $gallery_ids[0], '_wp_attachment_image_alt', true ) ?: $title;
 }
 
 /** 1η κατηγορία */
@@ -47,11 +56,17 @@ $btn_attrs        = $show_add_to_cart ? sprintf(
     <a class="rv-product-card__link" href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( $title ); ?>">
 
         <div class="rv-product-card__media">
-            <img class="rv-product-card__img"
+            <img class="rv-product-card__img rv-product-card__img--main"
                  src="<?php echo esc_url( $img_src ); ?>"
                  alt="<?php echo esc_attr( $img_alt ); ?>"
                  loading="lazy" decoding="async" />
-            <span class="rv-product-card__hover"></span>
+            
+            <?php if ( !empty($gallery_img_src) ) : ?>
+                <img class="rv-product-card__img rv-product-card__img--gallery"
+                     src="<?php echo esc_url( $gallery_img_src ); ?>"
+                     alt="<?php echo esc_attr( $gallery_img_alt ); ?>"
+                     loading="lazy" decoding="async" />
+            <?php endif; ?>
 
             <?php if ( $in_stock ) : ?>
                 <span class="rv-product-card__stock"><i></i><?php _e('Διαθέσιμο','ruined'); ?></span>
@@ -69,7 +84,7 @@ $btn_attrs        = $show_add_to_cart ? sprintf(
                 <div class="rv-product-card__price"><?php echo wp_kses_post( $price_html ); ?></div>
             <?php endif; ?>
 
-            <a href="<?php echo esc_url( $add_to_cart_url ); ?>" <?php echo $btn_attrs; ?> aria-label="<?php echo esc_attr( $add_to_cart_text ); ?>">
+            <a href="<?php echo esc_url( $permalink ); ?>" class="rv-product-card__btn" aria-label="<?php echo esc_attr( $add_to_cart_text ); ?>">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" role="img" aria-hidden="true">
                     <rect x="1" y="1" width="30" height="30" rx="6"></rect>
                     <path d="M13 9l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>

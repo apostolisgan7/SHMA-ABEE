@@ -39,6 +39,7 @@
     background: linear-gradient(48deg, rgb(30 157 74) 0%, rgba(30, 157, 74, 0) 60%);
     opacity: 0;
     transition: opacity .5s ease;
+    transition-delay: 0.3s;
   }
 
   &__link {

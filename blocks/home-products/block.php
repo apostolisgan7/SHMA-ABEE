@@ -33,15 +33,14 @@ $as_carousel = is_array($items) && count($items) > 3;
             <?php if ($as_carousel): ?>
                 <div class="rv-hp__navwrap">
                     <button class="rv-hp__nav rv-hp__nav--prev" aria-label="<?php esc_attr_e('Προηγούμενο','ruined'); ?>">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                            <rect x="0.75" y="0.75" width="26.5" height="26.5" rx="6"></rect>
-                            <path d="M16 8l-6 6 6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.68422 11.4943L0.911987 6.20308L6.68422 0.911865" stroke="black" stroke-width="1.82386" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
+
                     </button>
                     <button class="rv-hp__nav rv-hp__nav--next" aria-label="<?php esc_attr_e('Επόμενο','ruined'); ?>">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                            <rect x="0.75" y="0.75" width="26.5" height="26.5" rx="6"></rect>
-                            <path d="M12 8l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.911971 0.911955L6.6842 6.20317L0.91197 11.4944" stroke="black" stroke-width="1.82386" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                 </div>

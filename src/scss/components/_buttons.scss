@@ -6,11 +6,11 @@
 @mixin button-variant($background, $border, $color: #fff) {
   $hover-background: darken($background, 7.5%);
   $active-background: darken($background, 12.5%);
-  
+
   color: $color;
   background-color: $background;
   border: 1px solid $border;
-  
+
   &:hover {
     color: $color;
     background-color: $hover-background;
@@ -18,12 +18,12 @@
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   &:active {
     background-color: $active-background;
     transform: translateY(0);
   }
-  
+
   &:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba($background, 0.25);

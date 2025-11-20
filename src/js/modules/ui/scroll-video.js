@@ -19,10 +19,11 @@ export function initScrollVideo() {
             video.currentTime = 0;
             video.muted = true;
 
-            ScrollTrigger.create({
+            // Store the ScrollTrigger instance for cleanup
+            const scrollTrigger = ScrollTrigger.create({
                 trigger: section,
                 start: "top top",
-                end: () => "+=" + window.innerHeight * 2,
+                end: () => `bottom top+=${section.offsetHeight}`,
                 pin: true,
                 scrub: true,
                 anticipatePin: 1,
@@ -36,10 +37,15 @@ export function initScrollVideo() {
 
                 onLeave: () => {
                     video.pause();
+                    if (scrollTrigger) scrollTrigger.disable();
                 },
                 onEnterBack: () => {
                     video.pause();
+                    if (scrollTrigger) scrollTrigger.enable();
                 },
+                onLeaveBack: () => {
+                    video.pause();
+                }
             });
         };
 

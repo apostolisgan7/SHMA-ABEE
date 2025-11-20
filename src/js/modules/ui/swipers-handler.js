@@ -11,7 +11,7 @@ function initSwipers() {
     document.querySelectorAll(".rv-home-services__carousel").forEach((carousel) => {
         new Swiper(carousel, {
             modules: [Navigation, Pagination],
-            slidesPerView: 1.1,
+            slidesPerView: 1.3,
             spaceBetween: 16,
             speed: 500,
             navigation: {

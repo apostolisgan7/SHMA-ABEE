@@ -1,0 +1,143 @@
+@use '../abstracts' as *;
+
+.useful-info-boxes {
+  padding: 80px 0;
+  max-width: 1550px;
+  margin: auto;
+
+  .useful-info-boxes-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+
+    .uiboxes-title {
+      font-size: clamp(35px, 4vw, 50px);
+      line-height: 1;
+      font-weight: 400;
+      margin-bottom: 10px;
+      max-width: 600px;
+      color: $primary-color;
+      flex: 0 0 50%;
+    }
+
+    .uiboxes-text {
+      color: $primary-color;
+      margin-bottom: 40px;
+      font-size: 16px;
+      opacity: 0.6;
+      max-width: 320px;
+      flex: 0 0 auto;
+      font-weight: 400;
+    }
+  }
+
+  .uiboxes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .uibox {
+    position: relative;
+    display: block;
+    border-radius: 3px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    padding: 12px;
+    text-decoration: none;
+    color: white;
+    transition: transform .3s ease;
+    aspect-ratio: 530 / 355;
+
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      transition: .3s ease;
+      z-index: 1;
+    }
+
+    /* ------------- HOVER FIX – btn border changes on box hover ------------- */
+    &:hover {
+      &::before {
+        background: rgba(0, 0, 0, 0.0);
+      }
+
+      .uibox-inner .uibox-link .btn_icon {
+        border-color: $secondary-color;
+      }
+    }
+
+    /* ----------------------------------------------------------------------- */
+
+    .uibox-inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h3 {
+        font-size: clamp(25px, 4vw, 29px);
+        color: #fff;
+        margin-bottom: 15px;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .uibox-link {
+        font-size: 18px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        opacity: 0.9;
+
+        .btn_icon {
+          margin-left: 5px;
+          width: 42px;
+          height: 42px;
+          border: 1px solid #6A6A6A;
+          border-radius: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          line-height: 1;
+          transition: ease-in-out 0.3s;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .useful-info-boxes-head {
+      .uiboxes-text {
+        position: relative;
+        right: 13%;
+      }
+    }
+  }
+  @media screen and (max-width: 992px) {
+    .useful-info-boxes-head {
+      flex-wrap: wrap;
+      margin-bottom: 0;
+      padding: 5px;
+
+      .uiboxes-title {
+        flex: 1;
+      }
+    }
+    .container {
+      padding: 0;
+    }
+    .uiboxes-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

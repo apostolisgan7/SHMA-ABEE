@@ -1,0 +1,81 @@
+@use '../abstracts' as *;
+
+.rv-scroll-video-wrapper {
+  margin-bottom: -1px;
+  .rv-scroll-video {
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100vh;
+    background: #000;
+    overflow: hidden;
+
+
+    &__inner {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+    &__media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    &__video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.7) 100%),
+      linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2));
+      pointer-events: none;
+    }
+
+    &__content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    &__subtitle {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $secondary-color;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+
+    &__title {
+      p {
+        max-width: 900px;
+        color: #fff;
+        font-size: clamp(35px, 4vw, 75px);
+        line-height: 1.2;
+        font-weight: 400;
+
+        strong,
+        span.green {
+          font-weight: 400;
+          color: $secondary-color;
+        }
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

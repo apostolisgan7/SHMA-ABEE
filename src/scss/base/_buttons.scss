@@ -1,4 +1,5 @@
 @use '../abstracts' as *;
+
 $button-radius: 6px;
 
 
@@ -104,6 +105,36 @@ $button-radius: 6px;
 
     .button-arrow__icon {
       border-color: $secondary-color;
+    }
+  }
+
+  &--black-white {
+    color: #111;
+
+    .button-arrow__icon {
+      border-color: #fff;
+    }
+    &:hover {
+      color: #fff;
+
+      .button-arrow__icon {
+        border-color: #fff;
+      }
+
+      .button-arrow__fill {
+        transform: scaleX(1);
+      }
+
+      .button-arrow__arrow--front {
+        transform: translateX(10px);
+        opacity: 0;
+      }
+
+      .button-arrow__arrow--back {
+        transform: translateX(0);
+        opacity: 1;
+        background-color: #000;
+      }
     }
   }
 

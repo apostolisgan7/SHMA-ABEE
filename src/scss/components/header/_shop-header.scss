@@ -1,16 +1,19 @@
 @use '../../abstracts' as *;
 
-// WooCommerce specific styles
-.post-type-archive.post-type-archive-product,
-.single-product,
-.woocommerce-account,
-.woocommerce-cart,
-.woocommerce-checkout {
-  .header-shop {
+// Main header styles
+.header-shop {
+  color: #fff;
+  background-color: transparent;
+  position: relative;
+  z-index: 50;
+
+  a {
+    color: #fff;
+  }
+
+  // Black header style
+  &.header-black {
     color: $primary-color;
-    background-color: transparent;
-    position: relative;
-    z-index: 50;
 
     a {
       color: $primary-color;
@@ -23,21 +26,18 @@
     .mobile-menu-button .line {
       background: $primary-color;
     }
-    .site-branding img{
+
+    .site-branding img {
       filter: invert(1);
     }
-  }
-}
 
-// Main header styles
-.header-shop {
-  color: #fff;
-  background-color: transparent;
-  position: relative;
-  z-index: 50;
+    .header-cart {
+      background: rgba(255, 255, 255, 0.3);
 
-  a {
-    color: #fff;
+      &:after {
+        background: #ffffff;
+      }
+    }
   }
 
   .header-inner {

@@ -1,9 +1,9 @@
 {
-    "key": "group_690de449b83a2",
-    "title": "BLOCK: Home Hero",
+    "key": "group_691f08d4d02ad",
+    "title": "Block: Inner Hero",
     "fields": [
         {
-            "key": "field_690de44ad5332",
+            "key": "field_691f08d5aa89c",
             "label": "Image",
             "name": "image",
             "aria-label": "",
@@ -25,11 +25,11 @@
             "max_height": "",
             "max_size": "",
             "mime_types": "",
-            "allow_in_bindings": 1,
+            "allow_in_bindings": 0,
             "preview_size": "medium"
         },
         {
-            "key": "field_691ef50e2a0fa",
+            "key": "field_691f0905aa89d",
             "label": "Video",
             "name": "video",
             "aria-label": "",
@@ -47,7 +47,7 @@
             "placeholder": ""
         },
         {
-            "key": "field_690de46ed5333",
+            "key": "field_691f091caa89e",
             "label": "Title",
             "name": "title",
             "aria-label": "",
@@ -68,7 +68,7 @@
             "delay": 0
         },
         {
-            "key": "field_690de474d5334",
+            "key": "field_691f0924aa89f",
             "label": "Sub Texts",
             "name": "sub_texts",
             "aria-label": "",
@@ -84,7 +84,7 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_690de495d5335",
+                    "key": "field_691f0943aa8a1",
                     "label": "Sub Title",
                     "name": "sub_title",
                     "aria-label": "",
@@ -99,12 +99,13 @@
                     },
                     "default_value": "",
                     "maxlength": "",
+                    "allow_in_bindings": 0,
                     "placeholder": "",
                     "prepend": "",
                     "append": ""
                 },
                 {
-                    "key": "field_690de49bd5336",
+                    "key": "field_691f094eaa8a2",
                     "label": "SubText",
                     "name": "subtext",
                     "aria-label": "",
@@ -119,12 +120,13 @@
                     },
                     "default_value": "",
                     "maxlength": "",
+                    "allow_in_bindings": 0,
                     "placeholder": "",
                     "prepend": "",
                     "append": ""
                 },
                 {
-                    "key": "field_690de4a2d5337",
+                    "key": "field_691f0957aa8a3",
                     "label": "Button Link",
                     "name": "button_link",
                     "aria-label": "",
@@ -137,12 +139,13 @@
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "array"
+                    "return_format": "array",
+                    "allow_in_bindings": 0
                 }
             ]
         },
         {
-            "key": "field_691200fce18e8",
+            "key": "field_691f0930aa8a0",
             "label": "Hero Box",
             "name": "hero_box",
             "aria-label": "",
@@ -158,13 +161,13 @@
             "layout": "table",
             "pagination": 0,
             "min": 0,
-            "max": 2,
+            "max": 0,
             "collapsed": "",
             "button_label": "Add Row",
             "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_69120139e18e9",
+                    "key": "field_691f0974aa8a4",
                     "label": "Image",
                     "name": "image",
                     "aria-label": "",
@@ -188,10 +191,10 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
-                    "parent_repeater": "field_691200fce18e8"
+                    "parent_repeater": "field_691f0930aa8a0"
                 },
                 {
-                    "key": "field_69120144e18ea",
+                    "key": "field_691f097eaa8a5",
                     "label": "Title",
                     "name": "title",
                     "aria-label": "",
@@ -210,10 +213,10 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_691200fce18e8"
+                    "parent_repeater": "field_691f0930aa8a0"
                 },
                 {
-                    "key": "field_6912015be18eb",
+                    "key": "field_691f0986aa8a6",
                     "label": "Link",
                     "name": "link",
                     "aria-label": "",
@@ -228,7 +231,7 @@
                     },
                     "return_format": "array",
                     "allow_in_bindings": 0,
-                    "parent_repeater": "field_691200fce18e8"
+                    "parent_repeater": "field_691f0930aa8a0"
                 }
             ]
         }
@@ -238,7 +241,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/hero"
+                "value": "acf\/inner-hero"
             }
         ]
     ],
@@ -252,5 +255,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763650871
+    "modified": 1763641775
 }

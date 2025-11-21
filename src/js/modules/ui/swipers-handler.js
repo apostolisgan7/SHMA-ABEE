@@ -31,6 +31,45 @@ function initSwipers() {
     });
 
     // --------------------------
+    // GRID SERVICES SWIPER (Mobile only)
+    // --------------------------
+    const initGridServicesCarousel = () => {
+        // Only initialize on mobile
+        if (window.innerWidth >= 992) return;
+        
+        document.querySelectorAll(".grid-services__carousel:not(.swiper-initialized)").forEach((carousel) => {
+            new Swiper(carousel, {
+                modules: [Pagination],
+                slidesPerView: 1.3,
+                spaceBetween: 16,
+                speed: 500,
+                pagination: {
+                    el: carousel.querySelector(".swiper-pagination"),
+                    clickable: true,
+                },
+                breakpoints: {
+                    0:   { slidesPerView: 1.3 },
+                    480: { slidesPerView: 1.5 },
+                    640: { slidesPerView: 2 },
+                    768: { slidesPerView: 2.5 }
+                }
+            });
+        });
+    };
+    
+    // Initialize on load
+    initGridServicesCarousel();
+    
+    // Re-initialize on window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            initGridServicesCarousel();
+        }, 250);
+    });
+
+    // --------------------------
     // HOME PRODUCTS SWIPER
     // --------------------------
     document.querySelectorAll(".rv-home-products__carousel").forEach((carousel) => {

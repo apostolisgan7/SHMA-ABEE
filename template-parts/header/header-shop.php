@@ -5,7 +5,11 @@
  * @package Ruined
  */
 ?>
-<header id="masthead" class="site-header header-shop">
+<?php
+$header_color = get_field('header_color') ?: 'white';
+$header_class = 'header-' . esc_attr($header_color);
+?>
+<header id="masthead" class="site-header header-shop <?php echo $header_class; ?>">
     <div class="container">
         <div class="header-inner">
             <div class="header-left">

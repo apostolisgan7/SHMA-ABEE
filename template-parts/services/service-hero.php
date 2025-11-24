@@ -1,9 +1,9 @@
 <?php
 // ACF fields
-$image      = get_field('image');
-$video_url  = get_field('video');
-$title      = get_field('title');
-$sub_texts  = get_field('sub_texts');
+$image = get_field('image');
+$video_url = get_field('video');
+$title = get_field('title');
+$sub_texts = get_field('sub_texts');
 $hero_boxes = get_field('hero_box');
 
 // background fallback image
@@ -22,11 +22,9 @@ if ($video_url) {
     if (preg_match('/\.(mp4|webm|ogg)$/i', $video_url)) {
         $video_type = 'self';
         $video_embed = '<video class="hero-video" autoplay muted loop playsinline>
-                            <source src="'.esc_url($video_url).'" type="video/mp4">
+                            <source src="' . esc_url($video_url) . '" type="video/mp4">
                         </video>';
-    }
-
-    // YouTube
+    } // YouTube
     elseif (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
         $video_type = 'youtube';
 
@@ -36,14 +34,12 @@ if ($video_url) {
 
         $video_embed = '<iframe 
             class="hero-video"
-            src="https://www.youtube.com/embed/'.$youtube_id.'?autoplay=1&mute=1&controls=0&loop=1&playlist='.$youtube_id.'&playsinline=1&modestbranding=1&showinfo=0&rel=0" 
+            src="https://www.youtube.com/embed/' . $youtube_id . '?autoplay=1&mute=1&controls=0&loop=1&playlist=' . $youtube_id . '&playsinline=1&modestbranding=1&showinfo=0&rel=0" 
             frameborder="0" 
             allow="autoplay; fullscreen" 
             allowfullscreen>
         </iframe>';
-    }
-
-    // Vimeo
+    } // Vimeo
     elseif (strpos($video_url, 'vimeo.com') !== false) {
         $video_type = 'vimeo';
 
@@ -52,7 +48,7 @@ if ($video_url) {
 
         $video_embed = '<iframe 
             class="hero-video"
-            src="https://player.vimeo.com/video/'.$vimeo_id.'?background=1&autoplay=1&loop=1&muted=1" 
+            src="https://player.vimeo.com/video/' . $vimeo_id . '?background=1&autoplay=1&loop=1&muted=1" 
             frameborder="0" 
             webkitallowfullscreen 
             mozallowfullscreen 
@@ -75,11 +71,19 @@ if ($video_url) {
 
     <div class="service-hero__inner container">
         <div class="service-hero__content">
+            <div class="breadcumbs_title">
+                <?php
+                if (function_exists('rank_math_the_breadcrumbs')) {
+                    echo '<div class="rv-breadcrumbs">';
+                    rank_math_the_breadcrumbs();
+                    echo '</div>';
+                }
+                ?>
 
-            <?php if (!empty($title)): ?>
-                <div class="service-hero__title"><?= wp_kses_post($title); ?></div>
-            <?php endif; ?>
-
+                <?php if (!empty($title)): ?>
+                    <div class="service-hero__title"><?= wp_kses_post($title); ?></div>
+                <?php endif; ?>
+            </div>
             <div class="bottom_content">
                 <?php if (!empty($sub_texts['sub_title'])): ?>
                     <div class="service-hero__subtitle"><?= esc_html($sub_texts['sub_title']); ?></div>
@@ -93,11 +97,11 @@ if ($video_url) {
                 $button = $sub_texts['button_link'] ?? null;
                 if (!empty($button)) {
                     rv_button_arrow([
-                        'text' => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
-                        'url' => $button['url'] ?? '#',
-                        'target' => $button['target'] ?? '_self',
-                        'variant' => 'white',
-                        'icon_position' => 'left',
+                            'text' => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
+                            'url' => $button['url'] ?? '#',
+                            'target' => $button['target'] ?? '_self',
+                            'variant' => 'white',
+                            'icon_position' => 'left',
                     ]);
                 }
                 ?>
@@ -108,7 +112,8 @@ if ($video_url) {
             <div class="service-hero__boxes">
                 <?php foreach ($hero_boxes as $box): ?>
                     <article class="hero-box">
-                        <a class="hero__link" href="<?= esc_url($box['link']['url']); ?>" target="<?= esc_attr($box['link']['target']); ?>"></a>
+                        <a class="hero__link" href="<?= esc_url($box['link']['url']); ?>"
+                           target="<?= esc_attr($box['link']['target']); ?>"></a>
 
                         <?php if ($box['image']): ?>
                             <div class="hero-box__image">
@@ -125,7 +130,7 @@ if ($video_url) {
                                 <span class="hero-box__icon">
                                     <svg width="7" height="9" viewBox="0 0 7 9">
                                         <path d="M0.977505 0.977581L5.12476 4.48757L0.977504 7.99756"
-                                              stroke="white" stroke-width="1.95503" stroke-linecap="round" />
+                                              stroke="white" stroke-width="1.95503" stroke-linecap="round"/>
                                     </svg>
                                 </span>
                             </div>

@@ -89,7 +89,7 @@ function initSwipers() {
             },
             pagination: {
                 el: pag,
-                clickable: true,
+                type: 'progressbar',
             },
             breakpoints: {
                 640:  { slidesPerView: 1.6 },

@@ -31,6 +31,9 @@ function ruined_theme_setup() {
         'primary'      => __('Primary Menu', 'ruined'),
         'catalog-menu' => __('Catalog Menu', 'ruined'),
         'mobile-menu'  => __('Mobile Menu', 'ruined'),
+        'social-menu' => __('Social Menu', 'ruined'),
+        'support-menu'  => __('Support / Contact Menu', 'ruined'),
+        'bottom-main-menu' => __('Main Menu Bottom', 'ruined'),
     ]);
 }
 

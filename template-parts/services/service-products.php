@@ -8,12 +8,12 @@
  */
 if (!defined('ABSPATH')) exit;
 
-$title   = get_field('title');   // wysiwyg
-$text    = get_field('text');    // wysiwyg
-$items   = get_field('home_products');
+$title   = get_field('products_title');   // wysiwyg
+$text    = get_field('products_text');    // wysiwyg
+$items   = get_field('service_products');
 
 if ( empty($title) && empty($text) && empty($items) ) {
-    return;
+    return; 
 }
 
 $block_id = 'home-products-' . $block['id'];

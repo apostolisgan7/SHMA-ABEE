@@ -1,5 +1,5 @@
 <?php
-$title = get_field('title');
+$title = get_field('faq_title');
 $faqs = get_field('faqs');
 ?>
 

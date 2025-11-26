@@ -1,11 +1,13 @@
+@use '../abstracts' as *;
+
 /* ================================
-   🔍 SEARCH POPUP STYLING (Custom)
+SEARCH POPUP STYLING (Custom)
 ================================ */
 .search-overlay {
   position: fixed;
   inset: 0;
   background: rgba(12, 18, 25, 0.45);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
   z-index: 9998; // ένα κάτω από το popup
   opacity: 0;
   pointer-events: none;
@@ -14,6 +16,7 @@
   &.active {
     opacity: 1;
     pointer-events: auto;
+    visibility: visible !important;
   }
 }
 
@@ -23,7 +26,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(8px);
   opacity: 0;
   visibility: hidden;
@@ -35,7 +37,6 @@
   width: min(1030px, 96vw);
   height: 100%;
   max-height: calc(100vh - 3rem);
-  background: radial-gradient(circle at bottom, #e0f2e9 0%, #ffffff 32%, #ffffff 100%);
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   flex-direction: column;
@@ -48,8 +49,8 @@
 }
 
 .search-container {
-  background: rgb(255, 255, 255);
-  backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
   border-radius: 20px;
   padding: 40px;
   width: 100%;
@@ -59,7 +60,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2rem;
   transform: translateY(20px);
   transition: transform 0.3s ease;
 
@@ -79,22 +80,44 @@
       .dgwt-wcas-sf-wrapp {
         padding: 10px 0;
 
+        button.dgwt-wcas-search-submit {
+          top: 28px !important;
+
+          svg {
+            width: 30px;
+            height: 30px;
+            max-width: 100%;
+          }
+        }
+
         .dgwt-wcas-search-input {
           background: transparent;
-          padding: 13px 24px 13px 40px !important;
-          border:none;
-          border-bottom: 1px solid #000;          border-radius: 0 !important;
+          padding: 13px 24px 13px 50px !important;
+          border: none;
+          border-bottom: 1px solid #000;
+          border-radius: 0 !important;
           transition: ease-in-out .2s;
+          color: #000;
+          font-size: 40px;
+          font-weight: 400;
 
-          &:hover{
+          &::placeholder {
+            color: #000;
+            font-size: 40px;
+            font-weight: 400;
+          }
+
+          &:hover {
             background: #f1f1f1;
           }
-          &:focus{
-            border:none;
+
+          &:focus {
+            border: none;
             border-bottom: 1px solid #000;
           }
         }
-        button.dgwt-wcas-search-submit{
+
+        button.dgwt-wcas-search-submit {
           left: 0;
           top: 18px;
         }
@@ -120,42 +143,59 @@
       max-height: 80px;
       object-fit: contain;
       width: 100%;
+      filter: invert(1);
     }
   }
 
+
   .search-close {
-    background: #fff;
-    color: #000;
-    border: 1px solid #000;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: transparent;
+    border: 1px solid #17B83A;
+    color: #171717;
+    padding: 6px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
+    font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.2s ease;
 
     &:hover {
-      background: #000;
-      color: #fff;
+      background: #fff;
+      border: 1px solid #fff;
+
     }
   }
 }
 
 
-
 /* ================================
    CONTENT AREA (Sidebar + Results)
 ================================ */
+.dgwt-wcas-style-pirx .dgwt-wcas-sf-wrapp {
+  background: transparent;
+
+  input {
+    &:hover {
+      background: transparent !important;
+    }
+
+    &:focus {
+      background: transparent !important;
+    }
+  }
+}
 
 .search-content {
-  padding-top: 5vh;
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 10px;
+  height: 100%;
 
   @media (max-width: 992px) {
     grid-template-columns: 1fr;
@@ -164,54 +204,121 @@
 
 .popular-searches {
   .search-tags {
+    display: flex;
+    gap: 2rem;
+
     a {
-      font-size: 14px;
+      font-size: 15px;
       color: #000;
     }
   }
 }
 
 .search-help {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  h4 {
-    font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 15px;
-  }
+  .help_top {
+    h4 {
+      font-size: 27px;
+      font-weight: 400;
+      margin-bottom: 15px;
+      margin-bottom: 15px;
+    }
 
-  ul {
-    list-style: none;
-    padding: 0;
+    ul {
+      list-style: none;
+      padding: 0;
 
-    li {
-      margin-bottom: 10px;
+      li {
+        margin-bottom: 10px;
 
-      a {
-        color: #000;
-        font-size: 15px;
-        text-decoration: none;
-        transition: color 0.2s;
+        a {
+          color: #000;
+          font-size: 15px;
+          text-decoration: none;
+          transition: color 0.2s;
 
-        &:hover {
-          color: #c85213;
+          &:hover {
+            color: $secondary-color;
+          }
         }
       }
     }
   }
+
+  .help_bottom {
+    span {
+      font-size: 10px;
+      font-weight: 700;
+      color: #6A6A6A;
+      text-transform: uppercase;
+    }
+  }
+
 }
 
 /* ================================
    RESULTS GRID
 ================================ */
 
+/* Στο SCSS σου */
+
+.search-results-wrapper {
+  position: relative;
+  width: 100%;
+
+  .section-title {
+    font-size: 27px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+}
+
+/* Default Products Styling */
+#rv-default-products {
+  transition: opacity 0.3s ease;
+
+
+  .rv-grid-inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @media(max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+
+/* Hide/Show Logic Classes */
+.search-has-query {
+  #rv-default-products {
+    display: none;
+  }
+
+  #rv-fibo-results {
+    display: block !important;
+  }
+}
+
+/* Όταν δεν υπάρχει query, κρύψε το fibo container */
+.search-no-query {
+  #rv-fibo-results {
+    display: none !important;
+  }
+}
+
 .search-results {
-  height: 40vh;
+  height: 55vh;
   overflow-y: auto !important;
   padding: 12px;
 
   .dgwt-wcas-suggestions-wrapp {
     width: 100% !important;
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 
@@ -225,7 +332,7 @@
   }
 }
 
-/* Override Fibo suggestions */
+/* Fibo Override Grid Fixes */
 .dgwt-wcas-suggestions-wrapp {
   position: static !important;
   background: transparent !important;
@@ -236,40 +343,67 @@
   border: none !important;
 
   ul {
-    display: contents; // keep li items flow naturally
+    display: grid !important; /* <--- ΠΡΟΣΟΧΗ ΕΔΩ: Το UL γίνεται το Grid Container */
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important; /* Κοινό gap με τα default προϊόντα */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  // Το κάθε αποτέλεσμα (li)
+  li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
   }
 }
 
-.dgwt-wcas-suggestion {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 15px;
-  display: flex !important;
-  gap: 15px;
-  align-items: center;
-  transition: all 0.3s;
+/* Επειδή το Fibo βάζει wrapper γύρω από το card μας */
+.dgwt-wcas-suggestion-product {
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
 
-  &:hover {
-    border-color: #c85213;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  .dgwt-wcas-si {
+    width: 100%;
+    max-width: 110px;
+    height: 110px;
+
+    img {
+      max-height: 100%;
+      object-fit: contain;
+      margin: 0;
+      padding: 0;
+      aspect-ratio: 1;
+    }
   }
 
-  img {
-    max-width: 70px;
-    border-radius: 8px;
-  }
+  .dgwt-wcas-st {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 5px;
 
-  .dgwt-wcas-suggestion-title {
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
+    span.dgwt-wcas-sku {
+      font-size: 11px;
+      opacity: 0.8;
+      text-transform: uppercase;
+    }
 
-  .dgwt-wcas-suggestion-price {
-    font-weight: bold;
-    color: #c85213;
+    span.dgwt-wcas-st-title {
+      font-size: 18px;
+      color: #171717;
+      max-width: 80%;
+      line-height: 1.2;
+    }
   }
 }
+
 
 /* ================================
    FOOTER

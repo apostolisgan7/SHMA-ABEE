@@ -38,3 +38,13 @@ foreach ($includes as $file) {
         require_once $filepath;
     }
 }
+
+
+wp_enqueue_script(
+    'mobile-menu',
+    get_theme_file_uri('/mobile-menu.js'),
+    array(),
+    null,
+    true
+);
+

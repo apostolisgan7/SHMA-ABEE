@@ -4,7 +4,7 @@ export function initMegaMenu() {
 
     const menu      = document.getElementById("megaMenu");
     const overlay   = document.getElementById("megaMenuOverlay");
-    const openBtn   = document.querySelector(".mobile-menu-button");
+    const openBtn   = document.querySelector(".desktop-menu-button");
     const closeBtn  = document.getElementById("megaMenuClose");
 
     if (!menu || !overlay || !openBtn) return;

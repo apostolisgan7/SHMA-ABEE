@@ -23,7 +23,7 @@
       stroke: #000;
     }
 
-    .mobile-menu-button .line {
+    .mobile-menu-button .line, .desktop-menu-button .line {
       background: $primary-color;
     }
 
@@ -221,7 +221,7 @@
     }
   }
 
-  .mobile-menu-button {
+  .desktop-menu-button {
     // Button size (in Greek: μέγεθος κουμπιού)
     width: 80px;
     height: 22px;
@@ -231,6 +231,56 @@
     cursor: pointer;
     padding: 0;
     display: inline-block;
+
+    .line {
+      position: absolute;
+      right: 0;
+      height: 1px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .line--top {
+      top: 6px;
+      width: 100%;
+    }
+
+    .line--bottom {
+      top: 16px;
+      width: 70%;
+    }
+
+    &:hover .line {
+      background: $secondary-color;
+    }
+
+    &.active {
+      .line--top, .line--bottom {
+        top: 11px;
+        width: 60%;
+      }
+
+      .line--top {
+        transform: rotate(45deg);
+      }
+
+      .line--bottom {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .mobile-menu-button {
+    width: 80px;
+    height: 22px;
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: none;
 
     .line {
       position: absolute;
@@ -282,7 +332,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     .header-catalog,
     .header-lang,
     .header-right .head_item {
@@ -291,6 +341,14 @@
 
     .header-inner {
       min-height: 70px;
+
+      .desktop-menu-button {
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: inline-block;
+      }
     }
   }
 }

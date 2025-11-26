@@ -66,12 +66,14 @@ $header_class = 'header-' . esc_attr($header_color);
                     <span>/</span>
                     <a href="#">EN</a>
                 </div>
-
-                <button class="mobile-menu-button" type="button" aria-label="Open menu">
+                <button class="desktop-menu-button" type="button" aria-label="Open menu">
                     <span class="line line--top"></span>
                     <span class="line line--bottom"></span>
                 </button>
-
+                <a href="#menu" class="mobile-menu-button" aria-label="Open menu">
+                    <span class="line line--top"></span>
+                    <span class="line line--bottom"></span>
+                </a>
 
             </div>
 
@@ -82,3 +84,4 @@ $header_class = 'header-' . esc_attr($header_color);
 <?php get_template_part( 'template-parts/menus/main-mega-menu' ); ?>
 <?php get_template_part( 'template-parts/menus/catalog-menu' ); ?>
 <?php get_template_part( 'template-parts/search/popup' ); ?>
+<?php get_template_part( 'template-parts/menus/mobile-menu' ); ?>

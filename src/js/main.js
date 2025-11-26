@@ -17,7 +17,6 @@ import './utils/helpers';
 import {initStickyHeader} from './modules/ui/sticky-header';
 import {initCatalogMenu} from './modules/ui/menus/catalog-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
-import {initMobileMenu} from './modules/ui/menus/mobile-menu';
 import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
 
@@ -88,10 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         initScrollVideo();
 
-        // Initialize mobile menu with GSAP fallback
-        if (typeof initMobileMenu === 'function') {
-            initMobileMenu();
-        }
+
         if (typeof initMegaMenu === 'function') {
             initMegaMenu();
         }
@@ -100,13 +96,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }).catch((error) => {
         console.error('Error loading GSAP:', error);
-        // If GSAP fails, try initializing without it
-        if (typeof initMobileMenu === 'function') {
-            // Otherwise, wait for GSAP to be ready
-            setTimeout(() => {
-                initMobileMenu();
-            }, 50);
-        }
     });
 
     // Initialize WooCommerce if on WooCommerce pages

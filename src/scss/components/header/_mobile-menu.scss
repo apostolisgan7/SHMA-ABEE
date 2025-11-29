@@ -1,13 +1,96 @@
 @use '../../abstracts' as *;
 
 
-.mm-wrapper {
+.mm-menu--position-left, .mm-menu--position-left-front, .mm-menu--position-right, .mm-menu--position-right-front {
+  width: 100% !important;
 
-  .mm-navbar {
-    background-color: #f0f0f0;
+  .mm-panel--iconpanel-1 {
+    inset-inline-start: 0 !important;
+  }
 
-    .mm-title {
-      color: #000;
+  .mm-navbars .mm-navbar {
+    position: relative;
+    padding-top: 0;
+    border-bottom: none;
+    width: 100%;
+
+    a.mm-navbar__title {
+      padding: 0;
+      text-transform: uppercase;
+      color: $primary-color;
+    }
+  }
+
+  .mm-iconbar {
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        max-width: 25px;
+      }
+    }
+  }
+
+  .mm-navbars.mm-navbars--bottom {
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        max-width: 25px;
+      }
     }
   }
 }
+
+.mm-menu--iconpanel .mm-panels > .mm-panel:not(.mm-panel--iconpanel-first):not(.mm-panel--iconpanel-0) {
+  border-left: none !important;
+}
+
+.mm-wrapper--position-left {
+  --mm-translate-horizontal: 80% !important;
+}
+
+
+.mm-blocker {
+  max-height: 100vh;
+}
+
+a.mm-btn.mm-btn--prev.mm-navbar__btn {
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+
+.mm-close-custom {
+  position: absolute;
+  inset-inline-end: 10px;
+  inset-block-start: 5px;
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    stroke: #000;
+  }
+
+  &:hover svg {
+    opacity: 0.6;
+  }
+}
+
+.mm-navbars--top {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+

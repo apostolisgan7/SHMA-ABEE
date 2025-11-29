@@ -18,6 +18,7 @@
 
 <body <?php body_class('bg-white text-dark-900'); ?>>
 <?php wp_body_open(); ?>
+<?php get_template_part( 'template-parts/menus/mobile-menu' ); ?>
 
 <div id="page" class="site flex flex-col min-h-screen">
     <a class="skip-link screen-reader-text" href="#main"><?php esc_html_e('Skip to content', 'ruined'); ?></a>

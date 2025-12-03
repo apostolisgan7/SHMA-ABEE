@@ -1,5 +1,40 @@
 @use '../../abstracts' as *;
 
+/* Hide menu initially */
+#menu {
+  position: fixed !important;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Keep it behind everything until initialized */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  
+  /* Show when initialized */
+  &.mm-menu {
+    opacity: 1;
+    visibility: visible;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  /* Hide during initialization */
+  &.mmenu-initializing {
+    display: none;
+  }
+}
+
+/* Hide menu when JavaScript is disabled */
+.no-js #menu {
+  display: none;
+}
+
+/* Show menu when JavaScript initializes it */
+.js #menu.mm-menu {
+  display: block;
+}
 
 .mm-menu--position-left, .mm-menu--position-left-front, .mm-menu--position-right, .mm-menu--position-right-front {
   width: 100% !important;

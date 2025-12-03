@@ -9,9 +9,7 @@ function initMobileMenu() {
 
     // Init Mmenu
     const mmenu = new Mmenu("#menu", {
-        offCanvas: {
-            position: "left-front"
-        },
+        offCanvas: { position: "left-front" },
         theme: "white",
         counters: { add: false },
 
@@ -27,10 +25,7 @@ function initMobileMenu() {
             ]
         },
 
-        iconPanels: {
-            add: true,
-            visible: 1
-        },
+        iconPanels: { add: true, visible: 1 },
 
         navbars: [
             {
@@ -40,9 +35,7 @@ function initMobileMenu() {
                     "title",
                     `<button class="mm-close-custom" aria-label="Close menu">
                         <svg width="20" height="20" viewBox="0 0 24 24">
-                            <path d="M18 6L6 18M6 6l12 12" 
-                                  stroke="currentColor" 
-                                  stroke-width="2" stroke-linecap="round" />
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                         </svg>
                     </button>`
                 ]
@@ -57,24 +50,28 @@ function initMobileMenu() {
         ]
     });
 
-    // ---- FIX: σωστό API ----
     const api = mmenu.API;
 
-    // Custom close button
+    // --- MOBILE BUTTON ---
+    const btn = document.querySelector(".mobile-menu-button");
+
+    if (btn) {
+        btn.addEventListener("click", () => {
+            btn.classList.add("active");
+            api.open();
+        });
+    }
+
     document.addEventListener("click", (e) => {
         if (e.target.closest(".mm-close-custom")) {
-            console.log("Close button tapped!");
             api.close();
+            if (btn) btn.classList.remove("active");
         }
     });
 
-    // BURGER BUTTON ANIMATION
-    const btn = document.querySelector(".mobile-menu-button");
-    if (btn) {
-        btn.addEventListener("click", () => {
-            btn.classList.toggle("active");
-        });
-    }
+    api.bind("close:finish", () => {
+        if (btn) btn.classList.remove("active");
+    });
 }
 
 document.addEventListener("DOMContentLoaded", initMobileMenu);

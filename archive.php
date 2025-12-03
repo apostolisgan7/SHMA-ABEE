@@ -42,10 +42,8 @@
                         <?php endif; ?>
                         
                         <div class="p-6">
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <?php echo ruined_posted_category(); ?>
-                            </div>
-                            
+
+
                             <h2 class="text-xl font-bold text-dark-900 dark:text-white mb-3 leading-snug">
                                 <a href="<?php the_permalink(); ?>" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                                     <?php the_title(); ?>

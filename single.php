@@ -18,10 +18,7 @@ get_header(); ?>
                 <?php endif; ?>
 
                 <div class="p-6 md:p-8">
-                    <!-- Post Categories -->
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <?php echo ruined_posted_category(); ?>
-                    </div>
+
 
                     <!-- Post Title -->
                     <h1 class="text-3xl">

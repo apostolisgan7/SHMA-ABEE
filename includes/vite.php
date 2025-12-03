@@ -21,15 +21,43 @@ function ruined_asset_loader() {
     $manifest = json_decode(file_get_contents($manifest_path), true);
     $entry = 'src/js/main.js';
 
-    // Enqueue the main JS file
+    // Enqueue the main JS file as a module
     if (isset($manifest[$entry]['file'])) {
-        wp_enqueue_script('ruined-main-js', DIST_URI . '/' . $manifest[$entry]['file'], [], null, true);
+        wp_register_script(
+            'ruined-main-js',
+            DIST_URI . '/' . $manifest[$entry]['file'],
+            [],
+            null,
+            [
+                'in_footer' => true,
+                'strategy' => 'defer',
+            ]
+        );
+        
+        // Add type="module" to the script tag
+        add_filter('script_loader_tag', function($tag, $handle, $src) {
+            if ('ruined-main-js' === $handle) {
+                $tag = '<script type="module" src="' . esc_url($src) . '" id="ruined-main-js-js"></script>';
+            }
+            return $tag;
+        }, 10, 3);
+        
+        wp_enqueue_script('ruined-main-js');
+        
+        // Add modulepreload for dynamic imports
+        if (isset($manifest[$entry]['dynamicImports'])) {
+            foreach ($manifest[$entry]['dynamicImports'] as $dynamic_import) {
+                if (isset($manifest[$dynamic_import]['file'])) {
+                    echo '<link rel="modulepreload" as="script" href="' . esc_url(DIST_URI . '/' . $manifest[$dynamic_import]['file']) . '">';
+                }
+            }
+        }
     }
 
     // Enqueue the CSS files for the main JS entry
     if (isset($manifest[$entry]['css'])) {
-        foreach ($manifest[$entry]['css'] as $css_file) {
-            wp_enqueue_style('ruined-main-css', DIST_URI . '/' . $css_file, [], null);
+        foreach ($manifest[$entry]['css'] as $index => $css_file) {
+            wp_enqueue_style('ruined-main-css-' . $index, DIST_URI . '/' . $css_file, [], null);
         }
     }
 }
@@ -38,7 +66,7 @@ add_action('wp_enqueue_scripts', 'ruined_asset_loader');
 // --- Vite Dev Server Scripts ---
 function vite_head_scripts() {
     if (IS_VITE_DEVELOPMENT) {
-        echo '<script type="module" crossorigin src="' . VITE_SERVER . '/@vite/client"></script>';
+        echo '<script type="module" src="' . VITE_SERVER . '/@vite/client"></script>';
         echo '<script type="module" src="' . VITE_SERVER . '/src/js/main.js"></script>';
     }
 }

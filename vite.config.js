@@ -8,6 +8,33 @@ const isProduction = process.env.NODE_ENV === 'production';
 export default defineConfig({
   base: isProduction ? '/wp-content/themes/Ruined/dist/' : '/',
   publicDir: 'public',
+  
+  // Configure Vite to handle ES modules
+  esbuild: {
+    target: 'esnext',
+    supported: { 
+      'dynamic-import': true,
+      'import-meta': true
+    }
+  },
+  
+  optimizeDeps: {
+    include: [
+      'gsap',
+      'gsap/ScrollTrigger',
+      'gsap/ScrollToPlugin',
+      'alpinejs',
+      'splitting'
+    ],
+    exclude: ['swiper'],
+    esbuildOptions: {
+      target: 'esnext',
+      supported: {
+        'dynamic-import': true,
+        'import-meta': true
+      }
+    }
+  },
 
   plugins: [
     {
@@ -47,6 +74,10 @@ export default defineConfig({
       output: {
         entryFileNames: 'js/[name].js',
         chunkFileNames: 'js/[name].js',
+        manualChunks: {
+          gsap: ['gsap'],
+          swiper: ['swiper']
+        },
         assetFileNames: (assetInfo) => {
           const ext = assetInfo.name.split('.').pop();
           if (ext === 'css') {

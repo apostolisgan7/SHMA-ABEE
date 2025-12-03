@@ -21,31 +21,35 @@ import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
 
 // Import GSAP core and plugins
-let gsap;
-let ScrollTrigger;
-let ScrollToPlugin;
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+// Make GSAP available globally
+window.gsap = gsap;
+
+// Add error boundary for dynamic imports
+const loadModule = async (module) => {
+    try {
+        return await module;
+    } catch (error) {
+        console.error(`Failed to load module:`, error);
+        return null;
+    }
+};
+
 // Load GSAP with error handling
 const loadGSAP = async () => {
     try {
-        // Use dynamic imports to handle potential loading issues
-        const gsapModule = await import('gsap');
-        gsap = gsapModule.default || gsapModule;
-
-        const scrollTriggerModule = await import('gsap/ScrollTrigger');
-        ScrollTrigger = scrollTriggerModule.default || scrollTriggerModule;
-
-        const scrollToPluginModule = await import('gsap/ScrollToPlugin');
-        ScrollToPlugin = scrollToPluginModule.default || scrollToPluginModule;
-
-        if (gsap && ScrollTrigger && ScrollToPlugin) {
-            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-            window.gsap = gsap; // Make available globally
-            return true;
-        }
+        // GSAP is already imported and registered
+        return true;
     } catch (e) {
-        console.warn('Error loading GSAP:', e);
+        console.warn('Error with GSAP:', e);
+        return false;
     }
-    return false;
 };
 
 // Import Splitting.js

@@ -88,6 +88,7 @@
 
         .faq-item__icon {
           border: solid 1px $secondary-color;
+
           svg {
             transform: rotate(180deg);
           }
@@ -137,6 +138,10 @@
 
   /* RESPONSIVE */
   @media (max-width: 992px) {
+    padding: 0;
+    &:after {
+      display: none;
+    }
     &__inner {
       grid-template-columns: 1fr;
       gap: 40px;

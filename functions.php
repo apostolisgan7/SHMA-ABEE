@@ -17,6 +17,7 @@ $includes = [
     'includes/shortcodes.php',        // Custom shortcodes
     'includes/utilities.php',         // Utility functions
     'includes/acf.php',               // Advanced Custom Fields configuration
+    'includes/login_forms.php',       // Custom Forms for login
     'includes/blocks.php',            // Custom Gutenberg blocks
 ];
 

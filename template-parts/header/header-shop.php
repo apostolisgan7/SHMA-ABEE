@@ -46,12 +46,14 @@ $header_class = 'header-' . esc_attr($header_color);
 
                     </button>
 
-                    <!-- account -->
+
                     <div class="header-account head_item">
-                        <a href="<?php echo esc_url( get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) ); ?>" class="header-link">
+                        <a href="#"
+                           class="header-link js-auth-modal-trigger">
                             <?php _e( 'ΛΟΓΑΡΙΑΣΜΟΣ', 'ruined' ); ?>
                         </a>
                     </div>
+
 
                     <div class="header-cart head_item">
                         <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="header-link has-badge">
@@ -84,3 +86,4 @@ $header_class = 'header-' . esc_attr($header_color);
 <?php get_template_part( 'template-parts/menus/main-mega-menu' ); ?>
 <?php get_template_part( 'template-parts/menus/catalog-menu' ); ?>
 <?php get_template_part( 'template-parts/search/popup' ); ?>
+<?php get_template_part( 'template-parts/woocommerce/auth-modal' ); ?>

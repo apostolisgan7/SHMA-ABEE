@@ -1,0 +1,140 @@
+@use '../abstracts' as *;
+
+
+// Global form styles
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='number'],
+input[type='search'],
+input[type='url'],
+select,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-bottom: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.5rem 0;
+  font: inherit;
+  color: #111827;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='number'],
+input[type='search'],
+input[type='url'] {
+max-height: 40px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-bottom-color: $secondary-color !important;
+  box-shadow: unset !important;
+}
+
+// Floating label wrapper
+.floating-field {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  input,
+  textarea,
+  select {
+    padding-top: 0.5rem;
+  }
+
+  label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    color: #6b7280;
+    pointer-events: none;
+    transition: top 0.16s ease,
+    transform 0.16s ease,
+    font-size 0.16s ease,
+    color 0.16s ease;
+  }
+
+  // όταν έχει focus ή δεν είναι κενό → label πάνω
+  input:focus + label,
+  textarea:focus + label,
+  select:focus + label,
+  input:not(:placeholder-shown) + label,
+  textarea:not(:placeholder-shown) + label {
+    top: 0;
+    transform: translateY(-100%);
+    font-size: 0.75rem;
+    color: #111827;
+  }
+}
+
+// ειδικό για password, για να κάτσει το eye icon δεξιά
+.floating-field--password {
+  .floating-field__toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af; // χρώμα icon
+  }
+
+  .floating-field__toggle:hover {
+    color: #4b5563;
+  }
+
+  .icon-eye {
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+
+      path {
+        fill: transparent;
+      }
+    }
+  }
+
+  /* default: βλέπουμε closed eye (password hidden) */
+  .icon-eye--open {
+    display: none;
+  }
+
+  .icon-eye--closed {
+    display: inline-flex;
+  }
+
+  /* όταν είναι "visible" ο κωδικός */
+  .js-password-toggle.is-visible .icon-eye--open {
+    display: inline-flex;
+  }
+
+  .js-password-toggle.is-visible .icon-eye--closed {
+    display: none;
+  }
+}
+

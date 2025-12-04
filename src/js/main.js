@@ -19,11 +19,12 @@ import {initCatalogMenu} from './modules/ui/menus/catalog-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
 import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
+import {initAuthModal} from './modules/woocommerce/login-modal';
 
 // Import GSAP core and plugins
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -69,16 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Theme initialized');
 
-    // Initialize Alpine.js
     Alpine.start();
-
-    // Initialize Swiper carousels
     initSwipers();
-
-    // Initialize smooth scrolling
     initSmoothScroll();
+    initAuthModal();
 
-    // Initialize text splitting
     if (typeof Splitting !== 'undefined') {
         Splitting();
     }

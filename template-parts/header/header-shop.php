@@ -6,7 +6,12 @@
  */
 ?>
 <?php
-$header_color = get_field('header_color') ?: 'white';
+if ( function_exists( 'is_product' ) && is_product() ) {
+    $header_color = 'black';
+} else {
+    $header_color = get_field('header_color') ?: 'white';
+}
+
 $header_class = 'header-' . esc_attr($header_color);
 ?>
 <header id="masthead" class="site-header header-shop <?php echo $header_class; ?>">

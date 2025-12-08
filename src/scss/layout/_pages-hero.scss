@@ -13,6 +13,7 @@
   justify-content: flex-start;
   align-items: center;
   background-attachment: fixed;
+  margin-bottom: 5vh;
 
   &--dark {
     .pages-hero__title,
@@ -133,6 +134,7 @@
 
   @media (min-width: 1200px) {
     min-height: 75vh;
+
   }
 
   @media (max-width: 991px) {

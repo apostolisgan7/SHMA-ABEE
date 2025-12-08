@@ -3,7 +3,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// helper για once listener (όπως στο παλιό σου script)
+// --- GLOBAL FIXES ΓΙΑ SCROLLTRIGGER ---
+ScrollTrigger.defaults({
+    anticipatePin: 1,
+    fastScrollEnd: true,
+});
+
+// helper once()
 function once(el, event, fn, opts) {
     const onceFn = (e) => {
         el.removeEventListener(event, onceFn, opts);
@@ -21,22 +27,24 @@ export function initScrollVideo() {
         const video = section.querySelector(".rv-scroll-video__video");
         if (!video) return;
 
-        // βεβαιώσου ότι έχει τα σωστά attributes
         video.muted = true;
         video.playsInline = true;
 
         const src = video.currentSrc || video.src;
 
-        // iOS «ξεκλείδωμα» – χρειάζεται μία user interaction
+        // iOS tap unlock
         once(document.documentElement, "touchstart", () => {
             video.play().then(() => {
                 video.pause();
             }).catch(() => {});
         }, { passive: true });
 
-        // όταν είμαστε έτοιμοι να στήσουμε το ScrollTrigger
+        // -------------------------------
+        //  SETUP SCROLLTRIGGER
+        // -------------------------------
         const setupScrollTrigger = () => {
             const duration = video.duration || 1;
+
             if (!duration || !isFinite(duration)) return;
 
             video.pause();
@@ -48,22 +56,26 @@ export function initScrollVideo() {
                 scrollTrigger: {
                     trigger: section,
                     start: "top top",
-                    // εδώ ορίζεις ΠΟΣΟ scroll θέλεις, π.χ. 2.5x το ύψος του viewport
                     end: () => "+=" + window.innerHeight * 2.5,
                     scrub: true,
                     pin: true,
                     anticipatePin: 1,
+                    fastScrollEnd: true,
                     invalidateOnRefresh: true,
-                    // markers: true, // βάλε το προσωρινά για debug
+                    // markers: true,
                 }
             });
+
+            // --- SUPER REFRESH FIX ---
+            ScrollTrigger.refresh();
         };
 
-
-        // blob hack για iOS/Safari ώστε να δουλεύει το scrubbing στο currentTime
+        // -------------------------------
+        //  SAFARI / iOS BLOB FIX
+        // -------------------------------
         const prepareSourceForScrubbing = () => {
+            // If fetch unsupported → fallback
             if (!("fetch" in window) || !src) {
-                // fallback: απλά στήσε το scroll trigger με το κανονικό src
                 if (video.readyState >= 1) {
                     setupScrollTrigger();
                 } else {
@@ -88,7 +100,6 @@ export function initScrollVideo() {
                     }
                 })
                 .catch(() => {
-                    // αν αποτύχει, πάλι στήσε το κανονικό
                     if (video.readyState >= 1) {
                         setupScrollTrigger();
                     } else {
@@ -97,11 +108,32 @@ export function initScrollVideo() {
                 });
         };
 
-        // ξεκίνα τη διαδικασία
+        // -------------------------------
+        // INITIAL LOAD
+        // -------------------------------
         if (video.readyState >= 1) {
             prepareSourceForScrubbing();
         } else {
             video.addEventListener("loadedmetadata", prepareSourceForScrubbing, { once: true });
         }
+    });
+
+    // -------------------------------
+    // GLOBAL REFRESH STABILIZERS
+    // -------------------------------
+
+    // Refresh after full page load (fixes admin bar, fonts, delays)
+    window.addEventListener("load", () => {
+        ScrollTrigger.refresh();
+    });
+
+    // Extra fallback refresh for tricky browsers
+    setTimeout(() => {
+        ScrollTrigger.refresh();
+    }, 600);
+
+    // One more micro refresh (fixes mobile bouncing)
+    requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
     });
 }

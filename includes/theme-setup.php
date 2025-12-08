@@ -121,3 +121,59 @@ function ruined_register_page_templates($templates) {
     return $templates;
 }
 add_filter('theme_page_templates', 'ruined_register_page_templates');
+
+
+
+
+
+function rv_should_show_pages_hero() {
+
+    // Αρχική – δεν το θες
+    if ( is_front_page() ) {
+        return false;
+    }
+
+    // Blog home (αν έχεις) – ας το κλείσουμε επίσης
+    if ( is_home() && ! is_front_page() ) {
+        return false;
+    }
+
+    // Single product – δεν το θες
+    if ( function_exists('is_product') && is_product() ) {
+        return false;
+    }
+
+    // Αν θες να εξαιρείς και συγκεκριμένα templates, π.χ. template-no-hero.php:
+     if ( is_page_template('template-no-hero.php') ) {
+         return false;
+     }
+
+    // Όλα τα άλλα ΟΚ
+    return true;
+}
+
+/**
+ * Always show Pages Hero on WooCommerce archives (shop, category, tag, search)
+ */
+if ( ! function_exists('rv_show_pages_hero') ) {
+    function rv_show_pages_hero() {
+        get_template_part( 'template-parts/header/pages-hero' );
+    }
+}
+
+
+
+if ( ! function_exists('rv_show_pages_hero_woo') ) {
+    function rv_show_pages_hero_woo() {
+
+        if ( function_exists('is_woocommerce') && (
+                is_shop() ||
+                is_product_taxonomy() ||
+                is_account() ||
+                ( is_search() && 'product' === get_query_var( 'post_type' ) )
+            )) {
+            get_template_part( 'template-parts/header/pages-hero' );
+        }
+    }
+}
+add_action( 'woocommerce_before_main_content', 'rv_show_pages_hero_woo', 5 );

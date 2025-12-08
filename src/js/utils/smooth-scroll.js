@@ -1,51 +1,50 @@
 import Lenis from '@studio-freight/lenis';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
 
-/**
- * Initialize smooth scrolling with Lenis
- * @returns {Object} Lenis instance
- */
+gsap.registerPlugin(ScrollTrigger);
+
 export function initSmoothScroll() {
-    // Only initialize if window is defined (client-side)
-    if (typeof window === 'undefined') return null;
+    if (typeof window === "undefined") return null;
 
-    // Initialize Lenis with options
+    // --- Prevent DOUBLE initialization ---
+    if (window.__lenis__) {
+        console.warn("[Lenis] Already initialized → SKIP");
+        return window.__lenis__;
+    }
+
+    console.log("%c[Lenis] Initializing…", "color:#4caf50");
+
     const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing function
+        duration: 1.1,
+        easing: (t) => 1 - Math.pow(2, -10 * t),
         smooth: true,
-        smoothTouch: false, // Disable smooth scrolling on touch devices
-        touchMultiplier: 1.5,
+        smoothTouch: false,
     });
 
-    // Update scroll position on each frame
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // Save globally
+    window.__lenis__ = lenis;
 
-    // Add data-scroll attribute to html when initialized
-    document.documentElement.setAttribute('data-scroll', '');
+    // --- GSAP integration ---
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
 
-    // Add smooth scroll class to html
-    document.documentElement.classList.add('smooth-scroll');
+    // ScrollTrigger sync BUT no refresh loops
+    lenis.on("scroll", () => {
+        ScrollTrigger.update();
+    });
 
-    // Expose lenis instance globally for debugging
-    window.lenis = lenis;
+    // ❗ DO NOT refresh ScrollTrigger here.
+    // SiteGround + Lenis = infinite refresh loop if we do.
 
-    console.log('Smooth scrolling initialized');
+    document.documentElement.classList.add("smooth-scroll");
+    document.documentElement.setAttribute("data-scroll", "");
+
+    console.log("%c[Lenis] READY", "color:#4caf50");
+
     return lenis;
 }
 
-// Auto-initialize if this is the main module
-if (typeof window !== 'undefined') {
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSmoothScroll);
-    } else {
-        initSmoothScroll();
-    }
-}
-
-// Export for manual initialization
 export default initSmoothScroll;

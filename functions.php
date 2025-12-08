@@ -19,6 +19,9 @@ $includes = [
     'includes/acf.php',               // Advanced Custom Fields configuration
     'includes/login_forms.php',       // Custom Forms for login
     'includes/blocks.php',            // Custom Gutenberg blocks
+    'includes/woocommerce.php',       // WooCommerce customizations
+    'pages-hero.php',
+
 ];
 
 // Ensure WooCommerce templates are loaded from plugin

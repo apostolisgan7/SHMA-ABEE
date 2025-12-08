@@ -118,3 +118,27 @@ function ruined_shop_view_body_class($classes) {
     return $classes;
 }
 add_filter('body_class', 'ruined_shop_view_body_class');
+
+
+/**
+ * Remove WooCommerce default breadcrumbs + header
+ */
+add_action( 'init', function() {
+
+    // Remove breadcrumbs
+    remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
+    // Remove Shop title
+    remove_action( 'woocommerce_before_shop_loop', 'woocommerce_page_title', 20 );
+
+    // Remove archive descriptions (category text)
+    remove_action( 'woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
+    remove_action( 'woocommerce_archive_description', 'woocommerce_product_archive_description', 10 );
+
+    // Remove empty header wrapper
+    remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+    remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+});
+
+//add_filter( 'woocommerce_show_page_title', '__return_false' );
+

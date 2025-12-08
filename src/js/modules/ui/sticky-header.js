@@ -61,9 +61,7 @@ export function initStickyHeader() {
     
     // Initial check
     updateHeader();
-    
-    console.log('Sticky Header: Initialized');
-    
+
     // Cleanup function (for potential HMR or dynamic removal)
     return () => {
         window.removeEventListener('scroll', handleScroll);

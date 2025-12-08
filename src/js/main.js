@@ -68,25 +68,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Theme initialized');
+    console.log("%cTheme initialized", "color:#4CAF50");
 
     Alpine.start();
     initSwipers();
-    initSmoothScroll();
+
+    // 1) Initialize Lenis FIRST and get instance
+    const lenis = initSmoothScroll();
+
+    // 2) Force a ScrollTrigger refresh AFTER Lenis settles
+    setTimeout(() => {
+        ScrollTrigger.refresh();
+    }, 150);
+
     initAuthModal();
 
     if (typeof Splitting !== 'undefined') {
         Splitting();
     }
 
-    // Load GSAP
+    // 3) Only now initialize Scroll-based animations
     loadGSAP().then(() => {
-        // Initialize components that depend on GSAP
+
         if (typeof initStickyHeader === 'function') {
             initStickyHeader();
         }
-        initScrollVideo();
 
+        //  ⬇⬇ *ΜΕΤΑ το refresh* — εδώ πρέπει να μπει
+        initScrollVideo();
 
         if (typeof initMegaMenu === 'function') {
             initMegaMenu();
@@ -94,19 +103,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (typeof initCatalogMenu === 'function') {
             initCatalogMenu();
         }
-    }).catch((error) => {
-        console.error('Error loading GSAP:', error);
     });
 
-    // Initialize WooCommerce if on WooCommerce pages
     if (document.body.classList.contains('woocommerce') && typeof initWooCommerce === 'function') {
         initWooCommerce();
     }
-    // Initialize Off-Canvas Cart if elements exist
+
     if (document.getElementById('offcanvas-cart')) {
         initOffcanvasCart();
     }
 });
+
 
 // Export for HMR
 if (import.meta.webpackHot) {

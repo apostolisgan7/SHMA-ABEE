@@ -1,5 +1,4 @@
 function initMobileMenu() {
-    console.log("Mobile menu init…");
 
     // Add js class to html element
     document.documentElement.classList.add('js');

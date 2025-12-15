@@ -174,3 +174,22 @@ function rv_show_pages_hero_woo() {
     }
 }
 add_action( 'woocommerce_before_main_content', 'rv_show_pages_hero_woo', 5 );
+
+
+
+add_action('wp_footer', function () { ?>
+    <script>
+        document.addEventListener('wpcf7invalid', markFields);
+        document.addEventListener('wpcf7submit', markFields);
+
+        function markFields(event) {
+            const fields = event.target.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea');
+            fields.forEach(el => {
+                el.classList.remove('is-valid');
+                if (!el.classList.contains('wpcf7-not-valid') && el.value.trim() !== '') {
+                    el.classList.add('is-valid');
+                }
+            });
+        }
+    </script>
+<?php });

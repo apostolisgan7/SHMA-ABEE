@@ -1,0 +1,153 @@
+@use '../abstracts' as *;
+
+.block-service-characteristics {
+  position: relative;
+  padding: clamp(60px, 10vw, 120px) 0;
+  overflow: hidden;
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+    gap: 80px;
+  }
+
+  /* LEFT */
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__title {
+    margin-bottom: 40px;
+    transition: all 0.2s;
+
+    p {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      font-weight: 400;
+
+      strong {
+        color: $secondary-color;
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__button {
+    width: 13px;
+    height: 13px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 3px;
+    border: 1.5px solid #858585;
+    transition: 0.4s ease;
+    transition-delay: 0.3s;
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+
+    svg {
+      width: 0px;
+      height: 0px;
+      transition: .3s ease;
+      transition-delay: 0.5s;
+    }
+
+    svg rect {
+      stroke: transparent;
+    }
+
+    svg path {
+      stroke: #000;
+    }
+  }
+
+
+  /* RIGHT */
+  &__right {
+    padding-left: 40px;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__item {
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    transition: all 0.2s;
+
+    &:hover {
+      .block-service-characteristics__item-title{
+        color:$secondary-color;
+      }
+      .block-service-characteristics__button {
+        width: 40px;
+        height: 40px;
+        border-color: #17B83A;
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  &__icon {
+    width: 55px;
+    height: 55px;
+    border: 2px solid $secondary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+
+    img {
+      width: 65%;
+      height: 65%;
+      object-fit: contain;
+    }
+  }
+
+  &__item-title {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #222;
+    transition: all 0.5s;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    &__inner {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+
+    &__right {
+      border-left: none;
+      padding-left: 0;
+      .block-service-characteristics__button{
+        width: 30px !important;
+        height: 30px !important;
+        svg{
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}

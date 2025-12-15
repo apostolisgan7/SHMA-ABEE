@@ -42,7 +42,9 @@
   margin-right: calc(-50vw + 50% + var(--scrollbar-width, 0px) / 2);
   position: relative;
 }
-
+.p-0 {
+  padding: 0px !important;
+}
 
 
 

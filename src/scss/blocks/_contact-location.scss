@@ -1,0 +1,148 @@
+@use '../abstracts' as *;
+
+.block-contact-location {
+  padding: clamp(44px, 7vw, 90px) 0;
+
+  &__card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 26px;
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 26px;
+    align-items: stretch;
+  }
+
+  /* LEFT */
+  &__left {
+    display: flex;
+    flex-direction: column;
+    min-height: 420px; /* κρατάει το ίδιο “ύψος κάρτας” με την εικόνα */
+    padding: 6px 0;
+  }
+
+  &__intro {
+    max-width: 54ch;
+  }
+
+  &__title {
+    margin: 0 0 10px;
+    font-size: clamp(1.6rem, 4vw, 2.75rem);
+    line-height: 1.2;
+    font-weight: 300;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.45;
+    color: #8b8b8b;
+    max-width: 52ch;
+  }
+
+  &__info {
+    margin-top: auto; /* σπρώχνει τα location στοιχεία κάτω όπως στο design */
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding-top: 34px;
+  }
+
+  &__location-title {
+    margin: 0 0 6px;
+    font-size: clamp(1.6rem, 4vw, 2.75rem);
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  &__locations {
+    color: #8b8b8b;
+    font-size: 1.1rem;
+    line-height: 1.45;
+
+    a {
+      color: #8b8b8b;
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__hours {
+    margin-top: 14px;
+    font-size: 1.1rem;
+    color: #8b8b8b;
+  }
+
+  &__icon {
+    width: 135px;
+    height: 135px;
+    display: grid;
+    place-items: center;
+
+    img {
+      width: 135px;
+      height: 135px;
+      object-fit: contain;
+    }
+  }
+
+  /* RIGHT */
+  &__media {
+    border-radius: 6px;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    &__inner {
+      grid-template-columns: 1fr;
+    }
+
+    &__left {
+      min-height: auto;
+    }
+
+    &__media {
+      min-height: 340px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    &__card {
+      padding: 18px;
+    }
+
+    &__info {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    &__icon {
+      width: 70px;
+      height: 70px;
+
+      img {
+        width: 56px;
+        height: 56px;
+      }
+    }
+  }
+}

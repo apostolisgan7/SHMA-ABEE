@@ -16,7 +16,7 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class('bg-white text-dark-900'); ?>>
+<body <?php body_class('text-dark-900'); ?>>
 <?php wp_body_open(); ?>
 <?php get_template_part( 'template-parts/menus/mobile-menu' ); ?>
 

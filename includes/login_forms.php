@@ -1,4 +1,3 @@
-
 <?php
 add_action( 'sigma_auth_login_form_inside_modal', 'ruined_sigma_auth_login_form' );
 function ruined_sigma_auth_login_form() {

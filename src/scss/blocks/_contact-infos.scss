@@ -1,0 +1,238 @@
+@use '../abstracts' as *;
+
+/*
+Αντιστοιχεί πλήρως στο markup:
+.section-full-width > .container > .block-contact-infos__inner
+*/
+
+.block-contact-infos {
+  position: relative;
+  padding: clamp(50px, 8vw, 60px) 0;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 3rem;
+    align-items: stretch;
+  }
+
+  /* LEFT IMAGE */
+  &__media {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    min-height: 700px;
+    height: 100%;
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.8s ease;
+  }
+
+
+  &__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.55) 0%,
+                    rgba(0, 0, 0, 0.15) 45%,
+                    rgba(0, 0, 0, 0) 70%
+    );
+    pointer-events: none;
+  }
+
+  &__image-title {
+    position: absolute;
+    bottom: clamp(18px, 2vw, 28px);
+    left: clamp(18px, 2vw, 28px);
+    z-index: 2;
+    color: #fff;
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    line-height: 1.2;
+    font-weight: 400;
+    max-width: 18ch;
+  }
+
+  /* RIGHT BOXES WRAPPER */
+  &__boxes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* SINGLE BOX */
+  &__box {
+    height: 100%;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 26px 28px;
+    border-bottom: 1px solid #e0e0e0;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:before {
+      content: "";
+      height: 1px;
+      width: 100%;
+      background: rgba(51, 23, 20, 0.1019607843);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: width 0.4s ease;
+      z-index: 0;
+    }
+
+    &:after {
+      content: "";
+      height: 1px;
+      width: 0;
+      background: #17B83A;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: width 0.4s ease;
+      z-index: 1;
+    }
+
+    &:hover {
+      &:after {
+        width: 100%;
+      }
+      .block-contact-infos__box-subtitle {
+        color: $secondary-color;
+      }
+      .block-contact-infos__box-linktext{
+        color: $primary-color;
+      }
+      .block-contact-infos__box-action{
+        width: 40px;
+        height: 40px;
+        border-color: #17B83A;
+        svg{
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  &__box-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__box-subtitle {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #9E9E9E;
+    transition: color 0.3s ease;
+  }
+
+  &__box-title {
+    font-size: clamp(1.1rem, 1.3vw, 1.8rem);
+    line-height: 1.25;
+    font-weight: 400;
+    color: $primary-color;
+    transition: color 0.3s ease;
+    max-width: 450px;
+    margin-top: 5px;
+  }
+
+  &__box-linktext {
+    font-size: 1.2rem;
+    color: #6D6D6D;
+    transition: color 0.3s ease;
+  }
+
+  /* ACTION (arrow button) */
+  &__box-action {
+    width: 13px;
+    height: 13px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 3px;
+    border: 1.5px solid #858585;
+    transition: 0.4s ease;
+    transition-delay: 0.3s;
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+
+    svg {
+      width: 0px;
+      height: 0px;
+      transition: .3s ease;
+      transition-delay: 0.5s;
+    }
+
+    svg rect {
+      stroke: transparent;
+    }
+
+    svg path {
+      stroke: #000;
+    }
+  }
+
+
+  /* Make the whole box feel clickable */
+  &__box {
+    cursor: default;
+
+    &[role="link"] {
+      cursor: pointer;
+    }
+
+    &.is-link {
+      cursor: pointer;
+    }
+  }
+
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    &__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    &__media {
+      min-height: 360px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    &__box {
+      padding: 20px 18px;
+    }
+    &__box-action {
+      width: 30px;
+      height: 30px;
+      svg{
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

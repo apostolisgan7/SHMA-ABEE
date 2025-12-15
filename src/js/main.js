@@ -12,6 +12,7 @@ window.Alpine = Alpine;
 // Import Utils
 import {initSmoothScroll} from './utils/smooth-scroll';
 import './utils/helpers';
+import './utils/contact-form';
 
 // Import UI Components
 import {initStickyHeader} from './modules/ui/sticky-header';

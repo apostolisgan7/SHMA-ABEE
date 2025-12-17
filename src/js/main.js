@@ -60,6 +60,7 @@ import Splitting from 'splitting';
 // Import WooCommerce
 import {initWooCommerce} from './modules/woocommerce';
 import {initOffcanvasCart} from './modules/woocommerce/offcanvas-cart';
+import {initQty} from './modules/woocommerce/qty';
 
 import SearchPopup from './modules/ui/SearchPopup';
 
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (document.body.classList.contains('woocommerce') && typeof initWooCommerce === 'function') {
         initWooCommerce();
     }
-
+    initQty();
     if (document.getElementById('offcanvas-cart')) {
         initOffcanvasCart();
     }

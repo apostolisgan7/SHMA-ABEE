@@ -1,0 +1,93 @@
+@use '../abstracts' as *;
+
+.shop-sidebar {
+
+  .yith-wcan-filters {
+    background: transparent;
+    padding-right: 0;
+
+    .yith-wcan-filter {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .02);
+    }
+
+    /* Τίτλος φίλτρου (ΚΑΤΗΓΟΡΙΕΣ, ΥΠΟΚΑΤΗΓΟΡΙΕΣ κλπ) */
+    .filter-title {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #BBBBBB;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &.collapsable {
+        &:after {
+          right: 5px;
+          top: 5px;
+          width: 35px;
+          height: 35px;
+          border: 1.5px solid currentColor;
+          border-radius: 6px;
+          background-size: 38% auto;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        &.opened {
+          color: $secondary-color;
+        }
+      }
+
+      button,
+      .toggle {
+        background: #f9fafb;
+        border-radius: 8px;
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+      }
+    }
+
+    .filter-content {
+      label {
+        a {
+          font-size: 15px;
+
+          &:hover {
+            color: $secondary-color !important;
+          }
+        }
+      }
+    }
+
+    /* Checkboxes – πιο minimal */
+    input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+      accent-color: #22c55e;
+    }
+  }
+}
+
+
+.yith-wcan-active-filters {
+  h4 {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+    .yith-wcan-filters-opener {
+      display: none !important;
+    }
+}

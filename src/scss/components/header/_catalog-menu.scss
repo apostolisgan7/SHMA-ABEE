@@ -74,7 +74,8 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  &:hover{
+
+  &:hover {
     background: #fff;
     color: #000;
   }
@@ -98,7 +99,7 @@
     margin-top: 3vh;
 
     .button-arrow__text {
-      font-size: 14px;
+      font-size: 21px;
     }
   }
 }
@@ -249,13 +250,12 @@
 
   &:before {
     content: "";
-    width: 8px;
-    height: 8px;
-    background: #17B83A;
-    border-radius: 1px;
+    width: 0;
+    height: 6px;
+    background-color: #17B83A;
     opacity: 0;
-    transition: .5s;
-    display: none;
+    margin-right: 0;
+    transition: width 0.25s ease, opacity 0.25s ease, margin-right 0.25s ease;
   }
 
 }
@@ -265,15 +265,9 @@
   transition: .5s;
 
   &:before {
-    content: "";
-    display: block;
-    width: 8px;
-    height: 8px;
-    background: #17B83A;
-    border-radius: 1px;
+    width: 6px;
     opacity: 1;
-    transition: .5s;
-    margin-right: 15px;
+    margin-right: 8px;
   }
 }
 
@@ -305,9 +299,14 @@
     text-transform: uppercase;
 
     a, span {
-      font-weight: 500;
+      font-weight: 700;
       font-size: 11px;
       color: $primary-color;
+      transition: .3s;
+      cursor: pointer;
+      &:hover {
+        color: $secondary-color;
+      }
     }
   }
 }
@@ -318,13 +317,18 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 5vh;
-  font-size: .7rem;
   text-transform: uppercase;
 
   a, span {
-    font-weight: 500;
+    font-weight: 700;
     font-size: 11px;
     color: $primary-color;
+    transition: .3s;
+    cursor: pointer;
+
+    &:hover {
+      color: $secondary-color;
+    }
   }
 }
 

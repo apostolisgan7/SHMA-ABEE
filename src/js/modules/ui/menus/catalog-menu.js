@@ -122,7 +122,7 @@ export function initCatalogMenu() {
             {
                 opacity: 1,
                 y: 0,
-                duration: 0.35,
+                duration: 0.1,
                 stagger: 0.05,
                 ease: "power2.out",
                 clearProps: "all"

@@ -106,7 +106,7 @@ if ($menu_items) {
                 <?php foreach ($parents as $parent): ?>
                     <div class="mega-right-panel" data-category-panel="cat-<?php echo $parent->ID; ?>">
 
-                        <h3 class="panel-label mega-animate-right">
+                        <h3 class="panel-label">
                             <?php echo strtoupper($parent->title); ?>
                         </h3>
 

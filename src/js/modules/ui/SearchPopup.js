@@ -9,7 +9,8 @@ import { gsap } from "gsap";
  */
 export default class SearchPopup {
     constructor() {
-        this.button = document.querySelector('.search-toggle');
+        // Get all search toggle buttons (both mobile and desktop)
+        this.buttons = document.querySelectorAll('.search-toggle');
         this.popup = document.querySelector('.search-popup');
         this.overlay = document.querySelector('.search-overlay');
         this.closeBtn = this.popup?.querySelector('.search-close');
@@ -24,7 +25,7 @@ export default class SearchPopup {
         this.input = null;
         this.observer = null;
 
-        if (!this.button || !this.popup) return;
+        if (this.buttons.length === 0 || !this.popup) return;
 
         this.activeClass = 'active';
         this.tl = gsap.timeline({ paused: true });
@@ -34,9 +35,12 @@ export default class SearchPopup {
     }
 
     init() {
-        this.button.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.openPopup();
+        // Add click event to all search toggle buttons
+        this.buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openPopup();
+            });
         });
 
         this.closeBtn?.addEventListener('click', () => this.closePopup());

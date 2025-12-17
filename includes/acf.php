@@ -47,14 +47,4 @@ add_action('acf/init', function() {
     }
 });
 
-// 5. Create Options Page
-if (function_exists('acf_add_options_page')) {
-    acf_add_options_page([
-        'page_title' => 'Theme Settings',
-        'menu_title' => 'Theme Settings',
-        'menu_slug'  => 'theme-settings',
-        'capability' => 'edit_theme_options',
-        'position'   => '61',
-        'icon_url'   => 'dashicons-admin-settings',
-    ]);
-}
+

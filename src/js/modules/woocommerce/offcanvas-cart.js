@@ -4,31 +4,45 @@
  */
 export function initOffcanvasCart() {
     const cart = document.getElementById('offcanvas-cart');
-    const cartToggle = document.querySelector('.cart-contents');
+    const cartToggle = document.querySelector('.header-cart .cart-contents');
     const cartClose = document.querySelector('.offcanvas-cart__close');
     const cartOverlay = document.querySelector('.offcanvas-cart__overlay');
 
-    if (!cart || !cartToggle) return;
+    if (!cart || !cartToggle) {
+        console.warn('Offcanvas cart elements not found');
+        return;
+    }
+    
+    // Initialize cart state
+    let isCartOpen = false;
 
     // Toggle cart
     function toggleCart(show = true) {
-        if (show) {
+        isCartOpen = show;
+        
+        if (isCartOpen) {
             document.body.classList.add('offcanvas-cart-open');
             cart.classList.add('is-open');
+            // Prevent body scroll when cart is open
+            document.body.style.overflow = 'hidden';
             // Focus on close button for better accessibility
             setTimeout(() => {
-                cartClose.focus();
+                if (cartClose) cartClose.focus();
             }, 100);
         } else {
             document.body.classList.remove('offcanvas-cart-open');
             cart.classList.remove('is-open');
+            // Restore body scroll
+            document.body.style.overflow = '';
         }
     }
 
     // Event Listeners
     cartToggle.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         toggleCart(!cart.classList.contains('is-open'));
+        return false;
     });
 
     cartClose.addEventListener('click', () => toggleCart(false));
@@ -44,7 +58,7 @@ export function initOffcanvasCart() {
     // Handle AJAX add to cart
     function handleAddedToCart() {
         // Update cart count
-        const cartCount = document.querySelector('.cart-contents__count');
+        const cartCount = document.querySelector('.header-cart .header-link .count');
         if (cartCount) {
             // Get the current count and increment by 1
             const currentCount = parseInt(cartCount.textContent) || 0;

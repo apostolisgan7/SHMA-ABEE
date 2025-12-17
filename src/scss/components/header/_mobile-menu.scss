@@ -34,6 +34,9 @@
 /* Show menu when JavaScript initializes it */
 .js #menu.mm-menu {
   display: block;
+  backdrop-filter: blur(3px);
+  border-radius: 22px;
+  overflow: clip;
 }
 
 .mm-menu--position-left, .mm-menu--position-left-front, .mm-menu--position-right, .mm-menu--position-right-front {

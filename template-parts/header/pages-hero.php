@@ -179,12 +179,12 @@ if ( $video_url ) {
                 <?php if ( ! empty( $title ) ) : ?>
                     <div class="pages-hero__title"><?= wp_kses_post( $title ); ?></div>
                 <?php endif; ?>
-            </div>
-
-            <div class="bottom_content">
                 <?php if ( ! empty( $text ) ) : ?>
                     <p class="pages-hero__text"><?= esc_html( $text ); ?></p>
                 <?php endif; ?>
+            </div>
+
+            <div class="bottom_content">
 
                 <?php if ( ! empty( $button['url'] ) ) :
                     rv_button_arrow([

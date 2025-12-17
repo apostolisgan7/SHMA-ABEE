@@ -1,12 +1,8 @@
 <?php
-/**
- * Mini Cart for Off-Canvas Cart
- */
 if (!defined('ABSPATH')) {
     exit;
 }
 ?>
-
 <div id="offcanvas-cart" class="offcanvas-cart">
     <div class="offcanvas-cart__content">
         <div class="offcanvas-cart__header">
@@ -16,7 +12,6 @@ if (!defined('ABSPATH')) {
                 <span></span>
             </button>
         </div>
-        
         <div class="offcanvas-cart__body">
             <?php woocommerce_mini_cart(); ?>
         </div>

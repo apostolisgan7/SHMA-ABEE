@@ -5,7 +5,7 @@
  */
 if ( ! defined('ABSPATH') ) exit;
 
-$post_obj = isset($args['post']) ? $args['post'] : null;
+$post_obj = get_query_var('product_post');
 if ( ! $post_obj instanceof WP_Post ) return;
 
 $product   = wc_get_product( $post_obj->ID );

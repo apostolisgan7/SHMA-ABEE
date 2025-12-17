@@ -11,10 +11,7 @@
   right: 0;
   z-index: 1000;
   transform: translateY(0);
-  transition: transform .3s
-  ease-in-out, background-color .3s
-  ease, box-shadow .3s
-  ease;
+  transition: transform .3s ease-in-out, background-color .3s ease, box-shadow .3s ease;
   will-change: transform, background-color, box-shadow;
 
   a {
@@ -42,8 +39,6 @@
     }
 
     .header-cart {
-      background: rgba(255, 255, 255, 0.3);
-
       &:after {
         background: #ffffff;
       }
@@ -145,15 +140,39 @@
     align-items: center;
     gap: 1.8rem;
 
-    button.search-toggle.header-link:hover svg path {
-      stroke: $secondary-color;
-    }
 
     .head_item {
-      padding: 5px 8px;
       border-radius: 3px;
       display: flex;
       line-height: 1;
+      padding: 5px 8px;
+
+      .search_mobile {
+        display: none;
+      }
+
+      .header-link {
+        padding: 5px 8px;
+
+        span.count {
+          display: none;
+          background: black;
+          width: 17px;
+          height: 17px;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50px;
+          margin-left: 7px;
+          color: #fff;
+          font-size: 13px;
+          line-height: 1;
+        }
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.3);
+
+      }
     }
   }
 
@@ -169,11 +188,7 @@
     text-decoration: none;
     position: relative;
     transition: color 0.15s ease;
-    display: contents;
-
-    &:hover {
-      color: $secondary-color;
-    }
+    display: flex;
   }
 
   .search-toggle {
@@ -181,10 +196,10 @@
   }
 
   .header-cart {
-    background: rgba(0, 0, 0, 0.3);
     display: flex;
     gap: 5px;
     align-items: center;
+    cursor: pointer;
 
     &::after {
       content: '';
@@ -341,13 +356,25 @@
       gap: 1rem;
     }
   }
+  @media (max-width: 992px) {
+    .shop-navigation.desktop-only {
+      display: none;
+    }
+    .container {
+      max-width: 100%;
+    }
+  }
 
   @media (max-width: 992px) {
     .header-catalog,
     .header-lang,
-    .header-right .head_item {
-      display: none;
+    .header-right .header-account, .header-search .header-link, .header-lang {
+      display: none !important;
     }
+    .mobile-menu-button {
+      width: 50px;
+    }
+
 
     .header-inner {
       min-height: 70px;
@@ -359,6 +386,46 @@
       .mobile-menu-button {
         display: inline-block;
       }
+
+      .header-right {
+        gap: 1rem;
+
+        .head_item {
+          padding: 0;
+          .header-link{
+            padding: 0;
+          }
+
+          &:hover {
+            background: none;
+          }
+
+          .search_mobile {
+            display: block;
+            padding: 0;
+            background: transparent;
+
+            svg {
+              path {
+                fill: #fff;
+              }
+            }
+          }
+        }
+      }
     }
   }
+  @media (max-width: 576px) {
+    .site-branding {
+      img {
+        max-height: 150px;
+        width: 100%;
+        max-width: 150px;
+      }
+    }
+
+  }
+
+
 }
+

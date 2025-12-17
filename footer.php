@@ -1,11 +1,11 @@
     </main>
 
     <footer id="colophon" class="site-footer bg-white border-t border-gray-200 mt-12">
-        <div class="container mx-auto px-4 py-12">
+        <div class="container mx-auto px-4 pt-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Footer Widget 1 -->
                 <div class="footer-widget">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4"><?php bloginfo('name'); ?></h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4" style="filter:invert(1)"><?php the_custom_logo(); ?></h3>
                     <p class="text-gray-600"><?php echo get_bloginfo('description'); ?></p>
                     <div class="mt-4 flex space-x-4">
                         <a href="#" class="text-gray-500 hover:text-primary-600 transition-colors">
@@ -47,8 +47,8 @@
                 </div>
             </div>
             
-            <div class="border-t border-gray-200 mt-8 pt-6 text-center text-gray-500 text-sm">
-                <p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</p>
+            <div class="border-t border-gray-200 mt-8 pt-6 text-center text-gray-500 text-xs">
+                <p class="text-xs">&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</p>
             </div>
         </div>
     </footer>

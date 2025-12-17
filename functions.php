@@ -9,6 +9,19 @@ if (!defined('RUINED_VERSION')) {
     define('RUINED_VERSION', '1.0.0');
 }
 
+// Register shop sidebar
+add_action('widgets_init', function() {
+    register_sidebar(array(
+        'name'          => esc_html__('Shop Sidebar', 'ruined'),
+        'id'            => 'sidebar-shop',
+        'description'   => esc_html__('Add widgets here to appear in your shop sidebar.', 'ruined'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s mb-8">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h3 class="widget-title text-lg font-semibold mb-4">',
+        'after_title'   => '</h3>',
+    ));
+});
+
 // --- Theme Includes ---
 $includes = [
     'includes/theme-setup.php',       // Theme setup and features
@@ -21,19 +34,8 @@ $includes = [
     'includes/blocks.php',            // Custom Gutenberg blocks
     'includes/woocommerce.php',       // WooCommerce customizations
     'pages-hero.php',
-
 ];
 
-// Ensure WooCommerce templates are loaded from plugin
-add_filter('woocommerce_locate_template', 'ruined_woocommerce_locate_template', 10, 3);
-function ruined_woocommerce_locate_template($template, $template_name, $template_path) {
-    // Use default WooCommerce templates from plugin
-    $default_path = WP_PLUGIN_DIR . '/woocommerce/templates/';
-    if (file_exists($default_path . $template_name)) {
-        return $default_path . $template_name;
-    }
-    return $template;
-}
 
 // Load theme files
 foreach ($includes as $file) {
@@ -52,3 +54,11 @@ wp_enqueue_script(
     true
 );
 
+
+
+add_filter('wc_get_template', function($template, $template_name, $args, $template_path, $default_path) {
+    if ($template_name === 'cart/mini-cart.php') {
+        error_log('Loading mini-cart template from: ' . $template);
+    }
+    return $template;
+}, 10, 5);

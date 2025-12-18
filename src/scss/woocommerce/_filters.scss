@@ -84,10 +84,35 @@
   h4 {
     display: none;
   }
+
+  .active-filter .active-filter-label {
+    background: #fff;
+    border: none;
+    padding-right: 30px;
+
+    &:after {
+      background-color: $primary-color;
+      right: 5px;
+      top: 5px;
+    }
+  }
+}
+
+button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
+  border: none;
+  border-bottom: 1px solid $primary-color;
+  padding: 0;
+  border-radius: 0;
+  font-size: 15px;
+  margin-bottom: 2rem;
+  background: transparent;
+  color: $primary-color;
+  font-weight: 500;
+
 }
 
 @media (min-width: 992px) {
-    .yith-wcan-filters-opener {
-      display: none !important;
-    }
+  .yith-wcan-filters-opener {
+    display: none !important;
+  }
 }

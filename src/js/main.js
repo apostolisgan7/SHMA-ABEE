@@ -6,8 +6,11 @@ import '../scss/main.scss';
 
 // Import Alpine.js
 import Alpine from 'alpinejs';
+import {shopHeader} from './modules/woocommerce/grid-view';
+import './modules/woocommerce/shop-sorting';
 
 window.Alpine = Alpine;
+Alpine.data('shopHeader', shopHeader);
 
 // Import Utils
 import {initSmoothScroll} from './utils/smooth-scroll';

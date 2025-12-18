@@ -122,6 +122,10 @@
     background: #fff;
     margin-top: auto;
     height: 13vh;
+
+    .list_stock{
+      display: none;
+    }
   }
 
   &__tag {

@@ -1,38 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const gridViewButton = document.getElementById('grid-view');
-    const listViewButton = document.getElementById('list-view');
-    const body = document.body;
+export function shopHeader() {
+    return {
+        view: localStorage.getItem('shop_view') || 'grid',
+        filtersHidden: document.body.classList.contains('shop-filters-hidden'),
 
-    const setShopView = (view) => {
-        // Set cookie that expires in 30 days
-        const d = new Date();
-        d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
-        const expires = `expires=${d.toUTCString()}`;
-        document.cookie = `shop_view=${view};${expires};path=/;SameSite=Lax`;
+        init() {
+            document.body.classList.add(`shop-view-${this.view}`);
+        },
 
-        // Update body class
-        if (view === 'list') {
-            body.classList.remove('shop-view-grid');
-            body.classList.add('shop-view-list');
-            listViewButton.classList.add('active');
-            gridViewButton.classList.remove('active');
-        } else {
-            body.classList.remove('shop-view-list');
-            body.classList.add('shop-view-grid');
-            gridViewButton.classList.add('active');
-            listViewButton.classList.remove('active');
+        setView(type) {
+            document.body.classList.remove(`shop-view-${this.view}`);
+            this.view = type;
+            document.body.classList.add(`shop-view-${type}`);
+            localStorage.setItem('shop_view', type);
+        },
+
+        toggleFilters() {
+            this.filtersHidden = !this.filtersHidden;
+            document.body.classList.toggle('shop-filters-hidden');
+        },
+
+        // 🔹 Labels
+        get filtersLabel() {
+            return this.filtersHidden
+                ? 'Εμφάνιση Φίλτρων'
+                : 'Απόκρυψη Φίλτρων';
+        },
+
+        get viewLabel() {
+            return this.view === 'grid'
+                ? 'Προβολή σε Grid'
+                : 'Προβολή σε Λίστα';
         }
-    };
-
-    if (gridViewButton && listViewButton) {
-        gridViewButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            setShopView('grid');
-        });
-
-        listViewButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            setShopView('list');
-        });
     }
-});
+}

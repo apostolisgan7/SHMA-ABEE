@@ -98,12 +98,12 @@ SEARCH POPUP STYLING (Custom)
           border-radius: 0 !important;
           transition: ease-in-out .2s;
           color: #000;
-          font-size: 40px;
+          font-size: clamp(26px, 3vw, 40px);
           font-weight: 400;
 
           &::placeholder {
             color: #000;
-            font-size: 40px;
+            font-size: clamp(26px, 3vw, 40px);
             font-weight: 400;
           }
 
@@ -428,6 +428,33 @@ SEARCH POPUP STYLING (Custom)
     &:hover {
       background: #000;
       color: #fff;
+    }
+  }
+}
+
+
+@media screen and (max-width: 767px) {
+  .search-popup {
+    width: 97%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .search-container {
+      padding: 25px;
+      overflow-y: auto;
+
+      .dgwt-wcas-style-pirx .dgwt-wcas-preloader {
+        margin-right: 0;
+        right: 0 !important;
+      }
+
+      .search-content {
+        flex-direction: column-reverse;
+        display: flex;
+        height: auto;
+        gap: 3rem;
+      }
     }
   }
 }

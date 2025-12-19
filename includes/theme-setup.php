@@ -155,17 +155,19 @@ function rv_should_show_pages_hero() {
 /**
  * Always show Pages Hero on WooCommerce archives (shop, category, tag, search)
  */
-if ( ! function_exists('rv_show_pages_hero') ) {
-    function rv_show_pages_hero() {
-        get_template_part( 'template-parts/header/pages-hero' );
+function rv_show_pages_hero() {
+    if ( ! rv_should_show_pages_hero() ) {
+        return;
     }
+
+    get_template_part( 'template-parts/header/pages-hero' );
 }
 
 
 
 function rv_show_pages_hero_woo() {
 
-    if ( ! function_exists( 'is_woocommerce' ) ) {
+    if ( is_product() ) {
         return;
     }
 
@@ -174,6 +176,8 @@ function rv_show_pages_hero_woo() {
     }
 }
 add_action( 'woocommerce_before_main_content', 'rv_show_pages_hero_woo', 5 );
+
+
 
 
 

@@ -160,6 +160,11 @@
   margin-top: 1rem;
   overflow-y: auto;
   flex: 1;
+
+  form.woocommerce-form.woocommerce-form-login.login {
+    border: none;
+    padding: 0;
+  }
 }
 
 .sigma-auth-pane {

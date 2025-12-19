@@ -242,7 +242,13 @@
       font-weight: 400;
       line-height: 1.2;
       padding: .7rem;
+      color: #fff;
+      transition: all .4s ease;
 
+      &:hover {
+        background: #fff;
+        color: #000;
+      }
     }
 
     a.button--primary {
@@ -336,4 +342,12 @@
 
 body.offcanvas-cart-open {
   overflow: hidden;
+}
+
+
+@media (max-width: 576px) {
+  .mini-cart__remove {
+    position: absolute;
+    right: 5px;
+  }
 }

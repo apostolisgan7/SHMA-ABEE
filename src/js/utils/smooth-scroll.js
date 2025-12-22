@@ -13,8 +13,6 @@ export function initSmoothScroll() {
         return window.__lenis__;
     }
 
-    console.log("%c[Lenis] Initializing…", "color:#4caf50");
-
     const lenis = new Lenis({
         duration: 1.1,
         easing: (t) => 1 - Math.pow(2, -10 * t),
@@ -42,7 +40,6 @@ export function initSmoothScroll() {
     document.documentElement.classList.add("smooth-scroll");
     document.documentElement.setAttribute("data-scroll", "");
 
-    console.log("%c[Lenis] READY", "color:#4caf50");
 
     return lenis;
 }

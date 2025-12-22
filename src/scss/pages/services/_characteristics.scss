@@ -99,6 +99,9 @@
 
   /* Responsive */
   @media (max-width: 1024px) {
+    &__bg {
+      display: none;
+    }
     &__inner {
       grid-template-columns: 1fr;
       gap: 60px;

@@ -60,7 +60,6 @@
     margin: 0 auto;
     padding: 1rem;
     height: 100%;
-    max-width: 100%;
   }
 
   &__content {
@@ -201,7 +200,13 @@
   @media (min-width: 1200px) {
     min-height: 95vh;
   }
-
+  @media (max-width: 1400px) {
+    .home-hero {
+      &__content {
+        padding: 25vh 0 1vh;
+      }
+    }
+  }
   @media (max-width: 1200px) {
     .home-hero {
 

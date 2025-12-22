@@ -40,7 +40,7 @@
 
   &__title {
     grid-area: title;
-    font-size: clamp(24px, 3.4vw, 50px);
+    font-size: clamp(24px, 2.4vw, 50px);
     line-height: 1.15;
     font-weight: 400;
     color: #111;
@@ -194,16 +194,28 @@
       transform: translateY(0);
     }
   }
+
   @media (max-width: 992px) {
-    .rv-home-services__head{
+    .rv-home-services__head {
       flex-direction: column;
       gap: 1rem;
     }
     .container {
       padding: 0 1rem;
     }
-    .rv-home-services__subtitle{
+    .rv-home-services__subtitle {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 576px) {
+
+    &__carousel {
+      margin-right: calc(-50vw + 50% + var(--scrollbar-width, 0px) / 2) !important;
+
+      .swiper-wrapper {
+        padding-bottom: 1rem;
+      }
     }
   }
 }

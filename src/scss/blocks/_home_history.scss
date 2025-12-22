@@ -45,7 +45,7 @@
 
   &__top-text {
     p {
-      font-size: clamp(1.8rem, 5.5vw, 3.2rem);
+      font-size: clamp(1.8rem, 3vw, 3.2rem);
       line-height: 1.1;
       font-weight: 400;
       max-width: 850px;
@@ -127,14 +127,14 @@
   }
 
   &__counter-label {
-    font-size: clamp(1rem, 4vw, 1.3rem);
+    font-size: clamp(1rem, 1vw, 1.3rem);
     font-weight: 400;
     color: $secondary-color;
     margin: 0;
   }
 
   &__counter-number {
-    font-size: clamp(3rem, 5.5vw, 4.1rem);
+    font-size: clamp(3rem, 1vw, 4.1rem);
     line-height: 1;
     font-weight: 400;
     color: #031321;
@@ -148,13 +148,20 @@
       color: #808080;
       line-height: 1.2;
       font-weight: 400;
-      font-size: clamp(1rem, 4vw, 1.3rem);
+      font-size: clamp(1rem, 1vw, 1.3rem);
     }
 
   }
 
   /* responsive */
-  @media (max-width: 1024px) {
+  @media (max-width: 1400px) {
+    &__counters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.5rem 0rem;
+    }
+  }
+  @media (max-width: 1199px) {
     &__top {
       grid-template-columns: 1fr;
       gap: 2rem;
@@ -163,7 +170,11 @@
 
     &__top-media {
       justify-self: flex-start;
+      position: relative;
+      width: 100%;
+      padding-top: calc(422 / 1000 * 100%);
     }
+
 
     &__bottom {
       grid-template-columns: 1fr;
@@ -180,13 +191,18 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
     padding: 3.5rem 0;
 
     &__counter-number {
       font-size: 2rem;
     }
-
+    &__top-media {
+      justify-self: flex-start;
+      position: relative;
+      width: 100%;
+      padding-top: calc(422 / 550 * 100%);
+    }
     &__top-text {
       font-size: 1.25rem;
     }

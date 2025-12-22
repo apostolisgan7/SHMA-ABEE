@@ -4,4 +4,9 @@
   .rv-home-products {
     margin: 15vh 0 10vh;
   }
+  @media (max-width: 992px) {
+    .rv-home-products {
+      margin: 10vh 0 10vh;
+    }
+  }
 }

@@ -79,8 +79,8 @@ function initMobileMenu() {
                     {
                         position: "bottom",
                         content: [
-                            `<a href='#'><img src='/wp-content/themes/Ruined/src/img/icons/instagram1.svg' alt='instagram'></a>`,
-                            `<a href='#'><img src='/wp-content/themes/Ruined/src/img/icons/facebook1.svg' alt='facebook'></a>`
+                            `<a href='#'><img src='/wp-content/themes/Ruined/src/img/icons/phone-cal.svg' alt='phone'></a>`,
+                            `<a href='#'><img src='/wp-content/themes/Ruined/src/img/icons/info-circle.svg' alt='info'></a>`
                         ]
                     }
                 ]

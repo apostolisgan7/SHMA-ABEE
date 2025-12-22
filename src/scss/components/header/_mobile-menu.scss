@@ -12,6 +12,18 @@
   height: 99vh;
   top: 10px;
   overflow: clip;
+  opacity: 0;
+  pointer-events: none;
+}
+.mm-wrapper--opened #menu {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mm-wrapper--opened .mm-page {
+  height: 100vh;
+  overflow: hidden !important;
+  touch-action: none;
 }
 
 /* =========================
@@ -46,7 +58,9 @@
 .mm-wrapper--opened {
   background-color: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
+  overscroll-behavior: none;
 }
+
 
 /* =========================
    WIDTH (NO SIDE EFFECTS)
@@ -147,6 +161,7 @@ a.mm-btn.mm-btn--prev.mm-navbar__btn {
 
   &:hover {
     background: none;
+
     svg {
       opacity: 0.6;
     }

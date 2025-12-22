@@ -78,6 +78,7 @@
       font-weight: 400;
       text-align: left;
       transition: color .2s ease;
+      gap: 10px;
 
       &:hover {
         color: $secondary-color;
@@ -138,7 +139,7 @@
 
   /* RESPONSIVE */
   @media (max-width: 992px) {
-    padding: 0;
+    padding: 3rem 0 0;
     &:after {
       display: none;
     }

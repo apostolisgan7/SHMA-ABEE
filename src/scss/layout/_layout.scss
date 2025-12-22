@@ -15,19 +15,19 @@
 
   // Breakpoint-specific max-widths
   @include media-breakpoint-up(sm) {
-    max-width: 540px;
-  }
-
-  @include media-breakpoint-up(md) {
     max-width: 767px;
   }
 
+  @include media-breakpoint-up(md) {
+    max-width: 1080px;
+  }
+
   @include media-breakpoint-up(lg) {
-    max-width: 992px;
+    max-width: 1024px;
   }
 
   @include media-breakpoint-up(xl) {
-    max-width: 1140px;
+    max-width: 1350px;
   }
 
   @include media-breakpoint-up(xxl) {
@@ -114,3 +114,12 @@
     }
   }
 }
+
+html.menu-open,
+body.menu-open {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+

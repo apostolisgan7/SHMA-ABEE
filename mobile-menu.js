@@ -1,3 +1,25 @@
+
+function lockScroll() {
+    document.documentElement.classList.add('menu-open');
+    document.body.classList.add('menu-open');
+
+    if (window.lenis) {
+        window.lenis.stop();
+    }
+}
+
+function unlockScroll() {
+    document.documentElement.classList.remove('menu-open');
+    document.body.classList.remove('menu-open');
+
+    if (window.lenis) {
+        window.lenis.start();
+    }
+}
+
+
+
+
 function initMobileMenu() {
 
     // Add js class to html element
@@ -66,6 +88,16 @@ function initMobileMenu() {
 
             const api = mmenu.API;
 
+            api.bind("open:start", () => {
+                lockScroll();
+            });
+
+            api.bind("close:finish", () => {
+                unlockScroll();
+                if (btn) btn.classList.remove("active");
+            });
+
+
             // --- MOBILE BUTTON ---
             const btn = document.querySelector(".mobile-menu-button");
 
@@ -83,11 +115,7 @@ function initMobileMenu() {
                 }
             });
 
-            api.bind("close:finish", () => {
-                if (btn) btn.classList.remove("active");
-            });
-            
-            // Remove loading class when done
+
             document.body.classList.remove('mmenu-loading');
             
         } catch (error) {

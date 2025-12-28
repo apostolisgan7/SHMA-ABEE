@@ -167,11 +167,11 @@
   }
 }
 
-.sigma-auth-pane {
+.sigma-auth-panel {
   display: none;
 }
 
-.sigma-auth-pane.is-active {
+.sigma-auth-panel.is-active {
   display: block;
 }
 
@@ -255,3 +255,61 @@
     margin-bottom: 3vh;
   }
 }
+
+.field-error {
+  font-size: 12px;
+  color: #be0000;
+}
+
+
+/* inline error κάτω από field */
+.sigma-auth-modal .woocommerce-error {
+  margin: -20px 0 30px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgba(220, 38, 38, 0.08);
+  color: #991b1b;
+display: none;
+  border-radius: 4px;
+
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* reset list */
+.sigma-auth-modal .woocommerce-error li {
+  list-style: none;
+  margin: 0;
+}
+
+/* μικρό icon */
+.sigma-auth-modal .woocommerce-error::before {
+  content: "⚠";
+  margin-right: 8px;
+  position: static;
+}
+
+.field-success {
+  font-size: 12px;
+  color: #1a7f37;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-success::before {
+  content: '✓';
+  font-weight: bold;
+}
+
+.form-row.is-checking::after {
+  content: 'Έλεγχος ΑΦΜ...';
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+

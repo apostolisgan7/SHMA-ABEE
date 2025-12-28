@@ -67,7 +67,12 @@
     }
 </script>
 
-<?php wp_footer(); ?>
+    <script>
+        window.SIGMA_IS_LOGGED_IN = <?php echo is_user_logged_in() ? 'true' : 'false'; ?>;
+    </script>
+
+
+    <?php wp_footer(); ?>
 
 <!-- WooCommerce Notification -->
 <div class="wc-notification" aria-live="polite">

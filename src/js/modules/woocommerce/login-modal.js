@@ -6,6 +6,10 @@ export function initAuthModal() {
 
     if (!overlay || !modal) return;
 
+    /* -----------------------------------------
+     * ELEMENTS
+     * ----------------------------------------- */
+    const vatField   = overlay.querySelector('.js-vat-field');
     const triggers   = document.querySelectorAll('.js-auth-modal-trigger');
     const closeBtns  = overlay.querySelectorAll('.js-auth-close');
     const roleBtns   = overlay.querySelectorAll('.sigma-auth-role-btn');
@@ -21,24 +25,36 @@ export function initAuthModal() {
     const body   = overlay.querySelector('.sigma-auth-body');
     const footer = overlay.querySelector('.sigma-auth-footer');
 
-    // ---------- SLIDING PILL HELPERS ----------
+    const loginForm = overlay.querySelector('.js-ajax-login-form');
 
+
+
+    function syncFields(role) {
+        overlay.querySelector('.js-customer-name-field').style.display =
+            role === 'customer_b2c' ? '' : 'none';
+
+        overlay.querySelector('.js-company-name-field').style.display =
+            role === 'company' ? '' : 'none';
+
+        overlay.querySelector('.js-municipality-name-field').style.display =
+            role === 'municipality' ? '' : 'none';
+
+        overlay.querySelector('.js-vat-field').style.display =
+            role === 'company' || role === 'municipality' ? '' : 'none';
+    }
+
+
+    /* -----------------------------------------
+     * SLIDING PILL
+     * ----------------------------------------- */
     function movePillToButton(btn, animate = true) {
         if (!pill || !rolesInner || !btn) return;
 
         const btnRect  = btn.getBoundingClientRect();
         const wrapRect = rolesInner.getBoundingClientRect();
 
-        let width = btnRect.width;
-        let x     = btnRect.left - wrapRect.left;
-
-        // fallback αν για κάποιο λόγο είναι 0
-        if (!width && roleBtns.length) {
-            width = wrapRect.width / roleBtns.length;
-        }
-        if (!Number.isFinite(x)) {
-            x = 0;
-        }
+        let width = btnRect.width || wrapRect.width / roleBtns.length;
+        let x     = btnRect.left - wrapRect.left || 0;
 
         gsap.to(pill, {
             x,
@@ -49,16 +65,15 @@ export function initAuthModal() {
     }
 
     function setInitialPillPosition() {
-        if (!roleBtns.length) return;
-
         const activeBtn =
             overlay.querySelector('.sigma-auth-role-btn.is-active') || roleBtns[0];
-
-        movePillToButton(activeBtn, false);
+        if (activeBtn) movePillToButton(activeBtn, false);
     }
 
-    // ---------- OPEN/CLOSE ANIMATION ----------
 
+    /* -----------------------------------------
+     * OPEN / CLOSE MODAL
+     * ----------------------------------------- */
     gsap.set(overlay, { autoAlpha: 0 });
     gsap.set(modal, { y: 20, scale: 0.96, autoAlpha: 0 });
 
@@ -73,25 +88,23 @@ export function initAuthModal() {
     tl
         .add(() => {
             overlay.classList.add('is-open');
-            // δίνουμε ένα frame να “στρωθεί” το layout και μετά μετράμε
-            requestAnimationFrame(() => {
-                setInitialPillPosition();
-            });
-        }, 0)
+            requestAnimationFrame(setInitialPillPosition);
+        })
         .to(overlay, { autoAlpha: 1, duration: 0.25 })
-        .to(
-            modal,
-            { autoAlpha: 1, scale: 1, y: 0, duration: 0.45, ease: 'back.out(1.4)' },
-            '<'
-        )
+        .to(modal, {
+            autoAlpha: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.45,
+            ease: 'back.out(1.4)'
+        }, '<')
         .from([header, roles], { y: 18, autoAlpha: 0, stagger: 0.08 }, '-=0.25')
         .from(body, { y: 14, autoAlpha: 0 }, '-=0.2')
         .from(footer, { y: 12, autoAlpha: 0 }, '-=0.18');
 
     function openModal(e) {
         if (e) e.preventDefault();
-        if (tl.reversed()) tl.play();
-        else tl.play(0);
+        tl.play(0);
     }
 
     function closeModal(e) {
@@ -99,100 +112,357 @@ export function initAuthModal() {
         tl.reverse();
     }
 
-    triggers.forEach((btn) => btn.addEventListener('click', openModal));
-    closeBtns.forEach((btn) => btn.addEventListener('click', closeModal));
+    triggers.forEach(btn => btn.addEventListener('click', openModal));
+    closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
 
-    overlay.addEventListener('click', (e) => {
-        if (e.target.classList.contains('js-auth-close')) {
-            closeModal(e);
-        }
-    });
-
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-            closeModal(e);
+            closeModal();
         }
     });
 
-    // ---------- CLICK ΣΤΑ TABS ----------
+    /* -----------------------------------------
+     * ROLE TABS
+     * ----------------------------------------- */
+    roleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const role = btn.dataset.role;
 
-    if (roleBtns.length) {
-        roleBtns.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const newRole = btn.getAttribute('data-role');
+            roleBtns.forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
 
-                roleBtns.forEach((b) => b.classList.remove('is-active'));
-                btn.classList.add('is-active');
+            roleInputs.forEach(input => (input.value = role));
 
-                if (roleInputs.length) {
-                    roleInputs.forEach((input) => {
-                        input.value = newRole;
-                    });
+            syncFields(role);          // ✅ ΕΔΩ
+            movePillToButton(btn, true);
+        });
+    });
+
+    /* -----------------------------------------
+ * 🧾 LIVE VAT CHECK (VIES) – blur only
+ * ----------------------------------------- */
+    const vatInput = overlay.querySelector('input[name="vat"]');
+
+    if (vatInput) {
+        vatInput.addEventListener('blur', async () => {
+            const vat = vatInput.value.trim();
+            const row = vatInput.closest('.form-row');
+
+            if (!vat || !row) return;
+
+            // καθάρισε παλιά μηνύματα
+            row.querySelectorAll('.field-error, .field-success').forEach(el => el.remove());
+
+            row.classList.add('is-checking');
+
+            try {
+                const res = await fetch(window.ajaxurl, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        action: 'sigma_check_vat',
+                        vat
+                    })
+                });
+
+                const data = await res.json();
+                row.classList.remove('is-checking');
+
+                const msg = document.createElement('div');
+
+                if (!data.success) {
+                    msg.className = 'field-error';
+                    msg.textContent = data.data.message;
+                } else {
+                    msg.className = 'field-success';
+                    msg.textContent = data.data.message;
                 }
 
-                movePillToButton(btn, true);
+                row.appendChild(msg);
 
                 gsap.fromTo(
-                    btn,
-                    { scale: 0.96 },
-                    { scale: 1, duration: 0.16, ease: 'power1.out' }
+                    msg,
+                    { y: -4, autoAlpha: 0 },
+                    { y: 0, autoAlpha: 1, duration: 0.25 }
                 );
-            });
+
+            } catch (err) {
+                row.classList.remove('is-checking');
+                console.error('VAT check error:', err);
+            }
         });
     }
 
-    // ---------- LOGIN / SIGNUP SWITCH ----------
 
+    /* -----------------------------------------
+     * LOGIN / SIGNUP TOGGLE
+     * ----------------------------------------- */
     if (toggleBtn && loginPane && signupPane) {
-        modal.setAttribute('data-auth-mode', 'login');
+        modal.dataset.authMode = 'login';
         loginPane.classList.add('is-active');
 
         toggleBtn.addEventListener('click', () => {
-            const currentMode = modal.getAttribute('data-auth-mode') || 'login';
-            const nextMode    = currentMode === 'login' ? 'signup' : 'login';
+            const isLogin = modal.dataset.authMode === 'login';
+            modal.dataset.authMode = isLogin ? 'signup' : 'login';
 
-            modal.setAttribute('data-auth-mode', nextMode);
-
-            const outPane = currentMode === 'login' ? loginPane : signupPane;
-            const inPane  = currentMode === 'login' ? signupPane : loginPane;
+            const outPane = isLogin ? loginPane : signupPane;
+            const inPane  = isLogin ? signupPane : loginPane;
 
             gsap.to(outPane, {
                 autoAlpha: 0,
-                x: currentMode === 'login' ? -20 : 20,
+                x: isLogin ? -20 : 20,
                 duration: 0.22,
-                ease: 'power1.in',
                 onComplete() {
                     outPane.classList.remove('is-active');
-                    gsap.set(outPane, { clearProps: 'all' });
-
                     inPane.classList.add('is-active');
+
                     gsap.fromTo(
                         inPane,
-                        { autoAlpha: 0, x: currentMode === 'login' ? 20 : -20 },
-                        { autoAlpha: 1, x: 0, duration: 0.26, ease: 'power2.out' }
+                        { autoAlpha: 0, x: isLogin ? 20 : -20 },
+                        { autoAlpha: 1, x: 0, duration: 0.26 }
                     );
                 }
             });
         });
     }
 
-    // ---------- SUBMIT με το custom rv_button_arrow ----------
-
+    /* -----------------------------------------
+     * CUSTOM SUBMIT (rv_button_arrow)
+     * ----------------------------------------- */
     overlay.addEventListener('click', (e) => {
-        const submitLink = e.target.closest('.sigma-auth-submit');
-        if (!submitLink) return;
+        const submitBtn = e.target.closest('.sigma-auth-submit');
+        if (!submitBtn) return;
 
-        const form = submitLink.closest('form');
+        const form = submitBtn.closest('form');
         if (!form) return;
 
         e.preventDefault();
-
-        // πιο safe από απλό form.submit()
-        if (typeof form.requestSubmit === 'function') {
-            form.requestSubmit();
-        } else {
-            form.submit();
-        }
+        form.requestSubmit();
     });
+
+    /* -----------------------------------------
+     * 🔐 AJAX LOGIN
+     * ----------------------------------------- */
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // καθάρισε παλιά errors
+            loginForm.querySelectorAll('.woocommerce-error').forEach(el => el.remove());
+
+            const formData = new FormData(loginForm);
+            formData.append('action', 'sigma_login');
+
+            loginForm.classList.add('is-loading');
+
+            try {
+                const res  = await fetch(window.ajaxurl, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (!data.success) {
+                    // καθάρισε παλιά errors
+                    loginForm.querySelectorAll('.woocommerce-error').forEach(el => el.remove());
+
+                    // βρες το email field
+                    const emailField = loginForm.querySelector('#username')?.closest('.form-row');
+
+                    if (emailField) {
+                        emailField.insertAdjacentHTML('afterend', data.data.html);
+
+                        const errorBox = emailField.nextElementSibling;
+
+                        // animation
+                        gsap.fromTo(errorBox,
+                            { y: -6, autoAlpha: 0 },
+                            { y: 0, autoAlpha: 1, duration: 0.25, ease: 'power2.out' }
+                        );
+
+                        // focus στο input
+                        loginForm.querySelector('#username')?.focus();
+
+                        // shake field
+                        gsap.fromTo(emailField,
+                            { x: 0 },
+                            { x: -5, repeat: 4, yoyo: true, duration: 0.05 }
+                        );
+                    }
+
+                    return;
+                }
+
+
+
+                gsap.to(modal, {
+                    scale: 0.96,
+                    autoAlpha: 0,
+                    duration: 0.35,
+                    ease: 'power2.inOut',
+                    onComplete() {
+                        window.location.href = data.data.redirect;
+                    }
+                });
+
+            } catch (err) {
+                console.error('AJAX Login error:', err);
+                loginForm.classList.remove('is-loading');
+            }
+        });
+    }
+
+
+    /* -----------------------------------------
+     * 🔐 AJAX REGISTER
+     * ----------------------------------------- */
+    const registerForm = overlay.querySelector('.js-ajax-register-form');
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // clear old errors
+            registerForm.querySelectorAll('.woocommerce-error').forEach(el => el.remove());
+
+            registerForm.classList.add('is-loading');
+
+            const formData = new FormData(registerForm);
+            formData.append('action', 'sigma_register');
+
+            try {
+                const res = await fetch(window.ajaxurl, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                registerForm.classList.remove('is-loading');
+
+                if (!data.success) {
+                    registerForm.insertAdjacentHTML('afterbegin', data.data.html);
+                    const temp = document.createElement('div');
+                    temp.innerHTML = data.data.html;
+
+                    temp.querySelectorAll('li').forEach(li => {
+                        const msg = li.textContent.toLowerCase();
+
+                        let field = null;
+
+                        if (msg.includes('τηλέφωνο')) {
+                            field = registerForm.querySelector('input[name="phone"]');
+                        }
+
+                        if (msg.includes('επωνυμία')) {
+                            field = registerForm.querySelector('input[name="company_name"]');
+                        }
+
+                        if (msg.includes('αφμ')) {
+                            field = registerForm.querySelector('input[name="vat"]');
+                        }
+
+                        if (!field) return;
+
+                        const row = field.closest('.form-row');
+
+                        // 🔥 ΑΦΑΙΡΕΣΕ παλιό error (αν υπάρχει)
+                        row.querySelectorAll('.field-error').forEach(el => el.remove());
+
+                        const error = document.createElement('div');
+                        error.className = 'field-error';
+                        error.textContent = li.textContent;
+
+                        row.appendChild(error);
+
+                        gsap.fromTo(error,
+                            { y: -4, autoAlpha: 0 },
+                            { y: 0, autoAlpha: 1, duration: 0.25 }
+                        );
+
+                        field.focus();
+                    });
+
+                    const errorBox = registerForm.querySelector('.woocommerce-error');
+
+                    if (errorBox) {
+                        gsap.fromTo(
+                            errorBox,
+                            { y: -6, autoAlpha: 0 },
+                            { y: 0, autoAlpha: 1, duration: 0.25, ease: 'power2.out' }
+                        );
+
+                        errorBox.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+
+                    return;
+                }
+// -----------------------------------------
+// ✅ SUCCESS (με VAT feedback)
+// -----------------------------------------
+                if (data.success && data.data?.vat_valid) {
+                    const vatInput = registerForm.querySelector('input[name="vat"]');
+                    const row = vatInput?.closest('.form-row');
+
+                    if (row) {
+                        // καθάρισε παλιά messages
+                        row.querySelectorAll('.field-error, .field-success').forEach(el => el.remove());
+
+                        const success = document.createElement('div');
+                        success.className = 'field-success';
+                        success.textContent = data.data.vat_message;
+
+                        row.appendChild(success);
+
+                        gsap.fromTo(
+                            success,
+                            { y: -4, autoAlpha: 0 },
+                            { y: 0, autoAlpha: 1, duration: 0.25 }
+                        );
+                    }
+
+                    // μικρό delay πριν redirect (UX)
+                    setTimeout(() => {
+                        gsap.to(modal, {
+                            scale: 0.96,
+                            autoAlpha: 0,
+                            duration: 0.35,
+                            ease: 'power2.inOut',
+                            onComplete() {
+                                window.location.href = data.data.redirect;
+                            }
+                        });
+                    }, 800);
+
+                    return;
+                }
+
+                // SUCCESS animation
+                gsap.to(modal, {
+                    scale: 0.96,
+                    autoAlpha: 0,
+                    duration: 0.35,
+                    ease: 'power2.inOut',
+                    onComplete() {
+                        window.location.href = data.data.redirect;
+                    }
+                });
+
+            } catch (err) {
+                console.error('AJAX Register error:', err);
+                registerForm.classList.remove('is-loading');
+            }
+        });
+    }
+
 
 }

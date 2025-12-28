@@ -1,6 +1,6 @@
 {
     "key": "group_6915ab6b41bdd",
-    "title": "BLOCK : Scroll Video",
+    "title": "BLOCK : Scroll Image",
     "fields": [
         {
             "key": "field_6915ab6bc317e",
@@ -46,10 +46,10 @@
         },
         {
             "key": "field_6915ab98c3180",
-            "label": "Video",
-            "name": "video",
+            "label": "Image",
+            "name": "image",
             "aria-label": "",
-            "type": "file",
+            "type": "image",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -58,12 +58,17 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "url",
+            "return_format": "array",
             "library": "all",
+            "min_width": "",
+            "min_height": "",
             "min_size": "",
+            "max_width": "",
+            "max_height": "",
             "max_size": "",
             "mime_types": "",
-            "allow_in_bindings": 0
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
         }
     ],
     "location": [
@@ -85,5 +90,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763027897
+    "modified": 1766923763
 }

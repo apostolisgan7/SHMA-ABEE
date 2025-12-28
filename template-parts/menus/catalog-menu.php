@@ -110,7 +110,7 @@ if ($menu_items) {
                             <?php echo strtoupper($parent->title); ?>
                         </h3>
 
-                        <div class="sub-grid">
+                        <div class="sub-grid" data-lenis-prevent>
                             <?php if (!empty($children[$parent->ID])): ?>
                                 <?php foreach ($children[$parent->ID] as $child): ?>
                                     <a href="<?php echo esc_url($child->url); ?>"

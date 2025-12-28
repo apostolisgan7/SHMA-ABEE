@@ -57,7 +57,10 @@ $as_carousel = is_array($items) && count($items) > 3;
                     <div class="swiper-wrapper">
                         <?php foreach ($items as $post_obj): setup_postdata($post_obj); ?>
                             <div class="swiper-slide">
-                                <?php get_template_part('template-parts/items/item','product',['post'=>$post_obj]); ?>
+                                <?php
+                                set_query_var('product_post', $post_obj);
+                                get_template_part('template-parts/items/item', 'product');
+                                ?>
                             </div>
                         <?php endforeach; wp_reset_postdata(); ?>
                     </div>

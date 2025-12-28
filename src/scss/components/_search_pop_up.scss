@@ -286,7 +286,12 @@ SEARCH POPUP STYLING (Custom)
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 
-    @media(max-width: 768px) {
+    @media screen and (max-width: 1550px) {
+      overflow: auto;
+      max-height: 40vh;
+    }
+
+    @media screen and (max-width: 768px) {
       grid-template-columns: 1fr;
     }
   }
@@ -322,7 +327,9 @@ SEARCH POPUP STYLING (Custom)
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 
-
+    @media (max-width: 1550px) {
+      height: 40vh !important;
+    }
     @media (max-width: 1200px) {
       grid-template-columns: repeat(2, 1fr);
     }

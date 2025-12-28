@@ -19,9 +19,14 @@ function initMobileMenu() {
             iconbar: {
                 use: true,
                 top: [
-                    `<a href='#/'><img src='/wp-content/themes/Ruined/src/img/icons/home.svg' alt='home'></a>`,
-                    `<a href='#/'><img src='/wp-content/themes/Ruined/src/img/icons/account.svg' alt='user'></a>`
+                    `<a href="#/" class="mm-home-link">
+            <img src="/wp-content/themes/Ruined/src/img/icons/home.svg" alt="home">
+         </a>`,
+                    `<a href="#/" class="mm-account-link">
+            <img src="/wp-content/themes/Ruined/src/img/icons/account.svg" alt="user">
+         </a>`
                 ],
+
                 bottom: [
                     `<a href='#/'><img src='/wp-content/themes/Ruined/src/img/icons/instagram1.svg' alt='instagram'></a>`,
                     `<a href='#/'><img src='/wp-content/themes/Ruined/src/img/icons/facebook1.svg' alt='facebook'></a>`
@@ -59,6 +64,30 @@ function initMobileMenu() {
 
         const api = mmenu.API;
         const btn = document.querySelector(".mobile-menu-button");
+
+        // Account icon behavior
+        document.addEventListener("click", (e) => {
+            const accountLink = e.target.closest(".mm-account-link");
+            if (!accountLink) return;
+
+            e.preventDefault();
+
+            // 1️⃣ Κλείσε το mobile menu
+            api.close();
+
+            // 2️⃣ Περίμενε να κλείσει (animation-safe)
+            setTimeout(() => {
+                if (window.SIGMA_IS_LOGGED_IN) {
+                    // 👉 Logged in → account page
+                    window.location.href = "/my-account/";
+                } else {
+                    // 👉 Guest → άνοιγμα login modal
+                    const trigger = document.querySelector(".js-auth-modal-trigger");
+                    trigger?.click();
+                }
+            }, 350); // ίδιο timing με mmenu close animation
+        });
+
 
         if (btn) {
             btn.addEventListener("click", (e) => {

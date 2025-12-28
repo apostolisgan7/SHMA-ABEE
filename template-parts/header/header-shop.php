@@ -59,10 +59,21 @@ $header_class = 'header-' . esc_attr($header_color);
                 </div>
 
                     <div class="header-account head_item">
-                        <a href="#"
-                           class="header-link js-auth-modal-trigger">
-                            <?php _e( 'ΛΟΓΑΡΙΑΣΜΟΣ', 'ruined' ); ?>
-                        </a>
+                        <?php if ( is_user_logged_in() ) : ?>
+
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>"
+                               class="header-link">
+                                <?php _e( 'ΛΟΓΑΡΙΑΣΜΟΣ', 'ruined' ); ?>
+                            </a>
+
+                        <?php else : ?>
+
+                            <a href="#"
+                               class="header-link js-auth-modal-trigger">
+                                <?php _e( 'ΛΟΓΑΡΙΑΣΜΟΣ', 'ruined' ); ?>
+                            </a>
+
+                        <?php endif; ?>
                     </div>
 
 

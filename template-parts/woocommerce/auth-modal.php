@@ -58,17 +58,17 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Body -->
-        <div class="sigma-auth-body">
+        <div class="sigma-auth-body" data-lenis-prevent>
 
 
 
-            <div class="sigma-auth-pane sigma-auth-pane--login is-active">
+            <div class="sigma-auth-panel sigma-auth-pane--login is-active">
                 <?php
                 do_action('sigma_auth_login_form_inside_modal');
                 ?>
             </div>
 
-            <div class="sigma-auth-pane sigma-auth-pane--signup">
+            <div class="sigma-auth-panel sigma-auth-pane--signup">
                 <?php
                 do_action('sigma_auth_register_form_inside_modal');
                 ?>

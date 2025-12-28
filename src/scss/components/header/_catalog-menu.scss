@@ -304,6 +304,7 @@
       color: $primary-color;
       transition: .3s;
       cursor: pointer;
+
       &:hover {
         color: $secondary-color;
       }
@@ -341,5 +342,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+@media screen and (max-width: 1550px) {
+  .mega-container {
+    height: 98vh;
+
+    .sub-grid {
+      max-height: 40vh;
+      overflow-y: auto;
+    }
   }
 }

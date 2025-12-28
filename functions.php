@@ -30,7 +30,8 @@ $includes = [
     'includes/shortcodes.php',        // Custom shortcodes
     'includes/utilities.php',         // Utility functions
     'includes/acf.php',               // Advanced Custom Fields configuration
-    'includes/login_forms.php',       // Custom Forms for login
+    'includes/account-roles/login_forms.php',       // Custom Forms for login
+    'includes/account-roles/account-roles.php',       // Custom Forms for login
     'includes/blocks.php',            // Custom Gutenberg blocks
     'includes/woocommerce.php',       // WooCommerce customizations
     'pages-hero.php',
@@ -44,6 +45,14 @@ foreach ($includes as $file) {
         require_once $filepath;
     }
 }
+
+add_action('wp_head', function () {
+	?>
+	<script>
+        window.ajaxurl = "<?php echo esc_url(admin_url('admin-ajax.php')); ?>";
+	</script>
+	<?php
+});
 
 
 wp_enqueue_script(

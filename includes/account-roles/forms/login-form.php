@@ -6,8 +6,13 @@ add_action( 'sigma_auth_login_form_inside_modal', 'sigma_auth_login_form' );
 function sigma_auth_login_form() {
 	?>
 	<form class="woocommerce-form woocommerce-form-login js-ajax-login-form"
-	      method="post"
-	      action="#">
+      method="post"
+      action="#"
+      aria-labelledby="login-form-title"
+      aria-describedby="login-form-description">
+
+		<h2 id="login-form-title" class="screen-reader-text"><?php esc_html_e( 'Σύνδεση', 'ruined' ); ?></h2>
+		<p id="login-form-description" class="screen-reader-text"><?php esc_html_e( 'Συμπληρώστε τα στοιχεία σύνδεσης', 'ruined' ); ?></p>
 
 		<?php do_action( 'woocommerce_login_form_start' ); ?>
 
@@ -23,7 +28,14 @@ function sigma_auth_login_form() {
 			       autocomplete="username"
 			       placeholder=" "
 			       value="<?php echo ! empty( $_POST['username'] ) ? esc_attr( wp_unslash( $_POST['username'] ) ) : ''; ?>"
-			       required/>
+			       required
+			       aria-required="true"
+			       aria-invalid="false"
+			       aria-describedby="username-description"
+			       data-rule-email="true"
+			       data-msg-email="<?php esc_attr_e( 'Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email.', 'ruined' ); ?>"
+			       data-rule-required="<?php esc_attr_e( 'Το πεδίο email απαιτείται.', 'ruined' ); ?>" />
+			    <span id="username-description" class="screen-reader-text"><?php esc_html_e( 'Παρακαλώ εισάγετε τη διεύθυνση email σας', 'ruined' ); ?></span>
 			<label for="username">
 				<?php esc_html_e( 'Λογαριασμός Email', 'ruined' ); ?>
 			</label>
@@ -37,14 +49,21 @@ function sigma_auth_login_form() {
 			       id="login_password"
 			       autocomplete="current-password"
 			       placeholder=" "
-			       required/>
+			       required
+			       aria-required="true"
+			       aria-invalid="false"
+			       aria-describedby="password-description"
+			       data-rule-required="<?php esc_attr_e( 'Το πεδίο κωδικού απαιτείται.', 'ruined' ); ?>" />
+			    <span id="password-description" class="screen-reader-text"><?php esc_html_e( 'Παρακαλώ εισάγετε τον κωδικό σας', 'ruined' ); ?></span>
 			<label for="password">
 				<?php esc_html_e( 'Κωδικός Πρόσβασης', 'ruined' ); ?>
 			</label>
 
 			<button type="button"
 			        class="floating-field__toggle js-password-toggle"
-			        aria-label="<?php esc_attr_e( 'Εμφάνιση κωδικού', 'ruined' ); ?>">
+			        aria-label="<?php esc_attr_e( 'Εμφάνιση κωδικού', 'ruined' ); ?>"
+			        aria-controls="login_password"
+			        aria-pressed="false">
 
 				<!-- OPEN eye -->
 				<span class="icon-eye icon-eye--open">

@@ -26,7 +26,7 @@ textarea, .woocommerce form .form-row .input-text, .woocommerce form .form-row s
   transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-.wc-block-components-form .wc-block-components-text-input input[type=email],.wc-blocks-components-select .wc-blocks-components-select__select, .wc-block-components-form .wc-block-components-text-input input[type=number], .wc-block-components-form .wc-block-components-text-input input[type=password], .wc-block-components-form .wc-block-components-text-input input[type=tel], .wc-block-components-form .wc-block-components-text-input input[type=text], .wc-block-components-form .wc-block-components-text-input input[type=url], .wc-block-components-text-input input[type=email], .wc-block-components-text-input input[type=number], .wc-block-components-text-input input[type=password], .wc-block-components-text-input input[type=tel], .wc-block-components-text-input input[type=text], .wc-block-components-text-input input[type=url]{
+.wc-block-components-form .wc-block-components-text-input input[type=email], .wc-blocks-components-select .wc-blocks-components-select__select, .wc-block-components-form .wc-block-components-text-input input[type=number], .wc-block-components-form .wc-block-components-text-input input[type=password], .wc-block-components-form .wc-block-components-text-input input[type=tel], .wc-block-components-form .wc-block-components-text-input input[type=text], .wc-block-components-form .wc-block-components-text-input input[type=url], .wc-block-components-text-input input[type=email], .wc-block-components-text-input input[type=number], .wc-block-components-text-input input[type=password], .wc-block-components-text-input input[type=tel], .wc-block-components-text-input input[type=text], .wc-block-components-text-input input[type=url] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -43,10 +43,9 @@ textarea, .woocommerce form .form-row .input-text, .woocommerce form .form-row s
 }
 
 
-.woocommerce form .show-password-input::before, .woocommerce-page form .show-password-input::before{
+.woocommerce form .show-password-input::before, .woocommerce-page form .show-password-input::before {
   display: none;
 }
-
 
 
 input:focus,
@@ -60,7 +59,7 @@ textarea:focus {
 // Floating label wrapper
 .floating-field {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 
   input,
   textarea,
@@ -88,7 +87,7 @@ textarea:focus {
   select:focus + label,
   input:not(:placeholder-shown) + label,
   textarea:not(:placeholder-shown) + label {
-    top: 0;
+    top: 15px;
     transform: translateY(-100%);
     font-size: 0.75rem;
     color: #111827;
@@ -97,6 +96,38 @@ textarea:focus {
 
 // ειδικό για password, για να κάτσει το eye icon δεξιά
 .floating-field--password {
+  position: relative;
+
+  label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    color: #6b7280;
+    pointer-events: none;
+    transition: top 0.16s ease,
+    transform 0.16s ease,
+    font-size 0.16s ease,
+    color 0.16s ease;
+  }
+
+  /* 1️⃣ Όταν υπάρχει focus σε input Ή στο eye button */
+  &:focus-within > label {
+    top: 15px;
+    transform: translateY(-100%);
+    font-size: 0.75rem;
+    color: #111827;
+  }
+
+  &.has-value > label {
+    top: 15px;
+    transform: translateY(-100%);
+    font-size: 0.75rem;
+    color: #111827;
+  }
+
+
   .floating-field__toggle {
     position: absolute;
     right: 0;

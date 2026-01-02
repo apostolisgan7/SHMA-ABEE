@@ -9,15 +9,16 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div id="sigma-auth-overlay" class="sigma-auth-overlay" aria-hidden="true">
-    <div class="sigma-auth-backdrop js-auth-close"></div>
+<div id="sigma-auth-overlay" class="sigma-auth-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="sigma-auth-title">
+    <div class="sigma-auth-backdrop js-auth-close" tabindex="-1" aria-label="<?php esc_attr_e('Κλείσιμο', 'ruined'); ?>"></div>
 
-    <div id="sigma-auth-modal" class="sigma-auth-modal" data-auth-mode="login" data-auth-role="individual">
+    <div id="sigma-auth-modal" class="sigma-auth-modal" data-auth-mode="login" data-auth-role="individual" role="document">
 
         <!-- Close -->
         <button type="button" class="sigma-auth-close js-auth-close"
-                aria-label="<?php esc_attr_e('Κλείσιμο', 'ruined'); ?>">
-            ×
+                aria-label="<?php esc_attr_e('Κλείσιμο', 'ruined'); ?>"
+                aria-controls="sigma-auth-modal">
+            <span aria-hidden="true">×</span>
         </button>
 
         <!-- Header -->
@@ -43,15 +44,35 @@ if (!defined('ABSPATH')) {
 
         <!-- Role tabs -->
         <div class="sigma-auth-roles">
-            <div class="sigma-auth-roles-inner">
-                <div class="sigma-auth-roles-pill"></div>
-                <button type="button" class="sigma-auth-role-btn is-active" data-role="individual">
+            <div class="sigma-auth-roles-inner" role="tablist" aria-label="<?php esc_attr_e('Επιλογή τύπου λογαριασμού', 'ruined'); ?>">
+                <div class="sigma-auth-roles-pill" role="presentation"></div>
+                <button type="button" 
+                        class="sigma-auth-role-btn is-active" 
+                        data-role="individual"
+                        role="tab"
+                        id="tab-individual"
+                        aria-selected="true"
+                        aria-controls="panel-individual">
                     <?php _e('Ιδιώτες', 'ruined'); ?>
                 </button>
-                <button type="button" class="sigma-auth-role-btn" data-role="company">
+                <button type="button" 
+                        class="sigma-auth-role-btn" 
+                        data-role="company"
+                        role="tab"
+                        id="tab-company"
+                        aria-selected="false"
+                        tabindex="-1"
+                        aria-controls="panel-company">
                     <?php _e('Εταιρείες', 'ruined'); ?>
                 </button>
-                <button type="button" class="sigma-auth-role-btn" data-role="municipality">
+                <button type="button" 
+                        class="sigma-auth-role-btn" 
+                        data-role="municipality"
+                        role="tab"
+                        id="tab-municipality"
+                        aria-selected="false"
+                        tabindex="-1"
+                        aria-controls="panel-municipality">
                     <?php _e('Δήμοι', 'ruined'); ?>
                 </button>
             </div>
@@ -62,13 +83,19 @@ if (!defined('ABSPATH')) {
 
 
 
-            <div class="sigma-auth-panel sigma-auth-pane--login is-active">
+            <div id="panel-individual" class="sigma-auth-panel sigma-auth-pane--login is-active" role="tabpanel" aria-labelledby="tab-individual" tabindex="0">
                 <?php
                 do_action('sigma_auth_login_form_inside_modal');
                 ?>
             </div>
 
-            <div class="sigma-auth-panel sigma-auth-pane--signup">
+            <div id="panel-company" class="sigma-auth-panel sigma-auth-pane--signup" role="tabpanel" aria-labelledby="tab-company" tabindex="0" hidden>
+                <?php
+                do_action('sigma_auth_register_form_inside_modal');
+                ?>
+            </div>
+            
+            <div id="panel-municipality" class="sigma-auth-panel sigma-auth-pane--signup" role="tabpanel" aria-labelledby="tab-municipality" tabindex="0" hidden>
                 <?php
                 do_action('sigma_auth_register_form_inside_modal');
                 ?>

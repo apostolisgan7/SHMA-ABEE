@@ -186,9 +186,9 @@ add_action('init', function () {
 });
 
 function ruined_render_shop_header() {
-    get_template_part('template-parts/woocommerce/shop-header');
+    if (is_shop() || is_product_taxonomy() || is_search() && !is_singular('product')) {
+        get_template_part('template-parts/woocommerce/shop-header');
+    }
 }
-
 add_action('ruined_before_shop_grid', 'ruined_render_shop_header');
-
 

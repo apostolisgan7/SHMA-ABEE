@@ -36,6 +36,13 @@
   border: 1px solid rgba(255, 255, 255, 0.4);
   display: flex;
   flex-direction: column;
+
+
+  .woocommerce-form-register.register {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .sigma-auth-close {
@@ -120,7 +127,6 @@
   left: 4px;
   border-radius: 999px;
   background: $secondary-color;
-  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
   pointer-events: none;
   // width & x θα τα χειριστεί GSAP
 }
@@ -182,6 +188,7 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .sigma-auth-toggle {
@@ -271,7 +278,7 @@
   align-items: center;
   background: rgba(220, 38, 38, 0.08);
   color: #991b1b;
-display: none;
+  display: none;
   border-radius: 4px;
 
   font-size: 13px;
@@ -313,3 +320,106 @@ display: none;
   margin-top: 4px;
 }
 
+.password-strength {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.password-strength__bars {
+  display: flex;
+  gap: 6px;
+}
+
+.password-strength__bars span {
+  flex: 1;
+  height: 4px;
+  background: #e5e7eb; // γκρι inactive
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+/* ===== STATES ===== */
+
+/* WEAK → 1 bar */
+.password-strength.is-weak {
+  color: #d63638;
+}
+
+.password-strength.is-weak span:nth-child(1) {
+  background: #d63638;
+}
+
+/* MEDIUM → 2 bars */
+.password-strength.is-medium {
+  color: #ff9800;
+}
+
+.password-strength.is-medium span:nth-child(-n+2) {
+  background: #ff9800;
+}
+
+/* GOOD → 3 bars */
+.password-strength.is-good {
+  color: #8bc34a;
+}
+
+.password-strength.is-good span:nth-child(-n+3) {
+  background: #8bc34a;
+}
+
+/* STRONG → 4 bars */
+.password-strength.is-strong {
+  color: #2e7d32;
+}
+
+.password-strength.is-strong span {
+  background: #2e7d32;
+}
+
+.password-strength__label {
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+
+@media screen and (max-width: 767px) {
+  .sigma-auth-overlay {
+    padding: 0.5rem;
+  }
+  .sigma-auth-modal {
+    height: 98vh;
+    padding: 10px;
+  }
+  .sigma-auth-roles {
+    padding: 0.75rem 0.5rem 0;
+  }
+  .sigma-auth-logo-wrap {
+    margin-bottom: 3vh;
+  }
+  .sigma-auth-header {
+    padding: 1rem 0.5rem 0rem;
+  }
+  .sigma-auth-body {
+    padding: 0rem 0.5rem;
+    margin-top: 1rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .sigma-auth-logo-wrap img {
+    max-width: 150px;
+  }
+  .sigma-auth-footer {
+    padding: 1rem 0.5rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+
+    .sigma-auth-toggle, .sigma-auth-forgot {
+      font-size: 14px;
+    }
+  }
+}

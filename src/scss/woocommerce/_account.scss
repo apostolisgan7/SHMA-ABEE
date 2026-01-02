@@ -1,0 +1,262 @@
+// ===============================
+// VARIABLES (προσαρμόζεις αν θες)
+$green: #1fb34a;
+$green-soft: rgba(31, 179, 74, 0.12);
+$bg-card: rgba(255, 255, 255, 0.75);
+$text-dark: #1e1e1e;
+$text-muted: #6b6b6b;
+$border-radius: 18px;
+
+
+.woocommerce-account .woocommerce::after, .woocommerce-account .woocommerce::before {
+  display: none;
+}
+
+.woocommerce-account .woocommerce .col2-set::after, .woocommerce-account .woocommerce .col2-set::before, .woocommerce-page .col2-set::after, .woocommerce-page .col2-set::before {
+  display: none;
+}
+
+// ===============================
+// MY ACCOUNT WRAPPER
+.woocommerce-account {
+  @media (min-width: 1200px) {
+    .pages-hero {
+      min-height: 50vh;
+      &__content{
+        padding: 17vh 0 5vh;
+      }
+    }
+  }
+
+  .woocommerce {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    padding: 0px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  // ===============================
+  // SIDEBAR NAVIGATION
+  .woocommerce-MyAccount-navigation {
+    background: $bg-card;
+    backdrop-filter: blur(12px);
+    border-radius: $border-radius;
+    padding: 24px;
+    width: 100%;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    li {
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 16px;
+        border-radius: 12px;
+        color: $text-dark;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        text-transform: uppercase;
+        font-size: 13px;
+
+        &:hover {
+          background: $green-soft;
+          color: $green;
+        }
+      }
+
+      &.is-active a {
+        background: #000;
+        color: #fff;
+      }
+    }
+  }
+
+  // ===============================
+  // CONTENT AREA
+  .woocommerce-MyAccount-content {
+    background: $bg-card;
+    backdrop-filter: blur(12px);
+    border-radius: $border-radius;
+    padding: 40px;
+    width: 100%;
+
+    p {
+      font-size: 16px;
+      color: $text-muted;
+      line-height: 1.7;
+      margin-bottom: 16px;
+
+      strong {
+        color: $text-dark;
+        font-weight: 600;
+      }
+
+      a {
+        color: $green;
+        font-weight: 500;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+          border-color: $green;
+        }
+      }
+    }
+
+    h2, h3 {
+      color: $text-dark;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .woocommerce-Addresses {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .woocommerce-Address {
+      background: #fff;
+      border-radius: $border-radius;
+      padding: 32px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      position: relative;
+      width: 100%;
+    }
+
+    // ===============================
+    // ADDRESS HEADER
+    .woocommerce-Address-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+
+      h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: $text-dark;
+        margin: 0;
+      }
+
+      .edit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #000;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        white-space: nowrap;
+
+        &:hover {
+          background: darken($green, 6%);
+          transform: translateY(-1px);
+        }
+      }
+    }
+
+    // ===============================
+    // ADDRESS CONTENT
+    .woocommerce-Address address {
+      font-style: normal;
+      font-size: 15px;
+      line-height: 1.6;
+      color: $text-muted;
+      background: rgba(0, 0, 0, 0.03);
+      padding: 18px 20px;
+      border-radius: 14px;
+    }
+
+    // ===============================
+    // INTRO TEXT
+    .woocommerce-MyAccount-content > p:first-of-type {
+      font-size: 15px;
+      color: $text-muted;
+      margin-bottom: 32px;
+    }
+  }
+}
+
+// ===============================
+// ORDERS TABLE / DOWNLOADS TABLE
+.woocommerce table.shop_table {
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+
+  th {
+    background: rgba(0, 0, 0, 0.04);
+    font-weight: 600;
+    padding: 14px;
+  }
+
+  td {
+    padding: 14px;
+    color: $text-muted;
+  }
+
+  tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+// ===============================
+// BUTTONS
+.woocommerce a.button,
+.woocommerce button.button {
+  background: $green;
+  color: #fff;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-weight: 500;
+  border: none;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: darken($green, 6%);
+    transform: translateY(-1px);
+  }
+}
+
+// ===============================
+// FORMS
+.woocommerce form .form-row input,
+.woocommerce form .form-row textarea {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 14px;
+  font-size: 15px;
+
+  &:focus {
+    outline: none;
+    border-color: $green;
+  }
+}
+
+// ===============================
+// RESPONSIVE
+@media (max-width: 900px) {
+  .woocommerce-account .woocommerce {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+}

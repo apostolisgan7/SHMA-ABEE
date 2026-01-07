@@ -206,3 +206,24 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     display: none !important;
   }
 }
+
+@media (max-width: 768px) {
+  .yith-wcan-filters.filters-modal {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 9999;
+    transform: translateX(-100%) !important;
+    overflow-y: auto;
+  }
+
+  .yith-wcan-filters.filters-modal.is-open {
+    display: block;
+    transform: translateX(0%) !important;
+  }
+
+  body.filters-modal-open {
+    overflow: hidden;
+  }
+}

@@ -52,16 +52,23 @@ export function initAuthModal() {
     function movePillToButton(btn, animate = true) {
         if (!pill || !rolesInner || !btn) return;
 
-        const btnRect = btn.getBoundingClientRect();
         const wrapRect = rolesInner.getBoundingClientRect();
+        const btnRect = btn.getBoundingClientRect();
 
-        let width = btnRect.width || wrapRect.width / roleBtns.length;
-        let x = btnRect.left - wrapRect.left || 0;
+        const padding = 4; // ίδιο με το CSS
+        const x = btnRect.left - wrapRect.left - padding;
+        const width = btnRect.width;
+
 
         gsap.to(pill, {
-            x, width, duration: animate ? 0.32 : 0, ease: 'power3.out'
+            x,
+            width,
+            duration: animate ? 0.32 : 0,
+            ease: 'power3.out',
+            overwrite: true
         });
     }
+
 
     function setInitialPillPosition() {
         const activeBtn = overlay.querySelector('.sigma-auth-role-btn.is-active') || roleBtns[0];

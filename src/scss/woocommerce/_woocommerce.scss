@@ -56,3 +56,8 @@
     }
   }
 }
+
+.woocommerce .products ul::after, .woocommerce .products ul::before, .woocommerce ul.products::after, .woocommerce ul.products::before {
+  content: " ";
+  display: none;
+}

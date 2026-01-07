@@ -24,6 +24,8 @@ import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
 import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
 import {initAuthModal} from './modules/woocommerce/login-modal';
+import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
+import {initProductList} from './modules/woocommerce/product-list.js';
 
 // Import GSAP core and plugins
 import {gsap} from 'gsap';
@@ -101,7 +103,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         //  ⬇⬇ *ΜΕΤΑ το refresh* — εδώ πρέπει να μπει
         initScrollVideo();
-
+        initLoadMoreProducts();
+        initProductList();
         if (typeof initMegaMenu === 'function') {
             initMegaMenu();
         }

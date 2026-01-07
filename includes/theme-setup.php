@@ -3,6 +3,7 @@
  * Theme setup and support - Minimal configuration
  */
 add_action('after_setup_theme', 'ruined_theme_setup');
+add_action('admin_bar_menu', 'ruined_add_template_info_to_admin_bar', 1000);
 add_action('init', 'ruined_add_post_thumbnail_support', 0); // Changed priority to 0 to run earlier
 add_action('current_screen', 'ruined_ensure_featured_image_support'); // Changed to current_screen hook
 
@@ -180,6 +181,90 @@ add_action( 'woocommerce_before_main_content', 'rv_show_pages_hero_woo', 5 );
 
 
 
+
+/**
+ * Add current template information to the admin bar
+ */
+function ruined_add_template_info_to_admin_bar($wp_admin_bar) {
+    if (!is_admin() && is_admin_bar_showing()) {
+        global $template;
+        $template_name = basename($template);
+        $template_path = str_replace(ABSPATH, '', $template);
+        
+        // Get template hierarchy
+        $hierarchy = [];
+        if (is_404()) {
+            $hierarchy[] = '404.php';
+        } elseif (is_search()) {
+            $hierarchy[] = 'search.php';
+        } elseif (is_front_page()) {
+            $hierarchy[] = 'front-page.php';
+        } elseif (is_home()) {
+            $hierarchy[] = 'home.php';
+            $hierarchy[] = 'index.php';
+        } elseif (is_post_type_archive()) {
+            $post_type = get_post_type();
+            $hierarchy[] = 'archive-' . $post_type . '.php';
+            $hierarchy[] = 'archive.php';
+            $hierarchy[] = 'index.php';
+        } elseif (is_tax() || is_category() || is_tag()) {
+            $term = get_queried_object();
+            if ($term) {
+                if (!empty($term->taxonomy)) {
+                    $hierarchy[] = 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+                    $hierarchy[] = 'taxonomy-' . $term->taxonomy . '.php';
+                }
+                $hierarchy[] = 'archive.php';
+                $hierarchy[] = 'index.php';
+            }
+        } elseif (is_singular()) {
+            $post = get_queried_object();
+            if ($post) {
+                $hierarchy[] = 'single-' . $post->post_type . '-' . $post->post_name . '.php';
+                $hierarchy[] = 'single-' . $post->post_type . '.php';
+                $hierarchy[] = 'single.php';
+                $hierarchy[] = 'singular.php';
+                $hierarchy[] = 'index.php';
+            }
+        } elseif (is_archive()) {
+            $hierarchy[] = 'archive.php';
+            $hierarchy[] = 'index.php';
+        } else {
+            $hierarchy[] = 'index.php';
+        }
+        
+        // Add parent node
+        $wp_admin_bar->add_node([
+            'id'    => 'template-info',
+            'title' => 'Template: ' . $template_name,
+            'href'  => '#',
+            'meta'  => ['title' => $template_path]
+        ]);
+        
+        // Add template path
+        $wp_admin_bar->add_node([
+            'id'     => 'template-path',
+            'parent' => 'template-info',
+            'title'  => 'Path: ' . $template_path
+        ]);
+        
+        // Add template hierarchy
+        $wp_admin_bar->add_node([
+            'id'     => 'template-hierarchy',
+            'parent' => 'template-info',
+            'title'  => 'Template Hierarchy:'
+        ]);
+        
+        foreach ($hierarchy as $index => $hierarchy_item) {
+            $wp_admin_bar->add_node([
+                'id'     => 'template-hierarchy-' . $index,
+                'parent' => 'template-hierarchy',
+                'title'  => ($index + 1) . '. ' . $hierarchy_item,
+                'meta'   => ['class' => 'template-hierarchy-item']
+            ]);
+        }
+    }
+}
 
 add_action('wp_footer', function () { ?>
     <script>

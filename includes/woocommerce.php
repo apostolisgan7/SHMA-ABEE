@@ -192,3 +192,36 @@ function ruined_render_shop_header() {
 }
 add_action('ruined_before_shop_grid', 'ruined_render_shop_header');
 
+
+
+// ========================
+// LOAD MORE
+// ========================
+
+remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
+
+add_action('wp_ajax_rv_load_more_products', 'rv_load_more_products');
+add_action('wp_ajax_nopriv_rv_load_more_products', 'rv_load_more_products');
+
+function rv_load_more_products() {
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+
+    $args = [
+            'post_type'      => 'product',
+            'post_status'    => 'publish',
+            'posts_per_page' => 12,
+            'paged'          => $page,
+    ];
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            wc_get_template_part('content', 'product');
+        }
+    }
+
+    wp_reset_postdata();
+    wp_die();
+}

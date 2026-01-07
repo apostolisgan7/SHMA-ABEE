@@ -361,6 +361,7 @@ body.shop-view-list {
 }
 
 @media (max-width: 768px) {
+
   .products {
     @apply gap-3;
 
@@ -377,7 +378,45 @@ body.shop-view-list {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 567px) {
+  body:not(.shop-filters-hidden) .shop_content {
+    margin-left: 0%;
+  }
+  .archive-header {
+    display: flex;
+    justify-content: space-between;
+
+    .archive_head_item {
+      padding: 4px 12px;
+      height: 46px;
+    }
+
+    &__filters {
+      height: 46px;
+      span{
+        display: none;
+      }
+    }
+
+    button.shop-sorting__trigger {
+      min-width: auto;
+      font-size: 0.8rem;
+    }
+
+    &__center {
+      display: none !important;
+    }
+
+    .shop-view-toggle {
+      .text_label {
+        display: none;
+      }
+    }
+  }
+  .shop_sidebar{
+    position: static;
+    width: 100%;
+  }
   .products {
     @apply grid-cols-1 gap-4;
   }

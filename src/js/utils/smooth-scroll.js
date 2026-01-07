@@ -34,9 +34,6 @@ export function initSmoothScroll() {
         ScrollTrigger.update();
     });
 
-    // ❗ DO NOT refresh ScrollTrigger here.
-    // SiteGround + Lenis = infinite refresh loop if we do.
-
     document.documentElement.classList.add("smooth-scroll");
     document.documentElement.setAttribute("data-scroll", "");
 

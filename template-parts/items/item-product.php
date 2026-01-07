@@ -52,7 +52,7 @@ $btn_attrs = $show_add_to_cart ? sprintf(
         esc_attr($product->get_sku())
 ) : 'class="rv-product-card__btn"';
 ?>
-<article class="rv-product-card">
+<li class="rv-product-card">
 
     <a class="rv-product-card__link"
        href="<?php echo esc_url( $permalink ); ?>"
@@ -60,16 +60,25 @@ $btn_attrs = $show_add_to_cart ? sprintf(
 
         <!-- IMAGE -->
         <div class="rv-product-card__media">
+
             <img class="rv-product-card__img rv-product-card__img--main"
                  src="<?php echo esc_url( $img_src ); ?>"
                  alt="<?php echo esc_attr( $img_alt ); ?>" />
 
+            <?php if ( $gallery_img_src ) : ?>
+                <img class="rv-product-card__img rv-product-card__img--hover"
+                     src="<?php echo esc_url( $gallery_img_src ); ?>"
+                     alt="<?php echo esc_attr( $gallery_img_alt ); ?>" />
+            <?php endif; ?>
+
             <?php if ( $in_stock ) : ?>
                 <span class="rv-product-card__stock">
-                    <i></i><?php _e('Διαθέσιμο','ruined'); ?>
-                </span>
+            <i></i><?php _e('Διαθέσιμο','ruined'); ?>
+        </span>
             <?php endif; ?>
+
         </div>
+
 
         <!-- META -->
         <div class="rv-product-card__meta">
@@ -103,4 +112,4 @@ $btn_attrs = $show_add_to_cart ? sprintf(
         </svg>
     </a>
 
-</article>
+</li>

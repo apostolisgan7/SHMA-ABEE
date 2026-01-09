@@ -321,7 +321,7 @@
 }
 
 .password-strength {
-  margin-top: 0px;
+  margin-top: -18px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -337,7 +337,7 @@
 .password-strength__bars span {
   flex: 1;
   height: 4px;
-  background: #e5e7eb; // γκρι inactive
+  background: transparent;
   border-radius: 2px;
   transition: background-color 0.2s ease;
 }

@@ -95,7 +95,7 @@ textarea:focus {
 }
 
 // ειδικό για password, για να κάτσει το eye icon δεξιά
-.floating-field--password {
+.floating-field--password, .form-row-wide {
   position: relative;
 
   label {

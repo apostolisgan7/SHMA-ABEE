@@ -3,7 +3,7 @@
 .rv-product-card {
   position: relative;
   border-radius: 4px;
-  padding-bottom: 10px;
+  padding-bottom: 0;
   overflow: hidden;
   height: 100%;
 
@@ -117,7 +117,7 @@
     grid-template-columns: 1fr auto;
     gap: 10px 16px;
     align-items: center;
-    padding: 14px 16px 10px;
+    padding: 14px 16px 16px;
     border-top: 1px solid #cfe7cf;
     background: #fff;
     margin-top: auto;

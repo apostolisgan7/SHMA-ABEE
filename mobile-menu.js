@@ -15,7 +15,7 @@ function initMobileMenu() {
             },
             theme: "white",
             counters: { add: false },
-            iconPanels: { add: true, visible: 1 },
+            iconPanels: { add: false, visible: 1 },
             iconbar: {
                 use: true,
                 top: [

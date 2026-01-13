@@ -22,16 +22,22 @@ function sigma_auth_register_form() {
                class="js-auth-role-input"
                value="customer_b2c">
 
-        <!-- ================= EMAIL ================= -->
+        <?php 
+    // Get the form type (company, municipality, or default to individual)
+    $form_type = apply_filters('sigma_register_form_type', 'individual');
+    $form_suffix = $form_type !== 'individual' ? '_' . $form_type : '';
+    ?>
+    
+    <!-- ================= EMAIL ================= -->
     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide floating-field">
         <input type="email"
                class="woocommerce-Input woocommerce-Input--text input-text"
                name="email"
-               id="reg_email"
+               id="reg_email<?php echo esc_attr($form_suffix); ?>"
                autocomplete="email"
                placeholder=" "
                required>
-        <label for="reg_email"><?php esc_html_e( 'Email', 'ruined' ); ?></label>
+        <label for="reg_email<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Email', 'ruined' ); ?></label>
     </p>
 
     <!-- ================= PASSWORD ================= -->
@@ -39,11 +45,11 @@ function sigma_auth_register_form() {
         <input class="woocommerce-Input woocommerce-Input--text input-text"
                type="password"
                name="password"
-               id="register_password"
+               id="register_password<?php echo esc_attr($form_suffix); ?>"
                autocomplete="new-password"
                placeholder=" "
                required />
-        <label for="register_password"><?php esc_html_e( 'Κωδικός Πρόσβασης', 'ruined' ); ?> </label>
+        <label for="register_password<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Κωδικός Πρόσβασης', 'ruined' ); ?> </label>
 
         <button type="button"
                 class="floating-field__toggle js-password-toggle"
@@ -89,9 +95,9 @@ function sigma_auth_register_form() {
         <input type="text"
                class="woocommerce-Input woocommerce-Input--text input-text"
                name="customer_name"
-               id="customer_name"
+               id="customer_name<?php echo esc_attr($form_suffix); ?>"
                placeholder=" ">
-        <label for="customer_name"><?php esc_html_e( 'Ονοματεπώνυμο', 'ruined' ); ?></label>
+        <label for="customer_name<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Ονοματεπώνυμο', 'ruined' ); ?></label>
     </p>
 
     <!-- ================= ΕΠΩΝΥΜΙΑ ΕΤΑΙΡΕΙΑΣ ================= -->
@@ -100,9 +106,9 @@ function sigma_auth_register_form() {
         <input type="text"
                class="woocommerce-Input woocommerce-Input--text input-text"
                name="company_name"
-               id="company_name"
+               id="company_name<?php echo esc_attr($form_suffix); ?>"
                placeholder=" ">
-        <label for="company_name"><?php esc_html_e( 'Επωνυμία Εταιρείας', 'ruined' ); ?></label>
+        <label for="company_name<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Επωνυμία Εταιρείας', 'ruined' ); ?></label>
     </p>
 
     <!-- ================= ΔΗΜΟΣ ================= -->
@@ -111,9 +117,9 @@ function sigma_auth_register_form() {
         <input type="text"
                class="woocommerce-Input woocommerce-Input--text input-text"
                name="municipality_name"
-               id="municipality_name"
+               id="municipality_name<?php echo esc_attr($form_suffix); ?>"
                placeholder=" ">
-        <label for="municipality_name"><?php esc_html_e( 'Όνομα Δήμου', 'ruined' ); ?></label>
+        <label for="municipality_name<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Όνομα Δήμου', 'ruined' ); ?></label>
     </p>
 
     <!-- ================= ΤΗΛΕΦΩΝΟ (ΟΛΟΙ) ================= -->
@@ -121,10 +127,10 @@ function sigma_auth_register_form() {
         <input type="tel"
                class="woocommerce-Input woocommerce-Input--text input-text"
                name="phone"
-               id="phone"
+               id="phone<?php echo esc_attr($form_suffix); ?>"
                placeholder=" "
                required>
-        <label for="phone"><?php esc_html_e( 'Τηλέφωνο', 'ruined' ); ?></label>
+        <label for="phone<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Τηλέφωνο', 'ruined' ); ?></label>
     </p>
 
     <!-- ================= ΑΦΜ (ΕΤΑΙΡΕΙΑ / ΔΗΜΟΣ) ================= -->
@@ -133,9 +139,9 @@ function sigma_auth_register_form() {
         <input type="text"
                class="woocommerce-Input woocommerce-Input--text input-text"
                name="vat"
-               id="vat"
+               id="vat<?php echo esc_attr($form_suffix); ?>"
                placeholder=" ">
-        <label for="vat"><?php esc_html_e( 'ΑΦΜ', 'ruined' ); ?></label>
+        <label for="vat<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'ΑΦΜ', 'ruined' ); ?></label>
     </p>
 
     <?php do_action( 'woocommerce_register_form' ); ?>

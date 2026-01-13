@@ -1,5 +1,4 @@
 @forward 'list';
-@forward 'single-product';
 @forward 'cart';
 @forward 'woocommerce';
 @forward 'checkout';
@@ -7,3 +6,8 @@
 @forward 'filters';
 @forward 'offcanvas-cart';
 @forward 'notifications';
+@forward 'single-product/single_product';
+@forward 'single-product/gallery';
+@forward 'single-product/related';
+@forward 'single-product/tabs';
+@forward 'single-product/summary';

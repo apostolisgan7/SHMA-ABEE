@@ -37,7 +37,14 @@ export function initLoadMoreProducts() {
 
                 grid.insertAdjacentHTML('beforeend', html);
                 grid.dataset.page = page;
+                const resultCountEl = document.getElementById('rv-result-count');
+                const total = parseInt(dataEl.dataset.total, 10);
 
+                if (resultCountEl) {
+                    const shown = grid.querySelectorAll('.rv-product-card').length;
+
+                    resultCountEl.textContent = `Showing 1–${shown} of ${total} results`;
+                }
                 const cards = grid.querySelectorAll('.rv-product-card');
                 const newCards = Array.from(cards).slice(prevCount);
 

@@ -26,6 +26,7 @@ import {initScrollVideo} from './modules/ui/scroll-video';
 import {initAuthModal} from './modules/woocommerce/login-modal';
 import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
 import {initProductList} from './modules/woocommerce/product-list.js';
+import {initProductGalleryObserver} from './modules/woocommerce/single-product/product-gallery.js';
 
 // Import GSAP core and plugins
 import {gsap} from 'gsap';
@@ -77,10 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("%cTheme initialized", "color:#4CAF50");
 
+    // Initialize Alpine.js
     Alpine.start();
+    
+    // Initialize Swipers
     initSwipers();
-
-    // 1) Initialize Lenis FIRST and get instance
+    
+    // Initialize product gallery
+    document.addEventListener('DOMContentLoaded', () => {
+        initProductGalleryObserver();
+    });
+    
+    // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
 
     // 2) Force a ScrollTrigger refresh AFTER Lenis settles

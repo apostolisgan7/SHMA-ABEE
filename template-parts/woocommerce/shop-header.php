@@ -64,7 +64,9 @@
 
     <!-- CENTER -->
     <div class="archive-header__center archive_head_item">
+    <span id="rv-result-count">
         <?php woocommerce_result_count(); ?>
+    </span>
     </div>
 
     <!-- RIGHT -->
@@ -104,7 +106,6 @@
                 <?php woocommerce_catalog_ordering(); ?>
             </div>
         </div>
-
 
 
     </div>

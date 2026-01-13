@@ -225,3 +225,17 @@ function rv_load_more_products() {
     wp_reset_postdata();
     wp_die();
 }
+
+
+// ========================
+// SINGLE PRODUCT
+// ========================
+add_action( 'after_setup_theme', function () {
+
+    // Disable Woo default gallery scripts
+    remove_theme_support( 'wc-product-gallery-zoom' );
+    remove_theme_support( 'wc-product-gallery-lightbox' );
+    remove_theme_support( 'wc-product-gallery-slider' );
+
+}, 100 );
+

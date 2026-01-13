@@ -1,0 +1,9 @@
+@use '../../abstracts' as *;
+
+.woocommerce #content div.product .summary.entry-summary {
+  width: 100%;
+  float: unset;
+  max-width: 35%;
+  align-items: flex-start;
+  justify-content: space-between;
+}

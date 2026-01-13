@@ -91,13 +91,19 @@ if (!defined('ABSPATH')) {
 
             <div id="panel-company" class="sigma-auth-panel sigma-auth-pane--signup" role="tabpanel" aria-labelledby="tab-company" tabindex="0" hidden>
                 <?php
+                // Add a filter to set the form type to company before loading the form
+                add_filter('sigma_register_form_type', function() { return 'company'; });
                 do_action('sigma_auth_register_form_inside_modal');
+                remove_filter('sigma_register_form_type', function() { return 'company'; });
                 ?>
             </div>
             
             <div id="panel-municipality" class="sigma-auth-panel sigma-auth-pane--signup" role="tabpanel" aria-labelledby="tab-municipality" tabindex="0" hidden>
                 <?php
+                // Add a filter to set the form type to municipality before loading the form
+                add_filter('sigma_register_form_type', function() { return 'municipality'; });
                 do_action('sigma_auth_register_form_inside_modal');
+                remove_filter('sigma_register_form_type', function() { return 'municipality'; });
                 ?>
             </div>
 

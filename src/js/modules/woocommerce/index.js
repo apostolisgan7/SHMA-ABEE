@@ -4,8 +4,7 @@
  */
 
 export function initWooCommerce() {
-    console.log('WooCommerce: Initializing');
-    
+
     let isUpdating = false;
     let updateQueue = [];
     

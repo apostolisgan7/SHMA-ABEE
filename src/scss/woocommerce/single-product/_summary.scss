@@ -3,7 +3,421 @@
 .woocommerce #content div.product .summary.entry-summary {
   width: 100%;
   float: unset;
-  max-width: 35%;
   align-items: flex-start;
-  justify-content: space-between;
+  position: sticky;
+  top: 5rem;
+  z-index: 11;
+  margin-top: 3vh;
+}
+
+.product-meta-below-gallery {
+  padding: 3vh 0 5vh;
+  border-top: 1px solid lightgray;
+
+  .rv-product-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .rv-product-category {
+      font-size: 22px;
+      font-weight: 500;
+      color: $secondary-color;
+    }
+
+    h1,
+    .product_title {
+      font-size: clamp(28px, 3vw, 46px);
+      line-height: 1.1;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    /* =========================
+     * PRICE + META ROW
+     * ========================= */
+    .rv-product-price-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      .summary.entry-summary {
+        margin: 0 !important;
+        display: inline-flex !important;
+        width: auto !important;
+      }
+
+      .price {
+        font-size: 24px;
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 0;
+      }
+
+      .rv-product-discount-badge {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 8px;
+        background: #eee;
+        border-radius: 4px;
+      }
+
+      .rv-product-stock {
+        font-size: 17px;
+        font-weight: 700;
+
+        &.stock-in {
+          color: #5fbf55;
+        }
+
+        &.stock-out {
+          color: #e53935;
+        }
+
+        &.stock-backorder {
+          color: #f9a825;
+        }
+      }
+
+    }
+
+    .dot_icon {
+      position: relative;
+      margin-left: 15px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -15px;
+        transform: translate(-50%, -50%);
+        width: 6px;
+        height: 5px;
+        background: #000;
+        border-radius: 0;
+      }
+    }
+
+    /* =========================
+     * SKU
+     * ========================= */
+    .rv-product-sku {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 17px;
+      font-weight: 700;
+
+      .copy-sku {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: color 0.2s ease;
+        background: transparent;
+        padding: 0;
+
+        svg {
+          pointer-events: none;
+        }
+
+        &::after {
+          content: 'Αντιγραφή';
+          font-size: 12px;
+          opacity: 0.6;
+          pointer-events: none;
+          color: transparent;
+        }
+
+        &.copied {
+          color: #5fbf55;
+
+          &::after {
+            content: '✓ Αντιγράφηκε';
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    /* =========================
+     * ACTION LINKS
+     * ========================= */
+    .rv-product-actions {
+      display: flex;
+      gap: 24px;
+      margin-top: 10px;
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .rv-video-trigger {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: #000;
+          color: #fff;
+          display: grid;
+          place-items: center;
+        }
+      }
+    }
+  }
+}
+
+
+/* =========================
+   RIGHT SIDE SUMMARY ACCORDIONS
+========================= */
+
+.rv-summary-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  /* ========== ACCORDION ITEM ========== */
+  .rv-accordion-item {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  /* ========== HEADER ========== */
+  .rv-accordion-item > button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
+    color: $primary-color;
+
+    span {
+      display: inline-block;
+    }
+
+    .rv-accordion-arrow {
+      transition: transform 0.3s ease;
+      border: solid 1px #D6D6D6;
+      width: 48px;
+      border-radius: 6px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-basis: auto;
+      flex-shrink: 0;
+
+      svg {
+        flex-shrink: 0;
+        width: 9px;
+        height: 9px;
+        transition: transform 0.3s ease;
+      }
+    }
+
+    &[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+  }
+
+
+  /* ========== CONTENT ========== */
+  .rv-accordion-item > div {
+    padding: 20px;
+    border-top: 1px solid #f2f2f2;
+  }
+
+  /* =====================================
+     YITH VARIATIONS (ΤΕΧΝΙΚΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ)
+     ===================================== */
+
+  form.variations_form {
+    margin: 0 !important;
+
+    table.variations {
+      width: 100%;
+      border: none;
+      margin: 0;
+
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      tr {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      label {
+        font-size: 12px;
+        font-weight: 500 !important;
+        text-transform: uppercase;
+        color: #9a9a9a;
+        line-height: 1;
+        text-align: left;
+      }
+
+      td.value {
+        margin: 0;
+      }
+
+      .select_box_image {
+        display: flex;
+        justify-content: space-between;
+
+
+        .select_option_image {
+          min-width: 120px;
+          min-height: 60px;
+          border: 1px solid #EEEEEE;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          overflow: clip;
+          transition: ease-in-out 0.2s;
+
+          &:hover {
+            border: 1px solid $secondary-color;
+          }
+
+          &.selected {
+            border: 1px solid $secondary-color;
+
+            &:after {
+              content: "";
+              position: absolute;
+              top: 0;
+              right: 0px;
+              width: 15px;
+              height: 15px;
+              border-radius: 0 0 0 2px;
+              background: $secondary-color;
+              z-index: 1;
+            }
+
+            &:before {
+              content: "";
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              width: 4px;
+              height: 4px;
+              background: #fff;
+              z-index: 2;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* ========== YITH SWATCHES GRID ========== */
+  .yith-wccl-radio {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .yith-wccl-option {
+    border-radius: 10px;
+    padding: 12px 10px;
+    min-height: 72px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #eaeaea;
+    background: #fff;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    img,
+    svg {
+      max-width: 32px;
+      max-height: 32px;
+      margin-bottom: 6px;
+      opacity: 0.5;
+    }
+
+    .yith-wccl-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    &:hover {
+      border-color: #cfcfcf;
+    }
+  }
+
+  /* ACTIVE */
+  .yith-wccl-option.selected {
+    border-color: #6bcf6b;
+    box-shadow: 0 0 0 1px #6bcf6b;
+
+    img,
+    svg {
+      opacity: 1;
+    }
+
+    .yith-wccl-label {
+      color: #6bcf6b;
+    }
+  }
+
+  /* DISABLED */
+  .yith-wccl-option.disabled {
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  /* ========== RESET LINK (Clear) ========== */
+  .reset_variations {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #999;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* ========== HIDE DEFAULT ADD TO CART ========== */
+  .single_add_to_cart_button {
+    display: none;
+  }
+
+  .quantity {
+    display: none;
+  }
 }

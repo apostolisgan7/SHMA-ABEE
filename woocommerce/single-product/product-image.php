@@ -16,10 +16,23 @@ $all_ids = array_filter(array_merge([$featured_id], $gallery_ids));
         <div class="swiper-wrapper">
 
             <?php foreach ($all_ids as $img_id): ?>
+                <?php
+                $full = wp_get_attachment_image_url($img_id, 'full');
+                ?>
                 <div class="swiper-slide">
-                    <?php echo wp_get_attachment_image($img_id, 'large', false, ['class' => 'main-slide-image']); ?>
+                    <?php echo wp_get_attachment_image(
+                            $img_id,
+                            'large',
+                            false,
+                            [
+                                    'class' => 'main-slide-image',
+                                    'data-fancybox' => 'product-gallery',
+                                    'data-src' => esc_url($full),
+                            ]
+                    ); ?>
                 </div>
             <?php endforeach; ?>
+
 
         </div>
 

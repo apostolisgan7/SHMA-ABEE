@@ -27,6 +27,7 @@ import {initAuthModal} from './modules/woocommerce/login-modal';
 import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
 import {initProductList} from './modules/woocommerce/product-list.js';
 import {initProductGalleryObserver} from './modules/woocommerce/single-product/product-gallery.js';
+import {initSummary} from './modules/woocommerce/single-product/summary.js';
 
 // Import GSAP core and plugins
 import {gsap} from 'gsap';
@@ -83,11 +84,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Initialize Swipers
     initSwipers();
-    
-    // Initialize product gallery
-    document.addEventListener('DOMContentLoaded', () => {
-        initProductGalleryObserver();
-    });
+    initProductGalleryObserver();
+    initSummary();
     
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();

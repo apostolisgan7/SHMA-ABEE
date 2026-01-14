@@ -4,8 +4,6 @@
 .woocommerce-product-gallery {
   position: relative;
   width: 100%;
-  flex: 0 0 65%;
-  max-width: 65%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -26,12 +24,25 @@
   background: #f5f5f5;
   border-radius: 6px;
 
+  .rv-zoom-lens {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    pointer-events: none;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
+    transform: translate(120%, 15%);
+    z-index: 10;
+  }
+
   /* Center slides */
   .swiper-wrapper {
     display: flex;
     width: 100%;
     height: 100%;
-
+    padding-bottom: 8vh;
   }
 
   /* Slide styling */
@@ -54,19 +65,29 @@
       height: auto;
       object-fit: contain;
       mix-blend-mode: darken;
+      max-height: 500px;
     }
   }
 
   /* Navigation buttons */
   .swiper-button-prev,
   .swiper-button-next {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     color: #333;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    svg {
+      width: 11px;
+      height: 11px;
+
+      path {
+        stroke-width: 2px;
+        stroke: black;
+      }
+    }
 
     &::after {
       font-size: 18px;
@@ -74,9 +95,8 @@
     }
 
     &:hover {
-      background: #000;
-      color: #fff;
-      transform: scale(1.1);
+      background: #fff !important;
+      border-color: transparent !important;
     }
 
     &.swiper-button-disabled {
@@ -96,12 +116,17 @@
     .swiper-button-prev,
     .swiper-button-next {
       position: static;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, .12);
+      width: 60px;
+      height: 60px;
       color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #A3A3A3;
+      background: transparent;
+      cursor: pointer;
+      transition: 0.2s ease;
+      border-radius: 8px;
 
       &::after {
         font-size: 14px;
@@ -151,7 +176,7 @@
 
     &-thumb-active {
       opacity: 1;
-      border-color: $secondary-color;
+      border-color: $primary-color;
     }
 
     img {
@@ -186,6 +211,10 @@
     padding: 5px;
     box-sizing: border-box;
     background: #E2E3E7;
+
+    &:hover {
+      background: #fff;
+    }
   }
 }
 
@@ -208,9 +237,13 @@
 @media (max-width: 900px) {
   .woocommerce-product-gallery {
     grid-template-columns: 1fr;
+    display: grid;
 
     .rv-gallery-thumbs {
       order: 2;
     }
+  }
+  .rv-zoom-lens {
+    display: none;
   }
 }

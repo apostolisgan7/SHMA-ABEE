@@ -24,9 +24,11 @@
     "vite": "^7.1.10"
   },
   "dependencies": {
+    "@fancyapps/ui": "^6.1.7",
     "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/typography": "^0.5.10",
     "alpinejs": "^3.15.1",
+    "fancybox": "^3.0.1",
     "gsap": "^3.13.0",
     "memu-js": "^0.2.1",
     "mmenu-js": "^8.0.1",

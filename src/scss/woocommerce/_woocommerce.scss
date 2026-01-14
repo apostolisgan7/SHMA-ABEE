@@ -61,3 +61,16 @@
   content: " ";
   display: none;
 }
+
+
+.woocommerce span.onsale {
+  background: #e00000;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 1.7rem;
+}

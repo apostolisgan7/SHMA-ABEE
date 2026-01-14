@@ -1,4 +1,112 @@
-.single_top_wrapper{
-  display: flex;
-  gap: 30px;
+@use '../../abstracts' as *;
+
+.single-product {
+  .product {
+    margin-top: 2vh;
+  }
+
+  .rv-breadcrumbs {
+    margin-bottom: -3rem;
+    position: relative;
+    z-index: 10;
+
+    nav.rank-math-breadcrumb {
+      font-weight: 500;
+
+      a {
+        color: #000;
+        font-size: 13px;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+
+      p {
+        font-size: 13px;
+        text-transform: uppercase;
+        margin: 0;
+        color: #000;
+
+        span.separator {
+          margin: 0 8px;
+        }
+      }
+    }
+  }
+
+  .single_top_wrapper {
+    display: grid;
+    grid-template-columns: 73% 25%;
+    gap: 30px;
+    align-items: start;
+    margin-bottom: 5vh;
+
+    /* =========================
+       LEFT SIDE
+    ========================= */
+    .left-area-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+
+      .product-gallery-area {
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+
+        span.onsale {
+          top: 8%;
+          right: 3%;
+          left: unset;
+        }
+      }
+
+      .product-meta-below-gallery {
+        width: 100%;
+      }
+    }
+
+    /* =========================
+       RIGHT SIDE
+    ========================= */
+    .summary.entry-summary {
+      width: 100%;
+      .single_variation_wrap{
+        .woocommerce-variation-price {
+
+        }      }
+    }
+  }
+
+  /* =========================
+     RESPONSIVE
+  ========================= */
+
+  /* Laptop */
+  @media (max-width: 1200px) {
+    .single_top_wrapper {
+      grid-template-columns: 60% 40%;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 992px) {
+    .single_top_wrapper {
+      grid-template-columns: 1fr;
+      gap: 40px;
+
+      .summary.entry-summary {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 576px) {
+    .single_top_wrapper {
+      gap: 32px;
+    }
+  }
 }

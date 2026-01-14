@@ -50,6 +50,7 @@
     align-items: center;
     justify-content: space-between;
     min-height: 100px;
+    transition: ease-in-out 0.2s;
     gap: 1.5rem;
   }
 
@@ -72,6 +73,7 @@
       max-height: 150px;
       width: 100%;
       max-width: 250px;
+      transition: ease-in-out 0.2s;
     }
   }
 

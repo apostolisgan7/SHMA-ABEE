@@ -1,120 +1,275 @@
-// Import Swiper core and required modules
+// Import Swiper & Fancybox
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
+// Instances
+let mainSwiper = null;
+let thumbsSwiper = null;
+let lens = null;
+let galleryInitialized = false;
+let galleryRoot = null;
+let galleryObserver = null;
 
-function initSimpleGallery() {
-
+/* =========================
+   INIT GALLERY
+========================= */
+function initProductGallery() {
     const mainEl = document.querySelector('.rv-gallery-main');
     const thumbsEl = document.querySelector('.rv-gallery-thumbs');
 
+    if (!mainEl || !thumbsEl) return;
 
+    // Αν το ίδιο DOM → μην ξανακάνεις init
+    if (galleryInitialized && mainEl === galleryRoot) return;
 
-    try {
-        console.log(' Creating Swiper instances...');
+    // Αν έχει αντικατασταθεί → καθάρισε
+    destroyGallery();
 
-        // Initialize thumbnails first
-        const thumbsSwiper = new Swiper(thumbsEl, {
-            spaceBetween: 10,
-            slidesPerView: 4,
-            watchSlidesProgress: true,
-            direction: 'vertical',
-            freeMode: true,
-            breakpoints: {
-                0: {
-                    direction: 'horizontal',
-                    slidesPerView: 4,
-                    spaceBetween: 8
-                },
-                768: {
-                    direction: 'vertical',
-                    slidesPerView: 4,
-                    spaceBetween: 10
-                }
+    galleryInitialized = true;
+    galleryRoot = mainEl;
+
+    /* Thumbnails */
+    thumbsSwiper = new Swiper(thumbsEl, {
+        slidesPerView: 4,
+        spaceBetween: 10,
+        watchSlidesProgress: true,
+        freeMode: true,
+        direction: 'vertical',
+        breakpoints: {
+            0: {
+                direction: 'horizontal',
+                slidesPerView: 4,
+                spaceBetween: 8
             },
-            on: {
-                init: function() {
-                    // Make thumbs visible after initialization
-                    thumbsEl.style.opacity = '1';
-                }
+            768: {
+                direction: 'vertical',
+                slidesPerView: 4,
+                spaceBetween: 10
             }
-        });
+        }
+    });
 
-        // Initialize main slider with thumbs
-        const mainSwiper = new Swiper(mainEl, {
-            init: false,
-            speed: 400,
-            spaceBetween: 10,
-            loop: true,
-            watchSlidesProgress: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            thumbs: {
-                swiper: thumbsSwiper,
-                slideThumbActiveClass: 'swiper-slide-thumb-active'
-            },
-            on: {
-                init: function() {
-                    console.log(' Main Swiper initialized with thumbs!');
-                    console.log('Total slides:', this.slides.length);
-                    
-                    // Force update and redraw
-                    this.update();
-                    this.updateSize();
-                    this.updateSlides();
-                    this.updateProgress();
-                    this.updateSlidesClasses();
-                    
-                    // Add custom class when initialized
-                    mainEl.classList.add('is-initialized');
-                },
-            }
-        });
+    /* Main */
+    mainSwiper = new Swiper(mainEl, {
+        speed: 400,
+        spaceBetween: 10,
+        loop: true,
+        watchSlidesProgress: true,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        thumbs: {
+            swiper: thumbsSwiper,
+            slideThumbActiveClass: 'swiper-slide-thumb-active'
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        }
+    });
 
-        // Initialize main swiper
-        mainSwiper.init();
-        
-        // Expose instances for debugging
-        window.swiperInstance = mainSwiper;
-        window.thumbsSwiper = thumbsSwiper;
+    initZoomLens(mainEl);
+    initFancybox();
+    initVariationHandlers();
 
-        // Click handler for thumbnails
-        const thumbSlides = thumbsEl.querySelectorAll('.swiper-slide');
-        thumbSlides.forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                mainSwiper.slideTo(index);
-            });
-        });
+    requestAnimationFrame(() => {
+        mainSwiper.update();
+        thumbsSwiper.update();
+    });
 
-        // Force update after a short delay
-        setTimeout(() => {
-            if (mainSwiper) {
-                mainSwiper.update();
-                thumbsSwiper.update();
-            }
-        }, 500);
+    observeGalleryReplacement();
+}
 
-    } catch (error) {
-        console.error(' Error initializing gallery:', error);
+/* =========================
+   DESTROY (SAFE)
+========================= */
+function destroyGallery() {
+    if (galleryObserver) {
+        galleryObserver.disconnect();
+        galleryObserver = null;
     }
+
+    if (mainSwiper) {
+        mainSwiper.destroy(true, true);
+        mainSwiper = null;
+    }
+
+    if (thumbsSwiper) {
+        thumbsSwiper.destroy(true, true);
+        thumbsSwiper = null;
+    }
+
+    if (lens && lens.parentNode) {
+        lens.parentNode.removeChild(lens);
+        lens = null;
+    }
+
+    galleryInitialized = false;
+    galleryRoot = null;
 }
 
-// Initialize when DOM is ready
-function init() {
+/* =========================
+   OBSERVE ROOT REPLACEMENT
+========================= */
+function observeGalleryReplacement() {
+    if (!galleryRoot) return;
 
-    // Try to initialize immediately
-    initSimpleGallery();
+    galleryObserver = new MutationObserver(() => {
+        const current = document.querySelector('.rv-gallery-main');
 
-    // Also try after a short delay in case of dynamic content
-    setTimeout(initSimpleGallery, 1000);
+        if (current && current !== galleryRoot) {
+            console.log('[Gallery] DOM replaced → re-init');
+            initProductGallery();
+        }
+    });
+
+    galleryObserver.observe(document.querySelector('.product') || document.body, {
+        childList: true,
+        subtree: true
+    });
 }
 
-// Start initialization
-document.addEventListener('DOMContentLoaded', init);
+/* =========================
+   ZOOM LENS
+========================= */
+function initZoomLens(container) {
+    lens = document.createElement('div');
+    lens.className = 'rv-zoom-lens';
+    container.appendChild(lens);
 
-// Export for backward compatibility
+    const ZOOM = 2;
+
+    container.addEventListener('mousemove', e => {
+        const img = container.querySelector('.swiper-slide-active img');
+        if (!img) return;
+
+        const rect = img.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+            lens.style.opacity = '0';
+            return;
+        }
+
+        lens.style.opacity = '1';
+        lens.style.left = `${x - lens.offsetWidth / 2}px`;
+        lens.style.top = `${y - lens.offsetHeight / 2}px`;
+        lens.style.backgroundImage = `url(${img.src})`;
+        lens.style.backgroundSize = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`;
+        lens.style.backgroundPosition = `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        lens.style.opacity = '0';
+    });
+}
+
+/* =========================
+   FANCYBOX
+========================= */
+function initFancybox() {
+    const zoomBtn = document.querySelector('.rv-gallery-zoom');
+    if (!zoomBtn) return;
+
+    zoomBtn.onclick = e => {
+        e.preventDefault();
+        if (!mainSwiper) return;
+
+        const images = document.querySelectorAll('.main-slide-image');
+
+        Fancybox.show(
+            [...images].map(img => ({
+                src: img.dataset.src || img.src,
+                type: 'image'
+            })),
+            {
+                startIndex: mainSwiper.realIndex ?? mainSwiper.activeIndex,
+                Thumbs: false,
+                Toolbar: { display: ["close", "zoom", "fullscreen"] }
+            }
+        );
+    };
+}
+
+/* =========================
+   VARIATIONS (SMART)
+========================= */
+function initVariationHandlers() {
+    const form = document.querySelector('form.variations_form');
+    if (!form) return;
+
+    if (window.yith_wccl) {
+        window.yith_wccl.disable_ajax = true;
+    }
+
+    jQuery(form).off('found_variation reset_data');
+
+    jQuery(form).on('found_variation', (_, variation) => {
+        if (!variation?.image || !mainSwiper) return;
+
+        const slide = mainSwiper.slides[0];
+        const img = slide?.querySelector('img');
+        if (!img) return;
+
+        if (!img.dataset.originalSrc) {
+            img.dataset.originalSrc = img.src;
+            img.dataset.originalSrcset = img.srcset;
+            img.dataset.originalDataSrc = img.dataset.src;
+        }
+
+        img.src = variation.image.src;
+        img.srcset = variation.image.src;
+        img.dataset.src = variation.image.full_src || variation.image.src;
+
+        smartUpdate();
+    });
+
+    jQuery(form).on('reset_data', () => {
+        if (!mainSwiper) return;
+
+        mainSwiper.slides.forEach(slide => {
+            const img = slide.querySelector('img');
+            if (!img?.dataset.originalSrc) return;
+
+            img.src = img.dataset.originalSrc;
+            img.srcset = img.dataset.originalSrcset;
+            img.dataset.src = img.dataset.originalDataSrc;
+        });
+
+        mainSwiper.slideToLoop(0);
+        smartUpdate();
+    });
+}
+
+/* =========================
+   SMART UPDATE
+========================= */
+function smartUpdate() {
+    requestAnimationFrame(() => {
+        mainSwiper.updateSlides();
+        mainSwiper.updateSize();
+        mainSwiper.updateProgress();
+        thumbsSwiper.update();
+    });
+}
+
+/* =========================
+   BOOT
+========================= */
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.body.classList.contains('single-product')) {
+        initProductGallery();
+    }
+});
+
+// backward compatibility
 export function initProductGalleryObserver() {
-    init();
+    initProductGallery();
 }
+
+// debug
+window.initProductGallery = initProductGallery;

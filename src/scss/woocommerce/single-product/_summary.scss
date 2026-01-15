@@ -1,5 +1,6 @@
 @use '../../abstracts' as *;
 
+
 .woocommerce #content div.product .summary.entry-summary {
   width: 100%;
   float: unset;
@@ -194,15 +195,16 @@
 
   /* ========== ACCORDION ITEM ========== */
   .rv-accordion-item {
-    background: #fff;
-    border-radius: 14px;
+    background: transparent;
+    border-radius: 6px;
     overflow: hidden;
   }
 
   /* ========== HEADER ========== */
   .rv-accordion-item > button {
-    background: transparent;
+    background: #fff;
     border: none;
+    border-radius: 6px;
     box-shadow: none;
     width: 100%;
     padding: 18px 20px;
@@ -247,7 +249,19 @@
   /* ========== CONTENT ========== */
   .rv-accordion-item > div {
     padding: 20px;
-    border-top: 1px solid #f2f2f2;
+    margin-top: 1vh;
+    background: #fff;
+    border: none;
+    border-radius: 6px;
+  }
+
+  .rv-accordion-item .main_accodion_content {
+    padding: 0;
+    margin-top: 1vh;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+
   }
 
   /* =====================================
@@ -256,16 +270,22 @@
 
   form.variations_form {
     margin: 0 !important;
+    flex-direction: column;
+    border-radius: 6px;
 
     table.variations {
       width: 100%;
       border: none;
-      margin: 0;
+      margin: 0 !important;
+
 
       tbody {
         display: flex;
         flex-direction: column;
         gap: 24px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 6px;
       }
 
       tr {
@@ -281,6 +301,8 @@
         color: #9a9a9a;
         line-height: 1;
         text-align: left;
+        width: 100%;
+        display: block;
       }
 
       td.value {
@@ -337,6 +359,8 @@
         }
       }
     }
+
+
   }
 
   /* ========== YITH SWATCHES GRID ========== */
@@ -410,14 +434,115 @@
     color: #999;
     text-decoration: underline;
     cursor: pointer;
-  }
-
-  /* ========== HIDE DEFAULT ADD TO CART ========== */
-  .single_add_to_cart_button {
     display: none;
   }
 
+
+  /* =========================
+     WOO QTY – HIDE REAL INPUT
+  ========================= */
   .quantity {
+    position: relative;
+
+    input.qty {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* =========================
+     CUSTOM QTY WRAPPER
+  ========================= */
+  .rv-qty {
+    display: flex;
+    align-items: stretch;
+    width: 120px;
+    height: 60px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  /* =========================
+     VALUE
+  ========================= */
+  .rv-qty-value {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+  }
+
+  /* =========================
+     CONTROLS
+  ========================= */
+  .rv-qty-controls {
+    display: flex;
+    flex-direction: column;
+    width: 36px;
+    border-left: 1px solid #e5e5e5;
+  }
+
+  /* =========================
+     BUTTONS
+  ========================= */
+  .rv-qty-btn {
+    all: unset;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:first-child {
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    svg {
+      width: 14px;
+      height: 8px;
+      stroke: #111;
+    }
+
+    &:hover {
+      background: #f3f3f3;
+    }
+
+    &:active {
+      background: #e9e9e9;
+    }
+  }
+
+  /* DOWN ARROW (rotate) */
+  .rv-qty-btn--down svg {
+    transform: rotate(180deg);
+  }
+
+  /* =========================
+     DISABLED STATE (OPTIONAL)
+  ========================= */
+  .rv-qty-btn.is-disabled {
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  .woocommerce-variation-add-to-cart.variations_button {
+    display: flex;
+    margin-top: 2vh;
+  }
+
+  .woocommerce-variation.single_variation {
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 1vh;
     display: none;
+
+    .woocommerce-variation-description {
+      display: none;
+    }
   }
 }

@@ -11,6 +11,8 @@ let lens = null;
 let galleryInitialized = false;
 let galleryRoot = null;
 let galleryObserver = null;
+let pendingVariationImage = null;
+
 
 /* =========================
    INIT GALLERY
@@ -81,6 +83,32 @@ function initProductGallery() {
     });
 
     observeGalleryReplacement();
+
+    // Apply variation image AFTER gallery rebuild
+    if (pendingVariationImage) {
+        requestAnimationFrame(() => {
+            const img = document.querySelector(
+                '.rv-gallery-main .swiper-slide-active img'
+            );
+
+            if (!img) return;
+
+            if (!img.dataset.originalSrc) {
+                img.dataset.originalSrc = img.src;
+                img.dataset.originalSrcset = img.srcset;
+                img.dataset.originalDataSrc = img.dataset.src;
+            }
+
+            img.src = pendingVariationImage.src;
+            img.srcset = pendingVariationImage.src;
+            img.dataset.src =
+                pendingVariationImage.full_src || pendingVariationImage.src;
+
+            img.decode?.().catch(() => {});
+            smartUpdate();
+        });
+    }
+
 }
 
 /* =========================
@@ -121,7 +149,6 @@ function observeGalleryReplacement() {
         const current = document.querySelector('.rv-gallery-main');
 
         if (current && current !== galleryRoot) {
-            console.log('[Gallery] DOM replaced → re-init');
             initProductGallery();
         }
     });
@@ -199,51 +226,33 @@ function initFancybox() {
    VARIATIONS (SMART)
 ========================= */
 function initVariationHandlers() {
-    const form = document.querySelector('form.variations_form');
-    if (!form) return;
 
-    if (window.yith_wccl) {
-        window.yith_wccl.disable_ajax = true;
-    }
+    jQuery(document).off('found_variation.rv reset_data.rv');
 
-    jQuery(form).off('found_variation reset_data');
+    // 👉 ΟΤΑΝ ΒΡΕΘΕΙ VARIATION
+    jQuery(document).on(
+        'found_variation.rv',
+        'form.variations_form',
+        function (_, variation) {
 
-    jQuery(form).on('found_variation', (_, variation) => {
-        if (!variation?.image || !mainSwiper) return;
+            if (!variation?.image?.src) return;
 
-        const slide = mainSwiper.slides[0];
-        const img = slide?.querySelector('img');
-        if (!img) return;
+            pendingVariationImage = variation.image;
 
-        if (!img.dataset.originalSrc) {
-            img.dataset.originalSrc = img.src;
-            img.dataset.originalSrcset = img.srcset;
-            img.dataset.originalDataSrc = img.dataset.src;
         }
+    );
 
-        img.src = variation.image.src;
-        img.srcset = variation.image.src;
-        img.dataset.src = variation.image.full_src || variation.image.src;
-
-        smartUpdate();
-    });
-
-    jQuery(form).on('reset_data', () => {
-        if (!mainSwiper) return;
-
-        mainSwiper.slides.forEach(slide => {
-            const img = slide.querySelector('img');
-            if (!img?.dataset.originalSrc) return;
-
-            img.src = img.dataset.originalSrc;
-            img.srcset = img.dataset.originalSrcset;
-            img.dataset.src = img.dataset.originalDataSrc;
-        });
-
-        mainSwiper.slideToLoop(0);
-        smartUpdate();
-    });
+    // 👉 RESET
+    jQuery(document).on(
+        'reset_data.rv',
+        'form.variations_form',
+        function () {
+            pendingVariationImage = null;
+        }
+    );
 }
+
+
 
 /* =========================
    SMART UPDATE

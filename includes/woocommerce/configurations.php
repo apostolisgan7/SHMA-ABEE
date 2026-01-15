@@ -251,5 +251,3 @@ add_action('rv_custom_summary_layout', function () {
     wc_get_template('includes/woocommerce/product/summary-layout.php');
 });
 
-
-

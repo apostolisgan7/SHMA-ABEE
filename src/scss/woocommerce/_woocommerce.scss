@@ -1,3 +1,6 @@
+@use '../abstracts' as *;
+
+
 // WooCommerce Styles
 .woocommerce {
 
@@ -73,4 +76,34 @@
   font-size: 13px;
   text-transform: uppercase;
   padding: 1.7rem;
+}
+
+.woocommerce div.product form.cart .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+
+  &:hover{
+    background: $secondary-color;
+    transform: translateY(0);
+  }
+}
+.woocommerce div.product form.cart{
+  display: flex;
+}
+
+.woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product .stock {
+  color: $secondary-color;
+  text-transform: uppercase;
+  font-size: 13px !important;
+}
+
+.woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product p.price, .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product span.price {
+  color: #000000;
+  font-size: 1.3rem;
 }

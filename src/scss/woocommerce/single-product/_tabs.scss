@@ -1,0 +1,256 @@
+@use '../../abstracts' as *;
+
+
+.rv-product-tabs {
+  margin-top: 60px;
+
+  /* ---------- TABS NAV ---------- */
+  .rv-tabs-nav {
+    display: flex;
+    gap: 40px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+    background: #fff;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+
+    button {
+      background: none;
+      border: none;
+      padding: 16px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: #9b9b9b;
+      cursor: pointer;
+      position: relative;
+
+      &.active {
+        color: #111;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -1px;
+          width: 100%;
+          height: 2px;
+          background: $secondary-color;
+        }
+      }
+    }
+  }
+  [x-cloak] { display: none !important; }
+  /* ---------- TAB CONTENT ---------- */
+  .rv-tab-content {
+    background: #fff;
+    border-radius: 6px;
+    padding: 40px;
+  }
+
+  /* ===============================
+    TECH TAB LAYOUT
+ ================================ */
+
+  .rv-tech-layout {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    gap: 4vw;
+
+    h3 {
+      font-size: clamp(18px, 3vw, 26px);
+      font-weight: 500;
+    }
+  }
+
+  /* LEFT COLUMN */
+  .rv-tech-left {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  /* MANUALS */
+  .rv-manuals {
+    max-width: 350px;
+
+    h3 {
+      margin-bottom: 20px;
+    }
+
+    a {
+      display: flex;
+      max-width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      padding: 14px 16px;
+      background: #fff;
+      text-decoration: none;
+      color: #111;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      transition: background .25s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:nth-child(odd) {
+        .rv-manual-icon {
+          background: #FF8316;
+        }
+      }
+
+      &:hover {
+        background: #f6f6f6;
+      }
+    }
+
+    .rv-manual-wrap {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .rv-manual-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #00B8F1;
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 600;
+      }
+
+      .rv-manual-meta {
+        display: flex;
+        flex-direction: column;
+
+        strong {
+          display: block;
+          font-size: 16px;
+          line-height: 1.2;
+          font-weight: 500;
+        }
+
+        span {
+          font-size: 16px;
+          line-height: 1.2;
+          font-weight: 400;
+          color: #9F9F9F;
+        }
+      }
+    }
+
+    .download-arrow {
+      transition: transform 0.3s ease;
+      border: solid 1px #D6D6D6;
+      width: 48px;
+      border-radius: 6px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-basis: auto;
+      flex-shrink: 0;
+    }
+  }
+
+  /* PRODUCT DIAGRAM */
+  .rv-tech-diagram {
+
+    h3 {
+      margin-bottom: 16px;
+    }
+
+    a {
+      display: flex;
+
+      img {
+        width: 100%;
+        object-fit: contain;
+        max-width: 380px;
+      }
+    }
+  }
+
+  /* RIGHT COLUMN */
+  .rv-tech-right {
+
+    h3 {
+      margin-bottom: 24px;
+    }
+  }
+
+  /* TECH TABLE */
+  .rv-tech-table {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rv-tech-table .row {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+
+    span {
+      font-size: 16px;
+      color: #777;
+    }
+
+    strong {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111;
+    }
+  }
+
+  /* ===============================
+     RESPONSIVE
+  ================================ */
+
+  @media (max-width: 900px) {
+    .rv-tech-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .rv-tech-table .row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+  }
+
+  /* ---------- GALLERIES ---------- */
+  .rv-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+
+    img {
+      width: 100%;
+      border-radius: 4px;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .rv-tabs-nav {
+      gap: 20px;
+      overflow-x: auto;
+    }
+  }
+}
+
+/* Alpine helper */
+[x-cloak] {
+  display: none !important;
+}

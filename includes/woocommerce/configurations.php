@@ -251,3 +251,12 @@ add_action('rv_custom_summary_layout', function () {
     wc_get_template('includes/woocommerce/product/summary-layout.php');
 });
 
+add_action('rv_product_tabs', function () {
+    get_template_part('includes/woocommerce/product/product-tabs');
+});
+
+
+// ❌ Αφαιρεί όλα τα default Woo tabs
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
+
+

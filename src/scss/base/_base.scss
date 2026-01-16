@@ -28,7 +28,7 @@ a {
   transition: color 0.2s ease;
 
   &:hover {
-    color: adjust-color($primary-color, $lightness: -10%);
+    color: color.adjust($primary-color, $lightness: -10%);
     text-decoration: underline;
   }
 }
@@ -64,7 +64,7 @@ input[type="submit"] {
   transition: $transition-base;
 
   &:hover {
-    background-color: adjust-color($primary-color, $lightness: -10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
     color: $white;
     text-decoration: none;
   }

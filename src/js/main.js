@@ -6,9 +6,11 @@ import '../scss/main.scss';
 
 // Import Alpine.js
 import Alpine from 'alpinejs';
+import collapse from '@alpinejs/collapse';
 import {shopHeader} from './modules/woocommerce/grid-view';
 import './modules/woocommerce/shop-sorting';
 
+Alpine.plugin(collapse);
 window.Alpine = Alpine;
 Alpine.data('shopHeader', shopHeader);
 
@@ -28,6 +30,7 @@ import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
 import {initProductList} from './modules/woocommerce/product-list.js';
 import {initProductGalleryObserver} from './modules/woocommerce/single-product/product-gallery.js';
 import {initSummary} from './modules/woocommerce/single-product/summary.js';
+import {initProductTabs} from './modules/woocommerce/single-product/tabs.js';
 
 // Import GSAP core and plugins
 import {gsap} from 'gsap';
@@ -81,12 +84,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initialize Alpine.js
     Alpine.start();
-    
-    // Initialize Swipers
+
+    // Initialize Swipers and product components
     initSwipers();
     initProductGalleryObserver();
     initSummary();
-    
+    initProductTabs();
+
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
 

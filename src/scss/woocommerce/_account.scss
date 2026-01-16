@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // ===============================
 // VARIABLES (προσαρμόζεις αν θες)
 $green: #1fb34a;
@@ -166,7 +168,7 @@ $border-radius: 18px;
         white-space: nowrap;
 
         &:hover {
-          background: darken($green, 6%);
+          background: color.adjust($green, $lightness: -6%);
           transform: translateY(-1px);
         }
       }
@@ -231,7 +233,7 @@ $border-radius: 18px;
   transition: all 0.25s ease;
 
   &:hover {
-    background: darken($green, 6%);
+    background: color.adjust($green, $lightness: -6%);
     transform: translateY(-1px);
   }
 }

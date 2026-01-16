@@ -4,8 +4,8 @@
 
 // Button variants mixin
 @mixin button-variant($background, $border, $color: #fff) {
-  $hover-background: darken($background, 7.5%);
-  $active-background: darken($background, 12.5%);
+  $hover-background: color.adjust($background, $lightness: -7.5%);
+  $active-background: color.adjust($background, $lightness: -12.5%);
 
   color: $color;
   background-color: $background;

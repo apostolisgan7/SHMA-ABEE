@@ -27,13 +27,19 @@ $grid-breakpoints: (
 @function breakpoint-next($name, $breakpoints: $grid-breakpoints) {
   $breakpoint-names: map.keys($breakpoints);
   $n: list.index($breakpoint-names, $name);
-  @return if($n != null and $n < list.length($breakpoint-names), list.nth($breakpoint-names, $n + 1), null);
+  @if $n != null and $n < list.length($breakpoint-names) {
+    @return list.nth($breakpoint-names, $n + 1);
+  }
+  @return null;
 }
 
 // Minimum breakpoint width. Null for the smallest (first) breakpoint.
 @function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
   $min: map.get($breakpoints, $name);
-  @return if($min != 0, $min, null);
+  @if $min != 0 {
+    @return $min;
+  }
+  @return null;
 }
 
 // Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
@@ -86,7 +92,10 @@ $grid-breakpoints: (
 // Maximum breakpoint width. Null for the largest (last) breakpoint.
 @function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
   $next: breakpoint-next($name, $breakpoints);
-  @return if($next, breakpoint-min($next, $breakpoints) - 0.02, null);
+  @if $next {
+    @return breakpoint-min($next, $breakpoints) - 0.02;
+  }
+  @return null;
 }
 
 // Button variants

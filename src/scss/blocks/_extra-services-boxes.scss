@@ -35,7 +35,7 @@
   &__image {
     position: relative;
     overflow: hidden;
-    padding-top: (590 / 780) * 100%;
+    padding-top: calc((590 / 780) * 100%);
 
     img {
       position: absolute;

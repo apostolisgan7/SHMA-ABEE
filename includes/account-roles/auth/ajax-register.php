@@ -8,6 +8,13 @@ add_action( 'wp_ajax_nopriv_sigma_register', 'sigma_ajax_register' );
 
 function sigma_ajax_register() {
 
+// Αν πας με Google reCAPTCHA:
+    if ( ! sigma_verify_recaptcha( $_POST['g-recaptcha-response'] ?? '' ) ) {
+        wp_send_json_error([
+            'html' => '<ul class="woocommerce-error"><li>Η επαλήθευση reCAPTCHA απέτυχε. Παρακαλούμε προσπαθήστε ξανά.</li></ul>'
+        ], 403);
+    }
+
 	// 🔐 Nonce
 	if ( ! check_ajax_referer( 'sigma-register', 'nonce', false ) ) {
 		wp_send_json_error([
@@ -15,20 +22,72 @@ function sigma_ajax_register() {
 		], 403);
 	}
 
-	// 🚦 Rate limit: 5 tries / 10 λεπτά / IP
-	$rl_key = sigma_rl_key( 'sigma_register' );
-	$rl     = sigma_rate_limit_check( $rl_key, 5, 600 );
 
-	if ( ! $rl['allowed'] ) {
-		wp_send_json_error([
-			'html' => '<ul class="woocommerce-error"><li>' .
-			          sprintf(
-				          __( 'Πολλές προσπάθειες. Δοκίμασε ξανά σε %d δευτ.', 'ruined' ),
-				          (int) $rl['retry_after']
-			          ) .
-			          '</li></ul>'
-		], 429);
-	}
+
+
+    // 🚦 Rate limit: 5 tries / 10 λεπτά / IP
+    $rl_key = sigma_rl_key( 'sigma_register' );
+    $rl     = sigma_rate_limit_check( $rl_key, 5, 600 );
+
+    if ( ! $rl['allowed'] ) {
+        wp_send_json_error([
+            'html' => '<ul class="woocommerce-error"><li>' .
+                sprintf(
+                    __( 'Πολλές προσπάθειες. Δοκίμασε ξανά σε %d δευτ.', 'ruined' ),
+                    (int) $rl['retry_after']
+                ) .
+                '</li></ul>'
+        ], 429);
+    }
+
+
+    $errors = new WP_Error();
+
+    $type = $_POST['sigma_customer_type'] ?? 'customer';
+
+// Κοινά
+    if ( empty($_POST['phone']) ) {
+        $errors->add('phone_required', 'Το τηλέφωνο είναι υποχρεωτικό.');
+    }
+
+// B2C
+    if ( $type === 'customer' && empty($_POST['customer_name']) ) {
+        $errors->add('name_required', 'Το ονοματεπώνυμο είναι υποχρεωτικό.');
+    }
+
+// Company / Municipality
+    if ( in_array($type, ['company', 'municipality'], true) ) {
+
+        if ( $type === 'company' && empty($_POST['company_name']) ) {
+            $errors->add('company_required', 'Η επωνυμία εταιρείας είναι υποχρεωτική.');
+        }
+
+        if ( $type === 'municipality' && empty($_POST['municipality_name']) ) {
+            $errors->add('municipality_required', 'Το όνομα δήμου είναι υποχρεωτικό.');
+        }
+
+        if ( empty($_POST['vat']) ) {
+            $errors->add('vat_required', 'Το ΑΦΜ είναι υποχρεωτικό.');
+        }
+    }
+
+// ⛔ Αν υπάρχουν errors → κόψτο εδώ
+    if ( $errors->has_errors() ) {
+        sigma_rate_limit_hit( $rl_key, 600 );
+
+        foreach ( $errors->get_error_messages() as $msg ) {
+            wc_add_notice( $msg, 'error' );
+        }
+
+        ob_start();
+        wc_print_notices();
+
+        wp_send_json_error([
+            'html' => ob_get_clean()
+        ], 400);
+    }
+
+
 
 	wc_clear_notices();
 

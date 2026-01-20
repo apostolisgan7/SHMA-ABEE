@@ -76,16 +76,17 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 5vh;
+  margin-bottom: 3vh;
 
   img {
     filter: brightness(0);
+    max-width: 160px;
   }
 }
 
 
 .sigma-auth-title {
-  font-size: clamp(22px, 3vw, 40px);
+  font-size: clamp(22px, 3vw, 32px);
   font-weight: 400;
   color: $primary-color;
   margin: 0 0 0.5rem;
@@ -171,6 +172,9 @@
     border: none;
     padding: 0;
   }
+  .submit_btn_row{
+    margin-top: 3vh;
+  }
 }
 
 .sigma-auth-panel {
@@ -255,6 +259,7 @@
 }
 
 .woocommerce-privacy-policy-text {
+  display: none;
   p {
     font-size: 14px;
     line-height: 1.2;
@@ -264,7 +269,7 @@
 }
 
 .field-error {
-  font-size: 12px;
+  font-size: 11px;
   color: #be0000;
 }
 
@@ -321,7 +326,8 @@
 }
 
 .password-strength {
-  margin-top: -18px;
+  margin-top: -6px;
+  margin-bottom: 6px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -337,7 +343,7 @@
 .password-strength__bars span {
   flex: 1;
   height: 4px;
-  background: transparent;
+  background:#9898984d;
   border-radius: 2px;
   transition: background-color 0.2s ease;
 }
@@ -410,7 +416,7 @@
     flex: 1;
   }
   .sigma-auth-logo-wrap img {
-    max-width: 150px;
+    max-width: 120px;
   }
   .sigma-auth-footer {
     padding: 1rem 0.5rem 1rem;

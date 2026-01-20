@@ -7,7 +7,7 @@ add_action( 'sigma_auth_register_form_inside_modal', 'sigma_auth_register_form' 
 
 function sigma_auth_register_form() {
     ?>
-    <p method="post"
+    <form  method="post"
        class="woocommerce-form woocommerce-form-register register js-ajax-register-form">
 
         <?php do_action( 'woocommerce_register_form_start' ); ?>
@@ -20,7 +20,7 @@ function sigma_auth_register_form() {
         <input type="hidden"
                name="sigma_customer_type"
                class="js-auth-role-input"
-               value="customer_b2c">
+               value="customer">
 
         <?php 
     // Get the form type (company, municipality, or default to individual)
@@ -146,7 +146,7 @@ function sigma_auth_register_form() {
 
     <?php do_action( 'woocommerce_register_form' ); ?>
 
-    <p class="woocommerce-form-row form-row">
+    <p class="woocommerce-form-row form-row submit_btn_row">
         <?php
         rv_button_arrow( [
                 'text'    => __( 'Ολοκλήρωση Εγγραφής', 'ruined' ),

@@ -14,10 +14,21 @@ add_action( 'woocommerce_register_form', function () {
     <input type="hidden"
            name="sigma_customer_type"
            class="js-auth-role-input"
-           value="customer_b2c" />
+           value="customer" />
     <?php
 } );
 
+add_filter( 'woocommerce_registration_errors', function( $errors, $username, $email ) {
+    // 1. Λήψη του token από το POST
+    $recaptcha_token = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
+
+    // 2. Έλεγχος reCAPTCHA
+    if ( ! sigma_verify_recaptcha( $recaptcha_token ) ) {
+        return new WP_Error( 'recaptcha_failed', __( 'Η επαλήθευση reCAPTCHA απέτυχε. Παρακαλώ δοκιμάστε ξανά.', 'ruined' ) );
+    }
+
+    return $errors;
+}, 10, 3 );
 
 /**
  * --------------------------------------------------
@@ -82,7 +93,7 @@ add_filter( 'woocommerce_registration_errors', function ( $errors ) {
 
 
     // --- Customer (B2C)
-    if ( $type === 'customer_b2c' && empty( $_POST['customer_name'] ) ) {
+    if ( $type === 'customer' && empty( $_POST['customer_name'] ) ) {
         $errors->add(
                 'name_required',
                 __( 'Το όνομα είναι υποχρεωτικό.', 'ruined' )
@@ -165,7 +176,7 @@ add_action( 'woocommerce_created_customer', function ( $user_id ) {
             break;
 
         default:
-            $user->set_role( 'customer_b2c' );
+            $user->set_role( 'customer' );
     }
 
     update_user_meta( $user_id, 'sigma_customer_type', $type );

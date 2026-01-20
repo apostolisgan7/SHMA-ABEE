@@ -95,7 +95,7 @@ function sigma_auth_login_form() {
 		do_action( 'woocommerce_login_form' );
 		?>
 
-		<p class="form-row">
+		<p class="form-row submit_btn_row">
 			<input type="hidden" name="rememberme" value="forever"/>
 			<?php
 			rv_button_arrow( [

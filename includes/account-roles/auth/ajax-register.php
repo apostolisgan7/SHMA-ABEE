@@ -8,22 +8,12 @@ add_action( 'wp_ajax_nopriv_sigma_register', 'sigma_ajax_register' );
 
 function sigma_ajax_register() {
 
-// Αν πας με Google reCAPTCHA:
-    if ( ! sigma_verify_recaptcha( $_POST['g-recaptcha-response'] ?? '' ) ) {
-        wp_send_json_error([
-            'html' => '<ul class="woocommerce-error"><li>Η επαλήθευση reCAPTCHA απέτυχε. Παρακαλούμε προσπαθήστε ξανά.</li></ul>'
-        ], 403);
-    }
-
 	// 🔐 Nonce
 	if ( ! check_ajax_referer( 'sigma-register', 'nonce', false ) ) {
 		wp_send_json_error([
 			'html' => '<ul class="woocommerce-error"><li>Security error.</li></ul>'
 		], 403);
 	}
-
-
-
 
     // 🚦 Rate limit: 5 tries / 10 λεπτά / IP
     $rl_key = sigma_rl_key( 'sigma_register' );

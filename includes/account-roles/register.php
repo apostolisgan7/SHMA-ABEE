@@ -18,17 +18,6 @@ add_action( 'woocommerce_register_form', function () {
     <?php
 } );
 
-add_filter( 'woocommerce_registration_errors', function( $errors, $username, $email ) {
-    // 1. Λήψη του token από το POST
-    $recaptcha_token = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
-
-    // 2. Έλεγχος reCAPTCHA
-    if ( ! sigma_verify_recaptcha( $recaptcha_token ) ) {
-        return new WP_Error( 'recaptcha_failed', __( 'Η επαλήθευση reCAPTCHA απέτυχε. Παρακαλώ δοκιμάστε ξανά.', 'ruined' ) );
-    }
-
-    return $errors;
-}, 10, 3 );
 
 /**
  * --------------------------------------------------

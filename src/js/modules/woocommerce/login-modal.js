@@ -189,7 +189,7 @@ export function initAuthModal() {
     }
 
     function refreshPasswordElsAndBind() {
-        passwordInput = overlay.querySelector('.sigma-auth-pane--signup.is-active input[name="password"]');
+        passwordInput = overlay.querySelector('.sigma-auth-pane--signup input[name="password"]');
 
         if (!passwordInput) return;
 
@@ -239,7 +239,7 @@ export function initAuthModal() {
         setTimeout(() => {
             refreshPasswordElsAndBind();
             updatePasswordMeter();
-        }, 80);
+        }, 150);
     }
 
     function closeModal(e) {
@@ -538,25 +538,8 @@ export function initAuthModal() {
             registerForm.querySelectorAll('.woocommerce-error').forEach(el => el.remove());
             registerForm.classList.add('is-loading');
 
-            // --- RECAPTCHA INTEGRATION START ---
-            let recaptchaToken = '';
-            if (typeof grecaptcha !== 'undefined') {
-                try {
-                    // Περιμένουμε το token από την Google
-                    recaptchaToken = await grecaptcha.execute('6LcSbFAsAAAAAPDqcEYBbJhjnu3kDFzkyftOx5ut', { action: 'register' });
-                } catch (error) {
-                    console.error('reCAPTCHA error:', error);
-                }
-            }
-            // --- RECAPTCHA INTEGRATION END ---
-
             const formData = new FormData(registerForm);
             formData.append('action', 'sigma_register');
-
-            // Προσθέτουμε το token στο formData για να το δει η PHP
-            if (recaptchaToken) {
-                formData.append('g-recaptcha-response', recaptchaToken);
-            }
 
             try {
                 const res = await fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData });
@@ -567,7 +550,7 @@ export function initAuthModal() {
                 if (!data.success) {
                     registerForm.insertAdjacentHTML('afterbegin', data.data.html);
 
-                    // ... το υπόλοιπο error handling σου (temp.querySelectorAll('li') κλπ)
+                    // field-level errors (optional)
                     const temp = document.createElement('div');
                     temp.innerHTML = data.data.html;
 
@@ -590,13 +573,14 @@ export function initAuthModal() {
 
                         row?.appendChild(error);
                         gsap.fromTo(error, { y: -4, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.25 });
+
+                        field.focus();
                     });
 
                     registerForm.querySelector('.woocommerce-error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     return;
                 }
 
-                // Success redirect
                 gsap.to(modal, {
                     scale: 0.96,
                     autoAlpha: 0,
@@ -606,7 +590,6 @@ export function initAuthModal() {
                         window.location.href = data.data.redirect;
                     }
                 });
-
             } catch (err) {
                 console.error('AJAX Register error:', err);
                 registerForm.classList.remove('is-loading');

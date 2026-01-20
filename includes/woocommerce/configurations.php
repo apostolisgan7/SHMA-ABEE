@@ -171,6 +171,13 @@ function ruined_update_cart_qty()
     wp_die();
 }
 
+add_action('template_redirect', function () {
+    if (is_account_page() && !is_user_logged_in()) {
+        wp_redirect(home_url());
+        exit;
+    }
+});
+
 
 // ========================
 // Remove default archive elements

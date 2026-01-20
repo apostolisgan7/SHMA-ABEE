@@ -3,12 +3,14 @@
  * Template Part: Pages Hero
  */
 
+$shop_page_id = wc_get_page_id( 'shop' );
 
-$shop_page_id  = wc_get_page_id( 'shop' );
-$is_shop_page  = is_shop();
-$is_wc_listing = is_shop() || is_product_taxonomy() || ( is_search() && get_query_var('post_type') === 'product' );
+// FLAGS
+$is_product_search = is_search() && get_query_var( 'post_type' ) === 'product';
+$is_shop_page      = is_shop();
+$is_wc_listing     = is_shop() || is_product_taxonomy();
 
-// Έχει ACF το Shop page;
+// ACF SHOP PAGE CHECK
 $shop_has_acf =
         ! empty( get_field( 'hero_color', $shop_page_id ) ) ||
         ! empty( get_field( 'video', $shop_page_id ) ) ||
@@ -18,99 +20,126 @@ $shop_has_acf =
 
 
 // --------------------------------------------------
-// 1) SHOP PAGE ΜΕ ACF – ΠΡΟΤΕΡΑΙΟΤΗΤΑ
+// 0) PRODUCT SEARCH (ACF OPTIONS GROUP)
 // --------------------------------------------------
-if ( $is_shop_page && $shop_has_acf ) {
+if ( $is_product_search ) {
+
+    $search_settings = get_field( 'search_page', 'option' ) ?: [];
+
+    $default_hero_image = get_field( 'product_hero_default_image', 'option' );
+    $image_url = $default_hero_image
+            ? wp_get_attachment_image_url( $default_hero_image, 'large' )
+            : get_template_directory_uri() . '/src/img/default.png';
+
+    $search_term = get_search_query();
+    if ( empty( $search_term ) && ! empty( $_GET['s'] ) ) {
+        $search_term = sanitize_text_field( wp_unslash( $_GET['s'] ) );
+    }
+
+    $title = $search_term
+            ? 'Αποτελέσματα για “' . $search_term . '”'
+            : 'Αποτελέσματα αναζήτησης';
+
+    $hero_color = $search_settings['product_search_hero_color'] ?? 'dark';
+    $text       = $search_settings['text'] ?? '';
+    $button     = $search_settings['button_link'] ?? null;
+    $video_url  = '';
+}
+
+
+// --------------------------------------------------
+// 1) SHOP PAGE (ACF PER PAGE)
+// --------------------------------------------------
+elseif ( $is_shop_page && $shop_has_acf ) {
 
     $image_url  = get_the_post_thumbnail_url( $shop_page_id, 'large' );
     $video_url  = get_field( 'video', $shop_page_id );
     $acf_title  = get_field( 'title', $shop_page_id );
+
     $title      = $acf_title ?: get_the_title( $shop_page_id );
     $text       = get_field( 'text', $shop_page_id );
     $button     = get_field( 'button_link', $shop_page_id );
     $hero_color = get_field( 'hero_color', $shop_page_id );
-
 }
 
+
 // --------------------------------------------------
-// 2) DEFAULT WOO LISTING HERO (shop w/o ACF, taxonomies, product search)
+// 2) PRODUCT TAXONOMY (ACF OPTIONS GROUP)
+// --------------------------------------------------
+elseif ( is_product_taxonomy() ) {
+
+    $taxonomy_settings = get_field( 'taxonomy_page', 'option' ) ?: [];
+
+    $default_hero_image = get_field( 'product_hero_default_image', 'option' );
+    $image_url = $default_hero_image
+            ? wp_get_attachment_image_url( $default_hero_image, 'large' )
+            : get_template_directory_uri() . '/src/img/default.png';
+
+    $title = 'Αποτελέσματα για “' . single_term_title( '', false ) . '”';
+
+    $hero_color = $taxonomy_settings['product_taxonomy_hero_color'] ?? 'dark';
+    $text       = $taxonomy_settings['text'] ?? '';
+    $button     = $taxonomy_settings['button_link'] ?? null;
+    $video_url  = '';
+}
+
+
+// --------------------------------------------------
+// 3) SHOP χωρίς ACF
 // --------------------------------------------------
 elseif ( $is_wc_listing ) {
 
-    // Default hero image (from ACF options)
     $default_hero_image = get_field( 'product_hero_default_image', 'option' );
+    $image_url = $default_hero_image
+            ? wp_get_attachment_image_url( $default_hero_image, 'large' )
+            : get_template_directory_uri() . '/src/img/default.png';
 
-    if ( $default_hero_image ) {
-        $image_url = wp_get_attachment_image_url( $default_hero_image, 'large' );
-    } else {
-        $image_url = get_template_directory_uri() . '/src/img/default.png';
-    }
-
-    // WooCommerce δεν χρησιμοποιεί ACF στα listings
-    $video_url  = '';
+    $title      = 'Όλα τα προϊόντα';
+    $hero_color = 'dark';
     $text       = '';
     $button     = null;
-    $hero_color = 'dark';
-
-    // Dynamic Title
-    if ( is_shop() ) {
-        $title = 'Όλα τα προϊόντα';
-    } elseif ( is_product_taxonomy() ) {
-        $title = 'Αποτελέσματα για “' . single_term_title( '', false ) . '”';
-    } elseif ( is_search() && get_query_var('post_type') === 'product' ) {
-        $title = 'Αποτελέσματα για “' . get_search_query() . '”';
-    } else {
-        $title = get_the_archive_title();
-    }
+    $video_url  = '';
 }
 
+
 // --------------------------------------------------
-// 3) NORMAL PAGES – ACF per page template
+// 4) NORMAL PAGES
 // --------------------------------------------------
 else {
 
     $image_url  = get_the_post_thumbnail_url( get_the_ID(), 'large' );
     $video_url  = get_field( 'video' );
     $acf_title  = get_field( 'title' );
+
     $title      = $acf_title ?: get_the_title();
     $text       = get_field( 'text' );
     $button     = get_field( 'button_link' );
     $hero_color = get_field( 'hero_color' );
 }
 
-if ( empty( $image_url ) ) {
 
-    // default από ACF options πρώτα
-    $default_hero_image = get_field( 'product_hero_default_image', 'option' );
-
-    if ( $default_hero_image ) {
-        $image_url = wp_get_attachment_image_url( $default_hero_image, 'large' );
-    } else {
-        // default από το theme
-        $image_url = get_template_directory_uri() . '/src/img/default.png';
-    }
-}
 // --------------------------------------------------
-// 4) Hero Color + Button Variant
+// FALLBACK IMAGE
+// --------------------------------------------------
+if ( empty( $image_url ) ) {
+    $image_url = get_template_directory_uri() . '/src/img/default.png';
+}
+
+
+// --------------------------------------------------
+// HERO COLOR + BUTTON VARIANT
 // --------------------------------------------------
 $hero_color_class = '';
 $button_variant   = 'white';
 
 if ( ! empty( $hero_color ) ) {
-    $hero_color_normalized = strtolower( $hero_color );
-
-    if ( $hero_color_normalized === 'dark' ) {
-        $button_variant = 'black';
-    } elseif ( $hero_color_normalized === 'light' ) {
-        $button_variant = 'white';
-    }
-
     $hero_color_class = ' pages-hero--' . sanitize_title( $hero_color );
+    $button_variant  = strtolower( $hero_color ) === 'dark' ? 'black' : 'white';
 }
 
 
 // --------------------------------------------------
-// 5) Background Image (fallback)
+// BACKGROUND STYLE
 // --------------------------------------------------
 $style = '';
 if ( $image_url && empty( $video_url ) ) {
@@ -119,42 +148,20 @@ if ( $image_url && empty( $video_url ) ) {
 
 
 // --------------------------------------------------
-// 6) VIDEO HANDLING
+// VIDEO HANDLING
 // --------------------------------------------------
 $video_type  = '';
 $video_embed = '';
 
 if ( $video_url ) {
 
-    // Self-hosted
     if ( preg_match( '/\.(mp4|webm|ogg)$/i', $video_url ) ) {
         $video_type  = 'self';
         $video_embed = '<video class="hero-video" autoplay muted loop playsinline>
             <source src="' . esc_url( $video_url ) . '" type="video/mp4">
         </video>';
     }
-
-    // YouTube
-    elseif ( strpos( $video_url, 'youtu' ) !== false ) {
-        preg_match( '/(youtu\.be\/|v=)([^&]+)/', $video_url, $matches );
-        $youtube_id = $matches[2] ?? '';
-        $video_type = 'youtube';
-        $video_embed = '<iframe class="hero-video"
-            src="https://www.youtube.com/embed/' . $youtube_id . '?autoplay=1&mute=1&controls=0&loop=1&playlist=' . $youtube_id . '&playsinline=1"
-            frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
-    }
-
-    // Vimeo
-    elseif ( strpos( $video_url, 'vimeo' ) !== false ) {
-        preg_match( '/vimeo\.com\/(\d+)/', $video_url, $matches );
-        $vimeo_id = $matches[1] ?? '';
-        $video_type = 'vimeo';
-        $video_embed = '<iframe class="hero-video"
-            src="https://player.vimeo.com/video/' . $vimeo_id . '?background=1&autoplay=1&loop=1&muted=1"
-            frameborder="0" allowfullscreen></iframe>';
-    }
 }
-
 ?>
 
 <div class="pages-hero section-full-width<?= esc_attr( $hero_color_class ); ?>"
@@ -179,18 +186,18 @@ if ( $video_url ) {
                 <?php if ( ! empty( $title ) ) : ?>
                     <div class="pages-hero__title"><?= wp_kses_post( $title ); ?></div>
                 <?php endif; ?>
+
                 <?php if ( ! empty( $text ) ) : ?>
                     <p class="pages-hero__text"><?= esc_html( $text ); ?></p>
                 <?php endif; ?>
             </div>
 
             <div class="bottom_content">
-
                 <?php if ( ! empty( $button['url'] ) ) :
                     rv_button_arrow([
-                            'text'  => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
-                            'url'   => $button['url'],
-                            'target'=> $button['target'] ?? '_self',
+                            'text'   => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
+                            'url'    => $button['url'],
+                            'target' => $button['target'] ?? '_self',
                             'variant'=> $button_variant,
                             'icon_position'=>'left',
                     ]);

@@ -214,7 +214,7 @@ add_action('ruined_before_shop_grid', 'ruined_render_shop_header');
 
 
 // ========================
-// LOAD MORE
+// LOAD MORE (CONTEXT AWARE)
 // ========================
 
 remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
@@ -222,18 +222,29 @@ remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
 add_action('wp_ajax_rv_load_more_products', 'rv_load_more_products');
 add_action('wp_ajax_nopriv_rv_load_more_products', 'rv_load_more_products');
 
-function rv_load_more_products()
-{
-    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+function rv_load_more_products() {
 
-    $args = [
-            'post_type' => 'product',
-            'post_status' => 'publish',
-            'posts_per_page' => 12,
-            'paged' => $page,
-    ];
+    $page = isset($_POST['page']) ? absint($_POST['page']) : 1;
 
-    $query = new WP_Query($args);
+    // ⬇️ ΠΑΙΡΝΟΥΜΕ ΤΟ QUERY ΑΠΟ ΤΟ FRONTEND
+    $query_vars = isset($_POST['query'])
+            ? json_decode(stripslashes($_POST['query']), true)
+            : [];
+
+    if ( empty($query_vars) ) {
+        wp_die();
+    }
+
+    // ΑΣΦΑΛΕΙΑ & OVERRIDES
+    $query_vars['paged'] = $page;
+    $query_vars['post_type'] = 'product';
+    $query_vars['post_status'] = 'publish';
+
+    // Woo fix
+    unset($query_vars['wc_query']);
+    unset($query_vars['lazy_load_term_meta']);
+
+    $query = new WP_Query($query_vars);
 
     if ($query->have_posts()) {
         while ($query->have_posts()) {

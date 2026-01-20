@@ -20,8 +20,10 @@ export function initLoadMoreProducts() {
         btn.setAttribute('aria-busy', 'true');
 
         const formData = new FormData();
+        const query = JSON.parse(dataEl.dataset.query);
         formData.append('action', 'rv_load_more_products');
         formData.append('page', page);
+        formData.append('query', JSON.stringify(query))
 
         try {
             const res = await fetch(window.ajaxurl, {

@@ -16,11 +16,28 @@
 
             <div class="popular-searches">
                 <div class="search-tags">
-                    <a href="#" class="search-tag">Yποχρεωτική Διακοπή Πορείας</a>
-                    <a href="#" class="search-tag">Διακοπή Πορείας</a>
-                    <a href="#" class="search-tag">Μπαριέρα</a>
+                    <?php
+                    $tags = get_terms([
+                            'taxonomy'   => 'product_tag',
+                            'hide_empty' => true,
+                    ]);
+
+                    if (!empty($tags) && !is_wp_error($tags)) :
+                        foreach ($tags as $tag) :
+                            ?>
+                            <a
+                                    href="<?php echo esc_url(get_term_link($tag)); ?>"
+                                    class="search-tag"
+                            >
+                                <?php echo esc_html($tag->name); ?>
+                            </a>
+                        <?php
+                        endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
+
         </div>
         <div class="search-content">
             <aside class="search-help">

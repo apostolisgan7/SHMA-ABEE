@@ -27,7 +27,7 @@ global $product;
 do_action('woocommerce_before_single_product');
 
 if (post_password_required()) {
-    echo get_the_password_form(); // WPCS: XSS ok.
+    echo get_the_password_form();
     return;
 }
 ?>
@@ -53,11 +53,15 @@ if (post_password_required()) {
         <div class="summary entry-summary">
             <?php do_action('rv_custom_summary_layout'); ?>
         </div>
-
-
     </div>
 
     <?php do_action('rv_product_tabs'); ?>
+    <div class="video_box_wrapper">
+        <?php do_action('rv_product_video_box'); ?>
+    </div>
+    <?php
+    woocommerce_output_related_products();
+    ?>
 </div>
 
 <?php do_action('woocommerce_after_single_product'); ?>

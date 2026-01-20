@@ -327,12 +327,13 @@
 
 .password-strength {
   margin-top: -6px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 4px;
   font-size: 0.8rem;
   font-weight: 600;
+  position: relative;
 }
 
 .password-strength__bars {
@@ -389,6 +390,9 @@
 .password-strength__label {
   text-align: right;
   font-size: 0.75rem;
+  right: 0;
+  top: 100%;
+  position: absolute;
 }
 
 

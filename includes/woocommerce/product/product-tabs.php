@@ -5,7 +5,7 @@ defined('ABSPATH') || exit;
 $tech = get_field('tech_specs');
 ?>
 
-<div class="rv-product-tabs" x-data="{ tab: 'tech' }">
+<div id="tabdetails" class="rv-product-tabs" x-data="{ tab: 'tech' }">
 
     <div class="rv-tabs-nav">
         <button @click="tab='tech'; $dispatch('rv-tab-changed')" :class="{active: tab==='tech'}">

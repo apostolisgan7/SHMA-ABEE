@@ -138,8 +138,48 @@
 
     &__button {
       margin-top: auto;
-      padding-top: 10px;
-      border-top: 1px solid #ddd;
+      padding-top: 0;
+      padding-bottom: 10px;
+      border-top: none;
+      position: relative;
+
+      span.button-arrow__icon {
+        border-color: #ddd;
+      }
+
+      &:before {
+        content: "";
+        height: 1px;
+        width: 100%;
+        background: rgba(51, 23, 20, 0.12);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: width 0.4s ease;
+        z-index: 1;
+      }
+
+      &:after {
+        content: "";
+        height: 1px;
+        width: 0;
+        background: #17B83A;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: width 0.4s ease;
+        z-index: 2;
+      }
+
+      &:hover {
+        span.button-arrow__icon {
+          border-color: $secondary-color;
+        }
+
+        &:after {
+          width: 100%;
+        }
+      }
     }
   }
 }
@@ -149,7 +189,8 @@
     .service-box {
       grid-template-columns: 1fr;
     }
-    .rv-fullscreen-content__content{
+
+    .rv-fullscreen-content__content {
       height: 50vh;
       padding: 0;
     }

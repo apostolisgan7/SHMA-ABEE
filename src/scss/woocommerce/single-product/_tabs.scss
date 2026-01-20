@@ -28,13 +28,14 @@
         color: #111;
 
         &::after {
-          content: '';
+          content: "";
           position: absolute;
-          left: 0;
+          left: 50%;
           bottom: -1px;
-          width: 100%;
+          width: 60%;
           height: 2px;
           background: $secondary-color;
+          transform: translateX(-50%);
         }
       }
     }
@@ -246,6 +247,28 @@
     .rv-tabs-nav {
       gap: 20px;
       overflow-x: auto;
+      &::-webkit-scrollbar-track {
+        background: #fcfcfc;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #9b9b9b;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #9b9b9b;
+      }
+
+      &::-webkit-scrollbar {
+        height: 2px;
+      }
+
+      button{
+        white-space: nowrap;
+        font-size: 1rem;
+        padding: 10px 0;
+      }
     }
   }
 }

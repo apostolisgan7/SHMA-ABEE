@@ -456,11 +456,62 @@ SEARCH POPUP STYLING (Custom)
         right: 0 !important;
       }
 
+      .popular-searches {
+        width: 100%;
+        overflow-x: hidden;
+
+        .search-tags {
+          overflow-x: auto;
+          display: flex;
+          gap: 1rem;
+          padding: 10px 0;
+
+          &::-webkit-scrollbar-track {
+            background: #fcfcfc;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: $primary-color;
+            border-radius: 4px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: $primary-color;
+          }
+
+          &::-webkit-scrollbar {
+            height: 2px;
+          }
+
+          a {
+            white-space: nowrap;
+          }
+        }
+      }
+
       .search-content {
         flex-direction: column-reverse;
         display: flex;
         height: auto;
         gap: 3rem;
+
+        .search-help {
+          .help_top {
+            h4 {
+              margin-bottom: 10px;
+            }
+
+            ul {
+              li {
+                margin-bottom: 0;
+              }
+            }
+          }
+
+          .help_bottom {
+            margin-top: 10px;
+          }
+        }
       }
     }
   }

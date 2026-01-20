@@ -1,16 +1,6 @@
 @use '../../abstracts' as *;
 
 
-.woocommerce #content div.product .summary.entry-summary {
-  width: 100%;
-  float: unset;
-  align-items: flex-start;
-  position: sticky;
-  top: 5rem;
-  z-index: 11;
-  margin-top: 3vh;
-}
-
 .product-meta-below-gallery {
   padding: 3vh 0 5vh;
   border-top: 1px solid lightgray;
@@ -21,14 +11,14 @@
     gap: 5px;
 
     .rv-product-category {
-      font-size: 22px;
+      font-size: clamp(16px, 3vw, 22px);
       font-weight: 500;
       color: $secondary-color;
     }
 
     h1,
     .product_title {
-      font-size: clamp(28px, 3vw, 46px);
+      font-size: clamp(30px, 3vw, 46px);
       line-height: 1.1;
       font-weight: 400;
       margin: 0;
@@ -129,6 +119,7 @@
           opacity: 0.6;
           pointer-events: none;
           color: transparent;
+
         }
 
         &.copied {
@@ -137,6 +128,7 @@
           &::after {
             content: '✓ Αντιγράφηκε';
             opacity: 1;
+            color: #5fbf55;
           }
         }
       }
@@ -181,6 +173,26 @@
       }
     }
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 3vh 0 0;
+    .rv-product-header {
+      .rv-product-price-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+
+        .dot_icon {
+          padding: 0;
+          margin: 0;
+
+          &:before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }
 
 
@@ -188,361 +200,393 @@
    RIGHT SIDE SUMMARY ACCORDIONS
 ========================= */
 
-.rv-summary-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.woocommerce #content div.product .summary.entry-summary {
+  width: 100%;
+  float: unset;
+  align-items: flex-start;
+  position: sticky;
+  top: 5rem;
+  z-index: 11;
+  margin-top: 3vh;
 
-  /* ========== ACCORDION ITEM ========== */
-  .rv-accordion-item {
-    background: transparent;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  /* ========== HEADER ========== */
-  .rv-accordion-item > button {
-    background: #fff;
-    border: none;
-    border-radius: 6px;
-    box-shadow: none;
-    width: 100%;
-    padding: 18px 20px;
+  .rv-summary-accordion, .rv-offer-note-field {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    font-size: 17px;
-    font-weight: 500;
-    color: $primary-color;
+    flex-direction: column;
+    gap: 16px;
 
-    span {
-      display: inline-block;
+    /* ========== ACCORDION ITEM ========== */
+    .rv-accordion-item, {
+      background: transparent;
+      border-radius: 6px;
+      overflow: hidden;
     }
 
-    .rv-accordion-arrow {
-      transition: transform 0.3s ease;
-      border: solid 1px #D6D6D6;
-      width: 48px;
+    .rv-offer-note-field {
+      background: transparent;
       border-radius: 6px;
-      height: 48px;
+      overflow: hidden;
+      margin-top: 1rem;
+
+      textarea {
+        background: #fff;
+        border-radius: 6px;
+        padding: 18px 20px;
+        font-size: 14px;
+      }
+
+    }
+
+    /* ========== HEADER ========== */
+    .rv-accordion-item > button, .rv-offer-note-field > button {
+      background: #fff;
+      border: none;
+      border-radius: 6px;
+      box-shadow: none;
+      width: 100%;
+      padding: 18px 20px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-basis: auto;
-      flex-shrink: 0;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 500;
+      color: $primary-color;
 
-      svg {
-        flex-shrink: 0;
-        width: 9px;
-        height: 9px;
+      span {
+        display: inline-block;
+      }
+
+      .rv-accordion-arrow {
         transition: transform 0.3s ease;
-      }
-    }
-
-    &[aria-expanded="true"] svg {
-      transform: rotate(180deg);
-    }
-  }
-
-
-  /* ========== CONTENT ========== */
-  .rv-accordion-item > div {
-    padding: 20px;
-    margin-top: 1vh;
-    background: #fff;
-    border: none;
-    border-radius: 6px;
-  }
-
-  .rv-accordion-item .main_accodion_content {
-    padding: 0;
-    margin-top: 1vh;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-
-  }
-
-  /* =====================================
-     YITH VARIATIONS (ΤΕΧΝΙΚΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ)
-     ===================================== */
-
-  form.variations_form {
-    margin: 0 !important;
-    flex-direction: column;
-    border-radius: 6px;
-
-    table.variations {
-      width: 100%;
-      border: none;
-      margin: 0 !important;
-
-
-      tbody {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        background: #fff;
-        padding: 20px;
+        border: solid 1px #D6D6D6;
+        width: 48px;
         border-radius: 6px;
-      }
-
-      tr {
+        height: 48px;
         display: flex;
-        flex-direction: column;
-        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        flex-basis: auto;
+        flex-shrink: 0;
+
+        svg {
+          flex-shrink: 0;
+          width: 9px;
+          height: 9px;
+          transition: transform 0.3s ease;
+        }
       }
 
-      label {
-        font-size: 12px;
-        font-weight: 500 !important;
-        text-transform: uppercase;
-        color: #9a9a9a;
-        line-height: 1;
-        text-align: left;
+      &[aria-expanded="true"] svg {
+        transform: rotate(180deg);
+      }
+    }
+
+
+    /* ========== CONTENT ========== */
+    .rv-accordion-item > div {
+      padding: 20px;
+      margin-top: 1vh;
+      background: #fff;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .rv-accordion-item .main_accodion_content {
+      padding: 0;
+      margin-top: 1vh;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+
+    }
+
+    /* =====================================
+       YITH VARIATIONS (ΤΕΧΝΙΚΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ)
+       ===================================== */
+
+    form.variations_form {
+      margin: 0 !important;
+      flex-direction: column;
+      border-radius: 6px;
+
+      table.variations {
         width: 100%;
-        display: block;
-      }
-
-      td.value {
-        margin: 0;
-      }
-
-      .select_box_image {
-        display: flex;
-        justify-content: space-between;
+        border: none;
+        margin: 0 !important;
 
 
-        .select_option_image {
-          min-width: 120px;
-          min-height: 60px;
-          border: 1px solid #EEEEEE;
-          border-radius: 5px;
+        tbody {
           display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          overflow: clip;
-          transition: ease-in-out 0.2s;
+          flex-direction: column;
+          gap: 24px;
+          background: #fff;
+          padding: 20px;
+          border-radius: 6px;
+        }
 
-          &:hover {
-            border: 1px solid $secondary-color;
-          }
+        tr {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
 
-          &.selected {
-            border: 1px solid $secondary-color;
+        label {
+          font-size: 12px;
+          font-weight: 500 !important;
+          text-transform: uppercase;
+          color: #9a9a9a;
+          line-height: 1;
+          text-align: left;
+          width: 100%;
+          display: block;
+        }
 
-            &:after {
-              content: "";
-              position: absolute;
-              top: 0;
-              right: 0px;
-              width: 15px;
-              height: 15px;
-              border-radius: 0 0 0 2px;
-              background: $secondary-color;
-              z-index: 1;
+        td.value {
+          margin: 0;
+        }
+
+        .select_box_image {
+          display: flex;
+          justify-content: space-between;
+
+
+          .select_option_image {
+            min-width: 120px;
+            min-height: 60px;
+            border: 1px solid #EEEEEE;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: clip;
+            transition: ease-in-out 0.2s;
+
+            &:hover {
+              border: 1px solid $secondary-color;
             }
 
-            &:before {
-              content: "";
-              position: absolute;
-              top: 5px;
-              right: 5px;
-              width: 4px;
-              height: 4px;
-              background: #fff;
-              z-index: 2;
+            &.selected {
+              border: 1px solid $secondary-color;
+
+              &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0px;
+                width: 15px;
+                height: 15px;
+                border-radius: 0 0 0 2px;
+                background: $secondary-color;
+                z-index: 1;
+              }
+
+              &:before {
+                content: "";
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                width: 4px;
+                height: 4px;
+                background: #fff;
+                z-index: 2;
+              }
             }
           }
         }
       }
+
+
+    }
+
+    /* ========== YITH SWATCHES GRID ========== */
+    .yith-wccl-radio {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .yith-wccl-option {
+      border-radius: 10px;
+      padding: 12px 10px;
+      min-height: 72px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid #eaeaea;
+      background: #fff;
+      cursor: pointer;
+
+      transition: all 0.2s ease;
+
+      img,
+      svg {
+        max-width: 32px;
+        max-height: 32px;
+        margin-bottom: 6px;
+        opacity: 0.5;
+      }
+
+      .yith-wccl-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #111;
+      }
+
+      &:hover {
+        border-color: #cfcfcf;
+      }
+    }
+
+    /* ACTIVE */
+    .yith-wccl-option.selected {
+      border-color: #6bcf6b;
+      box-shadow: 0 0 0 1px #6bcf6b;
+
+      img,
+      svg {
+        opacity: 1;
+      }
+
+      .yith-wccl-label {
+        color: #6bcf6b;
+      }
+    }
+
+    /* DISABLED */
+    .yith-wccl-option.disabled {
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* ========== RESET LINK (Clear) ========== */
+    .reset_variations {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #999;
+      text-decoration: underline;
+      cursor: pointer;
+      display: none;
     }
 
 
-  }
+    /* =========================
+       WOO QTY – HIDE REAL INPUT
+    ========================= */
+    .quantity {
+      position: relative;
 
-  /* ========== YITH SWATCHES GRID ========== */
-  .yith-wccl-radio {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .yith-wccl-option {
-    border-radius: 10px;
-    padding: 12px 10px;
-    min-height: 72px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid #eaeaea;
-    background: #fff;
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-
-    img,
-    svg {
-      max-width: 32px;
-      max-height: 32px;
-      margin-bottom: 6px;
-      opacity: 0.5;
+      input.qty {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
     }
 
-    .yith-wccl-label {
-      font-size: 14px;
+    /* =========================
+       CUSTOM QTY WRAPPER
+    ========================= */
+    .rv-qty {
+      display: flex;
+      align-items: stretch;
+      width: 120px;
+      height: 60px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    /* =========================
+       VALUE
+    ========================= */
+    .rv-qty-value {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
       font-weight: 600;
       color: #111;
     }
 
-    &:hover {
-      border-color: #cfcfcf;
-    }
-  }
-
-  /* ACTIVE */
-  .yith-wccl-option.selected {
-    border-color: #6bcf6b;
-    box-shadow: 0 0 0 1px #6bcf6b;
-
-    img,
-    svg {
-      opacity: 1;
+    /* =========================
+       CONTROLS
+    ========================= */
+    .rv-qty-controls {
+      display: flex;
+      flex-direction: column;
+      width: 36px;
+      border-left: 1px solid #e5e5e5;
     }
 
-    .yith-wccl-label {
-      color: #6bcf6b;
+    /* =========================
+       BUTTONS
+    ========================= */
+    .rv-qty-btn {
+      all: unset;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.15s ease;
+
+      &:first-child {
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      svg {
+        width: 11px;
+        height: 8px;
+        stroke: #111;
+      }
+
+      &:hover {
+        background: #f3f3f3;
+      }
+
+      &:active {
+        background: #e9e9e9;
+      }
     }
-  }
 
-  /* DISABLED */
-  .yith-wccl-option.disabled {
-    pointer-events: none;
-    opacity: 0.35;
-  }
+    /* DOWN ARROW (rotate) */
+    .rv-qty-btn--down svg {
+      transform: rotate(180deg);
+    }
 
-  /* ========== RESET LINK (Clear) ========== */
-  .reset_variations {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 13px;
-    color: #999;
-    text-decoration: underline;
-    cursor: pointer;
-    display: none;
-  }
-
-
-  /* =========================
-     WOO QTY – HIDE REAL INPUT
-  ========================= */
-  .quantity {
-    position: relative;
-
-    input.qty {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
+    /* =========================
+       DISABLED STATE (OPTIONAL)
+    ========================= */
+    .rv-qty-btn.is-disabled {
       pointer-events: none;
+      opacity: 0.35;
+    }
+
+    .woocommerce-variation-add-to-cart.variations_button {
+      display: flex;
+      margin-top: 2vh;
+    }
+
+    .woocommerce-variation.single_variation {
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 1vh;
+      display: none !important;
+
+      .woocommerce-variation-description {
+        display: none;
+      }
     }
   }
 
-  /* =========================
-     CUSTOM QTY WRAPPER
-  ========================= */
-  .rv-qty {
-    display: flex;
-    align-items: stretch;
-    width: 120px;
-    height: 60px;
-    border-radius: 6px;
-    overflow: hidden;
-    background: #fff;
-  }
-
-  /* =========================
-     VALUE
-  ========================= */
-  .rv-qty-value {
-    flex: 1;
-    display: grid;
-    place-items: center;
-    font-size: 18px;
-    font-weight: 600;
-    color: #111;
-  }
-
-  /* =========================
-     CONTROLS
-  ========================= */
-  .rv-qty-controls {
-    display: flex;
-    flex-direction: column;
-    width: 36px;
-    border-left: 1px solid #e5e5e5;
-  }
-
-  /* =========================
-     BUTTONS
-  ========================= */
-  .rv-qty-btn {
-    all: unset;
-    flex: 1;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition: background 0.15s ease;
-
-    &:first-child {
-      border-bottom: 1px solid #e5e5e5;
-    }
-
-    svg {
-      width: 11px;
-      height: 8px;
-      stroke: #111;
-    }
-
-    &:hover {
-      background: #f3f3f3;
-    }
-
-    &:active {
-      background: #e9e9e9;
-    }
-  }
-
-  /* DOWN ARROW (rotate) */
-  .rv-qty-btn--down svg {
-    transform: rotate(180deg);
-  }
-
-  /* =========================
-     DISABLED STATE (OPTIONAL)
-  ========================= */
-  .rv-qty-btn.is-disabled {
-    pointer-events: none;
-    opacity: 0.35;
-  }
-
-  .woocommerce-variation-add-to-cart.variations_button {
-    display: flex;
-    margin-top: 2vh;
-  }
-
-  .woocommerce-variation.single_variation {
-    justify-content: space-between;
-    align-items: baseline;
-    margin-top: 1vh;
-    display: none !important;
-
-    .woocommerce-variation-description {
-      display: none;
+  @media screen and (max-width: 768px) {
+    margin-top: 0;
+    .rv-summary-accordion{
+      flex-direction: column-reverse;
     }
   }
 }

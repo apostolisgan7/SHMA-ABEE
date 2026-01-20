@@ -178,6 +178,17 @@ add_action('template_redirect', function () {
     }
 });
 
+/**
+ * Change number of related products output
+ */
+function ruined_custom_related_products_args($args)
+{
+    $args['posts_per_page'] = 8; // Ο αριθμός των προϊόντων που θέλεις     // Προαιρετικά, ορίζεις και στήλες
+    return $args;
+}
+
+add_filter('woocommerce_output_related_products_args', 'ruined_custom_related_products_args', 20);
+
 
 // ========================
 // Remove default archive elements
@@ -262,8 +273,78 @@ add_action('rv_product_tabs', function () {
     get_template_part('includes/woocommerce/product/product-tabs');
 });
 
+add_action('rv_product_video_box', function () {
+    get_template_part('includes/woocommerce/product/video-box');
+});
 
 // ❌ Αφαιρεί όλα τα default Woo tabs
 remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
 
+
+// PRODUCT NOTES FIELD
+add_action('woocommerce_after_variations_table', function () {
+    ?>
+    <div class="rv-offer-note-field"
+         x-data="{ open: false }">
+
+        <button type="button"
+                class="rv-offer-note-toggle"
+                @click="open = !open"
+                :aria-expanded="open.toString()">
+
+            <span>Σχόλια Προσφοράς</span>
+            <div class="rv-accordion-arrow">
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black" stroke-width="1.82386"
+                          stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+        </button>
+
+        <div x-show="open" x-collapse>
+            <textarea
+                    name="rv_offer_note"
+                    rows="4"
+                    placeholder="Γράψτε σχόλιο για την προσφορά"></textarea>
+        </div>
+
+    </div>
+    <?php
+});
+
+add_filter('woocommerce_add_cart_item_data', function ($cart_item_data, $product_id) {
+
+    if (isset($_POST['rv_offer_note']) && $_POST['rv_offer_note'] !== '') {
+        $cart_item_data['rv_offer_note'] = sanitize_textarea_field($_POST['rv_offer_note']);
+    }
+
+    return $cart_item_data;
+}, 10, 2);
+
+
+add_filter('woocommerce_get_item_data', function ($item_data, $cart_item) {
+
+    if (isset($cart_item['rv_offer_note'])) {
+        $item_data[] = [
+                'key' => 'Σχόλια Προσφοράς',
+                'value' => esc_html($cart_item['rv_offer_note'])
+        ];
+    }
+
+    return $item_data;
+}, 10, 2);
+
+add_action('woocommerce_checkout_create_order_line_item',
+        function ($item, $cart_item_key, $values) {
+
+            if (isset($values['rv_offer_note'])) {
+                $item->add_meta_data(
+                        'Σχόλια Προσφοράς',
+                        $values['rv_offer_note'],
+                        true
+                );
+            }
+
+        }, 10, 3
+);
 

@@ -90,16 +90,55 @@ export function initSummary() {
         const btn = e.target.closest('.copy-sku');
         if (!btn) return;
 
+        // Σταματάμε το refresh της σελίδας
+        e.preventDefault();
+
         const sku = btn.closest('.rv-product-sku')?.dataset.sku;
         if (!sku) return;
 
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(sku).then(() => {
-                btn.classList.add('copied');
-                setTimeout(() => btn.classList.remove('copied'), 1200);
-            });
-        } else {
-            console.warn('Clipboard not available');
+        // Λειτουργία για το "Copied" animation/feedback
+        const showSuccess = (element) => {
+            element.classList.add('copied');
+            // Προαιρετικά: αν θες να αλλάξεις το κείμενο προσωρινά
+            // const originalTitle = element.getAttribute('aria-label');
+            // element.setAttribute('aria-label', 'Αντιγράφτηκε!');
+
+            setTimeout(() => {
+                element.classList.remove('copied');
+                // element.setAttribute('aria-label', originalTitle);
+            }, 1200);
+        };
+
+        // 1. Δοκιμή με το σύγχρονο API (θέλει HTTPS/Localhost)
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(sku)
+                .then(() => showSuccess(btn))
+                .catch(err => console.error('Error:', err));
+        }
+        // 2. Fallback μέθοδος για HTTP / Τοπικά δίκτυα
+        else {
+            const textArea = document.createElement("textarea");
+            textArea.value = sku;
+
+            // Κάνουμε το textarea αόρατο
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showSuccess(btn);
+                }
+            } catch (err) {
+                console.error('Fallback copy failed', err);
+            }
+
+            document.body.removeChild(textArea);
         }
     });
 

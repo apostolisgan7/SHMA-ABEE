@@ -73,10 +73,12 @@
     ========================= */
     .summary.entry-summary {
       width: 100%;
-      .single_variation_wrap{
+
+      .single_variation_wrap {
         .woocommerce-variation-price {
 
-        }      }
+        }
+      }
     }
   }
 
@@ -105,8 +107,20 @@
 
   /* Mobile */
   @media (max-width: 576px) {
+    .rv-breadcrumbs {
+      margin-bottom: 0;
+      nav.rank-math-breadcrumb {
+        p, a {
+          font-size: 12px;
+        }
+      }
+    }
     .single_top_wrapper {
-      gap: 32px;
+      gap: 0;
+      box-sizing: content-box;
+      display: flex;
+      flex-direction: column;
+
     }
   }
 }

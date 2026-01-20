@@ -99,6 +99,41 @@ function initSwipers() {
             }
         });
     });
+
+// --------------------------
+    // RELATED PRODUCTS SWIPER
+    // --------------------------
+    document.querySelectorAll(".rv-related-products__carousel").forEach((carousel) => {
+        const wrapper = carousel.closest('.rv-related-products');
+
+        // Σιγουρευόμαστε ότι τα buttons υπάρχουν στο σωστό wrapper
+        const nextBtn = wrapper ? wrapper.querySelector(".rv-rp__nav--next") : null;
+        const prevBtn = wrapper ? wrapper.querySelector(".rv-rp__nav--prev") : null;
+        const pag = carousel.querySelector(".swiper-pagination");
+
+        new Swiper(carousel, {
+            modules: [Navigation, Pagination],
+            slidesPerView: 1.3,
+            spaceBetween: 16,
+            speed: 500,
+            grabCursor: true,
+            watchSlidesProgress: true,
+            navigation: {
+                nextEl: nextBtn,
+                prevEl: prevBtn,
+            },
+            pagination: {
+                el: pag,
+                type: 'progressbar',
+            },
+            breakpoints: {
+                640:  { slidesPerView: 1.6 },
+                880:  { slidesPerView: 2.4 },
+                1200: { slidesPerView: 3.2 },
+                1440: { slidesPerView: 4 },
+            }
+        });
+    });
 }
 
 // Initialize on DOM ready

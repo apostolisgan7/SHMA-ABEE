@@ -40,7 +40,11 @@
       }
     }
   }
-  [x-cloak] { display: none !important; }
+
+  [x-cloak] {
+    display: none !important;
+  }
+
   /* ---------- TAB CONTENT ---------- */
   .rv-tab-content {
     background: #fff;
@@ -247,6 +251,7 @@
     .rv-tabs-nav {
       gap: 20px;
       overflow-x: auto;
+
       &::-webkit-scrollbar-track {
         background: #fcfcfc;
       }
@@ -264,10 +269,18 @@
         height: 2px;
       }
 
-      button{
+      button {
         white-space: nowrap;
         font-size: 1rem;
         padding: 10px 0;
+      }
+    }
+    .rv-tab-content {
+      padding: 40px 20px;
+      .rv-manuals {
+        a {
+          padding: 10px 0;
+        }
       }
     }
   }

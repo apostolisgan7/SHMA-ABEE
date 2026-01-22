@@ -82,7 +82,7 @@
       justify-content: space-between;
 
       h3 {
-        font-size: clamp(25px, 4vw, 29px);
+        font-size: clamp(25px, 2vw, 29px);
         color: #fff;
         margin-bottom: 15px;
         font-weight: 400;
@@ -123,7 +123,7 @@
       }
     }
   }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 768px) {
     .useful-info-boxes-head {
       flex-wrap: wrap;
       margin-bottom: 0;

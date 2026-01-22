@@ -45,7 +45,7 @@ function initProductGallery() {
                 slidesPerView: 4,
                 spaceBetween: 8
             },
-            768: {
+            992: {
                 direction: 'vertical',
                 slidesPerView: 4,
                 spaceBetween: 10

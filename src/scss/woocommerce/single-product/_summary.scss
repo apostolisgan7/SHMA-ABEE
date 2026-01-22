@@ -191,6 +191,11 @@
           }
         }
       }
+      .rv-product-actions{
+        a{
+          font-size: 12px;
+        }
+      }
     }
   }
 }
@@ -583,10 +588,16 @@
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     margin-top: 0;
+    position: static;
     .rv-summary-accordion{
       flex-direction: column-reverse;
+    }
+  }
+  @media screen and (max-width: 567px) {
+    .rv-summary-accordion form.variations_form table.variations .select_box_image .select_option_image{
+      min-width: 80px;
     }
   }
 }

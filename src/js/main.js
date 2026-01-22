@@ -27,6 +27,7 @@ import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
 import {initAuthModal} from './modules/woocommerce/login-modal';
 import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
+import {initFilters} from './modules/woocommerce/filters.js';
 import {initProductList} from './modules/woocommerce/product-list.js';
 import {initProductGalleryObserver} from './modules/woocommerce/single-product/product-gallery.js';
 import {initSummary} from './modules/woocommerce/single-product/summary.js';
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initialize Swipers and product components
     initSwipers();
+    initFilters();
     initProductGalleryObserver();
     initSummary();
     initProductTabs();

@@ -1,105 +1,28 @@
+@use '../abstracts' as *;
 // Cart Page
 .woocommerce-cart {
-    .woocommerce {
-        @apply max-w-7xl mx-auto px-4 py-8;
-    }
-  .wc-block-components-sidebar-layout.wc-block-cart{
-    padding: 5% 0;
+  .woocommerce {
+    @apply max-w-7xl mx-auto px-4 py-8;
   }
-    .cart_item {
-        @apply border-b border-gray-200 py-4;
+
+  .wc-block-components-sidebar-layout.wc-block-cart {
+    padding: 5% 0;
+
+    .wc-block-components-sidebar {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      .wc-block-cart__submit-container {
+        a {
+          background: $primary-color;
+          color: #fff;
+          transition: all 0.2s;
+
+          &:hover {
+            background: $secondary-color;
+          }
+        }
+      }
     }
-
-    .quantity {
-        @apply inline-flex items-center border border-gray-300 rounded;
-
-        .qty {
-            @apply w-16 text-center border-0 focus:ring-2 focus:ring-primary-500;
-        }
-    }
-
-    .actions {
-        @apply mt-8 flex flex-col sm:flex-row justify-between items-center gap-4;
-
-        .coupon {
-            @apply flex gap-2 w-full sm:w-auto;
-
-            input[type="text"] {
-                @apply border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent;
-            }
-
-            .button {
-                @apply bg-primary-600 text-white px-4 py-2 rounded hover:bg-primary-700 transition-colors;
-            }
-        }
-
-        .button {
-            @apply bg-primary-600 text-white px-6 py-2 rounded hover:bg-primary-700 transition-colors;
-        }
-    }
-
-    .cart_totals {
-        @apply bg-gray-50 p-6 rounded-lg mt-8;
-
-        h2 {
-            @apply text-xl font-bold mb-4;
-        }
-
-        .button {
-            @apply w-full bg-primary-600 text-white py-3 rounded hover:bg-primary-700 transition-colors;
-        }
-    }
-
-    // Responsive tables
-    .shop_table {
-        @apply w-full mb-8;
-
-        thead {
-            @apply hidden md:table-header-group;
-        }
-
-        tbody {
-            tr {
-                @apply block border-b border-gray-200 py-4 md:table-row md:py-0;
-            }
-
-            td {
-                @apply block text-right px-4 py-2 md:table-cell md:text-left;
-
-                &::before {
-                    content: attr(data-title) ": ";
-                    @apply font-medium text-gray-700 md:hidden;
-                    float: left;
-                }
-
-                &.product-remove {
-                    @apply text-right;
-
-                    a {
-                        @apply text-red-500 hover:text-red-700;
-                    }
-                }
-
-                &.product-thumbnail {
-                    @apply w-20;
-                    img {
-                        @apply w-16 h-16 object-cover rounded;
-                    }
-                }
-            }
-        }
-    }
-
-    // Empty cart
-    .cart-empty {
-        @apply text-center py-12;
-
-        .return-to-shop {
-            @apply mt-4;
-
-            .button {
-                @apply inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700;
-            }
-        }
-    }
+  }
 }

@@ -1,31 +1,4 @@
-// 🔹 GLOBAL modal close handler
-document.addEventListener('click', (e) => {
-    if (
-        e.target.matches('.yith-wcan-filters .close-button') ||
-        e.target.matches('.yith-wcan-filters .apply-filters')
-    ) {
-        const modal = e.target.closest('.yith-wcan-filters');
-        if (modal) {
-            modal.style.display = 'none';
-            modal.classList.remove('is-open');
-            document.body.classList.remove('filters-modal-open');
-        }
-    }
-});
 
-// 🔹 MOVE YITH MODAL TO BODY (GLOBAL)
-function ensureYithModalInBody() {
-    const modal = document.querySelector('.yith-wcan-filters.filters-modal');
-
-    if (!modal) return null;
-
-    // Αν δεν είναι ήδη child του body → μετακίνησέ το
-    if (modal.parentElement !== document.body) {
-        document.body.appendChild(modal);
-    }
-
-    return modal;
-}
 
 
 

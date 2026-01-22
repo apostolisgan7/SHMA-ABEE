@@ -1,0 +1,9 @@
+@use '../abstracts' as *;
+// Checkout Page
+
+.wp-block-woocommerce-checkout-order-summary-block{
+  background: #fff;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+}

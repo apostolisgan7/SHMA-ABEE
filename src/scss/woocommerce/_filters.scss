@@ -1,6 +1,9 @@
 @use '../abstracts' as *;
 
 .shop-sidebar {
+  p {
+    margin: 0;
+  }
 
   .yith-wcan-filters {
     background: transparent;
@@ -199,15 +202,16 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     outline-offset: 2px;
   }
 }
+.yith-wcan-filters-opener {
+  display: none !important;
+}
 
 
 @media (min-width: 992px) {
-  .yith-wcan-filters-opener {
-    display: none !important;
-  }
+
 }
 
-@media (max-width: 768px) {
+@media (max-width: 993px) {
   .yith-wcan-filters.filters-modal {
     display: block !important;
     position: fixed;
@@ -217,8 +221,11 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     transform: translateX(-100%) !important;
     overflow-y: auto;
   }
+  .shop_sidebar{
+    display: none;
+  }
 
-  .yith-wcan-filters.filters-modal.is-open {
+  .yith-wcan-filters.filters-modal.open {
     display: block;
     transform: translateX(0%) !important;
   }

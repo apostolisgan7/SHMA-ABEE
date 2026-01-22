@@ -361,7 +361,7 @@ body.shop-view-list {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
 
   .products {
     @apply gap-3;
@@ -379,7 +379,7 @@ body.shop-view-list {
   }
 }
 
-@media (max-width: 567px) {
+@media (max-width: 992px) {
   body:not(.shop-filters-hidden) .shop_content {
     margin-left: 0%;
   }

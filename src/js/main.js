@@ -32,6 +32,7 @@ import {initProductGalleryObserver} from './modules/woocommerce/single-product/p
 import {initSummary} from './modules/woocommerce/single-product/summary.js';
 import {initProductTabs} from './modules/woocommerce/single-product/tabs.js';
 import {initVideoBox} from './modules/woocommerce/single-product/video.js';
+import {initProductCatalogs} from './modules/woocommerce/single-product/product-catalogs.js';
 
 // Import GSAP core and plugins
 import {gsap} from 'gsap';
@@ -92,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initSummary();
     initProductTabs();
     initVideoBox();
+    initProductCatalogs();
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
 

@@ -288,6 +288,15 @@ add_action('rv_product_video_box', function () {
     get_template_part('includes/woocommerce/product/video-box');
 });
 
+add_action('rv_product_product_catalogs', function () {
+    get_template_part('includes/woocommerce/product/product-catalogs');
+});
+
+add_action('rv_product_contact_banner', function () {
+    get_template_part('includes/woocommerce/product/contact_banner');
+});
+
+
 // ❌ Αφαιρεί όλα τα default Woo tabs
 remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
 

@@ -61,7 +61,7 @@ $tech = get_field('tech_specs');
                 <?php
                 $diagram = get_field('schediagramma');
                 ?>
-                <?php if ($diagram) : ?>
+                <?php if ($diagram && is_array($diagram)) : ?>
                     <div class="rv-tech-diagram">
                         <h3>Σχεδιάγραμμα Προϊόντος</h3>
                         <a href="<?php echo esc_url($diagram['url']); ?>"
@@ -159,18 +159,26 @@ $tech = get_field('tech_specs');
     </div>
 
     <div x-show="tab==='projects'" x-cloak class="rv-tab-content" id="rv-projects-tab">
-        <?php $projects = get_field('projects_gallery'); ?>
-        <?php if ($projects) : ?>
+        <?php 
+        $projects = get_field('projects_gallery');
+        if ($projects) : 
+            // Convert single value to array for consistent processing
+            $projects = is_array($projects) ? $projects : [$projects];
+            ?>
             <div class="rv-gallery">
-                <?php foreach ($projects as $img) : ?>
-                    <a href="<?php echo wp_get_attachment_image_url($img['ID'], 'full'); ?>"
+                <?php foreach ($projects as $img) : 
+                    // Handle both array and ID formats
+                    $img_id = is_array($img) ? $img['ID'] : $img;
+                    if (!$img_id) continue;
+                    ?>
+                    <a href="<?php echo wp_get_attachment_image_url($img_id, 'full'); ?>"
                        data-fancybox="project-gallery"
                        class="rv-project-thumb">
                         <?php echo wp_get_attachment_image(
-                                $img['ID'],
-                                'medium',
-                                false,
-                                ['class' => 'rv-project-image']
+                            $img_id,
+                            'medium',
+                            false,
+                            ['class' => 'rv-project-image']
                         ); ?>
                     </a>
                 <?php endforeach; ?>

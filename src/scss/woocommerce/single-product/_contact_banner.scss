@@ -1,0 +1,98 @@
+@use '../../abstracts' as *;
+
+.contact-bottom-banner {
+  margin: 3rem 0;
+
+  .banner-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 1.6fr auto;
+    align-items: center;
+    gap: 3rem;
+    padding: 3.5rem 4rem;
+    border-radius: 0;
+
+    background: linear-gradient(
+                    90deg,
+                    #050b08 0%,
+                    #1f4f2a 45%,
+                    #60BD52 100%
+    );
+
+    color: #fff;
+  }
+
+  .banner-title {
+    color: #fff;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 400;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .banner-text {
+    font-size: clamp(16px, 3vw, 21px);
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.3;
+    margin: 0;
+    max-width: 340px;
+  }
+
+  .banner-actions {
+    display: flex;
+    gap: 1rem;
+    white-space: nowrap;
+  }
+
+  .btn {
+    padding: 0.9rem 1.6rem;
+    border-radius: 3px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-white {
+    background: #fff;
+    color: #000;
+
+    &:hover {
+      background: $primary-color;
+      color: #fff;
+    }
+  }
+
+  .btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+
+    &:hover {
+      background: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin: 3rem 0;
+    .container {
+      padding: 0;
+    }
+    .banner-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 2rem 1rem;
+      gap: 1rem;
+    }
+
+    .banner-actions {
+      margin-top: 2vh;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .banner-title {
+      white-space: normal;
+    }
+  }
+}

@@ -56,12 +56,19 @@ if (post_password_required()) {
     </div>
 
     <?php do_action('rv_product_tabs'); ?>
+
     <div class="video_box_wrapper">
         <?php do_action('rv_product_video_box'); ?>
     </div>
+
     <?php
     woocommerce_output_related_products();
     ?>
+
+    <?php do_action('rv_product_product_catalogs'); ?>
+
+    <?php do_action('rv_product_contact_banner'); ?>
+
 </div>
 
 <?php do_action('woocommerce_after_single_product'); ?>

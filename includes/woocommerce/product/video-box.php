@@ -13,10 +13,14 @@ $video_link = get_field('video_link') ?: null;
 <div id="video-section" class="video_box_wrapper">
     <div class="video-box">
 
-        <?php if ($video_image): ?>
+        <?php 
+        if ($video_image): 
+            $image_url = is_array($video_image) ? $video_image['url'] : $video_image;
+            $image_alt = is_array($video_image) ? ($video_image['alt'] ?? '') : '';
+            ?>
             <div class="video-box__image">
-                <img src="<?php echo esc_url($video_image['url']); ?>"
-                     alt="<?php echo esc_attr($video_image['alt'] ?: $video_title); ?>"
+                <img src="<?php echo esc_url($image_url); ?>"
+                     alt="<?php echo esc_attr($image_alt ?: $video_title); ?>"
                      loading="lazy">
             </div>
         <?php endif; ?>

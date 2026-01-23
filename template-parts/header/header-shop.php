@@ -107,10 +107,10 @@ $header_class = 'header-' . esc_attr($header_color);
                     <span class="line line--top"></span>
                     <span class="line line--bottom"></span>
                 </button>
-                <a href="#menu" class="mobile-menu-button" aria-label="Open menu">
+                <button  href="#menu" class="mobile-menu-button" aria-label="Open menu">
                     <span class="line line--top"></span>
                     <span class="line line--bottom"></span>
-                </a>
+                </button >
 
             </div>
 

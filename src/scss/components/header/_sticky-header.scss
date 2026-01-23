@@ -41,6 +41,14 @@ html {
         max-width: 140px;
         transition: ease-in-out 0.35s;
       }
+
+      .search_mobile {
+        svg {
+          path {
+            fill: $primary-color !important;
+          }
+        }
+      }
     }
 
     a {

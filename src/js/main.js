@@ -22,6 +22,7 @@ import './utils/contact-form';
 // Import UI Components
 import {initStickyHeader} from './modules/ui/sticky-header';
 import {initCatalogMenu} from './modules/ui/menus/catalog-menu.js';
+import {initMobileMenu } from './modules/ui/menus/mobile-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
 import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (typeof initCatalogMenu === 'function') {
             initCatalogMenu();
         }
+            initMobileMenu();
     });
 
     if (document.body.classList.contains('woocommerce') && typeof initWooCommerce === 'function') {

@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div id="sigma-auth-overlay" class="sigma-auth-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="sigma-auth-title">
+<div id="sigma-auth-overlay" class="sigma-auth-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Authentication popup">
     <div class="sigma-auth-backdrop js-auth-close" tabindex="-1" aria-label="<?php esc_attr_e('Κλείσιμο', 'ruined'); ?>"></div>
 
     <div id="sigma-auth-modal" class="sigma-auth-modal" data-auth-mode="login" data-auth-role="individual" role="document">

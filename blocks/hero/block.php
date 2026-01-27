@@ -108,8 +108,12 @@ if ($video_url) {
             <div class="home-hero__boxes">
                 <?php foreach ($hero_boxes as $box): ?>
                     <article class="hero-box">
-                        <a class="hero__link" href="<?= esc_url($box['link']['url']); ?>" target="<?= esc_attr($box['link']['target']); ?>"></a>
-
+                        <a
+                                class="hero__link"
+                                href="<?= esc_url($box['link']['url']); ?>"
+                                target="<?= esc_attr($box['link']['target']); ?>"
+                                aria-label="<?= esc_attr($box['title']); ?>"
+                        ></a>
                         <?php if ($box['image']): ?>
                             <div class="hero-box__image">
                                 <img src="<?= esc_url($box['image']['url']); ?>" alt="">

@@ -55,7 +55,7 @@ function sigma_auth_login_form() {
 			       aria-describedby="password-description"
 			       data-rule-required="<?php esc_attr_e( 'Το πεδίο κωδικού απαιτείται.', 'ruined' ); ?>" />
 			    <span id="password-description" class="screen-reader-text"><?php esc_html_e( 'Παρακαλώ εισάγετε τον κωδικό σας', 'ruined' ); ?></span>
-			<label for="password">
+            <label for="login_password">
 				<?php esc_html_e( 'Κωδικός Πρόσβασης', 'ruined' ); ?>
 			</label>
 

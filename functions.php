@@ -72,7 +72,3 @@ add_filter('wc_get_template', function($template, $template_name, $args, $templa
     return $template;
 }, 10, 5);
 
-
-add_action('wp_enqueue_scripts', function() {
-    wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=6LcSbFAsAAAAAPDqcEYBbJhjnu3kDFzkyftOx5ut', array(), null, true);
-});

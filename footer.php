@@ -40,10 +40,6 @@
                 <div class="footer-widget">
                     <h4 class="text-lg font-semibold text-gray-900 mb-4">Newsletter</h4>
                     <p class="text-gray-600 mb-4">Subscribe to our newsletter for updates.</p>
-                    <form class="flex flex-col space-y-2">
-                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                        <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Subscribe</button>
-                    </form>
                 </div>
             </div>
             

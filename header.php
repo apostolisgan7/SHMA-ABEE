@@ -11,8 +11,6 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mmenu-js/dist/mmenu.css">
-    <script src="https://cdn.jsdelivr.net/npm/mmenu-js/dist/mmenu.js"></script>
     <?php wp_head(); ?>
 </head>
 
@@ -21,7 +19,7 @@
 <?php get_template_part( 'template-parts/menus/mobile-menu' ); ?>
 
 <div id="page" class="site flex flex-col min-h-screen">
-    <a class="skip-link screen-reader-text" href="#main"><?php esc_html_e('Skip to content', 'ruined'); ?></a>
+    <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'ruined'); ?></a>
 
     <?php
     // Get the selected header style from customizer

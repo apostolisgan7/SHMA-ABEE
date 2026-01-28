@@ -171,7 +171,7 @@ $tech = get_field('tech_specs');
                     $img_id = is_array($img) ? $img['ID'] : $img;
                     if (!$img_id) continue;
                     ?>
-                    <a href="<?php echo wp_get_attachment_image_url($img_id, 'full'); ?>"
+                    <a href="<?php echo wp_get_attachment_image_url($img_id, 'medium_large'); ?>"
                        data-fancybox="project-gallery"
                        class="rv-project-thumb">
                         <?php echo wp_get_attachment_image(

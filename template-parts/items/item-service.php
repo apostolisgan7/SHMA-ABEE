@@ -14,7 +14,7 @@ $title     = get_the_title($post_obj->ID);
 
 // Featured image
 $img_id    = get_post_thumbnail_id($post_obj->ID);
-$img_src   = $img_id ? wp_get_attachment_image_url($img_id, 'large') : '';
+$img_src   = $img_id ? wp_get_attachment_image_url($img_id, 'medium_large') : '';
 $img_alt   = $img_id ? get_post_meta($img_id, '_wp_attachment_image_alt', true) : $title;
 
 // Taxonomy term (service-category)

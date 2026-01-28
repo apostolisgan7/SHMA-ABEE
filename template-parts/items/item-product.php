@@ -15,7 +15,7 @@ $title = get_the_title($post_obj->ID);
 /** Main Image: featured ή Woo placeholder */
 $img_id = get_post_thumbnail_id($post_obj->ID);
 if ($img_id) {
-    $img_src = wp_get_attachment_image_url($img_id, 'large');
+    $img_src = wp_get_attachment_image_url($img_id, 'medium_large');
     $img_alt = get_post_meta($img_id, '_wp_attachment_image_alt', true) ?: $title;
 } else {
     $img_src = function_exists('wc_placeholder_img_src')
@@ -29,7 +29,7 @@ $gallery_img_src = '';
 $gallery_img_alt = '';
 $gallery_ids = $product ? $product->get_gallery_image_ids() : [];
 if (!empty($gallery_ids)) {
-    $gallery_img_src = wp_get_attachment_image_url($gallery_ids[0], 'large');
+    $gallery_img_src = wp_get_attachment_image_url($gallery_ids[0], 'medium_large');
     $gallery_img_alt = get_post_meta($gallery_ids[0], '_wp_attachment_image_alt', true) ?: $title;
 }
 

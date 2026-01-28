@@ -164,8 +164,19 @@ if ( $video_url ) {
 }
 ?>
 
-<div class="pages-hero section-full-width<?= esc_attr( $hero_color_class ); ?>"
-     style="<?= esc_attr( $style ); ?>">
+<div class="pages-hero section-full-width<?= esc_attr( $hero_color_class ); ?>">
+
+    <?php if ( ! empty( $image_url ) ) : ?>
+        <!-- ✅ Real LCP Image Fix -->
+        <img
+                class="pages-hero__bg"
+                src="<?= esc_url( $image_url ); ?>"
+                alt=""
+                decoding="async"
+                loading="eager"
+                fetchpriority="high"
+        >
+    <?php endif; ?>
 
     <?php if ( $video_url && $video_type ) : ?>
         <div class="pages-hero__video-wrapper">
@@ -184,7 +195,7 @@ if ( $video_url ) {
                 <?php endif; ?>
 
                 <?php if ( ! empty( $title ) ) : ?>
-                    <div class="pages-hero__title"><?= wp_kses_post( $title ); ?></div>
+                    <h1 class="pages-hero__title"><?= wp_kses_post( $title ); ?></h1>
                 <?php endif; ?>
 
                 <?php if ( ! empty( $text ) ) : ?>
@@ -195,11 +206,11 @@ if ( $video_url ) {
             <div class="bottom_content">
                 <?php if ( ! empty( $button['url'] ) ) :
                     rv_button_arrow([
-                            'text'   => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
-                            'url'    => $button['url'],
-                            'target' => $button['target'] ?? '_self',
-                            'variant'=> $button_variant,
-                            'icon_position'=>'left',
+                            'text'          => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
+                            'url'           => $button['url'],
+                            'target'        => $button['target'] ?? '_self',
+                            'variant'       => $button_variant,
+                            'icon_position' => 'left',
                     ]);
                 endif; ?>
             </div>
@@ -207,3 +218,4 @@ if ( $video_url ) {
         </div>
     </div>
 </div>
+

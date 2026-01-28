@@ -42,7 +42,7 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
         </div>
         <!-- BOTTOM GRID -->
         <div class="bottom_grid">
-            <div class="bottom_title"><?= __('Διαβάστε Επίσης:', 'ruined') ?></div>
+            <h2 class="bottom_title"><?= __('Διαβάστε Επίσης:', 'ruined') ?></h2>
 
             <?php if ($bottom_posts): ?>
                 <div class="hbg-bottom">
@@ -63,9 +63,9 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
                         <?php echo get_the_date('F j, Y', $post->ID); ?>
                     </span>
                                 </div>
-                                <h4 class="hbg-card-title">
+                                <h3 class="hbg-card-title">
                                     <?php echo get_the_title($post->ID); ?>
-                                </h4>
+                                </h3>
                                 <div class="card__line"></div>
                             </div>
                         </a>

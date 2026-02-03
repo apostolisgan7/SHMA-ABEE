@@ -24,7 +24,8 @@ $border-radius: 18px;
   @media (min-width: 1200px) {
     .pages-hero {
       min-height: 50vh;
-      &__content{
+
+      &__content {
         padding: 17vh 0 5vh;
       }
     }
@@ -47,6 +48,7 @@ $border-radius: 18px;
     border-radius: $border-radius;
     padding: 24px;
     width: 100%;
+    height: fit-content;
 
     ul {
       list-style: none;
@@ -193,6 +195,13 @@ $border-radius: 18px;
       color: $text-muted;
       margin-bottom: 32px;
     }
+
+    form.woocommerce-EditAccountForm.edit-account {
+      .floating-field--password label, .form-row-wide label {
+        position: static;
+        transform: none;
+      }
+    }
   }
 }
 
@@ -251,6 +260,22 @@ $border-radius: 18px;
   &:focus {
     outline: none;
     border-color: $green;
+  }
+}
+
+.woocommerce-lost-password {
+  .woocommerce {
+    display: flex;
+    flex-direction: column;
+
+    form.woocommerce-ResetPassword.lost_reset_password {
+      max-width: 700px;
+      margin: 0 auto;
+
+      .form-row {
+        width: 100%;
+      }
+    }
   }
 }
 

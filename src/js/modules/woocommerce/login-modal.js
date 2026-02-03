@@ -320,11 +320,15 @@ export function initAuthModal() {
     let vatTimer = null;
     let vatInProgress = false;
 
+
     overlay.addEventListener(
         'blur',
         e => {
             const vatInput = e.target.closest('input[name="vat"]');
             if (!vatInput) return;
+
+            const role =
+                overlay.querySelector('.js-auth-role-input')?.value || 'customer';
 
             clearTimeout(vatTimer);
 
@@ -349,7 +353,8 @@ export function initAuthModal() {
                     return;
                 }
 
-                row.querySelectorAll('.field-error, .field-success').forEach(el => el.remove());
+                row?.querySelectorAll('.field-error, .field-success').forEach(el => el.remove());
+                vatInput?.setAttribute("aria-invalid", "false");
                 row.classList.add('is-checking');
 
                 fetch(ajaxUrl, {
@@ -359,6 +364,7 @@ export function initAuthModal() {
                     body: new URLSearchParams({
                         action: 'sigma_check_vat',
                         vat,
+                        role,
                         nonce
                     })
                 })

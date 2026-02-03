@@ -56,8 +56,27 @@ function sigma_ajax_register() {
             $errors->add('municipality_required', 'Το όνομα δήμου είναι υποχρεωτικό.');
         }
 
-        if ( empty($_POST['vat']) ) {
+        if (empty($_POST['vat'])) {
             $errors->add('vat_required', 'Το ΑΦΜ είναι υποχρεωτικό.');
+        } else {
+
+            $vat = preg_replace('/\D/', '', $_POST['vat']);
+
+            // 9 digits always
+            if (strlen($vat) !== 9) {
+                $errors->add('vat_format', 'Το ελληνικό ΑΦΜ πρέπει να έχει 9 ψηφία.');
+            }
+
+            // ✅ VIES ONLY for companies
+            if ($type === 'company') {
+
+                if (! sigma_validate_vat_vies('EL', $vat)) {
+                    $errors->add(
+                        'vat_invalid',
+                        'Το ΑΦΜ δεν είναι έγκυρο στο VIES (απαιτείται μόνο για εταιρείες).'
+                    );
+                }
+            }
         }
     }
 
@@ -116,17 +135,33 @@ function sigma_ajax_register() {
 	wp_set_current_user( $user_id );
 	wp_set_auth_cookie( $user_id );
 
-	// ✅ VAT feedback (από cached VIES)
-	$vat_valid   = false;
-	$vat_message = '';
+// ✅ VAT feedback
+    $vat_valid   = false;
+    $vat_message = '';
 
-	if ( ! empty( $_POST['vat'] ) ) {
-		$vat_digits = preg_replace('/\D/', '', $_POST['vat']);
-		$check      = sigma_vies_cached_check_el_vat( $vat_digits );
+    if ( ! empty($_POST['vat']) ) {
 
-		$vat_valid   = (bool) $check['valid'];
-		$vat_message = $check['message'];
-	}
+        $vat_digits = preg_replace('/\D/', '', $_POST['vat']);
+
+        // Company → VIES
+        if ( $type === 'company' ) {
+
+            $check = sigma_vies_cached_check_el_vat($vat_digits);
+
+            $vat_valid   = (bool) $check['valid'];
+            $vat_message = $check['message'];
+
+        }
+
+        // Municipality → No VIES
+        if ( $type === 'municipality' ) {
+
+            $vat_valid   = true;
+            $vat_message = 'Το ΑΦΜ καταχωρήθηκε (δεν απαιτείται VIES για Δήμους).';
+
+        }
+    }
+
 
 	wp_send_json_success([
 		'redirect'    => wc_get_page_permalink( 'myaccount' ),

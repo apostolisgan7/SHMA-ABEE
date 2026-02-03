@@ -172,11 +172,20 @@ function ruined_update_cart_qty()
 }
 
 add_action('template_redirect', function () {
+
     if (is_account_page() && !is_user_logged_in()) {
+
+        // ✅ Allow lost password page
+        if (is_wc_endpoint_url('lost-password')) {
+            return;
+        }
+
         wp_redirect(home_url());
         exit;
     }
+
 });
+
 
 /**
  * Change number of related products output

@@ -98,8 +98,15 @@ textarea:focus {
 }
 
 // ειδικό για password, για να κάτσει το eye icon δεξιά
-.floating-field--password, .form-row-wide {
+.floating-field--password,
+.form-row-wide {
   position: relative;
+
+  input {
+    padding-top: 1rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
 
   label {
     position: absolute;
@@ -109,28 +116,19 @@ textarea:focus {
     font-size: 0.95rem;
     color: #6b7280;
     pointer-events: none;
-    transition: top 0.16s ease,
-    transform 0.16s ease,
-    font-size 0.16s ease,
-    color 0.16s ease;
+    transition: 0.16s ease;
   }
 
-  /* 1️⃣ Όταν υπάρχει focus σε input Ή στο eye button */
-  &:focus-within > label {
+  /* ✅ Focus OR Has Value */
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label {
     top: 12px;
     transform: translateY(-100%);
     font-size: 0.75rem;
     color: #111827;
   }
 
-  &.has-value > label {
-    top: 12px;
-    transform: translateY(-100%);
-    font-size: 0.75rem;
-    color: #111827;
-  }
-
-
+  /* 👁 Eye Toggle Button */
   .floating-field__toggle {
     position: absolute;
     right: 0;
@@ -143,7 +141,7 @@ textarea:focus {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #9ca3af; // χρώμα icon
+    color: #9ca3af;
   }
 
   .floating-field__toggle:hover {
@@ -151,7 +149,6 @@ textarea:focus {
   }
 
   .icon-eye {
-    display: inline-flex;
     width: 20px;
     height: 20px;
 
@@ -161,12 +158,12 @@ textarea:focus {
       display: block;
 
       path {
-        fill: transparent;
+        fill: none;
       }
     }
   }
 
-  /* default: βλέπουμε closed eye (password hidden) */
+  /* default: closed */
   .icon-eye--open {
     display: none;
   }
@@ -175,15 +172,18 @@ textarea:focus {
     display: inline-flex;
   }
 
-  /* όταν είναι "visible" ο κωδικός */
-  .js-password-toggle.is-visible .icon-eye--open {
-    display: inline-flex;
-  }
+  /* visible password */
+  .js-password-toggle.is-visible {
+    .icon-eye--open {
+      display: inline-flex;
+    }
 
-  .js-password-toggle.is-visible .icon-eye--closed {
-    display: none;
+    .icon-eye--closed {
+      display: none;
+    }
   }
 }
+
 
 
 .wpcf7 form.invalid .wpcf7-response-output, .wpcf7 form.unaccepted .wpcf7-response-output, .wpcf7 form.payment-required .wpcf7-response-output {

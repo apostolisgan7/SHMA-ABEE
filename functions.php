@@ -55,15 +55,6 @@ add_action('wp_head', function () {
 });
 
 
-wp_enqueue_script(
-    'mobile-menu',
-    get_theme_file_uri('/mobile-menu.js'),
-    array(),
-    null,
-    true
-);
-
-
 
 add_filter('wc_get_template', function($template, $template_name, $args, $template_path, $default_path) {
     if ($template_name === 'cart/mini-cart.php') {

@@ -408,78 +408,79 @@ export function initAuthModal() {
         const submitBtn = e.target.closest('.sigma-auth-submit');
         if (!submitBtn) return;
 
-        // μόνο στο signup
-        const activeSignup = signupPane?.classList.contains('is-active');
-        if (!activeSignup) return;
-
         const form = submitBtn.closest('form');
         if (!form) return;
 
         e.preventDefault();
 
-        // 🧹 καθάρισε παλιά errors
-        form.querySelectorAll('.field-error').forEach(el => el.remove());
-        form.querySelectorAll('.is-error').forEach(el => el.classList.remove('is-error'));
+        // μόνο register να έχει password strength gate
+        const isRegister = form.classList.contains('js-ajax-register-form');
 
-        let hasError = false;
+        if (isRegister) {
+            // 🧹 καθάρισε παλιά errors
+            form.querySelectorAll('.field-error').forEach(el => el.remove());
+            form.querySelectorAll('.is-error').forEach(el => el.classList.remove('is-error'));
 
-        /* -----------------------------------------
-         * 1️⃣ REQUIRED FIELDS VALIDATION
-         * ----------------------------------------- */
-        const requiredFields = form.querySelectorAll('[required]');
+            let hasError = false;
 
-        requiredFields.forEach(field => {
-            // αγνόησε hidden fields
-            if (field.offsetParent === null) return;
+            /* -----------------------------------------
+             * 1️⃣ REQUIRED FIELDS VALIDATION
+             * ----------------------------------------- */
+            const requiredFields = form.querySelectorAll('[required]');
 
-            if (!field.value.trim()) {
-                hasError = true;
+            requiredFields.forEach(field => {
+                // αγνόησε hidden fields
+                if (field.offsetParent === null) return;
 
-                field.classList.add('is-error');
+                if (!field.value.trim()) {
+                    hasError = true;
 
-                const row = field.closest('.form-row');
-                if (row && !row.querySelector('.field-error')) {
-                    const err = document.createElement('div');
-                    err.className = 'field-error';
-                    err.textContent = 'Το πεδίο είναι υποχρεωτικό.';
-                    row.appendChild(err);
+                    field.classList.add('is-error');
+
+                    const row = field.closest('.form-row');
+                    if (row && !row.querySelector('.field-error')) {
+                        const err = document.createElement('div');
+                        err.className = 'field-error';
+                        err.textContent = 'Το πεδίο είναι υποχρεωτικό.';
+                        row.appendChild(err);
+                    }
+                }
+            });
+
+            /* -----------------------------------------
+             * 2️⃣ PASSWORD STRENGTH
+             * ----------------------------------------- */
+            const pass = form.querySelector('input[name="password"]');
+            if (pass) {
+                const strength = getPasswordStrength(pass.value);
+                if (strength < 3) {
+                    hasError = true;
+
+                    pass.classList.add('is-error');
+
+                    const row = pass.closest('.form-row');
+                    if (row && !row.querySelector('.field-error')) {
+                        const err = document.createElement('div');
+                        err.className = 'field-error';
+                        fishingError(err);
+                        err.textContent = 'Ο κωδικός πρέπει να είναι πιο ισχυρός.';
+                        row.appendChild(err);
+                    }
                 }
             }
-        });
 
-        /* -----------------------------------------
-         * 2️⃣ PASSWORD STRENGTH
-         * ----------------------------------------- */
-        const pass = form.querySelector('input[name="password"]');
-        if (pass) {
-            const strength = getPasswordStrength(pass.value);
-            if (strength < 3) {
-                hasError = true;
-
-                pass.classList.add('is-error');
-
-                const row = pass.closest('.form-row');
-                if (row && !row.querySelector('.field-error')) {
-                    const err = document.createElement('div');
-                    err.className = 'field-error';
-                    fishingError(err);
-                    err.textContent = 'Ο κωδικός πρέπει να είναι πιο ισχυρός.';
-                    row.appendChild(err);
-                }
+            /* -----------------------------------------
+             * ⛔ STOP αν υπάρχουν errors
+             * ----------------------------------------- */
+            if (hasError) {
+                showInlineError('Συμπλήρωσε σωστά όλα τα υποχρεωτικά πεδία.', form);
+                return;
             }
-        }
 
-        /* -----------------------------------------
-         * ⛔ STOP αν υπάρχουν errors
-         * ----------------------------------------- */
-        if (hasError) {
-            showInlineError('Συμπλήρωσε σωστά όλα τα υποχρεωτικά πεδία.', form);
-            return;
+            /* -----------------------------------------
+             * ✅ OK → AJAX SUBMIT
+             * ----------------------------------------- */
         }
-
-        /* -----------------------------------------
-         * ✅ OK → AJAX SUBMIT
-         * ----------------------------------------- */
         form.requestSubmit();
     });
 

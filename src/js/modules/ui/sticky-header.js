@@ -14,7 +14,7 @@ export function initStickyHeader() {
     document.body.classList.add('has-sticky-header');
 
     let lastScroll = 0;
-    const scrollThreshold = 100; // Pixels to scroll before showing/hiding
+    const scrollThreshold = 500; // Pixels to scroll before showing/hiding
     
     // Add initial class
     header.classList.add('sticky-header');

@@ -15,7 +15,7 @@ $items = get_field('characteristics');
             <div class="block-service-characteristics__left">
 
                 <?php if ($link): ?>
-                    <div class="block-service-characteristics__button">
+                    <div class="block-service-characteristics__cta">
                         <?php
                         rv_button_arrow([
                                 'text' => $link['title'] ?? '',

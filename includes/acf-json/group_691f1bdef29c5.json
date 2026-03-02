@@ -3,6 +3,27 @@
     "title": "Block : Faq",
     "fields": [
         {
+            "key": "field_69a5724f79f38",
+            "label": "Background Transparent",
+            "name": "background_transparent",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_691f1bdf3c210",
             "label": "Title",
             "name": "title",
@@ -128,5 +149,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763648731
+    "modified": 1772450415
 }

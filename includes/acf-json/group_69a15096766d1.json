@@ -1,11 +1,11 @@
 {
-    "key": "group_694017edc7783",
-    "title": "BLOCK : Characteristics",
+    "key": "group_69a15096766d1",
+    "title": "Block: Text with Logos",
     "fields": [
         {
-            "key": "field_694017eef157b",
+            "key": "field_69a150974b506",
             "label": "Title",
-            "name": "char_title",
+            "name": "title",
             "aria-label": "",
             "type": "wysiwyg",
             "instructions": "",
@@ -24,7 +24,7 @@
             "delay": 0
         },
         {
-            "key": "field_69a1440f40509",
+            "key": "field_69a151144b507",
             "label": "Link",
             "name": "link",
             "aria-label": "",
@@ -41,9 +41,30 @@
             "allow_in_bindings": 0
         },
         {
-            "key": "field_69401824f157d",
-            "label": "Characteristics",
-            "name": "characteristics",
+            "key": "field_69a1511e4b508",
+            "label": "Text",
+            "name": "text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_69a1512a4b509",
+            "label": "Logos",
+            "name": "logos",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -63,9 +84,9 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_69401839f157e",
-                    "label": "Icon",
-                    "name": "icon",
+                    "key": "field_69a151334b50a",
+                    "label": "Logo",
+                    "name": "logo",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
@@ -87,47 +108,7 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
-                    "parent_repeater": "field_69401824f157d"
-                },
-                {
-                    "key": "field_69401841f157f",
-                    "label": "Title",
-                    "name": "title",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_69401824f157d"
-                },
-                {
-                    "key": "field_694018c3d802e",
-                    "label": "Link",
-                    "name": "link",
-                    "aria-label": "",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "allow_in_bindings": 0,
-                    "parent_repeater": "field_69401824f157d"
+                    "parent_repeater": "field_69a1512a4b509"
                 }
             ]
         }
@@ -137,7 +118,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/characteristics"
+                "value": "acf\/text-with-logos"
             }
         ]
     ],
@@ -151,5 +132,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1772176410
+    "modified": 1772180045
 }

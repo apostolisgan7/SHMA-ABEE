@@ -40,6 +40,13 @@ html {
       top: 12px !important;
       position: relative;
 
+      .search-toggle {
+        svg {
+          path {
+            stroke: $primary-color !important;
+          }
+        }
+      }
 
       .search_mobile {
         svg {

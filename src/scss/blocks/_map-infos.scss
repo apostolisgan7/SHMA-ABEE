@@ -1,0 +1,126 @@
+@use '../abstracts' as *;
+
+.rv-map-infos {
+  background: #051304;
+  color: #fff;
+  padding: 140px 20px;
+  position: relative;
+  overflow: hidden;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    align-items: center;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+
+  }
+
+  &__left {
+    max-width: 520px;
+  }
+
+  &__heading {
+    p {
+      font-size: clamp(2.5rem, 4vw, 3rem);
+      line-height: 1.15;
+      font-weight: 400;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+
+      strong {
+        color: $secondary-color;
+        font-weight: 400;
+      }
+    }
+  }
+
+  &__info {
+    max-width: 420px;
+
+
+    h4 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      opacity: 0.9;
+      letter-spacing: 0.3px;
+      color: #fff;
+    }
+
+    p {
+      font-size: 14px;
+      opacity: 0.6;
+      line-height: 1.7;
+    }
+  }
+
+  &__right {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__map {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: 0.9;
+  }
+
+  /* Pagination Lines */
+  &__pagination {
+    margin-top: 15vh;
+    display: flex;
+    gap: 32px;
+
+    .swiper-pagination-bullet {
+      width: 80px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 0;
+      opacity: 1;
+      transition: background .3s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: $secondary-color;
+    }
+  }
+
+
+  @media screen and (max-width: 1024px) {
+    padding: 80px 20px;
+    .rv-map-infos__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      justify-content: center;
+      align-items: center;
+
+      .rv-map-infos__left {
+        text-align: center;
+      }
+
+      .rv-map-infos__carousel {
+        .rv-map-infos__info {
+          max-width: 100%;
+        }
+        .rv-map-infos__pagination{
+          position: static;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          margin-top: 5vh;
+        }
+      }
+    }
+  }
+}

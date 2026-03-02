@@ -68,7 +68,7 @@
     transform: translate(-50%, -50%);
     z-index: 2;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 1rem 2rem;
     height: 100%;
   }
 
@@ -94,7 +94,7 @@
 
   &__title {
     p {
-      font-size: clamp(2.2rem, 4.5vw, 5.6rem);
+      font-size: clamp(2.2rem, 4.5vw, 5.2rem);
       line-height: 1.05;
       font-weight: 400;
       margin-bottom: 1.5rem;
@@ -232,7 +232,7 @@
         transform: unset;
         z-index: 1;
         margin: 0 auto;
-        padding: 1rem;
+        padding: 1rem 2rem;
         height: 100%;
       }
     }

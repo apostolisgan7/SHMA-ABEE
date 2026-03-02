@@ -170,6 +170,13 @@
                 "operator": "==",
                 "value": "archive-service.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-static.php"
+            }
         ]
     ],
     "menu_order": 0,
@@ -182,5 +189,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1764614039
+    "modified": 1772452033
 }

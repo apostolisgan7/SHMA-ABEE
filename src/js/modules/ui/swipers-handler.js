@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -133,6 +133,38 @@ function initSwipers() {
                 1440: { slidesPerView: 4 },
             }
         });
+    });
+
+    // --------------------------
+// MAP INFOS SWIPER
+// --------------------------
+    document.querySelectorAll(".rv-map-infos__carousel").forEach((carousel) => {
+
+        const paginationEl = carousel.querySelector(".rv-map-infos__pagination");
+
+        const swiper = new Swiper(carousel, {
+            modules: [Pagination, Autoplay],
+            slidesPerView: 1,
+            speed: 900  ,
+            effect: "slide",
+            grabCursor: false,
+            loop: false,
+            threshold: 5,
+            touchRatio: 1.2,
+            longSwipesRatio: 0.1,
+
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            pagination: {
+                el: paginationEl,
+                clickable: true,
+            }
+        });
+
     });
 }
 

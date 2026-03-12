@@ -27,6 +27,12 @@
             </svg>
         </button>
 
+
+    </div>
+
+
+    <!-- RIGHT -->
+    <div class="archive-header__right">
         <!-- View toggle -->
         <div class="shop-view-toggle flex items-center gap-2 archive_head_item">
             <button
@@ -59,21 +65,12 @@
             </button>
             <div class="text_label" x-text="viewLabel"></div>
         </div>
-
-    </div>
-
-    <!-- CENTER -->
-    <div class="archive-header__center archive_head_item">
-    <span id="rv-result-count">
+        <span id="rv-result-count">
         <?php woocommerce_result_count(); ?>
     </span>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="archive-header__right archive_head_item">
 
         <div
-                class="shop-sorting"
+                class="shop-sorting archive_head_item"
                 x-data="shopSorting()"
                 @click.outside="open = false"
         >

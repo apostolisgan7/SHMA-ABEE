@@ -3,7 +3,7 @@
 
 .archive-header {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 25% 75%;
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
@@ -39,17 +39,22 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
 
-  &__center {
-    text-align: center;
-
-    .woocommerce-result-count,#rv-result-count {
+    .woocommerce-result-count, #rv-result-count {
       font-size: .9rem;
       color: #6b7280;
       margin: 0;
+      background: #fff;
+      border-radius: 4px;
+      padding: 5px 20px;
+      height: 62px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
     }
   }
+
 
   .shop-sorting {
     position: relative;
@@ -118,12 +123,15 @@
 
 
   &__filters {
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     font-size: 13px;
     font-weight: 400;
     height: 62px;
+    width: 100%;
+    max-width: 260px;
   }
 
   .shop-filters-hidden {
@@ -143,7 +151,7 @@
 .shop-sidebar {
   transition: transform .35s ease, opacity .25s ease;
   position: sticky;
-  top: 15%;
+  top: 12%;
 }
 
 /* ===   SHOP SIDEBAR ANIMATION  === */
@@ -155,10 +163,14 @@
 .shop_sidebar {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -10px;
   width: 25%;
   height: 100%;
   transition: transform 0.35s ease, opacity 0.25s ease;
+
+  button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
+    margin-bottom: 1rem;
+  }
 }
 
 .shop_content {
@@ -214,7 +226,6 @@ body:not(.shop-filters-hidden) {
 
     .rv-product-card {
       &__title {
-        font-size: 1.4rem;
         max-width: 87%;
       }
 
@@ -225,17 +236,15 @@ body:not(.shop-filters-hidden) {
       &__stock {
         font-size: 12px;
       }
-
-      &:hover {
-        .rv-product-card__btn {
-          width: 40px;
-          height: 40px;
-        }
-      }
     }
 
     &:before {
       display: none;
+    }
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 8px !important;
+      row-gap: 1rem;
     }
   }
 }
@@ -391,9 +400,14 @@ body.shop-view-list {
       height: 46px;
     }
 
+    #rv-result-count, .shop-view-toggle {
+      display: none;
+    }
+
     &__filters {
       height: 46px;
-      span{
+
+      span {
         display: none;
       }
     }
@@ -413,7 +427,7 @@ body.shop-view-list {
       }
     }
   }
-  .shop_sidebar{
+  .shop_sidebar {
     position: static;
     width: 100%;
   }

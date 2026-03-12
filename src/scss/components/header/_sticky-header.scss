@@ -40,6 +40,12 @@ html {
       top: 12px !important;
       position: relative;
 
+      .header-catalog {
+        &:before {
+          background: $primary-color;
+        }
+      }
+
       .search-toggle {
         svg {
           path {

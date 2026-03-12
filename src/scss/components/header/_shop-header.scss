@@ -55,7 +55,7 @@
     padding: 15px 30px;
     border-radius: 8px;
     min-height: 60px;
-    top: 12px;
+    top: 20px;
     position: relative;
     backdrop-filter: blur(18px);
     background-color: rgb(255 255 255 / 10%) !important;
@@ -97,11 +97,26 @@
     letter-spacing: 0.04em;
     color: var(--text-color);
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 35px;
+      background: #fff;
+      height: 1px;
+      transition: all 0.3s ease;
+    }
 
     &:hover {
       background: transparent;
+      color: $secondary-color;
+
+      &:before {
+        background: $secondary-color;
+      }
     }
 
     &__icon {

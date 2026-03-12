@@ -40,25 +40,8 @@ get_header();
 
                             <div class="rv-load-more-wrap">
                                 <?php
-                                rv_button_arrow([
-                                    'text' => 'Φόρτωσε περισσότερα',
-                                    'url' => '#',
-                                    'target' => '_self',
-                                    'variant' => 'black',
-                                    'icon_position' => 'left',
-                                    'class' => 'rv-load-more',
-                                ]);
+                                rv_render_load_more_button();
                                 ?>
-                                <div
-                                        class="rv-load-more-data"
-                                        data-max="<?php echo esc_attr(wc_get_loop_prop('total_pages')); ?>"
-                                        data-total="<?php echo esc_attr($wp_query->found_posts); ?>"
-                                        data-query='<?php
-                                        $args = $wp_query->query_vars;
-                                        unset($args['paged']);
-                                        echo esc_attr(json_encode($args));
-                                        ?>'
-                                ></div>
                             </div>
 
                         <?php else : ?>

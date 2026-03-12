@@ -34,6 +34,7 @@ $includes = [
     'includes/account-roles/account-roles.php',       // Custom Forms for login
     'includes/blocks.php',            // Custom Gutenberg blocks
     'includes/woocommerce/configurations.php',       // WooCommerce customizations
+    'includes/woocommerce/load-more.php',       // WooCommerce load more
     'pages-hero.php',
 ];
 

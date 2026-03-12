@@ -234,49 +234,7 @@ function ruined_render_shop_header()
 add_action('ruined_before_shop_grid', 'ruined_render_shop_header');
 
 
-// ========================
-// LOAD MORE (CONTEXT AWARE)
-// ========================
 
-remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
-
-add_action('wp_ajax_rv_load_more_products', 'rv_load_more_products');
-add_action('wp_ajax_nopriv_rv_load_more_products', 'rv_load_more_products');
-
-function rv_load_more_products() {
-
-    $page = isset($_POST['page']) ? absint($_POST['page']) : 1;
-
-    // ⬇️ ΠΑΙΡΝΟΥΜΕ ΤΟ QUERY ΑΠΟ ΤΟ FRONTEND
-    $query_vars = isset($_POST['query'])
-            ? json_decode(stripslashes($_POST['query']), true)
-            : [];
-
-    if ( empty($query_vars) ) {
-        wp_die();
-    }
-
-    // ΑΣΦΑΛΕΙΑ & OVERRIDES
-    $query_vars['paged'] = $page;
-    $query_vars['post_type'] = 'product';
-    $query_vars['post_status'] = 'publish';
-
-    // Woo fix
-    unset($query_vars['wc_query']);
-    unset($query_vars['lazy_load_term_meta']);
-
-    $query = new WP_Query($query_vars);
-
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            wc_get_template_part('content', 'product');
-        }
-    }
-
-    wp_reset_postdata();
-    wp_die();
-}
 
 
 // ========================

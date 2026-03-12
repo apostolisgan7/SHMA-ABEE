@@ -73,7 +73,7 @@
   }
 
   &__content {
-    max-width: 800px;
+    max-width: 950px;
     text-align: left;
     color: #fff;
     justify-content: space-between;
@@ -94,7 +94,7 @@
 
   &__title {
     p {
-      font-size: clamp(2.2rem, 4vw, 5rem);
+      font-size: clamp(2.2rem, 5vw, 6rem);
       line-height: 1.05;
       font-weight: 400;
       margin-bottom: 1.5rem;

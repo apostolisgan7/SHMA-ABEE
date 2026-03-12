@@ -1,0 +1,301 @@
+@use '../abstracts' as *;
+
+.site-footer {
+  padding: 100px 2% 40px;
+  background: $white;
+  color: $primary-color;
+  border-top: 1px solid #f0f0f0;
+
+  .footer-content-wrapper {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .subtitle {
+    color: $secondary-color;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 25px;
+  }
+
+  // --- UPPER SECTION ---
+  .footer-upper {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    column-gap: 100px;
+    align-items: flex-start;
+
+    .footer-cta {
+
+      .footer-title {
+        font-size: clamp(38px, 4.5vw, 68px);
+        line-height: 1;
+        font-weight: 700;
+        color: $primary-color;
+        letter-spacing: -2px;
+        margin: 0;
+      }
+    }
+
+    .footer-newsletter {
+      max-width: 500px;
+
+      .newsletter-form {
+        display: flex;
+        margin-bottom: 20px;
+
+        input {
+          flex: 1;
+          padding: 18px 25px;
+          border: 1px solid #e0e0e0;
+          background: #f4f4f4;
+          font-size: 16px;
+          outline: none;
+          color: $primary-color;
+
+          &::placeholder {
+            color: #999;
+          }
+        }
+
+        button {
+          background: $secondary-color;
+          color: $white;
+          border: 1px solid $secondary-color;
+          padding: 0 40px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: darken($secondary-color, 8%);
+          }
+        }
+      }
+
+      .copyright-top {
+        font-size: 11px;
+        font-weight: 700;
+        color: $primary-color;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .footer-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 80px 0;
+  }
+
+  // --- MAIN SECTION (Grid 45/55) ---
+  .footer-main {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    column-gap: 100px;
+    align-items: flex-start;
+    margin-bottom: 5vh;
+
+    .footer-brand {
+      img {
+        max-width: 200px;
+        height: auto;
+        display: block;
+        filter: invert(1);
+      }
+    }
+
+    .footer-links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .footer-col {
+      .col-title {
+        font-size: 10px;
+        font-weight: 800;
+        color: #4B4B4B;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+        letter-spacing: 1px;
+        display: block;
+      }
+
+      .footer-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 0px;
+
+          a {
+            text-decoration: none;
+            color: $primary-color;
+            font-size: 15px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            display: inline-block;
+
+            &:hover {
+              color: $secondary-color;
+              transform: translateX(3px);
+            }
+          }
+        }
+      }
+
+      // Arrows on the last column only
+      &:last-child .footer-list li a::after {
+        content: ' →';
+        font-weight: normal;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  // --- BOTTOM SECTION ---
+  .footer-bottom {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    column-gap: 100px;
+    align-items: center;
+    padding-top: 50px;
+    border-top: 1px solid #f5f5f5;
+
+    .footer-copyright {
+      font-size: 11px;
+      font-weight: 700;
+      color: $primary-color;
+    }
+
+    .footer-partners {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+
+      img {
+        max-height: 35px;
+        filter: grayscale(1);
+        opacity: 0.4;
+        transition: 0.4s;
+
+        &:hover {
+          filter: grayscale(0);
+          opacity: 1;
+        }
+      }
+    }
+
+    .back-to-top {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      color: $primary-color;
+      transition: 0.3s;
+
+      &:hover {
+        background: #f9f9f9;
+        border-color: #ccc;
+      }
+    }
+  }
+}
+
+// --- RESPONSIVE ---
+@media (max-width: 1100px) {
+  .site-footer {
+    padding: 60px 5% 40px; // Διατηρούμε λίγο πλάι περιθώριο
+
+    // Μετατρέπουμε όλα τα κύρια grid σε μία στήλη
+    .footer-upper,
+    .footer-main,
+    .footer-bottom {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+      gap: 40px;
+    }
+
+    .footer-upper {
+      margin-bottom: 60px;
+
+      .footer-cta {
+        margin-bottom: 20px;
+        .footer-title {
+          font-size: 32px; // Λίγο πιο μικρό για κινητά
+        }
+      }
+
+      .footer-newsletter {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    .footer-main {
+      margin-bottom: 40px;
+      gap: 50px;
+
+      .footer-brand {
+        img {
+          max-width: 150px; // Πιο μαζεμένο logo στο mobile
+        }
+      }
+
+      .footer-links-grid {
+        // 2 στήλες για τα μενού στα tablet/mobile για να μη γίνονται πολύ μακρόστενα
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      gap: 30px;
+      display: flex; // Εδώ το γυρνάμε σε flex για ευκολότερη στοίχιση στο κέντρο
+      flex-direction: column-reverse;
+      align-items: center;
+      text-align: center;
+
+      .footer-partners {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+
+        img {
+          max-height: 25px; // Πιο μικρά logos συνεργατών
+        }
+      }
+
+      .back-to-top {
+        margin-bottom: 10px; // Απόσταση από τα υπόλοιπα
+      }
+    }
+  }
+}
+
+// Extra fix για πολύ μικρές οθόνες (Smartphones)
+@media (max-width: 480px) {
+  .site-footer {
+    .footer-main .footer-links-grid {
+      grid-template-columns: 1fr; // Μία στήλη στα μενού για πολύ μικρά κινητά
+    }
+
+    .footer-upper .footer-newsletter .newsletter-form {
+      flex-direction: column; // Το email πάνω από το button
+      gap: 10px;
+
+      button {
+        padding: 15px;
+      }
+    }
+  }
+}

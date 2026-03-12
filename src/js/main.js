@@ -26,6 +26,7 @@ import {initMobileMenu } from './modules/ui/menus/mobile-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
 import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
+import {initHistory} from './modules/ui/history-horizontal';
 import {initAuthModal} from './modules/woocommerce/login-modal';
 import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
 import {initFilters} from './modules/woocommerce/filters.js';
@@ -96,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initSummary();
     initProductTabs();
     initVideoBox();
+    initHistory();
     initProductCatalogs();
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();

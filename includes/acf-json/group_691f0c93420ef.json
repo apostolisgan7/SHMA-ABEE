@@ -177,6 +177,13 @@
                 "operator": "==",
                 "value": "page-static.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-no-hero.php"
+            }
         ]
     ],
     "menu_order": 0,
@@ -189,5 +196,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1772452033
+    "modified": 1773332946
 }

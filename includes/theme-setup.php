@@ -29,12 +29,17 @@ function ruined_theme_setup() {
     
     // Register navigation menus
     register_nav_menus([
-        'primary'      => __('Primary Menu', 'ruined'),
-        'catalog-menu' => __('Catalog Menu', 'ruined'),
-        'mobile-menu'  => __('Mobile Menu', 'ruined'),
-        'social-menu' => __('Social Menu', 'ruined'),
-        'support-menu'  => __('Support / Contact Menu', 'ruined'),
-        'bottom-main-menu' => __('Main Menu Bottom', 'ruined'),
+            'primary'          => __('Primary Menu', 'ruined'),
+            'catalog-menu'      => __('Catalog Menu', 'ruined'),
+            'mobile-menu'       => __('Mobile Menu', 'ruined'),
+            'social-menu'       => __('Social Menu', 'ruined'),
+            'support-menu'      => __('Support / Contact Menu', 'ruined'),
+            'bottom-main-menu'  => __('Main Menu Bottom', 'ruined'),
+        // Νέα Footer Menus
+            'footer-col-1'      => __('Footer Column 1 (About)', 'ruined'),
+            'footer-col-2'      => __('Footer Column 2 (Services)', 'ruined'),
+            'footer-col-3'      => __('Footer Column 3 (Legal)', 'ruined'),
+            'footer-col-4'      => __('Footer Column 4 (Contact)', 'ruined'),
     ]);
 }
 

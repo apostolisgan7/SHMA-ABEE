@@ -53,8 +53,8 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_696f700e8561b",
-            "label": "Tεχνικά Χαρακτηριστικά",
+            "key": "field_69b280904ec44",
+            "label": "Τεχνικοί Κατάλογοι (PDF)",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -67,240 +67,8 @@
                 "id": ""
             },
             "placement": "top",
-            "endpoint": 1,
+            "endpoint": 0,
             "selected": 0
-        },
-        {
-            "key": "field_696a0a111dcc5",
-            "label": "Tεχνικά Χαρακτηριστικά",
-            "name": "tech_specs",
-            "aria-label": "",
-            "type": "group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_696a0a211dcc6",
-                    "label": "Υλικό Κατασκευής",
-                    "name": "material",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_696a0a361dcc7",
-                    "label": "Πάχος",
-                    "name": "thickness",
-                    "aria-label": "",
-                    "type": "checkbox",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "2 mm": "2 mm",
-                        "2.5 mm": "2.5 mm",
-                        "3 mm": "3 mm"
-                    },
-                    "default_value": [],
-                    "return_format": "value",
-                    "allow_custom": 0,
-                    "allow_in_bindings": 0,
-                    "layout": "vertical",
-                    "toggle": 0,
-                    "save_custom": 0,
-                    "custom_choice_button_text": "Add new choice"
-                },
-                {
-                    "key": "field_696a0a511dcc8",
-                    "label": "Σχήμα Σήμανσης",
-                    "name": "sign_shape",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_696a0a5a1dcc9",
-                    "label": "Διαστάσεις",
-                    "name": "dimensions",
-                    "aria-label": "",
-                    "type": "checkbox",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "60cm": "60cm",
-                        "90cm": "90cm",
-                        "120cm": "120cm"
-                    },
-                    "default_value": [],
-                    "return_format": "value",
-                    "allow_custom": 0,
-                    "allow_in_bindings": 0,
-                    "layout": "vertical",
-                    "toggle": 0,
-                    "save_custom": 0,
-                    "custom_choice_button_text": "Add new choice"
-                },
-                {
-                    "key": "field_696a0a651dcca",
-                    "label": "Ανακλαστικότητα",
-                    "name": "reflectivity",
-                    "aria-label": "",
-                    "type": "checkbox",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "Xαμηλή τύπου Ι": "Xαμηλή τύπου Ι",
-                        "Μεσαία τύπου ΙΙ": "Μεσαία τύπου ΙΙ",
-                        "Υψηλή τύπου ΙΙΙ": "Υψηλή τύπου ΙΙΙ"
-                    },
-                    "default_value": [],
-                    "return_format": "value",
-                    "allow_custom": 0,
-                    "allow_in_bindings": 0,
-                    "layout": "vertical",
-                    "toggle": 0,
-                    "save_custom": 0,
-                    "custom_choice_button_text": "Add new choice"
-                },
-                {
-                    "key": "field_696a0a711dccb",
-                    "label": "Τεχνικές Προδιαγραφές",
-                    "name": "specs_standard",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_696a0a7b1dccc",
-                    "label": "Κατασκευαστής",
-                    "name": "manufacturer",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_696a0a851dccd",
-                    "label": "Πιστοποιήσεις",
-                    "name": "certifications",
-                    "aria-label": "",
-                    "type": "repeater",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "layout": "table",
-                    "pagination": 0,
-                    "min": 0,
-                    "max": 0,
-                    "collapsed": "",
-                    "button_label": "Add Row",
-                    "rows_per_page": 20,
-                    "sub_fields": [
-                        {
-                            "key": "field_696a0aa41dcce",
-                            "label": "Πιστοποιήση",
-                            "name": "certification",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_696a0a851dccd"
-                        }
-                    ]
-                }
-            ]
         },
         {
             "key": "field_696a0add1dccf",
@@ -371,6 +139,50 @@
             ]
         },
         {
+            "key": "field_69b280bdf0a27",
+            "label": "Σχεδιάγραμμα Προϊόντος",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_696a14c10275b",
+            "label": "Σχεδιάγραμμα Προϊόντος",
+            "name": "schediagramma",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
             "key": "field_696a09efcf5b5",
             "label": "Φωτογραφίες Έργου",
             "name": "",
@@ -414,32 +226,6 @@
             "max_size": "",
             "mime_types": "",
             "insert": "append",
-            "preview_size": "medium"
-        },
-        {
-            "key": "field_696a14c10275b",
-            "label": "Σχεδιάγραμμα Προϊόντος",
-            "name": "schediagramma",
-            "aria-label": "",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "array",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "allow_in_bindings": 0,
             "preview_size": "medium"
         },
         {
@@ -548,7 +334,7 @@
         },
         {
             "key": "field_69722adda6fd3",
-            "label": "Product Catalogs",
+            "label": "Κατάλογοι Προϊόντος",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -581,7 +367,7 @@
             "default_value": "Κατάλογοι Προϊόντων",
             "maxlength": "",
             "allow_in_bindings": 0,
-            "placeholder": "",
+            "placeholder": "Κατάλογοι Προϊόντων",
             "prepend": "",
             "append": ""
         },
@@ -603,7 +389,7 @@
             "maxlength": "",
             "allow_in_bindings": 0,
             "rows": "",
-            "placeholder": "",
+            "placeholder": "Βρείτε Λυσεις για κάθε κατηγορία σε Πινακίδες και Σημάνσεις",
             "new_lines": ""
         },
         {
@@ -721,5 +507,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1769092671
+    "modified": 1773306091
 }

@@ -9,7 +9,7 @@ $title_html = $title ? wp_kses_post($title) : '';
 ?>
 
 <section class="block-text-with-logos section-full-width">
-    <div class="container">
+    <div class="smaller-container container">
 
         <?php if (!empty($title_html)): ?>
             <div class="block-text-with-logos__title">

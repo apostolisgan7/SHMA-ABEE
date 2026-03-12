@@ -22,7 +22,7 @@
     align-items: center;
     font-size: 11px;
     letter-spacing: 0.02em;
-    color: #1e9d4a;
+    color: $secondary-color;
     font-weight: 700;
     width: 35%;
     text-transform: uppercase;
@@ -45,7 +45,7 @@
     line-height: 1.15;
     font-weight: 400;
     color: #111;
-    max-width: 860px;
+    max-width: 760px;
     margin-bottom: 4vh;
   }
 
@@ -70,11 +70,11 @@
       }
 
       svg rect {
-        stroke: #1e9d4a;
+        stroke: $secondary-color;
       }
 
       svg path {
-        stroke: #1e9d4a;
+        stroke: $secondary-color;
       }
 
       transition: transform .25s ease;
@@ -139,7 +139,7 @@
       }
 
       .swiper-pagination-bullet-active {
-        background: #1e9d4a;
+        background: $secondary-color;
         width: 16px; /* pill look */
         transform: none;
       }
@@ -167,11 +167,11 @@
     }
 
     svg rect {
-      stroke: #1e9d4a;
+      stroke: $secondary-color;
     }
 
     svg path {
-      stroke: #1e9d4a;
+      stroke: $secondary-color;
     }
 
     &--prev {

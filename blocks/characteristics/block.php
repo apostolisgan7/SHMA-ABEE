@@ -5,7 +5,7 @@ $items = get_field('characteristics');
 ?>
 
 <section class="block-service-characteristics  section-full-width">
-    <div class="container">
+    <div class="container smaller-container">
         <?php if ($char_title): ?>
             <div class="block-service-characteristics__title">
                 <?= wp_kses_post($char_title); ?>

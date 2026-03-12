@@ -13,6 +13,17 @@
   // Default max-width for all breakpoints
   max-width: 100%;
 
+  .smaller-container {
+    max-width: 100%;
+  }
+
+  @media screen and (min-width: 1921px) {
+    max-width: 95% !important;
+    .smaller-container {
+      max-width: 90%;
+    }
+  }
+
   // Breakpoint-specific max-widths
   @include media-breakpoint-up(sm) {
     max-width: 767px;
@@ -31,7 +42,11 @@
   }
 
   @include media-breakpoint-up(xxl) {
-    max-width: 1700px;
+    max-width: 1740px;
+
+    .smaller-container {
+      max-width: 1600px;
+    }
   }
 }
 
@@ -79,7 +94,7 @@
     min-height: 100vh;
     position: relative;
 
-    &:before{
+    &:before {
       content: '';
       position: absolute;
       top: 0;
@@ -107,7 +122,8 @@
       .content_404 {
         color: #fff;
         text-align: center;
-        h1{
+
+        h1 {
           color: #fff;
         }
       }

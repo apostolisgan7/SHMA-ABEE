@@ -23,7 +23,7 @@
     align-items: center;
     font-size: 11px;
     letter-spacing: 0.02em;
-    color: #1e9d4a;
+    color: $secondary-color;
     font-weight: 700;
     width: 35%;
     text-transform: uppercase;
@@ -68,7 +68,7 @@
 
         rect,
         path {
-          stroke: #1e9d4a;
+          stroke: $secondary-color;
         }
       }
 
@@ -158,7 +158,7 @@
         transition: all 0.2s ease;
 
         &-active {
-          background: #1e9d4a;
+          background: $secondary-color;
           width: 16px;
         }
       }

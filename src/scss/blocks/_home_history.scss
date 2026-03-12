@@ -37,7 +37,7 @@
 
   &__top {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.7fr);
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.6fr);
     gap: 3.5rem;
     align-items: flex-start;
     margin-bottom: 4.5rem;
@@ -45,10 +45,10 @@
 
   &__top-text {
     p {
-      font-size: clamp(1.8rem, 3vw, 3.2rem);
+      font-size: clamp(1.8rem, 3vw, 3rem);
       line-height: 1.1;
       font-weight: 400;
-      max-width: 850px;
+      max-width: 800px;
     }
 
     em,
@@ -146,7 +146,7 @@
 
     p {
       color: #808080;
-      line-height: 1.2;
+      line-height: 1.4;
       font-weight: 400;
       font-size: clamp(1rem, 1vw, 1.3rem);
     }

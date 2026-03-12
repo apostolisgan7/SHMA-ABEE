@@ -2,8 +2,11 @@
 $title = get_field('title');
 $text = get_field('text');
 $catalogs = get_field('catalogs');
-?>
 
+if (empty($title) && empty($text) && empty($catalogs)) {
+    return;
+}
+?>
 <section class="product-catalogs">
     <div class="container">
 

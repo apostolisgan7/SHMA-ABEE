@@ -9,12 +9,13 @@
 // Breakpoint viewport sizes and media queries.
 // A map of breakpoints.
 $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px,
+        xxxl:1921,
 ) !default;
 
 // Breakpoint viewport sizes and media queries.
@@ -103,13 +104,13 @@ $grid-breakpoints: (
   color: $color;
   background-color: $background;
   border-color: $border;
-  
+
   &:hover {
     color: $hover-color;
     background-color: $hover-background;
     border-color: $hover-border;
   }
-  
+
   &:focus {
     box-shadow: 0 0 0 0.2rem rgba($background, 0.5);
   }
@@ -120,13 +121,13 @@ $grid-breakpoints: (
   color: $color;
   border-color: $color;
   background-color: transparent;
-  
+
   &:hover {
     color: $color-hover;
     background-color: $active-background;
     border-color: $active-border;
   }
-  
+
   &:focus {
     box-shadow: 0 0 0 0.2rem rgba($color, 0.5);
   }

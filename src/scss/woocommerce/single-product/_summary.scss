@@ -11,14 +11,14 @@
     gap: 5px;
 
     .rv-product-category {
-      font-size: clamp(16px, 3vw, 22px);
+      font-size: clamp(16px, 3vw, 18px);
       font-weight: 500;
       color: $secondary-color;
     }
 
     h1,
     .product_title {
-      font-size: clamp(30px, 3vw, 46px);
+      font-size: clamp(30px, 3vw, 38px);
       line-height: 1.1;
       font-weight: 400;
       margin: 0;
@@ -40,7 +40,7 @@
       }
 
       .price {
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 500;
         color: #000;
         margin-bottom: 0;
@@ -55,7 +55,7 @@
       }
 
       .rv-product-stock {
-        font-size: 17px;
+        font-size: 15px;
         font-weight: 700;
 
         &.stock-in {
@@ -97,7 +97,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 700;
 
       .copy-sku {
@@ -253,7 +253,7 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 500;
       color: $primary-color;
 

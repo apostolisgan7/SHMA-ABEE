@@ -107,3 +107,15 @@
   color: #000000;
   font-size: 1.3rem;
 }
+
+
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+  border-top: 3px solid $secondary-color;
+}
+
+.woocommerce-message::before,
+.woocommerce-info::before {
+  color: $secondary-color;
+}

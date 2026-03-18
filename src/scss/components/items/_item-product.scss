@@ -9,7 +9,7 @@
 
   &:before {
     content: '';
-    height: 1px;
+    height: 2px;
     width: 100%;
     background: rgba(51, 23, 20, 0.12);
     position: absolute;
@@ -21,7 +21,7 @@
 
   &:after {
     content: '';
-    height: 1px;
+    height: 2px;
     width: 0;
     background: $secondary-color;
     position: absolute;
@@ -120,7 +120,6 @@
     align-items: center;
     padding: 14px 16px 20px;
     border-top: 1px solid #cfe7cf;
-    background: #fff;
     margin-top: auto;
     height: 13vh;
 
@@ -149,6 +148,9 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    text-wrap: balance;
   }
 
   &__price {

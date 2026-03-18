@@ -32,7 +32,6 @@
   &__inner {
     position: relative;
     z-index: 2;
-    padding: 0 3%;
   }
 
   &__top {
@@ -40,7 +39,7 @@
     grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.6fr);
     gap: 3.5rem;
     align-items: flex-start;
-    margin-bottom: 4.5rem;
+    margin-bottom: 0;
   }
 
   &__top-text {
@@ -60,12 +59,9 @@
 
   &__top-media {
     justify-self: end;
-  }
-
-  &__top-media {
     position: relative;
     width: 100%;
-    padding-top: calc(422 / 509 * 100%);
+    padding-top: calc(422 / 600 * 100%);
   }
 
   &__top-img {
@@ -118,6 +114,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 0.5rem 0rem;
+    max-width: 650px;
   }
 
   &__counter {
@@ -134,7 +131,7 @@
   }
 
   &__counter-number {
-    font-size: clamp(3rem, 1vw, 4.1rem);
+    font-size: clamp(3rem, 5vw, 4.1rem);
     line-height: 1;
     font-weight: 400;
     color: #031321;

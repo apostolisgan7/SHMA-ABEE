@@ -104,15 +104,20 @@
     &:before {
       content: '';
       display: block;
-      width: 35px;
+      width: 13px;
       background: #fff;
       height: 1px;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     &:hover {
       background: transparent;
       color: $secondary-color;
+
+      &:before {
+        width: 50px;
+        transition: all 0.4s ease;
+      }
 
       &:before {
         background: $secondary-color;

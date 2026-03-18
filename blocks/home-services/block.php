@@ -17,7 +17,7 @@ if (!empty($block['align'])) $classes .= ' align' . $block['align'];
 
 $as_carousel = is_array($items) && count($items) > 3;
 ?>
-<section id="<?php echo esc_attr($block_id); ?>" class="<?php echo esc_attr($classes); ?>">
+<section id="<?php echo esc_attr($block_id); ?>" class="<?php echo esc_attr($classes); ?> sec_padding sec_margin">
 
     <div class="rv-home-services__inner container">
 

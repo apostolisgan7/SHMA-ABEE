@@ -111,7 +111,7 @@ $header_class = 'header-' . esc_attr($header_color);
                     <span class="line line--top"></span>
                     <span class="line line--bottom"></span>
                 </button >
-
+MENU
             </div>
 
         </div>

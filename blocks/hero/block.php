@@ -83,7 +83,7 @@ if ($video_url) {
     <div class="home-hero__overlay"></div>
 
     <!-- Content -->
-    <div class="home-hero__inner container">
+    <div class="home-hero__inner container sec_padding">
         <div class="home-hero__content">
 
             <?php if (!empty($title)): ?>

@@ -5,7 +5,7 @@ $boxes = get_field('info_boxes');
 ?>
 
 <section class="useful-info-boxes">
-    <div class="container">
+    <div class="container p-0">
         <div class="useful-info-boxes-head">
             <?php if ($title) : ?>
                 <h2 class="uiboxes-title"><?php echo esc_html($title); ?></h2>

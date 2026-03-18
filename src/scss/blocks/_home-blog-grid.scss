@@ -8,8 +8,9 @@
   background: #000;
 
   .container {
-    max-width: 1600px;
+    max-width: 1600px !important;
   }
+
 
   .first_post {
     display: flex;
@@ -112,7 +113,7 @@
     margin-top: 12vh;
 
     .bottom_title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       color: #fff;
       margin-bottom: 40px;
@@ -134,13 +135,14 @@
 
       .hbg-card-thumb {
         height: 100%;
+        aspect-ratio: 1;
+        max-height: 100px;
 
         img {
           width: 100%;
-          height: 130px;
           object-fit: cover;
           border-radius: 4px;
-          aspect-ratio: 1;
+          height: 100%;
         }
       }
 
@@ -179,7 +181,7 @@
 
         .hbg-card-title {
           color: #fff;
-          font-size: 20px;
+          font-size: 16px;
           font-weight: 400;
           line-height: 1.2;
           max-width: 270px;
@@ -192,9 +194,9 @@
           &::before {
             content: "";
             position: absolute;
-            bottom: 0;
             width: 100%;
             height: 1px;
+            bottom: 12px;
             left: 0;
             background: #474747;
             transition: width .4s ease;
@@ -203,7 +205,7 @@
           &::after {
             content: "";
             position: absolute;
-            bottom: 0;
+            bottom: 12px;
             left: 0;
             width: 0%;
             height: 1px;

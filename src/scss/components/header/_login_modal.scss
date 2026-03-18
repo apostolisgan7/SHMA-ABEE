@@ -4,11 +4,10 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: none; // θα το ανοίγουμε με JS
+  display: none;
   align-items: center;
   justify-content: flex-end;
   padding: 1.5rem;
-  // optional για πιο smooth gsap autoAlpha:
   opacity: 0;
 }
 
@@ -69,7 +68,7 @@
 }
 
 .sigma-auth-header {
-  padding: 2rem 2.5rem 0.5rem;
+  padding: 10vh 2.5rem 0.5rem;
 }
 
 .sigma-auth-logo-wrap {
@@ -87,7 +86,7 @@
 
 
 .sigma-auth-title {
-  font-size: clamp(22px, 3vw, 28px);
+  font-size: clamp(22px, 3vw, 33px);
   font-weight: 400;
   color: $primary-color;
   margin: 0 0 0.5rem;
@@ -106,7 +105,7 @@
   font-size: clamp(14px, 3vw, 15px);
   line-height: 1.2;
   margin-bottom: 10px;
-  color: #3F3F3F;
+  color: rgba(77, 77, 77, 0.8);
 }
 
 /* Tabs ρόλων */
@@ -117,8 +116,6 @@
 .sigma-auth-roles-inner {
   position: relative;
   display: flex;
-  background: rgba(229, 231, 235, 0.9);
-  border-radius: 999px;
   padding: 4px;
   overflow: hidden;
 }
@@ -129,7 +126,7 @@
   top: 4px;
   bottom: 4px;
   left: 4px;
-  border-radius: 999px;
+  border-radius: 5px;
   background: $secondary-color;
   pointer-events: none;
   // width & x θα τα χειριστεί GSAP
@@ -143,8 +140,8 @@
   background: transparent;
   border-radius: 999px;
   padding: 0.35rem 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 400;
   cursor: pointer;
   z-index: 1;
   transition: color 0.15s ease-out;
@@ -345,8 +342,8 @@
 }
 
 .password-strength {
-  margin-top: -6px;
-  margin-bottom: 10px;
+  margin-top: -29px;
+  margin-bottom: 27px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -362,7 +359,7 @@
 
 .password-strength__bars span {
   flex: 1;
-  height: 4px;
+  height: 1px;
   background: #9898984d;
   border-radius: 2px;
   transition: background-color 0.2s ease;

@@ -2,7 +2,7 @@
 
 .useful-info-boxes {
   padding: 80px 0;
-  max-width: 1550px;
+  max-width: 1600px;
   margin: auto;
 
   .useful-info-boxes-head {
@@ -11,7 +11,7 @@
     margin-bottom: 40px;
 
     .uiboxes-title {
-      font-size: clamp(35px, 3.5vw, 40px);
+      font-size: clamp(35px, 3.5vw, 50px);
       line-height: 1;
       font-weight: 400;
       margin-bottom: 10px;
@@ -23,7 +23,7 @@
     .uiboxes-text {
       color: $primary-color;
       margin-bottom: 40px;
-      font-size: 16px;
+      font-size: 1.1rem;
       line-height: 1.3;
       opacity: 0.6;
       max-width: 320px;
@@ -120,7 +120,7 @@
     .useful-info-boxes-head {
       .uiboxes-text {
         position: relative;
-        right: 13%;
+        right: 12%;
       }
     }
   }

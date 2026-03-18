@@ -6,7 +6,7 @@
   top: 20px;
   right: 20px;
   width: 100%;
-  max-width: 900px;
+  max-width: 750px;
   height: 95vh;
   background: rgba(255, 255, 255, 0.8);
   z-index: 9999;
@@ -149,19 +149,22 @@
   h4 {
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-bottom: 1rem;
     color: #6D6D6D;
   }
 
   .bottom_links {
-    margin-top: 2vh;
+    margin-top: 4vh;
 
     a {
       font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      color: #2F2F2F;
+      margin-bottom: 1rem;
+      color: #6D6D6D;
     }
   }
 }

@@ -2,7 +2,6 @@
 
 <footer id="colophon" class="site-footer">
     <div class="container">
-
         <div class="footer-upper">
             <div class="footer-cta">
                 <span class="subtitle">• ΟΙ ΥΠΗΡΕΣΙΕΣ ΜΑΣ</span>
@@ -61,10 +60,8 @@
             </div>
 
             <div class="footer-partners">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner1.png" alt="Partner 1">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner2.png" alt="Partner 2">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner3.png" alt="Partner 3">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner4.png" alt="Partner 4">
+                <img style="mix-blend-mode: difference"
+                     src="<?php echo get_template_directory_uri(); ?>/src/img/bottom.png" alt="Partner 1">
                 <a href="#" id="back-to-top" class="back-to-top">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M18 15l-6-6-6 6"/>

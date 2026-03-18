@@ -55,7 +55,7 @@
             </aside>
 
             <div class="search-results-wrapper">
-                <h4 class="section-title"><?php esc_html_e('Αποτελέσματα Προϊόντων', 'ruined'); ?></h4>
+                <h4 class="section-title" id="rv-search-title"><?php esc_html_e('Δημοφιλή Προϊόντα', 'ruined'); ?></h4>
                 <div id="rv-default-products" class="rv-products-grid">
                     <div class="rv-grid-inner">
                         <?php

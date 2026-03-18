@@ -68,6 +68,15 @@ SEARCH POPUP STYLING (Custom)
     transform: translateY(0);
   }
 
+  .dgwt-wcas-suggestion-more {
+    position: absolute !important;
+    bottom: 0 !important;
+    z-index: 50;
+    background: black;
+    color: #fff;
+    font-size: 1rem;
+  }
+
   .dgwt-wcas-search-wrapp {
     min-width: 100%;
     max-width: 100%;
@@ -105,6 +114,7 @@ SEARCH POPUP STYLING (Custom)
             color: #000;
             font-size: clamp(26px, 3vw, 40px);
             font-weight: 400;
+            font-family: 'Aeonik Pro';
           }
 
           &:hover {
@@ -141,6 +151,7 @@ SEARCH POPUP STYLING (Custom)
 
     img {
       max-height: 80px;
+      max-width: 180px;
       object-fit: contain;
       width: 100%;
       filter: invert(1);
@@ -206,6 +217,8 @@ SEARCH POPUP STYLING (Custom)
   .search-tags {
     display: flex;
     gap: 2rem;
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
 
     a {
       font-size: 15px;
@@ -223,8 +236,7 @@ SEARCH POPUP STYLING (Custom)
     h4 {
       font-size: 27px;
       font-weight: 400;
-      margin-bottom: 15px;
-      margin-bottom: 15px;
+      margin-bottom: 35px;
     }
 
     ul {
@@ -272,7 +284,7 @@ SEARCH POPUP STYLING (Custom)
   .section-title {
     font-size: 27px;
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 }
 
@@ -285,7 +297,7 @@ SEARCH POPUP STYLING (Custom)
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-
+    row-gap: 2rem;
     @media screen and (max-width: 1550px) {
       overflow: auto;
       max-height: 40vh;
@@ -293,6 +305,7 @@ SEARCH POPUP STYLING (Custom)
 
     @media screen and (max-width: 768px) {
       grid-template-columns: 1fr;
+      row-gap: 20px;
     }
   }
 }
@@ -391,22 +404,54 @@ SEARCH POPUP STYLING (Custom)
     }
   }
 
+  .dgwt-wcas-content-wrapp {
+    padding-left: 20px;
+  }
+
+
+
   .dgwt-wcas-st {
     display: flex;
-    flex-direction: column-reverse;
-    gap: 5px;
+    flex-direction: column;
+    gap: 7px;
+    justify-content: space-between;
+    height: 95%;
 
     span.dgwt-wcas-sku {
       font-size: 11px;
-      opacity: 0.8;
+      color: $primary-color;
+      font-weight: 500;
+      opacity: 1;
       text-transform: uppercase;
+      order: 1;
     }
 
     span.dgwt-wcas-st-title {
       font-size: 18px;
-      color: #171717;
+      color: $primary-color;
       max-width: 80%;
       line-height: 1.2;
+      order: 2;
+    }
+
+    .dgwt-wcas-arrow-wrapper {
+      order: 3;
+
+      .button-arrow__icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 3px;
+        border-color: $primary-color;
+
+        .button-arrow__arrow {
+          width: 8px;
+          height: 8px;
+        }
+
+        &:hover {
+          border-color: $secondary-color;
+        }
+      }
     }
   }
 }

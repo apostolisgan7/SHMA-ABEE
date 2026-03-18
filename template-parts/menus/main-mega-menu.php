@@ -123,7 +123,6 @@ $right_items = array_slice($parents, 3);
                 <div class="bottom_links">
                     <a href="#">ΟΡΟΙ ΧΡΗΣΗΣ</a>
                     <a href="#">ΠΟΛΙΤΙΚΗ COOKIES</a>
-                    <a href="#">ΠΟΛΙΤΙΚΗ ΑΠΟΡΡΗΤΟΥ</a>
                 </div>
             </div>
 

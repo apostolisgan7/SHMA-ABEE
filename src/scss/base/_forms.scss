@@ -59,7 +59,7 @@ textarea:focus {
 // Floating label wrapper
 .floating-field {
   position: relative;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
 
   input,
   textarea,
@@ -74,7 +74,7 @@ textarea:focus {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-60%);
     font-size: 0.9rem;
     color: #6b7280;
     pointer-events: none;
@@ -97,6 +97,14 @@ textarea:focus {
   }
 }
 
+.sigma-auth-modal .woocommerce-form-register.register {
+  .floating-field--password {
+    input {
+      border-bottom: none;
+    }
+  }
+}
+
 // ειδικό για password, για να κάτσει το eye icon δεξιά
 .floating-field--password, .form-row-wide {
   position: relative;
@@ -105,7 +113,7 @@ textarea:focus {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-60%);
     font-size: 0.95rem;
     color: #6b7280;
     pointer-events: none;
@@ -192,7 +200,7 @@ textarea:focus {
   border-radius: 4px;
 }
 
-.wpcf7 form.sent .wpcf7-response-output{
+.wpcf7 form.sent .wpcf7-response-output {
   background: #46b450;
   color: #fff;
   border: none;

@@ -45,7 +45,7 @@
 .mega-header {
   display: flex;
   justify-content: space-between;
-  padding: 2rem 3rem;
+  padding: 5vh 3rem;
 }
 
 .logo {
@@ -59,6 +59,7 @@
   margin-top: 1rem;
   font-size: 2.5rem;
   font-weight: 300;
+  margin-bottom: 0;
 }
 
 .mega-close {
@@ -85,29 +86,35 @@
   flex: 1;
   display: flex;
   padding: 0 3rem 2rem;
-  gap: 2rem;
+  gap: 4rem;
+
+  .button-arrow{
+    .button-arrow__icon{
+      width: 40px;
+      height: 40px;
+    }
+    .button-arrow__text{
+      font-size: 18px;
+    }
+  }
 }
 
 /* LEFT */
 .mega-left {
-  width: 40%;
+  width: 36%;
   border-right: 1px solid rgba(0, 0, 0, .15);
   display: flex;
   flex-direction: column;
 
   .button-arrow {
     margin-top: 3vh;
-
-    .button-arrow__text {
-      font-size: 21px;
-    }
   }
 }
 
 .column-label, .panel-label {
   font-size: 11px;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 3vh;
   color: $primary-color;
   font-weight: bold;
   letter-spacing: 0.5px;
@@ -173,7 +180,7 @@
 .item-label {
   line-height: 1;
   font-weight: 400;
-  font-size: 23px;
+  font-size: 19px;
 }
 
 .view-all-btn {
@@ -267,7 +274,7 @@
   &:before {
     width: 6px;
     opacity: 1;
-    margin-right: 8px;
+    margin-right: 18px;
   }
 }
 
@@ -299,7 +306,7 @@
     text-transform: uppercase;
 
     a, span {
-      font-weight: 700;
+      font-weight: 500;
       font-size: 11px;
       color: $primary-color;
       transition: .3s;
@@ -321,7 +328,7 @@
   text-transform: uppercase;
 
   a, span {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 11px;
     color: $primary-color;
     transition: .3s;

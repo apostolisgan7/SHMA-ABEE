@@ -13,7 +13,7 @@
     align-items: center; // Central alignment αφού δεν έχουμε text πλέον
     justify-content: space-between;
     gap: 24px;
-    margin-bottom: clamp(20px, 3vw, 50px);
+    margin-bottom: clamp(20px, 5vw, 90px);
   }
 
   &__title {

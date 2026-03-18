@@ -13,8 +13,18 @@
   // Default max-width for all breakpoints
   max-width: 100%;
 
+  .sec_padding {
+    max-width: 94%;
+    margin: auto;
+  }
+
+  .sec_margin {
+    margin: clamp(30px, 5vw, 4rem) auto;
+  }
+
   .smaller-container {
     max-width: 100%;
+    margin: auto;
   }
 
   @media screen and (min-width: 1921px) {
@@ -42,10 +52,10 @@
   }
 
   @include media-breakpoint-up(xxl) {
-    max-width: 1740px;
+    max-width: 1890px;
 
     .smaller-container {
-      max-width: 1600px;
+      max-width: 1680px;
     }
   }
 }

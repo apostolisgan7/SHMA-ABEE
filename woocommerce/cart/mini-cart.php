@@ -36,28 +36,29 @@ do_action('woocommerce_before_mini_cart'); ?>
                 </div>
 
                 <div class="mini-cart__content">
+                    <?php
+                    $sku = $product->get_sku();
+
+                    // Αν είναι variation και δεν έχει δικό του SKU,
+                    // πάρε του parent
+                    if (empty($sku) && $product->is_type('variation')) {
+                        $parent = wc_get_product($product->get_parent_id());
+                        if ($parent) {
+                            $sku = $parent->get_sku();
+                        }
+                    }
+                    ?>
+                    <?php if ($sku) : ?>
+                        <span class="mini-cart__sku">
+                              SKU: <?php echo esc_html($sku); ?>
+                             </span>
+                    <?php endif; ?>
                     <p class="mini-cart__title">
                         <?php echo esc_html($product->get_name()); ?>
                     </p>
 
                     <div class="mini-cart__meta">
-                        <?php
-                        $sku = $product->get_sku();
 
-                        // Αν είναι variation και δεν έχει δικό του SKU,
-                        // πάρε του parent
-                        if (empty($sku) && $product->is_type('variation')) {
-                            $parent = wc_get_product($product->get_parent_id());
-                            if ($parent) {
-                                $sku = $parent->get_sku();
-                            }
-                        }
-                        ?>
-                        <?php if ($sku) : ?>
-                            <span class="mini-cart__sku">
-                              SKU: <?php echo esc_html($sku); ?>
-                             </span>
-                        <?php endif; ?>
                         <div class="mini-cart__qty">
                             <button class="qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">−</button>
                             <span class="qty-value"><?php echo esc_html($cart_item['quantity']); ?></span>

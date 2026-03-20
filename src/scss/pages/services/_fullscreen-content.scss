@@ -9,14 +9,14 @@
     max-width: 100% !important;
     height: 100%;
     background: #000;
-    padding-bottom: 15vh;
+    padding-bottom: 13vh;
 
 
     &__inner {
       position: relative;
       width: 100%;
       height: 100%;
-      padding: 10vh 1rem;
+      padding: 5vh 1rem 15vh;
     }
 
     &__media {
@@ -45,7 +45,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      height: 100vh;
+      height: 75vh;
     }
 
     &__subtitle {
@@ -96,6 +96,8 @@
     background: #f7f5f4;
     border-radius: 8px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    max-width: 90%;
+    margin: auto;
 
     &__image {
       position: relative;
@@ -117,7 +119,7 @@
       display: flex;
       flex-direction: column;
       gap: 18px;
-      padding: 20px 10px;
+      padding: 20px 10px 0;
       color: $primary-color;
     }
 
@@ -139,7 +141,7 @@
     &__button {
       margin-top: auto;
       padding-top: 0;
-      padding-bottom: 10px;
+      padding-bottom: 0px;
       border-top: none;
       position: relative;
 
@@ -147,37 +149,9 @@
         border-color: #ddd;
       }
 
-      &:before {
-        content: "";
-        height: 1px;
-        width: 100%;
-        background: rgba(51, 23, 20, 0.12);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transition: width 0.4s ease;
-        z-index: 1;
-      }
-
-      &:after {
-        content: "";
-        height: 1px;
-        width: 0;
-        background: #17B83A;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transition: width 0.4s ease;
-        z-index: 2;
-      }
-
       &:hover {
         span.button-arrow__icon {
           border-color: $secondary-color;
-        }
-
-        &:after {
-          width: 100%;
         }
       }
     }

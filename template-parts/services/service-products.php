@@ -17,7 +17,7 @@ if ( empty($title) && empty($text) && empty($items) ) {
 }
 
 $block_id = 'home-products-' . $block['id'];
-$classes  = 'rv-home-products';
+$classes  = 'rv-home-products sec_padding sec_margin';
 if (!empty($block['className'])) $classes .= ' ' . $block['className'];
 if (!empty($block['align']))     $classes .= ' align' . $block['align'];
 

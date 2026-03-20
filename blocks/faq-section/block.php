@@ -3,14 +3,14 @@ $title = get_field('title');
 $faqs = get_field('faqs');
 $background_transparent = get_field('background_transparent');
 
-$section_classes = 'faq-section__inner container';
+$section_classes = 'faq-section__inner container smaller-container';
 
 if ($background_transparent) {
     $section_classes .= ' faq-section--transparent';
 }
 ?>
 
-<section class="faq-section section-full-width ">
+<section class="faq-section section-full-width sec_padding sec_margin">
     <div class="<?= esc_attr($section_classes); ?>">
 
         <div class="faq-section__left">

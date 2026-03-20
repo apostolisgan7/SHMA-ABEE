@@ -168,13 +168,6 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "archive-service.php"
-            }
-        ],
-        [
-            {
-                "param": "page_template",
-                "operator": "==",
                 "value": "page-static.php"
             }
         ],
@@ -183,6 +176,13 @@
                 "param": "page_template",
                 "operator": "==",
                 "value": "page-no-hero.php"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "archive-service.php"
             }
         ]
     ],
@@ -196,5 +196,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1773332946
+    "modified": 1774005162
 }

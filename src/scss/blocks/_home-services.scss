@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .rv-home-services {
-  padding: clamp(3rem, 5vw, 7rem) 0 clamp(1rem, 4vw, 2rem);
+  padding: clamp(3rem, 4vw, 7rem) 0 clamp(1rem, 4vw, 2rem);
   background: linear-gradient(360deg, rgba(255, 255, 255, 0) 37.83%, #D5D5D5 200.55%);
   border-radius: 1rem;
 

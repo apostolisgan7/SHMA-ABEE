@@ -186,7 +186,7 @@ if ($video_url) {
 
     <div class="pages-hero__overlay"></div>
 
-    <div class="pages-hero__inner container">
+    <div class="pages-hero__inner container sec_padding">
         <div class="pages-hero__content">
 
             <div class="top_content">

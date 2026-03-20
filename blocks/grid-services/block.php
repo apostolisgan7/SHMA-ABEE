@@ -11,7 +11,7 @@ $button_link = get_field('button_link');
 $items = get_field('service_items');
 
 $block_id = 'home-services-' . $block['id'];
-$classes = 'grid-services';
+$classes = 'grid-services sec_padding sec_margin';
 if (!empty($block['className'])) $classes .= ' ' . $block['className'];
 if (!empty($block['align'])) $classes .= ' align' . $block['align'];
 ?>

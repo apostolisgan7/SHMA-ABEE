@@ -43,15 +43,6 @@
     border-radius: 4px;
     background: #E9E9E9;
 
-    &:hover {
-      .rv-product-card__img--main {
-        opacity: 0;
-      }
-
-      .rv-product-card__img--gallery {
-        opacity: 1;
-      }
-    }
   }
 
   &__img {
@@ -61,20 +52,20 @@
     height: 100%;
     object-fit: contain;
     transform: scale(1);
-    transition: opacity .4s ease, transform .45s ease;
+    transition: opacity .25s ease-out, transform .25s ease-out, background .45s ease;
     transition-delay: 0.2s;
     display: block;
-    background: #fafafa;
+    background: #E9E9E9;
 
     &--main {
       opacity: 1;
       z-index: 1;
     }
 
-    &--gallery {
-      opacity: 0;
-      z-index: 2;
-    }
+  }
+  .rv-product-card__img--hover{
+    opacity: 0;
+    background: #fff;
   }
 
   &__placeholder {
@@ -94,7 +85,7 @@
     left: 12px;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
     font-weight: 500;
     font-size: 18px;
     color: #454444;
@@ -104,7 +95,7 @@
 
     i {
       position: relative;
-      top: -3px;
+      top: -2px;
       width: 9px;
       height: 9px;
       background: $secondary-color;
@@ -116,12 +107,12 @@
     position: relative;
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 10px 16px;
+    gap: 0 16px;
     align-items: center;
-    padding: 14px 16px 20px;
+    padding: 14px 16px 8px;
     border-top: 1px solid #cfe7cf;
     margin-top: auto;
-    height: 13vh;
+    height: 11vh;
 
     .list_stock {
       display: none;
@@ -135,7 +126,8 @@
     letter-spacing: .66px;
     color: $secondary-color;
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    line-height: 1;
   }
 
   &__title {
@@ -165,7 +157,7 @@
     border-radius: 3px;
     border: 1.5px solid #858585;
     position: absolute;
-    bottom: 15px;
+    bottom: 22px;
     right: 10px;
     transition: .4s ease;
     transition-delay: .3s;
@@ -187,13 +179,18 @@
   }
 
   &:hover {
-    .rv-product-card__img {
-      transform: scale(1.04);
-    }
 
-    .rv-product-card__hover {
+    .rv-product-card__img--main {
       opacity: 1;
     }
+
+    .rv-product-card__img--hover{
+      opacity: 1;
+      z-index: 2;
+      transform: scale(1.05);
+    }
+
+
 
     .rv-product-card__btn {
       width: 40px;

@@ -1,13 +1,13 @@
 <?php
 // ACF fields
-$image      = get_field('image');
-$video_url  = get_field('video');
-$title      = get_field('title');
-$sub_texts  = get_field('sub_texts');
+$image = get_field('image');
+$video_url = get_field('video');
+$title = get_field('title');
+$sub_texts = get_field('sub_texts');
 $hero_boxes = get_field('hero_box');
 
 // detect video platform
-$video_type  = '';
+$video_type = '';
 $video_embed = '';
 
 if ($video_url) {
@@ -17,11 +17,9 @@ if ($video_url) {
         $video_type = 'self';
         $video_embed = '
             <video class="hero-video" autoplay muted loop playsinline>
-                <source src="'.esc_url($video_url).'" type="video/mp4">
+                <source src="' . esc_url($video_url) . '" type="video/mp4">
             </video>';
-    }
-
-    // YouTube
+    } // YouTube
     elseif (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
         $video_type = 'youtube';
 
@@ -31,14 +29,12 @@ if ($video_url) {
         $video_embed = '
             <iframe
                 class="hero-video"
-                src="https://www.youtube.com/embed/'.$youtube_id.'?autoplay=1&mute=1&controls=0&loop=1&playlist='.$youtube_id.'&playsinline=1&modestbranding=1&rel=0"
+                src="https://www.youtube.com/embed/' . $youtube_id . '?autoplay=1&mute=1&controls=0&loop=1&playlist=' . $youtube_id . '&playsinline=1&modestbranding=1&rel=0"
                 frameborder="0"
                 allow="autoplay; fullscreen"
                 allowfullscreen>
             </iframe>';
-    }
-
-    // Vimeo
+    } // Vimeo
     elseif (strpos($video_url, 'vimeo.com') !== false) {
         $video_type = 'vimeo';
 
@@ -48,7 +44,7 @@ if ($video_url) {
         $video_embed = '
             <iframe
                 class="hero-video"
-                src="https://player.vimeo.com/video/'.$vimeo_id.'?background=1&autoplay=1&loop=1&muted=1"
+                src="https://player.vimeo.com/video/' . $vimeo_id . '?background=1&autoplay=1&loop=1&muted=1"
                 frameborder="0"
                 allowfullscreen>
             </iframe>';
@@ -83,7 +79,7 @@ if ($video_url) {
     <div class="service-hero__overlay"></div>
 
     <!-- Content -->
-    <div class="service-hero__inner container">
+    <div class="service-hero__inner container sec_padding">
         <div class="service-hero__content">
 
             <div class="breadcumbs_title">
@@ -110,10 +106,9 @@ if ($video_url) {
                     </div>
                 <?php endif; ?>
 
-                <?php if (!empty($sub_texts['subtext'])): ?>
-                    <p class="service-hero__text">
-                        <?= esc_html($sub_texts['subtext']); ?>
-                    </p>
+                <?php if (!empty($sub_texts['sub_text'])): ?> <p class="service-hero__text">
+                    <?= esc_html($sub_texts['sub_text']); ?>
+                </p>
                 <?php endif; ?>
 
                 <?php
@@ -121,10 +116,10 @@ if ($video_url) {
 
                 if (!empty($button)) {
                     rv_button_arrow([
-                            'text'          => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
-                            'url'           => $button['url'] ?? '#',
-                            'target'        => $button['target'] ?? '_self',
-                            'variant'       => 'white',
+                            'text' => $button['title'] ?? 'Επικοινωνήστε μαζί μας',
+                            'url' => $button['url'] ?? '#',
+                            'target' => $button['target'] ?? '_self',
+                            'variant' => 'white',
                             'icon_position' => 'left',
                     ]);
                 }

@@ -8,8 +8,7 @@
   gap: 0.5rem;
   margin-bottom: 2rem;
   color: $primary-color;
-  position: sticky;
-  top: 3%;
+  position: relative;
   z-index: 99;
 
   .archive_head_item {
@@ -83,22 +82,22 @@
         opacity: .7;
         width: 30px;
         height: 30px;
-        outline: 1px solid #E2E3E7;
+        outline: 1px solid #9c9c9c;
         outline-offset: 5px;
-        border-radius: 4px;
+        border-radius: 3px;
       }
     }
 
     &__dropdown {
       position: absolute;
       top: calc(100% + 6px);
-      right: -20px;
+      right: 0;
       width: min-content;
       min-width: 260px;
-      background: rgba(255, 255, 255, 0.79);
+      background: rgba(255, 255, 255, 1);
       color: $primary-color;
       backdrop-filter: blur(4px);
-      border-radius: 12px;
+      border-radius: 6px;
       box-shadow: 1px 4px 18px rgba(0, 0, 0, 0.08);
       z-index: 100;
       padding: 10px;
@@ -124,10 +123,11 @@
 
   &__filters {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 1.5rem;
     align-items: center;
     gap: 2rem;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
     height: 62px;
     width: 100%;
@@ -150,8 +150,6 @@
 
 .shop-sidebar {
   transition: transform .35s ease, opacity .25s ease;
-  position: sticky;
-  top: 12%;
 }
 
 /* ===   SHOP SIDEBAR ANIMATION  === */
@@ -170,6 +168,10 @@
 
   button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     margin-bottom: 1rem;
+  }
+
+  .yith-wcan-filters .yith-wcan-filter .filter-items .filter-item {
+    line-height: 2.5;
   }
 }
 
@@ -234,13 +236,14 @@ body:not(.shop-filters-hidden) {
       }
 
       &__stock {
-        font-size: 12px;
+        font-size: 15px;
       }
     }
 
     &:before {
       display: none;
     }
+
     @media (max-width: 992px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 8px !important;
@@ -265,11 +268,12 @@ body.shop-view-list {
   .rv-product-card {
     display: flex;
     align-items: center;
-    padding: 14px 20px;
+    padding: 7px 20px;
     border-radius: 6px;
     height: auto;
     width: 100%;
     transition: all .3s ease;
+    background: #e7e7e7;
 
     &:before,
     &:after {
@@ -278,13 +282,36 @@ body.shop-view-list {
 
     &:hover {
       background: #fff;
-    }
 
+      .rv-product-card__btn {
+        transform: translate(50%, -50%) scale(1);
+      }
+    }
+    &__img{
+      background: transparent;
+    }
     &__link {
       width: 100%;
       display: flex;
       align-items: center;
       gap: 5%;
+    }
+
+    &__btn {
+      position: absolute;
+      top: 50%;
+      right: 40px;
+      border: 1.5px solid #313131;
+      transform: translate(50%, -50%) scale(0.25);
+      transform-origin: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      bottom: unset;
+      left: unset;
     }
   }
 

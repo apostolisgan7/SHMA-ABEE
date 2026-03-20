@@ -9,14 +9,13 @@
   .catalogs-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 1rem;
   }
 
   .catalogs-image {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    aspect-ratio: 1;
 
     img {
       width: 100%;
@@ -24,14 +23,18 @@
       object-fit: cover;
       display: block;
       filter: brightness(0.6);
+      aspect-ratio: 12 / 10;
     }
   }
 
   .catalogs-content {
-    padding-top: 4vh;
+    padding: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     h2 {
-      font-size: clamp(28px, 3vw, 42px);
+      font-size: clamp(28px, 3vw, 50px);
       line-height: 1;
       font-weight: 400;
       margin-bottom: 1rem;
@@ -70,12 +73,13 @@
 
         .title {
           flex: 1;
+          font-size: 19px;
         }
 
         .arrow {
           opacity: 0.4;
           transition: transform 0.3s ease;
-          border: solid 1px #D6D6D6;
+          border: solid 1px #5d5d5d;
           width: 48px;
           border-radius: 6px;
           height: 48px;

@@ -234,6 +234,35 @@
                     "parent_repeater": "field_691f0930aa8a0"
                 }
             ]
+        },
+        {
+            "key": "field_69bd2bc51f495",
+            "label": "Hero Color",
+            "name": "hero_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Dark": "Dark",
+                "Light": "Light"
+            },
+            "default_value": "Light",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         }
     ],
     "location": [
@@ -255,5 +284,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763641775
+    "modified": 1774005215
 }

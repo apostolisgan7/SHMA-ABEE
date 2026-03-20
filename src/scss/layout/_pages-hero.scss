@@ -98,6 +98,14 @@
     height: 100%;
     padding: 14vh 0 5vh;
     position: relative;
+
+    .button-arrow__text{
+      font-size: 18px;
+    }
+    .button-arrow__icon{
+      width: 40px;
+      height: 40px;
+    }
   }
 
   &__subtitle {
@@ -140,6 +148,8 @@
     font-weight: 400;
     max-width: 460px;
   }
+
+
 
 
   @media (min-width: 1200px) {

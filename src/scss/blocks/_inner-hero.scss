@@ -1,6 +1,5 @@
 @use '../abstracts' as *;
 
-
 .inner-hero {
   position: relative;
   min-height: 500px;
@@ -9,10 +8,53 @@
   display: flex;
   background-position: center;
   background-repeat: no-repeat;
-  color: #fff;
   justify-content: flex-start;
   align-items: center;
   background-attachment: fixed;
+
+  // COLOR THEMES
+
+  // Light Theme: Σκούρο/Video Background -> ΟΛΑ ΛΕΥΚΑ
+  &--light {
+    .inner-hero__title p,
+    .inner-hero__text,
+    .inner-hero__subtitle {
+      color: #fff !important;
+    }
+
+    // Το strong στο title γίνεται secondary-color
+    .inner-hero__title p strong {
+      color: $secondary-color !important;
+    }
+
+    .inner-hero__overlay {
+      background: linear-gradient(150deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  // Dark Theme: Ανοιχτό Background -> ΟΛΑ ΜΑΥΡΑ
+  &--dark {
+    .inner-hero__title p,
+    .inner-hero__text,
+    .inner-hero__subtitle {
+      color: #000 !important;
+    }
+
+    // Το strong στα μαύρα γίνεται Λευκό
+    .inner-hero__title p strong {
+      color: #fff !important;
+      background-color: rgba(0,0,0,0.1); // Προαιρετικό: ελαφρύ φόντο για να φαίνεται το λευκό σε πολύ ανοιχτό bg
+      padding: 0 5px;
+    }
+
+    .inner-hero__overlay {
+      background: rgba(255, 255, 255, 0.3);
+      position: absolute;
+      inset: 0;
+    }
+  }
 
   &__video-wrapper {
     position: absolute;
@@ -32,7 +74,7 @@
       height: auto;
       transform: translate(-50%, -50%);
       object-fit: cover;
-      pointer-events: none; // no click
+      pointer-events: none;
       z-index: 0;
     }
 
@@ -45,12 +87,6 @@
     }
   }
 
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(150deg, rgba(0, 0, 0, 0), #2c572600);
-  }
-
   &__inner {
     position: absolute;
     left: 50%;
@@ -60,17 +96,17 @@
     margin: 0 auto;
     padding: 1rem;
     height: 100%;
+    width: 100%;
   }
 
   &__content {
     max-width: 930px;
     text-align: left;
-    color: $primary-color;
     justify-content: space-between;
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 13vh 0 5vh;
+    padding: 16vh 0 5vh;
     position: relative;
   }
 
@@ -79,7 +115,6 @@
     font-weight: 600;
     text-transform: uppercase;
     margin-bottom: 1rem;
-    color: $secondary-color;
   }
 
   &__title {
@@ -88,9 +123,8 @@
       line-height: 1.05;
       font-weight: 400;
       margin-bottom: 1.5rem;
-      color: #fff;
+
       strong {
-        color: $primary-color;
         font-weight: 400;
       }
     }
@@ -125,7 +159,6 @@
     position: relative;
     transition: ease-in-out 0.3s;
 
-
     .hero__link {
       position: absolute;
       inset: 0;
@@ -135,7 +168,6 @@
     &__image {
       width: 85px;
       aspect-ratio: 1;
-
       img {
         width: 100%;
         height: 100%;
@@ -149,7 +181,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0;
     }
 
     &__title {
@@ -168,9 +199,6 @@
       align-items: flex-end;
       gap: 0.5rem;
       color: #fff;
-      text-decoration: none;
-      opacity: 0.9;
-      transition: opacity .2s ease;
     }
 
     &__icon {
@@ -181,42 +209,34 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      line-height: 1;
-      transition: ease-in-out 0.3s;
     }
 
     &:hover {
       background: rgba(0, 0, 0, 0.35);
-
       .hero-box__icon {
         background: $secondary-color;
       }
     }
   }
 
-
   @media (min-width: 1200px) {
     min-height: 80vh;
   }
 
   @media (max-width: 1200px) {
-    .inner-hero {
-      &__boxes {
-        position: static;
-        margin-top: 1.5rem;
-        flex-wrap: wrap;
-      }
-      &__inner {
-        position: static;
-        left:unset;
-        top: unset;
-        transform: unset;
-        z-index: 1;
-        margin: 0 auto;
-        padding: 1rem;
-        height: 100%;
-      }
+    &__boxes {
+      position: static;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    &__inner {
+      position: static;
+      transform: none;
+      padding: 1rem;
+      height: auto;
+    }
+    &__content {
+      padding: 10vh 0 5vh;
     }
   }
 }

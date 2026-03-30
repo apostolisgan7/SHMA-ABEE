@@ -22,7 +22,7 @@ if (!empty($block['align'])) $classes .= ' align' . $block['align'];
 ?>
 
 <section id="<?= esc_attr($block_id); ?>" class="<?= esc_attr($classes); ?>">
-    <div class="container">
+    <div class="container smaller-container">
         <div class="block-contact-infos__inner">
 
             <!-- LEFT: Image -->

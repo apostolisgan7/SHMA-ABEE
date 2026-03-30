@@ -8,8 +8,8 @@ $logos = get_field('logos');   // repeater
 $title_html = $title ? wp_kses_post($title) : '';
 ?>
 
-<section class="block-text-with-logos section-full-width">
-    <div class="smaller-container container">
+<section class="block-text-with-logos section-full-width sec_padding sec_margin">
+    <div class="container">
 
         <?php if (!empty($title_html)): ?>
             <div class="block-text-with-logos__title">

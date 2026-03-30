@@ -66,7 +66,11 @@ $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('�
             <?php if ($hover_image_html) : ?>
                 <?php echo $hover_image_html; ?>
             <?php endif; ?>
-
+            <div class="rv-product-card__wishlist">
+                <?php
+                echo do_shortcode('[yith_wcwl_add_to_wishlist product_id="' . $post_obj->ID . '"]');
+                ?>
+            </div>
             <?php if ($in_stock) : ?>
                 <span class="rv-product-card__stock">
                     <i></i><?php esc_html_e('Διαθέσιμο', 'ruined'); ?>

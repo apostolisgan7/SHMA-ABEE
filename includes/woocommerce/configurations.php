@@ -30,6 +30,18 @@ add_action('wp_enqueue_scripts', function () {
     }
 }, 99);
 
+
+add_action('wp_enqueue_scripts', function() {
+    if (function_exists('YITH_WCWL')) {
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('yith-wcwl-main');
+
+        // force localization (important)
+        wp_localize_script('yith-wcwl-main', 'yith_wcwl_l10n', [
+                'ajax_url' => admin_url('admin-ajax.php')
+        ]);
+    }
+}, 99);
 // ========================
 // Layout & Wrappers
 // ========================

@@ -7,7 +7,7 @@ $green-soft: rgba(31, 179, 74, 0.12);
 $bg-card: rgba(255, 255, 255, 0.75);
 $text-dark: #1e1e1e;
 $text-muted: #6b6b6b;
-$border-radius: 18px;
+$border-radius: 6px;
 
 
 .woocommerce-account .woocommerce::after, .woocommerce-account .woocommerce::before {
@@ -65,7 +65,7 @@ $border-radius: 18px;
         align-items: center;
         justify-content: center;
         padding: 12px 16px;
-        border-radius: 12px;
+        border-radius: 6px;
         color: $text-dark;
         font-weight: 500;
         text-decoration: none;
@@ -103,12 +103,12 @@ $border-radius: 18px;
 
       strong {
         color: $text-dark;
-        font-weight: 600;
+        font-weight: 400;
       }
 
       a {
         color: $green;
-        font-weight: 500;
+        font-weight: 400;
         text-decoration: none;
         border-bottom: 1px solid transparent;
 
@@ -120,24 +120,29 @@ $border-radius: 18px;
 
     h2, h3 {
       color: $text-dark;
-      font-weight: 600;
+      font-weight: 400;
+      font-size: 36px;
       margin-bottom: 24px;
     }
 
-    .woocommerce-Addresses {
+    .addresses {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 32px;
       margin-top: 32px;
     }
 
-    .woocommerce-Address {
+    .woocommerce-column {
       background: #fff;
       border-radius: $border-radius;
-      padding: 32px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      padding: 16px;
       position: relative;
       width: 100%;
+
+      address {
+        border: none;
+        padding: 0;
+      }
     }
 
     // ===============================
@@ -185,7 +190,7 @@ $border-radius: 18px;
       color: $text-muted;
       background: rgba(0, 0, 0, 0.03);
       padding: 18px 20px;
-      border-radius: 14px;
+      border-radius: 6px;
     }
 
     // ===============================
@@ -209,7 +214,7 @@ $border-radius: 18px;
 // ORDERS TABLE / DOWNLOADS TABLE
 .woocommerce table.shop_table {
   border: none;
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
   background: #fff;
 
@@ -235,7 +240,7 @@ $border-radius: 18px;
 .woocommerce button.button {
   background: $green;
   color: #fff;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 12px 22px;
   font-weight: 500;
   border: none;
@@ -252,7 +257,7 @@ $border-radius: 18px;
 .woocommerce form .form-row input,
 .woocommerce form .form-row textarea {
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
+  border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   padding: 12px 14px;
   font-size: 15px;

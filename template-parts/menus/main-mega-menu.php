@@ -3,35 +3,35 @@
  * Mega Menu Template
  */
 
-if ( ! has_nav_menu( 'primary' ) ) {
+if (!has_nav_menu('primary')) {
     return;
 }
 
 $locations = get_nav_menu_locations();
-$menu_id   = $locations['primary'];
-$menu_items = wp_get_nav_menu_items( $menu_id );
+$menu_id = $locations['primary'];
+$menu_items = wp_get_nav_menu_items($menu_id);
 
 // Group by parent
 $parents = [];
-foreach ( $menu_items as $item ) {
-    if ( $item->menu_item_parent == 0 ) {
+foreach ($menu_items as $item) {
+    if ($item->menu_item_parent == 0) {
         $parents[$item->ID] = [
-            'item'   => $item,
-            'childs' => []
+                'item' => $item,
+                'childs' => []
         ];
     }
 }
 
 // Attach sub-items
-foreach ( $menu_items as $item ) {
-    if ( $item->menu_item_parent != 0 && isset( $parents[$item->menu_item_parent] ) ) {
+foreach ($menu_items as $item) {
+    if ($item->menu_item_parent != 0 && isset($parents[$item->menu_item_parent])) {
         $parents[$item->menu_item_parent]['childs'][] = $item;
     }
 }
 
 $parents = array_values($parents);
 
-$left_items  = array_slice($parents, 0, 3);
+$left_items = array_slice($parents, 0, 3);
 $right_items = array_slice($parents, 3);
 ?>
 
@@ -45,7 +45,7 @@ $right_items = array_slice($parents, 3);
 
     <div class="mega-inner">
 
-        <div class="mega-columns"data-lenis-prevent>
+        <div class="mega-columns" data-lenis-prevent>
 
             <!-- LEFT COLUMN -->
             <div class="mega-col">
@@ -94,36 +94,79 @@ $right_items = array_slice($parents, 3);
         </div>
 
         <!-- FOOTER MENU ROWS -->
+        <?php
+        $left  = get_field('bottom_links_left', 'option');
+        $right = get_field('bottom_links_right', 'option');
+        ?>
+
         <div class="mega-footer">
 
             <div class="mega-footer-col">
-                <h4>LET'S GET SOCIAL</h4>
-                <?php
-                wp_nav_menu([
-                    'theme_location' => 'social-menu',
-                    'container' => false,
-                    'menu_class' => 'mega-footer-links',
-                ]);
-                ?>
-                <div class="bottom_links">
-                    <a href="#">ΝΟΜΟΘΕΣΙΑ</a>
-                    <a href="#">ισολογισμοι</a>
+                <div>
+                    <h4>
+                        <?php echo !empty($left['title']) ? esc_html($left['title']) : ''; ?>
+                    </h4>
+
+                    <?php
+                    wp_nav_menu([
+                            'theme_location' => 'social-menu',
+                            'container' => false,
+                            'menu_class' => 'mega-footer-links',
+                    ]);
+                    ?>
                 </div>
+
+                <?php if($left): ?>
+                    <div class="bottom_links">
+
+                        <?php if(!empty($left['link_1'])): ?>
+                            <a href="<?php echo esc_url($left['link_1']['url']); ?>">
+                                <?php echo esc_html($left['link_1']['title']); ?>
+                            </a>
+                        <?php endif; ?>
+
+                        <?php if(!empty($left['link_2'])): ?>
+                            <a href="<?php echo esc_url($left['link_2']['url']); ?>">
+                                <?php echo esc_html($left['link_2']['title']); ?>
+                            </a>
+                        <?php endif; ?>
+
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="mega-footer-col">
-                <h4>ΕΠΙΚΟΙΝΩΝΗΣΤΕ ΜΑΖΙ ΜΑΣ</h4>
-                <?php
-                wp_nav_menu([
-                    'theme_location' => 'support-menu',
-                    'container' => false,
-                    'menu_class' => 'mega-footer-links',
-                ]);
-                ?>
-                <div class="bottom_links">
-                    <a href="#">ΟΡΟΙ ΧΡΗΣΗΣ</a>
-                    <a href="#">ΠΟΛΙΤΙΚΗ COOKIES</a>
+                <div>
+                    <h4>
+                        <?php echo !empty($right['title']) ? esc_html($right['title']) : ''; ?>
+                    </h4>
+
+                    <?php
+                    wp_nav_menu([
+                            'theme_location' => 'support-menu',
+                            'container' => false,
+                            'menu_class' => 'mega-footer-links',
+                    ]);
+                    ?>
                 </div>
+
+                <?php if($right): ?>
+                    <div class="bottom_links">
+
+                        <?php if(!empty($right['link_1'])): ?>
+                            <a href="<?php echo esc_url($right['link_1']['url']); ?>">
+                                <?php echo esc_html($right['link_1']['title']); ?>
+                            </a>
+                        <?php endif; ?>
+
+                        <?php if(!empty($right['link_2'])): ?>
+                            <a href="<?php echo esc_url($right['link_2']['url']); ?>">
+                                <?php echo esc_html($right['link_2']['title']); ?>
+                            </a>
+                        <?php endif; ?>
+
+                    </div>
+                <?php endif; ?>
             </div>
 
         </div>

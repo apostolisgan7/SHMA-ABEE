@@ -4,7 +4,7 @@ $faqs = get_field('faqs');
 ?>
 
 <section class="faq-section">
-    <div class="faq-section__inner container smaller-container">
+    <div class="faq-section__inner container">
 
         <!-- LEFT COLUMN (STICKY TITLE) -->
         <div class="faq-section__left">

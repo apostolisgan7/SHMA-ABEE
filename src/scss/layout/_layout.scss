@@ -25,6 +25,7 @@
   .smaller-container {
     max-width: 100%;
     margin: auto;
+    width: 100%;
   }
 
   @media screen and (min-width: 1921px) {
@@ -43,6 +44,10 @@
     max-width: 992px;
     .sec_padding {
       max-width: 94%;
+    }
+
+    .smaller-container {
+      width: 95% !important;
     }
   }
 

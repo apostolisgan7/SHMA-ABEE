@@ -11,7 +11,7 @@ if (!empty($image) && is_array($image) && isset($image['url'])) {
 ?>
 
 <section class="rv-map-infos section-full-width">
-    <div class="rv-map-infos__grid">
+    <div class="rv-map-infos__grid smaller-container">
 
         <!-- LEFT -->
         <div class="rv-map-infos__left">

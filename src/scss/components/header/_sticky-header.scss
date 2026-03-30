@@ -53,6 +53,13 @@ html {
           }
         }
       }
+      .offer_icon{
+        svg {
+          path {
+            stroke: $primary-color !important;
+          }
+        }
+      }
 
       .search_mobile {
         svg {

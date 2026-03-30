@@ -9,7 +9,7 @@ $video_url  = get_field('video');
 $title      = get_field('title');
 $sub_texts  = get_field('sub_texts');
 $hero_boxes = get_field('hero_box');
-$hero_color = get_field('hero_color'); // Dark ή Light
+$hero_color = get_field('hero_color');
 
 // Default τιμή αν δεν έχει επιλεγεί τίποτα
 if (empty($hero_color)) {

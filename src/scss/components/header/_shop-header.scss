@@ -26,13 +26,22 @@
     a {
       color: $primary-color;
     }
-
+    .header-catalog{
+      &:before {
+        background: $primary-color;
+      }
+    }
+    button{
+      .line{
+        background: $primary-color !important;
+      }
+    }
     .header-right button.search-toggle.header-link svg path {
       stroke: #000;
     }
 
     .mobile-menu-button .line, .desktop-menu-button .line {
-      background: $primary-color;
+      background: $primary-color !important;
     }
 
     .site-branding img {
@@ -223,6 +232,10 @@
       gap: 10px;
       align-items: center;
 
+      .offer_icon {
+        display: none;
+      }
+
       .count-wrapper {
         background: $secondary-color;
         color: #fff;
@@ -272,53 +285,64 @@
     }
   }
 
-  .desktop-menu-button {
-    // Button size (in Greek: μέγεθος κουμπιού)
-    width: 80px;
-    height: 22px;
-    position: relative;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: inline-block;
+  .menu_btn {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 
-    .line {
-      position: absolute;
-      right: 0;
-      height: 1px;
-      background: #fff;
-      border-radius: 2px;
-      transition: transform 0.3s ease, width 0.3s ease, opacity 0.3s ease;
-      transform-origin: center;
+    span {
+      line-height: 1;
+      font-size: 14px;
     }
 
-    .line--top {
-      top: 6px;
-      width: 100%;
-    }
+    .desktop-menu-button {
+      // Button size (in Greek: μέγεθος κουμπιού)
+      width: 60px;
+      height: 22px;
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: inline-block;
 
-    .line--bottom {
-      top: 16px;
-      width: 70%;
-    }
-
-    &:hover .line {
-      background: $secondary-color;
-    }
-
-    &.active {
-      .line--top, .line--bottom {
-        top: 11px;
-        width: 60%;
+      .line {
+        position: absolute;
+        right: 0;
+        height: 1px;
+        background: #fff;
+        border-radius: 2px;
+        transition: transform 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+        transform-origin: center;
       }
 
       .line--top {
-        transform: rotate(45deg);
+        top: 6px;
+        width: 100%;
       }
 
       .line--bottom {
-        transform: rotate(-45deg);
+        top: 16px;
+        width: 70%;
+      }
+
+      &:hover .line {
+        background: $secondary-color;
+      }
+
+      &.active {
+        .line--top, .line--bottom {
+          top: 11px;
+          width: 60%;
+        }
+
+        .line--top {
+          transform: rotate(45deg);
+        }
+
+        .line--bottom {
+          transform: rotate(-45deg);
+        }
       }
     }
   }
@@ -332,6 +356,7 @@
     cursor: pointer;
     padding: 0;
     display: none;
+
 
     .line {
       position: absolute;
@@ -380,6 +405,25 @@
     }
     .header-inner {
       gap: 1rem;
+      padding: 15px 15px;
+    }
+    .menu_btn {
+      .menu-text {
+        display: none;
+      }
+    }
+    .header-cart {
+      .offer_text {
+        display: none;
+      }
+
+      .offer_icon {
+        display: block !important;
+      }
+
+      .cart-contents {
+        gap: 2px;
+      }
     }
   }
   @media (max-width: 992px) {
@@ -414,7 +458,7 @@
       }
 
       .header-right {
-        gap: 1rem;
+        gap: 10px;
 
         .head_item {
           padding: 0;

@@ -3,32 +3,31 @@
 .rv-map-infos {
   background: #051304;
   color: #fff;
-  padding: 140px 20px;
+  padding: 60px 20px;
   position: relative;
   overflow: hidden;
 
   &__grid {
     display: grid;
-    grid-template-columns: 42% 58%;
+    grid-template-columns: 45% 55%;
     align-items: center;
     gap: 0;
-    max-width: 1400px;
     margin: 0 auto;
     padding: 0;
 
   }
 
   &__left {
-    max-width: 520px;
+
   }
 
   &__heading {
     p {
       font-size: clamp(2.5rem, 4vw, 3rem);
-      line-height: 1.15;
+      line-height: 1;
       font-weight: 400;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 60px;
+      margin-bottom: 50px;
       padding-bottom: 40px;
 
       strong {
@@ -39,21 +38,20 @@
   }
 
   &__info {
-    max-width: 420px;
+    max-width: 700px;
 
 
     h4 {
-      font-size: 18px;
+      font-size: 17px;
+      font-weight: 500;
       margin-bottom: 12px;
-      opacity: 0.9;
-      letter-spacing: 0.3px;
-      color: #fff;
+      color: $secondary-color;
     }
 
     p {
-      font-size: 14px;
+      font-size: 24px;
       opacity: 0.6;
-      line-height: 1.7;
+      line-height: 1.2;
     }
   }
 
@@ -77,12 +75,12 @@
 
   /* Pagination Lines */
   &__pagination {
-    margin-top: 15vh;
+    margin-top: 13vh;
     display: flex;
-    gap: 32px;
+    gap: 10px;
 
     .swiper-pagination-bullet {
-      width: 80px;
+      width: 100px;
       height: 2px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 0;

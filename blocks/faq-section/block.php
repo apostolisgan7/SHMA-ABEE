@@ -3,7 +3,7 @@ $title = get_field('title');
 $faqs = get_field('faqs');
 $background_transparent = get_field('background_transparent');
 
-$section_classes = 'faq-section__inner container smaller-container';
+$section_classes = 'faq-section__inner container';
 
 if ($background_transparent) {
     $section_classes .= ' faq-section--transparent';

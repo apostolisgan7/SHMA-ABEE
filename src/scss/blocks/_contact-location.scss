@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .block-contact-location {
-  padding: clamp(44px, 7vw, 50px) 0;
+  padding: clamp(20px, 7vw, 5px) 0;
 
   &__card {
     background: #fff;
@@ -20,8 +20,8 @@
   &__left {
     display: flex;
     flex-direction: column;
-    min-height: 420px; /* κρατάει το ίδιο “ύψος κάρτας” με την εικόνα */
-    padding: 6px 0 0 2rem;
+    min-height: 420px;
+    padding: 20px 0 0 1rem;
   }
 
   &__intro {

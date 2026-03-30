@@ -42,7 +42,7 @@
     overflow: hidden;
     border-radius: 4px;
     background: #E9E9E9;
-
+    aspect-ratio: 1;
   }
 
   &__img {
@@ -51,21 +51,20 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transform: scale(1);
-    transition: opacity .25s ease-out, transform .25s ease-out, background .45s ease;
     transition-delay: 0.2s;
     display: block;
-    background: #E9E9E9;
 
     &--main {
       opacity: 1;
       z-index: 1;
+      filter: brightness(.94);
     }
 
   }
-  .rv-product-card__img--hover{
+
+  .rv-product-card__img--hover {
     opacity: 0;
-    background: #fff;
+    transition: all .2s ease;
   }
 
   &__placeholder {
@@ -74,9 +73,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1);
-    transition: transform .45s ease;
-    background: #e6eae6;
+    transition: all .2s ease;
   }
 
   &__stock {
@@ -185,12 +182,12 @@
       opacity: 1;
     }
 
-    .rv-product-card__img--hover{
+    .rv-product-card__img--hover {
       opacity: 1;
       z-index: 2;
       transform: scale(1.05);
+      background: #fff;
     }
-
 
 
     .rv-product-card__btn {

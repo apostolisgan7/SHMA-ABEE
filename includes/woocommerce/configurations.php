@@ -153,8 +153,13 @@ add_action('wp_ajax_nopriv_ruined_update_cart_qty', 'ruined_update_cart_qty');
 
 function ruined_update_cart_qty()
 {
+    // Verify nonce for security
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ruined_cart_nonce')) {
+        wp_die(__('Security check failed', 'ruined'));
+    }
 
     if (!isset($_POST['cart_item_key'], $_POST['delta'])) {
+        wp_send_json_error(__('Missing required parameters', 'ruined'));
         wp_die();
     }
 
@@ -165,6 +170,7 @@ function ruined_update_cart_qty()
     $cart = WC()->cart;
 
     if (!$cart) {
+        wp_send_json_error(__('Cart not found', 'ruined'));
         wp_die();
     }
 
@@ -172,6 +178,7 @@ function ruined_update_cart_qty()
     $delta = intval($_POST['delta']);
 
     if (!isset($cart->cart_contents[$key])) {
+        wp_send_json_error(__('Cart item not found', 'ruined'));
         wp_die();
     }
 
@@ -180,7 +187,13 @@ function ruined_update_cart_qty()
 
     $cart->set_quantity($key, $new_qty, true);
 
-    wp_die();
+    // Send success response with updated cart data
+    wp_send_json_success([
+        'message' => __('Cart updated successfully', 'ruined'),
+        'new_quantity' => $new_qty,
+        'cart_total' => WC()->cart->get_cart_total(),
+        'cart_count' => WC()->cart->get_cart_contents_count()
+    ]);
 }
 
 add_action('template_redirect', function () {

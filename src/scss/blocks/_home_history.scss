@@ -124,7 +124,7 @@
   }
 
   &__counter-label {
-    font-size: clamp(1rem, 1vw, 1.3rem);
+    font-size: clamp(12px, 1vw, 1.3rem);
     font-weight: 400;
     color: $secondary-color;
     margin: 0;
@@ -154,7 +154,7 @@
   @media (max-width: 1400px) {
     &__counters {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 0.5rem 0rem;
     }
   }
@@ -191,6 +191,13 @@
   @media (max-width: 767px) {
     padding: 3.5rem 0;
 
+    &__counters {
+      display: flex;
+      gap: 0.5rem 0rem;
+      max-width: 650px;
+      justify-content: space-between;
+    }
+
     &__counter-number {
       font-size: 2rem;
     }
@@ -202,6 +209,11 @@
     }
     &__top-text {
       font-size: 1.25rem;
+    }
+    &__bottom-content {
+      max-width: 100%;
+      width: 100%;
+      margin: 2rem 0;
     }
   }
 }

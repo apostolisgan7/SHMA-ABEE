@@ -25,11 +25,26 @@ export function initQty() {
             body: new URLSearchParams({
                 action: 'ruined_update_cart_qty',
                 cart_item_key: key,
-                delta: delta
+                delta: delta,
+                nonce: window.ruined_nonce || ''
             })
         })
-            .then(() => {
-                document.body.dispatchEvent(new Event('wc_fragment_refresh'));
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Cart update failed');
+                    return;
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.success) {
+                    document.body.dispatchEvent(new Event('wc_fragment_refresh'));
+                } else {
+                    console.error('Cart update error:', data?.data || 'Unknown error');
+                }
+            })
+            .catch(error => {
+                console.error('Cart update error:', error);
             })
             .finally(() => {
                 wrapper?.classList.remove('is-loading');

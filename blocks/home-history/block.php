@@ -22,7 +22,7 @@ $button_link   = $bottom_row['button_link'] ?? null;
 ?>
 
 <section id="<?php echo esc_attr( $block_id ); ?>" class="<?php echo esc_attr( $block_class ); ?> section-full-width">
-    <div class="home-history__inner smaller-container">
+    <div class="home-history__inner container smaller-container">
         <div class="home-history__top">
             <?php if ( ! empty( $top_text ) ) : ?>
                 <div class="home-history__top-text">

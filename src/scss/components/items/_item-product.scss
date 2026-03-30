@@ -143,6 +143,7 @@
     word-break: keep-all;
     overflow-wrap: normal;
     text-wrap: balance;
+    max-width: 90%;
   }
 
   &__price {
@@ -228,7 +229,7 @@
       margin-bottom: 0;
     }
     .rv-product-card__meta {
-      gap: 0px 10px;
+      gap: 10px 10px;
       padding: 14px 10px 20px;
     }
     .rv-product-card__btn {

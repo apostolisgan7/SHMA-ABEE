@@ -14,7 +14,7 @@
   max-width: 100%;
 
   .sec_padding {
-    max-width: 94%;
+    max-width: 100%;
     margin: auto;
   }
 
@@ -40,7 +40,10 @@
   }
 
   @include media-breakpoint-up(md) {
-    max-width: 1080px;
+    max-width: 992px;
+    .sec_padding {
+      max-width: 94%;
+    }
   }
 
   @include media-breakpoint-up(lg) {

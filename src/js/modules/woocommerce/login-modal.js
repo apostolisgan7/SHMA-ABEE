@@ -496,6 +496,7 @@ export function initAuthModal() {
 
             const formData = new FormData(loginForm);
             formData.append('action', 'sigma_login');
+            formData.append('nonce', window.sigma_login_nonce || '');
 
             loginForm.classList.add('is-loading');
 
@@ -547,6 +548,7 @@ export function initAuthModal() {
 
             const formData = new FormData(registerForm);
             formData.append('action', 'sigma_register');
+            formData.append('nonce', window.sigma_register_nonce || '');
 
             try {
                 const res = await fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData });

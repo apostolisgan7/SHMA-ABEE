@@ -36,6 +36,14 @@ export default class SearchPopup {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') this.closePopup();
         });
+
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('#rv-default-products .dgwt-wcas-suggestion');
+
+            if (link) {
+                e.stopImmediatePropagation();
+            }
+        });
     }
 
     resetUI() {
@@ -78,8 +86,7 @@ export default class SearchPopup {
             // 1. Παρακολούθηση αλλαγών (Πληκτρολόγιο)
             this.input.addEventListener('input', () => this.handleInputState());
 
-            // 2. State Checker (Για το κουμπί X της Fibo)
-            // Ελέγχει κάθε 200ms αν το input άδειασε ενώ είμαστε σε "query mode"
+
             this.stateChecker = setInterval(() => {
                 if (this.input.value.trim().length === 0 && this.wrapper.classList.contains('search-has-query')) {
                     this.resetUI();
@@ -133,13 +140,24 @@ export default class SearchPopup {
     }
 
     bindFiboObserver() {
-        this.observer = new MutationObserver(() => {
+        // Find the FiboSearch container or create a target
+        const fiboContainer = document.querySelector('.dgwt-wcas-suggestions-wrapp')?.parentElement || 
+                           document.querySelector('.dgwt-wcas-search-wrapp') ||
+                           this.popup;
+        
+        this.observer = new MutationObserver((mutations) => {
             const suggestions = document.querySelector('.dgwt-wcas-suggestions-wrapp');
             if (suggestions && suggestions.childNodes.length > 0) {
                 this.moveResults();
             }
         });
-        this.observer.observe(document.body, { childList: true, subtree: true });
+        
+        this.observer.observe(fiboContainer, {
+            childList: true, 
+            subtree: true,
+            attributes: false,
+            characterData: false
+        });
     }
 
     moveResults() {

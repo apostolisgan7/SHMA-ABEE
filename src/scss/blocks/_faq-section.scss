@@ -162,13 +162,15 @@
 
   /* RESPONSIVE */
   @media (max-width: 992px) {
-    padding: 3rem 0 0;
+
     &:after {
       display: none;
     }
     &__inner {
       grid-template-columns: 1fr;
       gap: 40px;
+      padding: 3rem 1rem !important;
+      min-height: auto;
     }
 
     &__left {

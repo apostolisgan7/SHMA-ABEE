@@ -51,6 +51,9 @@ add_action('wp_head', function () {
 	?>
 	<script>
         window.ajaxurl = "<?php echo esc_url(admin_url('admin-ajax.php')); ?>";
+        window.ruined_nonce = "<?php echo wp_create_nonce('ruined_cart_nonce'); ?>";
+        window.sigma_login_nonce = "<?php echo wp_create_nonce('sigma-login'); ?>";
+        window.sigma_register_nonce = "<?php echo wp_create_nonce('sigma-register'); ?>";
 	</script>
 	<?php
 });

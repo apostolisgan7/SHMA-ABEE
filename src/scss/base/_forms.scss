@@ -87,9 +87,7 @@ textarea:focus {
   // όταν έχει focus ή δεν είναι κενό → label πάνω
   input:focus + label,
   textarea:focus + label,
-  select:focus + label,
-  input:not(:placeholder-shown) + label,
-  textarea:not(:placeholder-shown) + label {
+  select:focus + label{
     top: 12px;
     transform: translateY(-100%);
     font-size: 0.75rem;

@@ -4,7 +4,7 @@ $service_boxes = get_field('service_boxes');
 ?>
 
 <section class="extra-services-boxes">
-    <div class="extra-services-boxes__inner smaller-container container">
+    <div class="extra-services-boxes__inner smaller-container container p-0">
 
         <!-- BLOCK TITLE -->
         <?php if ($title): ?>

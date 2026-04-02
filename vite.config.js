@@ -24,7 +24,9 @@ export default defineConfig({
       'gsap/ScrollTrigger',
       'gsap/ScrollToPlugin',
       'alpinejs',
-      'splitting'
+      'splitting',
+      'lodash',
+      'lodash-es'
     ],
     exclude: ['swiper'],
     esbuildOptions: {

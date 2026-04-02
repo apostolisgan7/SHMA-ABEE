@@ -31,22 +31,11 @@ add_action('wp_enqueue_scripts', function () {
 }, 99);
 
 
-add_action('wp_enqueue_scripts', function() {
-    if (function_exists('YITH_WCWL')) {
-        wp_enqueue_script('jquery');
-        wp_enqueue_script('yith-wcwl-main');
 
-        // force localization (important)
-        wp_localize_script('yith-wcwl-main', 'yith_wcwl_l10n', [
-                'ajax_url' => admin_url('admin-ajax.php')
-        ]);
-    }
-}, 99);
 // ========================
 // Layout & Wrappers
 // ========================
 // Remove default WooCommerce wrappers
-remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
 
 // Add theme wrappers
@@ -143,17 +132,12 @@ add_action('init', function () {
 });
 
 // Disable WooCommerce order attribution to prevent JS errors
-add_action('init', function() {
-    if (class_exists('WooCommerce')) {
-        add_filter('woocommerce_order_attribution_allow_tracking', '__return_false');
+add_filter('woocommerce_order_attribution_allow_tracking', '__return_false');
 
-        // Also try to dequeue the script if it's still being loaded
-        add_action('wp_enqueue_scripts', function() {
-            wp_dequeue_script('wc-order-attribution');
-            wp_deregister_script('wc-order-attribution');
-        }, 99);
-    }
-});
+add_action('wp_enqueue_scripts', function () {
+    wp_dequeue_script('wc-order-attribution');
+    wp_deregister_script('wc-order-attribution');
+}, 99);
 
 
 

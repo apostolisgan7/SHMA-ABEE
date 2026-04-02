@@ -51,6 +51,13 @@ $in_stock = $product ? $product->is_in_stock() : false;
 // CTA Logic
 $show_add_to_cart = $product && $product->is_purchasable() && $in_stock;
 $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('Περισσότερα', 'ruined');
+
+if (function_exists('YITH_WCWL') && class_exists('YITH_WCWL_Frontend')) {
+    $wishlist = YITH_WCWL();
+    if (method_exists($wishlist, 'get_add_to_wishlist_button')) {
+        echo $wishlist->get_add_to_wishlist_button($post_obj->ID);
+    }
+}
 ?>
 
 <li class="rv-product-card">

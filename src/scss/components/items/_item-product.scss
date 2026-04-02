@@ -76,6 +76,73 @@
     transition: all .2s ease;
   }
 
+  &__wishlist {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    
+    // YITH Wishlist button styling
+    .yith-add-to-wishlist-button-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      // Hide fallback if button has content (fixes double heart)
+      &:not(:empty) {
+        &::before {
+          display: none !important;
+        }
+      }
+      
+      // Style the actual link/button
+      .add-to-wishlist {
+        background: #f7f5f1;
+        border-radius: 6px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        
+        &:hover {
+        }
+        
+        &.exists {
+          background: $primary-color;
+          color: #fff;
+        }
+        
+        // Style the bookmark icon
+        &::before {
+          content: '';
+          width: 16px;
+          height: 16px;
+          background-image: url("data:image/svg+xml,%3Csvg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6.2C5 5.07989 5 4.51984 5.21799 4.09202C5.40973 3.71569 5.71569 3.40973 6.09202 3.21799C6.51984 3 7.07989 3 8.2 3H15.8C16.9201 3 17.4802 3 17.908 3.21799C18.2843 3.40973 18.5903 3.71569 18.782 4.09202C19 4.51984 19 5.07989 19 6.2V21L12 16L5 21V6.2Z' stroke='%23666666' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+        }
+        
+        &.exists::before {
+          background-image: url("data:image/svg+xml,%3Csvg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6.2C5 5.07989 5 4.51984 5.21799 4.09202C5.40973 3.71569 5.71569 3.40973 6.09202 3.21799C6.51984 3 7.07989 3 8.2 3H15.8C16.9201 3 17.4802 3 17.908 3.21799C18.2843 3.40973 18.5903 3.71569 18.782 4.09202C19 4.51984 19 5.07989 19 6.2V21L12 16L5 21V6.2Z' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+        
+        &:hover::before {
+          background-image: url("data:image/svg+xml,%3Csvg width='20px' height='20px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6.2C5 5.07989 5 4.51984 5.21799 4.09202C5.40973 3.71569 5.71569 3.40973 6.09202 3.21799C6.51984 3 7.07989 3 8.2 3H15.8C16.9201 3 17.4802 3 17.908 3.21799C18.2843 3.40973 18.5903 3.71569 18.782 4.09202C19 4.51984 19 5.07989 19 6.2V21L12 16L5 21V6.2Z' stroke='%234CAF50' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+        
+        // Hide any inner content if it exists
+        * {
+          display: none;
+        }
+      }
+    }
+  }
+
   &__stock {
     position: absolute;
     top: 12px;

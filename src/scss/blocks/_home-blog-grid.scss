@@ -258,6 +258,11 @@
           flex-direction: column;
           width: 200px;
 
+          .hbg-card-thumb {
+            aspect-ratio: unset;
+            max-height: 200px;
+          }
+
           .hbg-card-info {
             .hbg-card-meta {
               align-items: flex-start;

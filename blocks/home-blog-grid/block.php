@@ -8,7 +8,7 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
 ?>
 
 <section class="home-blog-grid section-full-width">
-    <div class="container">
+    <div class="container smaller-container">
         <div class="first_post">
             <div class="hbg-left">
                 <div class="post_head">

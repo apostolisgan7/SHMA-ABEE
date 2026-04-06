@@ -9,8 +9,6 @@
   margin-right: auto;
   margin-left: auto;
   box-sizing: border-box;
-
-  // Default max-width for all breakpoints
   max-width: 100%;
 
   .sec_padding {
@@ -31,7 +29,7 @@
   @media screen and (min-width: 1921px) {
     max-width: 95% !important;
     .smaller-container {
-      max-width: 90%;
+      max-width: 1680px !important;
     }
   }
 
@@ -43,27 +41,31 @@
   @include media-breakpoint-up(md) {
     max-width: 992px;
     .sec_padding {
-      max-width: 94%;
-    }
-
-    .smaller-container {
-      width: 95% !important;
+      max-width: 96%;
     }
   }
 
   @include media-breakpoint-up(lg) {
-    max-width: 1024px;
+    max-width: 1180px;
+    .smaller-container {
+      max-width: 95%;
+    }
   }
 
   @include media-breakpoint-up(xl) {
     max-width: 1350px;
+    .smaller-container {
+      max-width: 94%;
+    }
+    .sec_padding {
+      max-width: 96%;
+    }
   }
 
   @include media-breakpoint-up(xxl) {
     max-width: 1890px;
-
     .smaller-container {
-      max-width: 1680px;
+      max-width: 90%;
     }
   }
 }

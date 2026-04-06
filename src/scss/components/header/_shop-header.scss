@@ -14,6 +14,10 @@
   transition: transform .3s ease-in-out, background-color .3s ease, box-shadow .3s ease;
   will-change: transform, background-color, box-shadow;
 
+  .container {
+    padding: 0 5px;
+    max-width: 98% !important;
+  }
 
   a {
     color: #fff;
@@ -26,16 +30,19 @@
     a {
       color: $primary-color;
     }
-    .header-catalog{
+
+    .header-catalog {
       &:before {
         background: $primary-color;
       }
     }
-    button{
-      .line{
+
+    button {
+      .line {
         background: $primary-color !important;
       }
     }
+
     .header-right button.search-toggle.header-link svg path {
       stroke: #000;
     }

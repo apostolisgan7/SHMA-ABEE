@@ -90,7 +90,7 @@
   }
 
   &.is-open {
-    transform: translateX(0);
+    transform: translateX(-12px);
 
     & ~ .offcanvas-cart__overlay {
       opacity: 1;
@@ -132,11 +132,11 @@
 
   &__item {
     display: grid;
-    grid-template-columns: 90px 1fr auto;
+    grid-template-columns: 110px 1fr auto;
     gap: 1rem;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.16);
-    padding: 16px 10px 16px;
+    padding: 16px 16px 16px;
     position: relative;
 
 
@@ -147,7 +147,7 @@
   }
 
   &__image {
-    width: 90px;
+    width: 110px;
     aspect-ratio: 1 / 1;
     border-radius: 5px;
     overflow: hidden;

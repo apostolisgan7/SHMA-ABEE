@@ -4,37 +4,49 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export function initHistory() {
-    const section = document.querySelector('.history-horizontal');
-    if (!section) return;
+    const section = document.querySelector(".history-horizontal");
+    const track = section.querySelector(".history-track");
+    const progress = section.querySelector(".progress-bar span");
 
-    const topImgs = section.querySelectorAll('.top-right img');
-    const bottomImgs = section.querySelectorAll('.bottom-left img');
-    const infoItems = section.querySelectorAll('.info-item');
+    if (!section || !track) return;
 
-    ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "+=200%", // Η "ταχύτητα" του scroll
-        pin: true,
-        scrub: 1,
-        onUpdate: (self) => {
-            const progress = self.progress;
-            const total = infoItems.length;
+    // Καθαρίζουμε τυχόν προηγούμενα instances αν ξανατρέχει η function
+    ScrollTrigger.getAll().forEach(t => {
+        if (t.trigger === section) t.kill();
+    });
 
-            // Υπολογισμός του τρέχοντος slide βάσει scroll progress
-            let index = Math.floor(progress * total);
-            if (index >= total) index = total - 1;
+    const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
-            // Helper function για το fade
-            const toggleActive = (elements, idx) => {
-                elements.forEach((el, i) => {
-                    el.classList.toggle('active', i === idx);
-                });
-            };
-
-            toggleActive(topImgs, index);
-            toggleActive(bottomImgs, index);
-            toggleActive(infoItems, index);
+    // Κύριο Timeline
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => "+=" + getScrollAmount(),
+            pin: true,
+            scrub: 1, // Λίγο παραπάνω scrub (π.χ. 1) βοηθάει στην εξομάλυνση με τον Lenis
+            invalidateOnRefresh: true,
+            anticipatePin: 1, // Βοηθάει στο να μην "πηδάει" το scroll κατά το pinning
         }
     });
+
+    // Οριζόντια κίνηση
+    tl.to(track, {
+        x: () => -getScrollAmount(),
+        ease: "none"
+    }, 0);
+
+    // Progress Bar (Μέσα στο timeline για μηδενικό lag)
+    if (progress) {
+        tl.to(progress, {
+            scaleX: 1,
+            ease: "none"
+        }, 0);
+    }
+
+    // Σύνδεση Lenis με ScrollTrigger
+    // Αν ο lenis είναι global, χρησιμοποίησε το παρακάτω:
+    if (typeof lenis !== "undefined") {
+        lenis.on('scroll', ScrollTrigger.update);
+    }
 }

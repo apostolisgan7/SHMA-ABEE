@@ -47,17 +47,6 @@ foreach ($includes as $file) {
     }
 }
 
-add_action('wp_head', function () {
-	?>
-	<script>
-        window.ajaxurl = "<?php echo esc_url(admin_url('admin-ajax.php')); ?>";
-        window.ruined_nonce = "<?php echo wp_create_nonce('ruined_cart_nonce'); ?>";
-        window.sigma_login_nonce = "<?php echo wp_create_nonce('sigma-login'); ?>";
-        window.sigma_register_nonce = "<?php echo wp_create_nonce('sigma-register'); ?>";
-	</script>
-	<?php
-});
-
 
 
 add_filter('wc_get_template', function($template, $template_name, $args, $template_path, $default_path) {
@@ -67,26 +56,18 @@ add_filter('wc_get_template', function($template, $template_name, $args, $templa
     return $template;
 }, 10, 5);
 
-// Dequeue conflicting YITH Wishlist scripts for better performance
-add_action('wp_enqueue_scripts', function() {
-    // Only dequeue if YITH plugin is active to avoid errors
-    if (class_exists('YITH_WCWL_Frontend')) {
-        // Dequeue ALL YITH scripts to prevent conflicts
-        wp_dequeue_script('yith-wcwl-main');
-        wp_dequeue_script('yith-wcwl-ajax');
-        wp_dequeue_script('yith-wcwl-add-to-wishlist');
-        wp_dequeue_script('yith-wcwl-jquery-ui-dialog');
-        wp_dequeue_script('yith-wcwl-frontend');
-        
-        // Dequeue styles that may conflict with our theme's styling
-        wp_dequeue_style('yith-wcwl-main');
-        wp_dequeue_style('yith-wcwl-font-awesome');
-        wp_dequeue_style('yith-wcwl-jquery-ui');
-        wp_dequeue_style('yith-wcwl-frontend');
-        
-        // Also dequeue any lodash conflicts
-        wp_dequeue_script('lodash');
-        wp_dequeue_script('lodash-js');
-    }
-}, 99);
 
+
+
+
+add_action( 'init', function() {
+    if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
+        if ( null === WC()->session ) {
+            WC()->session = new WC_Session_Handler();
+            WC()->session->init();
+        }
+    }
+}, 5 );
+
+// Επιπλέον fix αν το σφάλμα επιμένει σε REST API/Admin περιβάλλον
+add_filter( 'woocommerce_persist_notices', '__return_true' );

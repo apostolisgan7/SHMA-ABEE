@@ -51,13 +51,6 @@ $in_stock = $product ? $product->is_in_stock() : false;
 // CTA Logic
 $show_add_to_cart = $product && $product->is_purchasable() && $in_stock;
 $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('Περισσότερα', 'ruined');
-
-if (function_exists('YITH_WCWL') && class_exists('YITH_WCWL_Frontend')) {
-    $wishlist = YITH_WCWL();
-    if (method_exists($wishlist, 'get_add_to_wishlist_button')) {
-        echo $wishlist->get_add_to_wishlist_button($post_obj->ID);
-    }
-}
 ?>
 
 <li class="rv-product-card">
@@ -75,7 +68,9 @@ if (function_exists('YITH_WCWL') && class_exists('YITH_WCWL_Frontend')) {
             <?php endif; ?>
             <div class="rv-product-card__wishlist">
                 <?php
-                echo do_shortcode('[yith_wcwl_add_to_wishlist product_id="' . $post_obj->ID . '"]');
+                if (shortcode_exists('ti_wishlists_addtowishlist')) {
+                    echo do_shortcode('[ti_wishlists_addtowishlist product_id="' . $post_obj->ID . '" variation_id="0"]');
+                }
                 ?>
             </div>
             <?php if ($in_stock) : ?>

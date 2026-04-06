@@ -4,43 +4,6 @@ import '../css/tailwind.css';
 // Import SCSS
 import '../scss/main.scss';
 
-// ===== POLYFILLS & GLOBAL UTILITIES =====
-// Import lodash utilities for missing dependencies
-import { merge } from 'lodash-es';
-import { debounce } from 'lodash-es';
-
-// Make lodash utilities globally available for third-party scripts
-window._ = { merge, debounce };
-
-// Add lodash compatibility layer
-if (typeof window.lodash !== 'undefined') {
-    window.lodash.merge = merge;
-    window.lodash.debounce = debounce;
-}
-
-// Add polyfills for commonly missing functions
-if (typeof window.styled === 'undefined') {
-    window.styled = function(tag) {
-        return function() {
-            return tag; // Simple polyfill that returns the HTML tag
-        };
-    };
-}
-
-// Global error handling for undefined properties
-window.addEventListener('error', function(e) {
-    if (e.message.includes('Cannot read properties of undefined')) {
-        console.warn('Caught undefined property error:', e.message);
-        e.preventDefault();
-    }
-    
-    // Handle lodash conflicts
-    if (e.message.includes('_.noConflict is not a function')) {
-        console.warn('Lodash conflict detected, using polyfills');
-        e.preventDefault();
-    }
-});
-
 // ===== CORE IMPORTS =====
 // Import Alpine.js
 import Alpine from 'alpinejs';
@@ -56,7 +19,7 @@ Alpine.data('shopHeader', shopHeader);
 import {initSmoothScroll} from './utils/smooth-scroll';
 import './utils/helpers';
 import './utils/contact-form';
-import {initYITHWishlist} from './utils/wishlist';
+
 
 // Import UI Components
 import {initStickyHeader} from './modules/ui/sticky-header';
@@ -141,7 +104,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
 
-    initYITHWishlist();
 
     // 2) Force a ScrollTrigger refresh AFTER Lenis settles
     setTimeout(() => {

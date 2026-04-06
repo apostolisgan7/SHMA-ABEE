@@ -2,7 +2,6 @@
 
 .useful-info-boxes {
   padding: 80px 0;
-  max-width: 1600px;
   margin: auto;
 
   .useful-info-boxes-head {
@@ -116,7 +115,16 @@
     }
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1400px) {
+    .useful-info-boxes-head {
+      .uiboxes-text {
+        position: relative;
+        right: 6%;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1600px) {
     .useful-info-boxes-head {
       .uiboxes-text {
         position: relative;
@@ -124,6 +132,7 @@
       }
     }
   }
+
   @media screen and (max-width: 768px) {
     .useful-info-boxes-head {
       flex-wrap: wrap;

@@ -6,8 +6,8 @@
     content: "";
     position: absolute;
     top: 0;
-    left: -48%;
-    width: 58%;
+    left: -40%;
+    width: 48%;
     height: 100%;
     background: radial-gradient(circle at center, rgba(23, 184, 58, 0.8) 0%, rgba(0, 177, 90, 0) 70%);
     pointer-events: none;
@@ -161,11 +161,14 @@
   }
 
   /* RESPONSIVE */
-  @media (max-width: 992px) {
-
+  @media (max-width: 1500px) {
     &:after {
       display: none;
     }
+  }
+  @media (max-width: 992px) {
+
+
     &__inner {
       grid-template-columns: 1fr;
       gap: 40px;

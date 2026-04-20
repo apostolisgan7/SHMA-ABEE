@@ -542,7 +542,7 @@ export function initAuthModal() {
         registerForm.addEventListener('submit', async e => {
             e.preventDefault();
 
-            registerForm.querySelectorAll('.woocommerce-error').forEach(el => el.remove());
+            registerForm.querySelectorAll('.woocommerce-error, .field-error').forEach(el => el.remove());
             registerForm.classList.add('is-loading');
 
             const formData = new FormData(registerForm);
@@ -553,51 +553,58 @@ export function initAuthModal() {
                 const res = await fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData });
                 const data = await res.json();
 
+                // Σταματάμε το loading animation
                 registerForm.classList.remove('is-loading');
 
                 if (!data.success) {
+                    // Χειρισμός σφαλμάτων (παραμένει ως είχε)
                     registerForm.insertAdjacentHTML('afterbegin', data.data.html);
 
-                    // field-level errors (optional)
                     const temp = document.createElement('div');
                     temp.innerHTML = data.data.html;
 
                     temp.querySelectorAll('li').forEach(li => {
                         const msg = (li.textContent || '').toLowerCase();
                         let field = null;
-
                         if (msg.includes('τηλέφωνο')) field = registerForm.querySelector('input[name="phone"]');
                         if (msg.includes('επωνυμία')) field = registerForm.querySelector('input[name="company_name"]');
                         if (msg.includes('αφμ')) field = registerForm.querySelector('input[name="vat"]');
 
-                        if (!field) return;
-
-                        const row = field.closest('.form-row');
-                        row?.querySelectorAll('.field-error').forEach(el => el.remove());
-
-                        const error = document.createElement('div');
-                        error.className = 'field-error';
-                        error.textContent = li.textContent;
-
-                        row?.appendChild(error);
-                        gsap.fromTo(error, { y: -4, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.25 });
-
-                        field.focus();
+                        if (field) {
+                            const row = field.closest('.form-row');
+                            row?.querySelectorAll('.field-error').forEach(el => el.remove());
+                            const error = document.createElement('div');
+                            error.className = 'field-error';
+                            error.textContent = li.textContent;
+                            row?.appendChild(error);
+                            gsap.fromTo(error, { y: -4, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.25 });
+                        }
                     });
 
                     registerForm.querySelector('.woocommerce-error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     return;
                 }
 
-                gsap.to(modal, {
-                    scale: 0.96,
-                    autoAlpha: 0,
-                    duration: 0.35,
-                    ease: 'power2.inOut',
-                    onComplete() {
-                        window.location.href = data.data.redirect;
-                    }
-                });
+                if (data.data.redirect) {
+                    // Περίπτωση Customer (B2C): Κλείσιμο modal και ανακατεύθυνση
+                    gsap.to(modal, {
+                        scale: 0.96,
+                        autoAlpha: 0,
+                        duration: 0.35,
+                        ease: 'power2.inOut',
+                        onComplete() {
+                            window.location.href = data.data.redirect;
+                        }
+                    });
+                } else {
+                    // Περίπτωση Company/Municipality: Εμφάνιση μηνύματος "Pending"
+                    // Αντικαθιστούμε το περιεχόμενο της φόρμας με το HTML μήνυμα επιτυχίας από την PHP
+                    registerForm.innerHTML = data.data.html;
+
+                    // Προαιρετικά: Scroll στην κορυφή του modal για να δει το μήνυμα
+                    modal.scrollTop = 0;
+                }
+
             } catch (err) {
                 console.error('AJAX Register error:', err);
                 registerForm.classList.remove('is-loading');

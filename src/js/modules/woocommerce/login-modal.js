@@ -462,8 +462,7 @@ export function initAuthModal() {
                     if (row && !row.querySelector('.field-error')) {
                         const err = document.createElement('div');
                         err.className = 'field-error';
-                        fishingError(err);
-                        err.textContent = 'Ο κωδικός πρέπει να είναι πιο ισχυρός.';
+                                                err.textContent = 'Ο κωδικός πρέπει να είναι πιο ισχυρός.';
                         row.appendChild(err);
                     }
                 }
@@ -496,7 +495,7 @@ export function initAuthModal() {
 
             const formData = new FormData(loginForm);
             formData.append('action', 'sigma_login');
-            formData.append('nonce', window.sigma_login_nonce || '');
+            formData.append('nonce', loginForm.querySelector('input[name="nonce"]')?.value || '');
 
             loginForm.classList.add('is-loading');
 
@@ -548,7 +547,7 @@ export function initAuthModal() {
 
             const formData = new FormData(registerForm);
             formData.append('action', 'sigma_register');
-            formData.append('nonce', window.sigma_register_nonce || '');
+            formData.append('nonce', registerForm.querySelector('input[name="nonce"]')?.value || '');
 
             try {
                 const res = await fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData });

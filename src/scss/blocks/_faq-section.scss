@@ -5,10 +5,12 @@
   &::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: -40%;
-    width: 48%;
+    top: 25%;
+    left: -30%;
+    width: 100%;
+    max-width: 800px;
     height: 100%;
+    max-height: 800px;
     background: radial-gradient(circle at center, rgba(23, 184, 58, 0.8) 0%, rgba(0, 177, 90, 0) 70%);
     pointer-events: none;
     animation: floatGlow 2s ease-in-out infinite alternate;
@@ -46,10 +48,12 @@
         content: "";
         position: absolute;
         top: 0;
-        right: -48%;
         left: unset !important;
-        width: 58%;
+        right: -30%;
+        width: 100%;
+        max-width: 800px;
         height: 100%;
+        max-height: 800px;
         background: radial-gradient(circle at center, rgba(23, 184, 58, 0.8) 0%, rgba(0, 177, 90, 0) 70%);
         pointer-events: none;
         animation: floatGlow 2s ease-in-out infinite alternate;

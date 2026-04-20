@@ -150,18 +150,23 @@
   }
 
   &__title {
-    font-size: clamp(19px, 1.6vw, 26px);
+    font-size: clamp(19px, 1.4vw, 24px);
     line-height: 1.25;
     font-weight: 400;
-    color: $primary-color;
+    color: #171717;
     margin: 0;
+
+    /* Ενεργοποίηση Ellipsis για πολλαπλές γραμμές */
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 2; /* Κόψιμο μετά τη 2η γραμμή */
     -webkit-box-orient: vertical;
     overflow: hidden;
-    word-break: keep-all;
-    overflow-wrap: normal;
-    text-wrap: balance;
+    text-overflow: ellipsis; /* Αυτό προσθέτει τις τελείες */
+
+    /* Διορθώσεις για το σπάσιμο των λέξεων */
+    word-break: break-word; /* Επιτρέπει το σπάσιμο αν η λέξη είναι πολύ μεγάλη */
+    overflow-wrap: anywhere;
+    text-wrap: wrap; /* Αφαίρεσε το balance αν συνεχίζει να δημιουργεί θέμα */
     max-width: 90%;
   }
 

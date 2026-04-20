@@ -181,7 +181,8 @@
 
   .bottom_links {
     margin-top: 3vh;
-
+    display: flex;
+    gap: 1rem;
     a {
       font-size: 10px;
       font-weight: 700;
@@ -189,6 +190,11 @@
       text-transform: uppercase;
       margin-bottom: 1rem;
       color: #6D6D6D;
+      transition: ease 0.3s;
+
+      &:hover{
+        color: $secondary-color;
+      }
     }
   }
 }

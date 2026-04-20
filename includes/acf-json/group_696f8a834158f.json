@@ -304,7 +304,7 @@
         },
         {
             "key": "field_69ca5faae144d",
-            "label": "Footer",
+            "label": "Mega Menu Footer Links",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -486,5 +486,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774870649
+    "modified": 1776673519
 }

@@ -1,0 +1,286 @@
+@use '../abstracts' as *;
+
+.tinv-wishlist.woocommerce.tinv-wishlist-clear {
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  .tinv-header {
+    h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      color: #1a1a1a; // Ή το κύριο χρώμα σου
+    }
+  }
+
+
+  // Table Styling
+  .tinvwl-table-manage-list {
+    border-collapse: separate;
+    border-spacing: 0 15px; // Δημιουργεί κενό ανάμεσα στις σειρές (card effect)
+    width: 100%;
+
+    thead {
+      tr {
+        background: transparent;
+      }
+
+      th {
+        border: none;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #888;
+        padding: 10px 20px;
+        text-align: left;
+      }
+    }
+
+    tbody {
+
+      tr {
+        background: #E7E7E7;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border-radius: 2px;
+
+        &:hover {
+          transform: translateY(-3px);
+          background: #fff;
+        }
+
+        td {
+          padding: 20px;
+          border: none;
+          vertical-align: middle;
+
+          // Στρογγυλεμένες γωνίες για την "κάρτα"
+          &:first-child {
+            border-radius: 4px 0 0 4px;
+          }
+
+          &:last-child {
+            border-radius: 0 4px 4px 0;
+          }
+        }
+      }
+    }
+  }
+
+  // Thumbnail Styling
+  .product-thumbnail {
+    img {
+      border-radius: 4px;
+      max-width: 80px;
+      height: auto;
+      background: #f9f9f9;
+    }
+  }
+
+  // Product Name
+  .product-name {
+    a {
+      font-weight: 600;
+      text-decoration: none;
+      color: #333;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+
+  // Price Styling
+  .product-price {
+    font-weight: 700;
+    color: #1a1a1a;
+
+    ins {
+      text-decoration: none;
+      color: #e63946;
+    }
+
+    // Special price color
+    del {
+      opacity: 0.5;
+      font-size: 0.9em;
+      margin-right: 5px;
+    }
+  }
+
+  // Buttons (Add to Cart / Select Options)
+  .product-action {
+    width: 200px;
+
+    .button {
+      padding: 12px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 6px; // Capsule shape
+      font-weight: 400;
+      width: 100%;
+      font-size: 1rem;
+      text-transform: none;
+      transition: all 0.3s ease;
+      align-items: center;
+      gap: 8px;
+      border: none;
+
+      &.alt {
+        background-color: $primary-color;
+        color: white;
+
+        &:hover {
+          background-color: white;
+          color: $primary-color;
+        }
+      }
+
+      &.product_type_variable {
+        background-color: #f1f1f1;
+        color: #333;
+
+        &:hover {
+          background-color: #e2e2e2;
+        }
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  // Footer Actions (Bulk actions)
+  tfoot {
+    td {
+      padding-top: 2rem;
+    }
+
+    .tinvwl-to-left, .tinvwl-to-right {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .tinvwl-to-right {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+      justify-content: flex-end;
+    }
+
+    .button {
+      border-radius: 4px;
+      padding: 10px 20px;
+      background: #333;
+      color: #fff;
+      max-width: 250px;
+
+      &:hover {
+        background: #000;
+      }
+    }
+  }
+
+  // Social Share Section
+  .social-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+
+    span {
+      font-weight: 600;
+      color: #555;
+    }
+
+    ul {
+      display: flex;
+      list-style: none;
+      gap: 10px;
+      padding: 0;
+
+      li a {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #f5f5f5;
+        color: #333;
+        transition: 0.3s;
+
+        &:hover {
+          background: #333;
+          color: #fff;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+// Mobile Optimization
+@media (max-width: 768px) {
+
+  .tinv-wishlist.woocommerce.tinv-wishlist-clear .tinvwl-table-manage-list tbody tr td {
+    padding: 5px;
+    border: none;
+    vertical-align: middle;
+  }
+  .tinvwl-table-manage-list {
+    thead {
+      display: none;
+    }
+
+    .product-remove button {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
+
+    .product-cb {
+      .input-checkbox {
+        position: absolute;
+        left: 15px;
+      }
+    }
+
+    // Κρύβουμε το header σε mobile
+    tbody tr {
+      display: block;
+      margin-bottom: 20px;
+      padding: 15px;
+      text-align: center;
+      position: relative;
+
+      td.product-stock {
+        p {
+          line-height: 1;
+        }
+      }
+
+      td {
+        display: block;
+        padding: 10px 0;
+        line-height: 1;
+
+        &:first-child, &:last-child {
+          border-radius: 12px;
+        }
+      }
+    }
+
+    tfoot .tinvwl-to-right {
+      justify-content: center;
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+}

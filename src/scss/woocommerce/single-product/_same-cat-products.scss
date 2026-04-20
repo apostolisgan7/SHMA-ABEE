@@ -2,7 +2,9 @@
 
 
 .rv-products--list-only {
-
+  .tinv-wraper{
+    display: none !important;
+  }
   ul.products {
     display: flex;
     flex-direction: column;
@@ -13,7 +15,7 @@
   .rv-product-card {
     display: flex;
     align-items: center;
-    padding: 5px 20px;
+    padding: 5px 5px;
     background: #f6f6f6;
     border-radius: 6px;
     height: auto;
@@ -39,7 +41,6 @@
     }
 
     &__link {
-      width: 100%;
       display: flex;
       align-items: center;
       gap: 5%;

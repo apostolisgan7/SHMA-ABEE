@@ -44,6 +44,12 @@ function ruined_asset_loader() {
         
         wp_enqueue_script('ruined-main-js');
         
+        // Localize script to pass WordPress AJAX URL to ES modules
+        wp_localize_script('ruined-main-js', 'rv_globals', [
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('rv_ajax_nonce')
+        ]);
+        
         // Add modulepreload for dynamic imports
         if (isset($manifest[$entry]['dynamicImports'])) {
             foreach ($manifest[$entry]['dynamicImports'] as $dynamic_import) {
@@ -68,6 +74,14 @@ function vite_head_scripts() {
     if (IS_VITE_DEVELOPMENT) {
         echo '<script type="module" src="' . VITE_SERVER . '/@vite/client"></script>';
         echo '<script type="module" src="' . VITE_SERVER . '/src/js/main.js"></script>';
+        
+        // Add globals for development mode
+        echo '<script>';
+        echo 'window.rv_globals = {';
+        echo '  ajaxurl: "' . admin_url('admin-ajax.php') . '",';
+        echo '  nonce: "' . wp_create_nonce('rv_ajax_nonce') . '"';
+        echo '};';
+        echo '</script>';
     }
 }
 add_action('wp_head', 'vite_head_scripts');

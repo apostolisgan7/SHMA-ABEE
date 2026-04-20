@@ -29,7 +29,7 @@ export function initLoadMoreProducts() {
         formData.append('query', JSON.stringify(query));
 
         try {
-            const res = await fetch(window.ajaxurl, {
+            const res = await fetch(rv_globals.ajaxurl, {
                 method: 'POST',
                 body: formData,
             });

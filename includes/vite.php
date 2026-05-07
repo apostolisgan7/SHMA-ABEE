@@ -72,16 +72,14 @@ add_action('wp_enqueue_scripts', 'ruined_asset_loader');
 // --- Vite Dev Server Scripts ---
 function vite_head_scripts() {
     if (IS_VITE_DEVELOPMENT) {
-        echo '<script type="module" src="' . VITE_SERVER . '/@vite/client"></script>';
-        echo '<script type="module" src="' . VITE_SERVER . '/src/js/main.js"></script>';
-        
-        // Add globals for development mode
-        echo '<script>';
-        echo 'window.rv_globals = {';
-        echo '  ajaxurl: "' . admin_url('admin-ajax.php') . '",';
-        echo '  nonce: "' . wp_create_nonce('rv_ajax_nonce') . '"';
-        echo '};';
-        echo '</script>';
+        echo '<script type="module" src="' . esc_url(VITE_SERVER) . '/@vite/client"></script>';
+        echo '<script type="module" src="' . esc_url(VITE_SERVER) . '/src/js/main.js"></script>';
+
+        $globals = wp_json_encode([
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('rv_ajax_nonce'),
+        ]);
+        echo '<script>window.rv_globals = ' . $globals . ';</script>';
     }
 }
 add_action('wp_head', 'vite_head_scripts');

@@ -103,9 +103,9 @@ $right_items = array_slice($parents, 3);
 
             <div class="mega-footer-col">
                 <div>
-                    <h4>
+                    <p class="mega-footer-title">
                         <?php echo !empty($left['title']) ? esc_html($left['title']) : ''; ?>
-                    </h4>
+                    </p>
 
                     <?php
                     wp_nav_menu([
@@ -137,9 +137,9 @@ $right_items = array_slice($parents, 3);
 
             <div class="mega-footer-col">
                 <div>
-                    <h4>
+                    <p class="mega-footer-title">
                         <?php echo !empty($right['title']) ? esc_html($right['title']) : ''; ?>
-                    </h4>
+                    </p>
 
                     <?php
                     wp_nav_menu([

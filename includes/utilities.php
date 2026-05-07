@@ -109,10 +109,15 @@ function ruined_is_image($file_path) {
  * @return string
  */
 function ruined_get_current_url($full = true) {
+    $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+    $host   = isset($_SERVER['HTTP_HOST']) ? preg_replace('/[^a-zA-Z0-9.\-:]/', '', wp_unslash($_SERVER['HTTP_HOST'])) : '';
+
     if ($full) {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $path = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
+        return esc_url_raw($scheme . '://' . $host . $path);
     }
-    return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REDIRECT_URL]";
+    $path = isset($_SERVER['REDIRECT_URL']) ? wp_unslash($_SERVER['REDIRECT_URL']) : '';
+    return esc_url_raw($scheme . '://' . $host . $path);
 }
 
 /**
@@ -382,7 +387,7 @@ function ruined_get_template_part($slug, $name = null, $args = []) {
     if ($file) {
         // Extract args to use in the template
         if (!empty($args) && is_array($args)) {
-            extract($args);
+            extract($args, EXTR_SKIP);
         }
 
         include $file;
@@ -466,7 +471,7 @@ function ruined_is_dark_mode() {
     }
     
     // Check for dark mode cookie
-    if (isset($_COOKIE['dark_mode']) && $_COOKIE['dark_mode'] === '1') {
+    if (isset($_COOKIE['dark_mode']) && sanitize_text_field(wp_unslash($_COOKIE['dark_mode'])) === '1') {
         return true;
     }
     

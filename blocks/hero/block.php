@@ -12,16 +12,18 @@ $video_embed = '';
 
 if ($video_url) {
 
-    // Self-hosted video
+    $poster = !empty($image['url']) ? esc_url($image['url']) : '';
+
+    // Self-hosted video — no autoplay in HTML, JS plays on desktop only
     if (preg_match('/\.(mp4|webm|ogg)$/i', $video_url)) {
         $video_type = 'self';
         $video_embed = '
-            <video class="hero-video" autoplay muted loop playsinline>
+            <video class="hero-video" muted loop playsinline preload="none" poster="' . $poster . '">
                 <source src="'.esc_url($video_url).'" type="video/mp4">
             </video>';
     }
 
-    // YouTube
+    // YouTube — src set by JS on desktop only to avoid loading on mobile
     elseif (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
         $video_type = 'youtube';
 
@@ -30,15 +32,15 @@ if ($video_url) {
 
         $video_embed = '
             <iframe
-                class="hero-video"
-                src="https://www.youtube.com/embed/'.$youtube_id.'?autoplay=1&mute=1&controls=0&loop=1&playlist='.$youtube_id.'&playsinline=1&modestbranding=1&rel=0"
+                class="hero-video hero-video--iframe"
+                data-src="https://www.youtube.com/embed/'.esc_attr($youtube_id).'?autoplay=1&mute=1&controls=0&loop=1&playlist='.esc_attr($youtube_id).'&playsinline=1&modestbranding=1&rel=0"
                 frameborder="0"
                 allow="autoplay; fullscreen"
                 allowfullscreen>
             </iframe>';
     }
 
-    // Vimeo
+    // Vimeo — src set by JS on desktop only
     elseif (strpos($video_url, 'vimeo.com') !== false) {
         $video_type = 'vimeo';
 
@@ -47,8 +49,8 @@ if ($video_url) {
 
         $video_embed = '
             <iframe
-                class="hero-video"
-                src="https://player.vimeo.com/video/'.$vimeo_id.'?background=1&autoplay=1&loop=1&muted=1"
+                class="hero-video hero-video--iframe"
+                data-src="https://player.vimeo.com/video/'.esc_attr($vimeo_id).'?background=1&autoplay=1&loop=1&muted=1"
                 frameborder="0"
                 allowfullscreen>
             </iframe>';

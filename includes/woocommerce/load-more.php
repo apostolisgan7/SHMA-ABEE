@@ -21,7 +21,7 @@ function rv_render_load_more_button() {
     <div class="rv-load-more-wrap">
         <?php
         rv_button_arrow([
-            'text' => 'Φόρτωσε περισσότερα',
+            'text' => __('Φόρτωσε περισσότερα', 'ruined'),
             'url' => '#',
             'target' => '_self',
             'variant' => 'black',
@@ -47,19 +47,28 @@ add_action('wp_ajax_rv_load_more_products', 'rv_load_more_products');
 add_action('wp_ajax_nopriv_rv_load_more_products', 'rv_load_more_products');
 
 function rv_load_more_products() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'rv_ajax_nonce')) {
+        wp_send_json_error('Security check failed', 403);
+        wp_die();
+    }
+
     $page = isset($_POST['page']) ? absint($_POST['page']) : 1;
     $query_vars = isset($_POST['query']) ? json_decode(stripslashes($_POST['query']), true) : [];
 
-    if (empty($query_vars)) wp_die();
+    if (empty($query_vars) || !is_array($query_vars)) wp_die();
 
-    // Setup Query Args
+    // Remove keys that could expose private content or bypass intended behavior
+    $forbidden = ['post_status', 'post_type', 'author', 'author__in', 'author__not_in',
+                  'nopaging', 'fields', 'cache_results', 'no_found_rows',
+                  'suppress_filters', 'wc_query', 'lazy_load_term_meta'];
+    foreach ($forbidden as $key) {
+        unset($query_vars[$key]);
+    }
+
+    // Hardcode safe values
     $query_vars['paged'] = $page;
     $query_vars['post_status'] = 'publish';
     $query_vars['post_type'] = 'product';
-
-    // Καθαρισμός για αποφυγή συγκρούσεων
-    unset($query_vars['wc_query']);
-    unset($query_vars['lazy_load_term_meta']);
 
     $query = new WP_Query($query_vars);
 

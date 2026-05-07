@@ -28,6 +28,7 @@ import {initMobileMenu } from './modules/ui/menus/mobile-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
 import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
+import {initHeroVideo} from './modules/ui/hero-video';
 import {initHistory} from './modules/ui/history-horizontal';
 import {initAuthModal} from './modules/woocommerce/login-modal';
 import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log("%cTheme initialized", "color:#4CAF50");
+    console.log("%cΣΗΜΑ ΑΒΕΕ", "color:#4CAF50");
 
     // Initialize Alpine.js
     Alpine.start();
@@ -125,6 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         //  ⬇⬇ *ΜΕΤΑ το refresh* — εδώ πρέπει να μπει
         initScrollVideo();
+        initHeroVideo();
         initLoadMoreProducts();
         initProductList();
         if (typeof initMegaMenu === 'function') {

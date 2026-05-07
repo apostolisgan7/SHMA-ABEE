@@ -25,6 +25,7 @@ export function initLoadMoreProducts() {
         const query = JSON.parse(dataEl.dataset.query);
 
         formData.append('action', 'rv_load_more_products');
+        formData.append('nonce', rv_globals.nonce);
         formData.append('page', page);
         formData.append('query', JSON.stringify(query));
 

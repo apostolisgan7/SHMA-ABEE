@@ -33,7 +33,6 @@ export function ensureYithModalInBody() {
         document.body.appendChild(modal);
     }
 
-    console.log('[YITH] Filters moved to body (mobile)', modal);
     return modal;
 }
 

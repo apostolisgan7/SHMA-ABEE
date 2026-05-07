@@ -62,8 +62,8 @@
             <div class="footer-partners">
                 <img style="mix-blend-mode: difference"
                      src="<?php echo get_template_directory_uri(); ?>/src/img/bottom.png" alt="Partner 1">
-                <a href="#" id="back-to-top" class="back-to-top">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <a href="#" id="back-to-top" class="back-to-top" aria-label="<?php esc_attr_e('Επιστροφή στην κορυφή', 'ruined'); ?>">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                         <path d="M18 15l-6-6-6 6"/>
                     </svg>
                 </a>

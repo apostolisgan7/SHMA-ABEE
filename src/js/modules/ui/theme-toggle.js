@@ -79,7 +79,6 @@ export function initThemeToggle() {
     try {
         const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
         setTheme(shouldUseDark);
-        console.log('Theme initialized:', shouldUseDark ? 'dark' : 'light');
     } catch (error) {
         console.error('Error initializing theme:', error);
         setTheme(prefersDark);

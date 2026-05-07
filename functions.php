@@ -49,12 +49,6 @@ foreach ($includes as $file) {
 
 
 
-add_filter('wc_get_template', function($template, $template_name, $args, $template_path, $default_path) {
-    if ($template_name === 'cart/mini-cart.php') {
-        error_log('Loading mini-cart template from: ' . $template);
-    }
-    return $template;
-}, 10, 5);
 
 
 

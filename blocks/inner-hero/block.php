@@ -36,19 +36,21 @@ if (!empty($image['url'])) {
 $video_type = '';
 $video_embed = '';
 if ($video_url) {
+    $poster = !empty($image['url']) ? esc_url($image['url']) : '';
+
     if (preg_match('/\.(mp4|webm|ogg)$/i', $video_url)) {
         $video_type = 'self';
-        $video_embed = '<video class="hero-video" autoplay muted loop playsinline><source src="'.esc_url($video_url).'" type="video/mp4"></video>';
+        $video_embed = '<video class="hero-video" muted loop playsinline preload="none" poster="' . $poster . '"><source src="' . esc_url($video_url) . '" type="video/mp4"></video>';
     } elseif (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
         $video_type = 'youtube';
         preg_match('/(youtu\.be\/|v=)([^&]+)/', $video_url, $matches);
-        $youtube_id = $matches[2] ?? '';
-        $video_embed = '<iframe class="hero-video" src="https://www.youtube.com/embed/'.$youtube_id.'?autoplay=1&mute=1&controls=0&loop=1&playlist='.$youtube_id.'&playsinline=1&modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+        $youtube_id = esc_attr($matches[2] ?? '');
+        $video_embed = '<iframe class="hero-video hero-video--iframe" data-src="https://www.youtube.com/embed/' . $youtube_id . '?autoplay=1&mute=1&controls=0&loop=1&playlist=' . $youtube_id . '&playsinline=1&modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
     } elseif (strpos($video_url, 'vimeo.com') !== false) {
         $video_type = 'vimeo';
         preg_match('/vimeo\.com\/(\d+)/', $video_url, $matches);
-        $vimeo_id = $matches[1] ?? '';
-        $video_embed = '<iframe class="hero-video" src="https://player.vimeo.com/video/'.$vimeo_id.'?background=1&autoplay=1&loop=1&muted=1" frameborder="0" allowfullscreen></iframe>';
+        $vimeo_id = esc_attr($matches[1] ?? '');
+        $video_embed = '<iframe class="hero-video hero-video--iframe" data-src="https://player.vimeo.com/video/' . $vimeo_id . '?background=1&autoplay=1&loop=1&muted=1" frameborder="0" allowfullscreen></iframe>';
     }
 }
 ?>
@@ -57,7 +59,13 @@ if ($video_url) {
      style="<?= !$video_url ? esc_attr($style) : ''; ?>">
 
     <?php if ($video_url && $video_type): ?>
-        <div class="inner-hero__video-wrapper"><?= $video_embed; ?></div>
+        <div class="inner-hero__video-wrapper"><?php
+            echo wp_kses($video_embed, [
+                'video'  => ['class' => [], 'muted' => [], 'loop' => [], 'playsinline' => [], 'preload' => [], 'poster' => []],
+                'source' => ['src' => [], 'type' => []],
+                'iframe' => ['class' => [], 'src' => [], 'data-src' => [], 'frameborder' => [], 'allow' => [], 'allowfullscreen' => []],
+            ]);
+        ?></div>
     <?php endif; ?>
 
     <div class="inner-hero__overlay"></div>

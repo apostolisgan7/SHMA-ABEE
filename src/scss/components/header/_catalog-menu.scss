@@ -9,17 +9,17 @@
   display: none;
   justify-content: flex-start;
   align-items: center;
-  padding: 2rem;
+  padding: 1.7rem;
   z-index: 9999;
 }
 
 .mega-container {
   width: 100%;
   max-width: 1000px;
-  height: 90vh;
+  height: 95vh;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border-radius: 32px;
+  border-radius: 15px;
   opacity: 0;
   transform: translateY(40px) scale(.98);
   display: flex;

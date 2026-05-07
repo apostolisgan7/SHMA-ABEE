@@ -2,7 +2,7 @@
 
 .useful-info-boxes {
   padding: 80px 0;
-  margin: auto;
+
 
   .useful-info-boxes-head {
     display: flex;
@@ -56,14 +56,15 @@
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.4);
-      transition: .3s ease;
+      transition: .2s ease;
       z-index: 1;
     }
 
     /* ------------- HOVER FIX – btn border changes on box hover ------------- */
     &:hover {
       &::before {
-        background: rgba(0, 0, 0, 0.0);
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
       }
 
       .uibox-inner .uibox-link .btn_icon {
@@ -128,7 +129,7 @@
     .useful-info-boxes-head {
       .uiboxes-text {
         position: relative;
-        right: 12%;
+        right: 13%;
       }
     }
   }

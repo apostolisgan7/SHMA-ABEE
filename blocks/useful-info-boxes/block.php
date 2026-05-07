@@ -4,7 +4,7 @@ $text = get_field('text');
 $boxes = get_field('info_boxes');
 ?>
 
-<section class="useful-info-boxes">
+<section class="useful-info-boxes section-full-width">
     <div class="container smaller-container">
         <div class="useful-info-boxes-head">
             <?php if ($title) : ?>

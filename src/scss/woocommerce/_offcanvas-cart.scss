@@ -10,7 +10,7 @@
   right: 0;
   width: 100%;
   max-width: 600px;
-  height: 95vh;
+  height: 97vh;
   top: 20px;
   z-index: 99999;
   transform: translateX(100%);
@@ -90,7 +90,7 @@
   }
 
   &.is-open {
-    transform: translateX(-12px);
+    transform: translateX(-20px);
 
     & ~ .offcanvas-cart__overlay {
       opacity: 1;
@@ -345,7 +345,7 @@
     background: #111;
     color: #fff;
     font-size: .65rem;
-    font-weight: 600;
+    font-weight: 400;
     display: flex;
     align-items: center;
     justify-content: center;

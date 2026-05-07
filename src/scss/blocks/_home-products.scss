@@ -13,7 +13,7 @@
   &__head {
     display: flex;
     align-items: flex-end;
-    gap: 24px;
+    gap: 6px;
     margin-bottom: clamp(20px, 5vw, 90px);
 
     .wysiwyg p {
@@ -90,6 +90,7 @@
       display: flex;
       justify-content: center;
       max-width: 400px;
+      height: 3px !important;
       margin: 11vh auto 3vh;
       gap: 0;
 

@@ -26,10 +26,10 @@
         align-items: center;
 
         .hbg-category {
-          font-size: 16px;
+          font-size: 14px;
           letter-spacing: 0.83px;
           background: #213D1D;
-          padding: 4px 8px 2px;
+          padding: 4px 8px;
           color: $secondary-color;
           border-radius: 2px;
           text-transform: uppercase;
@@ -42,7 +42,7 @@
           letter-spacing: 0.83px;
           color: $secondary-color;
           line-height: 1.5;
-          font-size: 16px;
+          font-size: 14px;
           margin-left: 10px;
           margin-bottom: 0;
         }
@@ -97,7 +97,7 @@
         inset: 0;
         z-index: 1;
         pointer-events: none;
-        background: linear-gradient(48deg, rgb(30, 157, 74) 0%, rgba(30, 157, 74, 0) 60%);
+        background: linear-gradient(48deg, rgb(0, 171, 69) 0%, rgba(30, 157, 74, 0) 60%);
         opacity: 1;
         transition: opacity 0.5s ease;
         transition-delay: 0.3s;
@@ -132,7 +132,7 @@
       .hbg-card-thumb {
         height: 100%;
         aspect-ratio: 1;
-        max-height: 100px;
+        max-height: 132px;
 
         img {
           width: 100%;
@@ -177,10 +177,10 @@
 
         .hbg-card-title {
           color: #fff;
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 400;
           line-height: 1.2;
-          max-width: 270px;
+          max-width: 298px;
         }
 
         .card__line {
@@ -192,7 +192,7 @@
             position: absolute;
             width: 100%;
             height: 1px;
-            bottom: 12px;
+            bottom: 1px;
             left: 0;
             background: #474747;
             transition: width .4s ease;
@@ -201,7 +201,7 @@
           &::after {
             content: "";
             position: absolute;
-            bottom: 12px;
+            bottom: 1px;
             left: 0;
             width: 0%;
             height: 1px;

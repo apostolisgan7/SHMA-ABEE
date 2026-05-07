@@ -1,7 +1,7 @@
 // Colors
 $primary-color: #171717;
-$secondary-color: #17B83A;
-$success-color: #17B83A;
+$secondary-color: rgb(0 171 69);
+$success-color: rgb(0 171 69);
 $danger-color: #dc3545;
 $warning-color: #ffc107;
 $info-color: #17a2b8;
@@ -30,27 +30,11 @@ $bg-dark: #f0f0f0;
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Aeonik Pro';
-  src: url('/wp-content/themes/Ruined/src/fonts/AeonikPro/AeonikProMedium.woff2') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Aeonik Pro';
-  src: url('/wp-content/themes/Ruined/src/fonts/AeonikPro/AeonikProBold.woff2') format('opentype');
-  font-weight: 600 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 // Font Variables
 $font-family-base: 'Aeonik Pro';
 $font-size-base: 1rem; // 16px
 $font-size-sm: $font-size-base * 0.875; // 14px
-$font-size-lg: $font-size-base * 1.25;  // 20px
+$font-size-lg: $font-size-base * 1.25; // 20px
 $line-height-base: 1.5;
 $w-normal: 400;
 $w-medium: 500;
@@ -59,22 +43,22 @@ $w-bold: 700;
 
 // Container max widths
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px,
-  xxl: 1320px
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px
 );
 
 // Spacing
 $spacer: 1rem;
 $spacers: (
-  0: 0,
-  1: $spacer * 0.25,
-  2: $spacer * 0.5,
-  3: $spacer,
-  4: $spacer * 1.5,
-  5: $spacer * 3,
+        0: 0,
+        1: $spacer * 0.25,
+        2: $spacer * 0.5,
+        3: $spacer,
+        4: $spacer * 1.5,
+        5: $spacer * 3,
 );
 
 // Border radius

@@ -4,6 +4,7 @@
   position: relative;
   padding: 8vh 2rem;
   overflow: hidden;
+  border-radius: 7px;
 
 
   &__bg {
@@ -12,7 +13,6 @@
     background-size: cover;
     background-position: bottom;
     z-index: 1;
-    background-attachment: fixed;
   }
 
   &__overlay {

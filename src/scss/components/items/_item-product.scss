@@ -2,7 +2,7 @@
 
 .rv-product-card {
   position: relative;
-  border-radius: 4px;
+  border-radius: 4px 4px 0 0;
   padding-bottom: 0;
   overflow: hidden;
   height: 100%;
@@ -115,7 +115,7 @@
 
     i {
       position: relative;
-      top: -2px;
+      top: 0;
       width: 9px;
       height: 9px;
       background: $secondary-color;

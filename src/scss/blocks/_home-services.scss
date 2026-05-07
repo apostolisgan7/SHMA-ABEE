@@ -22,15 +22,14 @@
     letter-spacing: 0.02em;
     color: $secondary-color;
     font-weight: 700;
-    width: 35%;
+    width: 33.5%;
     text-transform: uppercase;
 
     .dot {
       width: 6px;
       height: 6px;
       position: relative;
-      top: -1px;
-      border-radius: 50%;
+      top: 0;
       background: currentColor;
       margin-right: 8px;
       display: inline-block;

@@ -121,8 +121,8 @@
         color: $primary-color;
       }
       .block-contact-infos__box-action{
-        width: 40px;
-        height: 40px;
+
+        transform: translate(-50%, -50%) scale(1);
         border-color: #17B83A;
         svg{
           width: 20px;
@@ -167,23 +167,23 @@
 
   /* ACTION (arrow button) */
   &__box-action {
-    width: 13px;
-    height: 13px;
+    width: 40px;
+    height: 40px;
     display: inline-grid;
     place-items: center;
     border-radius: 3px;
     border: 1.5px solid #858585;
-    transition: 0.4s ease;
-    transition-delay: 0.3s;
     position: absolute;
-    bottom: 15px;
+    bottom: 0px;
     right: 10px;
+    transform: translate(-50%, -50%) scale(0.325);
+    transform-origin: center;
+    transition: transform 0.4s ease 0.3s, border-color 0.4s ease 0.3s;
 
     svg {
-      width: 0px;
-      height: 0px;
-      transition: .3s ease;
-      transition-delay: 0.5s;
+      width: 0;
+      height: 0;
+      transition: width 0.3s ease 0.5s, height 0.3s ease 0.5s;
     }
 
     svg rect {
@@ -225,14 +225,6 @@
   @media (max-width: 640px) {
     &__box {
       padding: 20px 18px;
-    }
-    &__box-action {
-      width: 30px;
-      height: 30px;
-      svg{
-        width: 20px;
-        height: 20px;
-      }
     }
   }
 }

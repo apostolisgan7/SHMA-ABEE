@@ -15,6 +15,10 @@
   }
 }
 
+.woocommerce-product-gallery.loading-gallery:after, .product-gallery.loading-gallery:after {
+  background: url(//shma-abee.local/wp-content/plugins/yith-woocommerce-color-label-variations-premium/assets/css/../images/ajax-loader.gif) #F6F6F6 no-repeat center center !important;
+}
+
 .fancybox__backdrop, .f-panzoom__viewport {
   background: #F6F6F6 !important;
 }
@@ -82,7 +86,7 @@
     display: flex;
     width: 100%;
     height: 100%;
-    padding-bottom: 8vh;
+    padding-bottom: 0;
   }
 
   /* Slide styling */

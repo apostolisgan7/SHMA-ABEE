@@ -2,7 +2,8 @@
 
 .single-product {
   .product {
-    margin-top: 2vh;
+    max-width: 1750px;
+    margin: 2vh auto 0;
   }
 
   .rv-breadcrumbs {
@@ -37,7 +38,7 @@
 
   .single_top_wrapper {
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns:73% 27%;
     gap: 30px;
     align-items: start;
     margin: 5vh 0;

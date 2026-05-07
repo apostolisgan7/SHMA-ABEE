@@ -574,6 +574,9 @@
     .woocommerce-variation-add-to-cart.variations_button {
       display: flex;
       margin-top: 2vh;
+      .tinv-wraper.tinv-wishlist{
+        display: none;
+      }
     }
 
     .woocommerce-variation.single_variation {

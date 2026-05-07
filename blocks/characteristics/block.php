@@ -7,7 +7,7 @@ $items = get_field('characteristics');
 <section class="block-service-characteristics  section-full-width">
     <div class="container smaller-container">
         <?php if ($char_title): ?>
-            <div class="block-service-characteristics__title">
+            <div class="block-service-characteristics__title" data-animate="fade-up">
                 <?= wp_kses_post($char_title); ?>
             </div>
         <?php endif; ?>
@@ -31,7 +31,7 @@ $items = get_field('characteristics');
 
             <div class="block-service-characteristics__right">
                 <?php if ($items): ?>
-                    <ul class="block-service-characteristics__list">
+                    <ul class="block-service-characteristics__list" data-animate="stagger-fade" data-animate-stagger="0.07">
                         <?php foreach ($items as $item): ?>
                             <?php
                             $item_link = !empty($item['link']) ? $item['link'] : null;

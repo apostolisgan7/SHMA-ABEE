@@ -70,6 +70,17 @@ input[type="submit"] {
   }
 }
 
+// Hide all data-animate elements before JS runs — prevents FOUC
+[data-animate] {
+  opacity: 0;
+}
+
+// stagger-fade & card-stagger animate children — hide them too
+[data-animate="stagger-fade"] > *,
+[data-animate="card-stagger"] > * {
+  opacity: 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

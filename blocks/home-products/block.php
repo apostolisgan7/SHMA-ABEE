@@ -28,10 +28,10 @@ $as_carousel = is_array($items) && count($items) > 3;
 
         <div class="rv-home-products__head">
             <?php if ($title): ?>
-                <div class="rv-home-products__title wysiwyg"><?php echo wp_kses_post($title); ?></div>
+                <div class="rv-home-products__title wysiwyg" data-animate="title-reveal"><?php echo wp_kses_post($title); ?></div>
             <?php endif; ?>
             <?php if ($text): ?>
-                <div class="rv-home-products__text wysiwyg"><?php echo wp_kses_post($text); ?></div>
+                <div class="rv-home-products__text wysiwyg" data-animate="title-reveal" data-animate-delay="0.15"><?php echo wp_kses_post($text); ?></div>
             <?php endif; ?>
 
             <?php if ($as_carousel): ?>
@@ -54,7 +54,7 @@ $as_carousel = is_array($items) && count($items) > 3;
         <?php if (!empty($items)): ?>
             <?php if ($as_carousel): ?>
                 <div class="rv-home-products__carousel swiper" data-slider="products">
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper" data-animate="card-stagger">
                         <?php foreach ($items as $post_obj): setup_postdata($post_obj); ?>
                             <div class="swiper-slide">
                                 <?php
@@ -67,7 +67,7 @@ $as_carousel = is_array($items) && count($items) > 3;
                     <div class="swiper-pagination" aria-hidden="true"></div>
                 </div>
             <?php else: ?>
-                <div class="rv-home-products__list">
+                <div class="rv-home-products__list" data-animate="stagger-fade" data-animate-stagger="0.1">
                     <?php foreach ($items as $post_obj): setup_postdata($post_obj);
                         get_template_part('template-parts/items/item','product',['post'=>$post_obj]);
                     endforeach; wp_reset_postdata(); ?>

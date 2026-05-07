@@ -8,15 +8,15 @@ $boxes = get_field('info_boxes');
     <div class="container smaller-container">
         <div class="useful-info-boxes-head">
             <?php if ($title) : ?>
-                <h2 class="uiboxes-title"><?php echo esc_html($title); ?></h2>
+                <h2 class="uiboxes-title" data-animate="title-reveal"><?php echo esc_html($title); ?></h2>
             <?php endif; ?>
 
             <?php if ($text) : ?>
-                <p class="uiboxes-text"><?php echo esc_html($text); ?></p>
+                <p class="uiboxes-text" data-animate="fade-up" data-animate-delay="0.15"><?php echo esc_html($text); ?></p>
             <?php endif; ?>
         </div>
         <?php if ($boxes) : ?>
-            <div class="uiboxes-grid">
+            <div class="uiboxes-grid" data-animate="stagger-fade" data-animate-stagger="0.09">
 
                 <?php foreach ($boxes as $row) :
                     $box = $row['box'];

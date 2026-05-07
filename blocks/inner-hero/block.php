@@ -74,10 +74,10 @@ if ($video_url) {
         <div class="inner-hero__content">
 
             <?php if (!empty($title)): ?>
-                <div class="inner-hero__title"><?= wp_kses_post($title); ?></div>
+                <div class="inner-hero__title" data-animate="title-reveal" data-animate-trigger="load"><?= wp_kses_post($title); ?></div>
             <?php endif; ?>
 
-            <div class="bottom_content">
+            <div class="bottom_content" data-animate="fade-up" data-animate-trigger="load" data-animate-delay="0.45">
                 <?php if (!empty($sub_texts['sub_title'])): ?>
                     <div class="inner-hero__subtitle"><?= esc_html($sub_texts['sub_title']); ?></div>
                 <?php endif; ?>
@@ -104,7 +104,7 @@ if ($video_url) {
         </div>
 
         <?php if ($hero_boxes): ?>
-            <div class="inner-hero__boxes">
+            <div class="inner-hero__boxes" data-animate="stagger-fade" data-animate-trigger="load" data-animate-delay="0.6" data-animate-stagger="0.1">
                 <?php foreach ($hero_boxes as $box): ?>
                     <article class="hero-box">
                         <a class="hero__link" href="<?= esc_url($box['link']['url']); ?>" target="<?= esc_attr($box['link']['target']); ?>" aria-label="<?= esc_attr($box['title']); ?>"></a>

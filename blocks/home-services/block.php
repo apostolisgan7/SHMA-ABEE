@@ -23,14 +23,14 @@ $as_carousel = is_array($items) && count($items) > 3;
 
         <div class="rv-home-services__head">
             <?php if ($subtitle) : ?>
-                <span class="rv-home-services__subtitle">
+                <span class="rv-home-services__subtitle" data-animate="fade-in">
           <span class="dot" aria-hidden="true"></span>
           <?php echo esc_html($subtitle); ?>
         </span>
             <?php endif; ?>
             <div class="right_col">
                 <?php if ($title) : ?>
-                    <h2 class="rv-home-services__title"><?php echo esc_html($title); ?></h2>
+                    <h2 class="rv-home-services__title" data-animate="title-reveal"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
 
                 <?php
@@ -56,7 +56,7 @@ $as_carousel = is_array($items) && count($items) > 3;
         <?php if (!empty($items)) : ?>
             <?php if ($as_carousel) : ?>
                 <div class="rv-home-services__carousel swiper" data-slider="services">
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper" data-animate="card-stagger">
                         <?php foreach ($items as $post_obj) : ?>
                             <div class="swiper-slide">
                                 <?php

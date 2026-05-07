@@ -44,7 +44,7 @@ if ( ! empty( $block['className'] ) ) {
                 <?php endif; ?>
 
                 <?php if ( $title ): ?>
-                    <div class="rv-scroll-video__title wysiwyg">
+                    <div class="rv-scroll-video__title wysiwyg" data-animate="title-reveal" data-animate-delay="0.15">
                         <?php echo wp_kses_post( $title ); ?>
                     </div>
                 <?php endif; ?>

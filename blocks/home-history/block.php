@@ -25,13 +25,13 @@ $button_link   = $bottom_row['button_link'] ?? null;
     <div class="home-history__inner container smaller-container">
         <div class="home-history__top">
             <?php if ( ! empty( $top_text ) ) : ?>
-                <div class="home-history__top-text">
+                <div class="home-history__top-text" data-animate="fade-up">
                     <?php echo wp_kses_post( $top_text ); ?>
                 </div>
             <?php endif; ?>
 
             <?php if ( ! empty( $top_image ) ) : ?>
-                <div class="home-history__top-media">
+                <div class="home-history__top-media" data-animate="image-reveal" data-animate-direction="right">
                     <?php
                     echo wp_get_attachment_image(
                         $top_image['ID'] ?? $top_image,
@@ -49,7 +49,7 @@ $button_link   = $bottom_row['button_link'] ?? null;
 
         <div class="home-history__bottom">
             <?php if ( ! empty( $bottom_image ) ) : ?>
-                <div class="home-history__bottom-media">
+                <div class="home-history__bottom-media" data-animate="image-reveal" data-animate-direction="left">
                     <?php
                     echo wp_get_attachment_image(
                         $bottom_image['ID'] ?? $bottom_image,
@@ -66,7 +66,7 @@ $button_link   = $bottom_row['button_link'] ?? null;
 
             <div class="home-history__bottom-content">
                 <?php if ( ! empty( $counter_items ) ) : ?>
-                    <div class="home-history__counters">
+                    <div class="home-history__counters" data-animate="stagger-fade" data-animate-stagger="0.1">
                         <?php foreach ( $counter_items as $item_row ) :
                             $item = $item_row['item'] ?? [];
                             $title = $item['title'] ?? '';
@@ -85,7 +85,7 @@ $button_link   = $bottom_row['button_link'] ?? null;
                 <?php endif; ?>
 
                 <?php if ( ! empty( $bottom_text ) ) : ?>
-                    <div class="home-history__text">
+                    <div class="home-history__text" data-animate="fade-up">
                         <?php echo wp_kses_post( $bottom_text ); ?>
                     </div>
                 <?php endif; ?>

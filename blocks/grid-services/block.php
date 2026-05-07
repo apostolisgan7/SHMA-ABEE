@@ -19,14 +19,14 @@ if (!empty($block['align'])) $classes .= ' align' . $block['align'];
     <div class="grid-services__inner container">
         <div class="grid-services__head">
             <?php if ($subtitle) : ?>
-                <span class="grid-services__subtitle">
+                <span class="grid-services__subtitle" data-animate="fade-in">
                     <span class="dot" aria-hidden="true"></span>
                     <?php echo esc_html($subtitle); ?>
                 </span>
             <?php endif; ?>
             <div class="right_col">
                 <?php if ($title) : ?>
-                    <h2 class="grid-services__title"><?php echo esc_html($title); ?></h2>
+                    <h2 class="grid-services__title" data-animate="title-reveal"><?php echo esc_html($title); ?></h2>
                 <?php endif; ?>
 
                 <?php
@@ -51,7 +51,7 @@ if (!empty($block['align'])) $classes .= ' align' . $block['align'];
 
         <?php if (!empty($items)) : ?>
             <!-- Desktop Grid -->
-            <div class="grid-services__grid">
+            <div class="grid-services__grid" data-animate="stagger-fade" data-animate-stagger="0.08">
                 <?php foreach ($items as $post_obj) : ?>
                     <div class="grid-services__item">
                         <?php

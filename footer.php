@@ -4,10 +4,10 @@
     <div class="container">
         <div class="footer-upper">
             <div class="footer-cta">
-                <span class="subtitle">• ΟΙ ΥΠΗΡΕΣΙΕΣ ΜΑΣ</span>
-                <h2 class="footer-title">The latest news,<br>articles, and resources.</h2>
+                <span class="subtitle" data-animate="fade-in">• ΟΙ ΥΠΗΡΕΣΙΕΣ ΜΑΣ</span>
+                <h2 class="footer-title" data-animate="title-reveal">The latest news,<br>articles, and resources.</h2>
             </div>
-            <div class="footer-newsletter">
+            <div class="footer-newsletter" data-animate="fade-up" data-animate-delay="0.2">
                 <span class="subtitle">• YOUR EMAIL</span>
                 <div class="newsletter-wrapper">
                     <form class="newsletter-form">
@@ -22,7 +22,7 @@
         <hr class="footer-divider">
 
         <div class="footer-main">
-            <div class="footer-brand">
+            <div class="footer-brand" data-animate="fade-up">
                 <?php if (has_custom_logo()) : ?>
                     <?php the_custom_logo(); ?>
                 <?php else : ?>
@@ -32,7 +32,7 @@
                 <?php endif; ?>
             </div>
 
-            <div class="footer-links-grid">
+            <div class="footer-links-grid" data-animate="stagger-fade" data-animate-stagger="0.12">
                 <?php
                 $footer_locations = ['footer-col-1', 'footer-col-2', 'footer-col-3', 'footer-col-4'];
                 foreach ($footer_locations as $location) :
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="footer-bottom">
+        <div class="footer-bottom" data-animate="fade-in" data-animate-delay="0.25">
             <div class="footer-copyright">
                 Copyright © <?php echo date('Y'); ?> ΣΗΜΑ Α.Β.Ε.Ε. - All Rights Reserved
             </div>

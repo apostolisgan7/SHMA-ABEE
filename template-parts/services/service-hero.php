@@ -92,13 +92,13 @@ if ($video_url) {
                 ?>
 
                 <?php if (!empty($title)): ?>
-                    <h1 class="service-hero__title">
+                    <h1 class="service-hero__title" data-animate="title-reveal" data-animate-trigger="load">
                         <?= wp_kses_post($title); ?>
                     </h1>
                 <?php endif; ?>
             </div>
 
-            <div class="bottom_content">
+            <div class="bottom_content" data-animate="fade-up" data-animate-trigger="load" data-animate-delay="0.4">
 
                 <?php if (!empty($sub_texts['sub_title'])): ?>
                     <div class="service-hero__subtitle">
@@ -129,7 +129,7 @@ if ($video_url) {
         </div>
 
         <?php if ($hero_boxes): ?>
-            <div class="service-hero__boxes">
+            <div class="service-hero__boxes" data-animate="stagger-fade" data-animate-trigger="load" data-animate-delay="0.6">
                 <?php foreach ($hero_boxes as $box): ?>
                     <article class="hero-box">
 

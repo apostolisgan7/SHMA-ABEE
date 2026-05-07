@@ -17,12 +17,12 @@ $bg = $banner_image ? 'style="background-image:url(' . esc_url($banner_image['ur
         <!-- LEFT -->
         <div class="service-banner__left">
             <?php if ($banner_title): ?>
-                <h2 class="service-banner__title"><?= esc_html($banner_title) ?></h2>
+                <h2 class="service-banner__title" data-animate="title-reveal"><?= esc_html($banner_title) ?></h2>
             <?php endif; ?>
         </div>
 
         <!-- RIGHT -->
-        <div class="service-banner__right">
+        <div class="service-banner__right" data-animate="fade-up" data-animate-delay="0.2">
 
             <?php if ($button_text): ?>
                 <p class="service-banner__desc"><?= esc_html($button_text) ?></p>

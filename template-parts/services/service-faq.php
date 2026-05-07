@@ -9,7 +9,7 @@ $faqs = get_field('faqs');
         <!-- LEFT COLUMN (STICKY TITLE) -->
         <div class="faq-section__left">
             <?php if ($title): ?>
-                <h2 class="faq-section__title">
+                <h2 class="faq-section__title" data-animate="title-reveal">
                     <?= esc_html($title); ?>
                 </h2>
             <?php endif; ?>
@@ -18,7 +18,7 @@ $faqs = get_field('faqs');
         <!-- RIGHT COLUMN (ACCORDION) -->
         <div class="faq-section__right" x-data="{ openItem: 0 }">
             <?php if ($faqs): ?>
-                <div class="faq-section__accordion">
+                <div class="faq-section__accordion" data-animate="stagger-fade" data-animate-stagger="0.07">
 
                     <?php foreach ($faqs as $index => $row):
                         $item = $row['faq_item'];

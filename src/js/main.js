@@ -30,6 +30,7 @@ import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
 import {initHeroVideo} from './modules/ui/hero-video';
 import {initHistory} from './modules/ui/history-horizontal';
+import {initAnimations, initFooterAnimation, initHeaderAnimation} from './modules/ui/animations';
 import {initAuthModal} from './modules/woocommerce/login-modal';
 import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
 import {initFilters} from './modules/woocommerce/filters.js';
@@ -129,6 +130,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         initHeroVideo();
         initLoadMoreProducts();
         initProductList();
+        initAnimations();
+        initFooterAnimation();
+        initHeaderAnimation();
         if (typeof initMegaMenu === 'function') {
             initMegaMenu();
         }

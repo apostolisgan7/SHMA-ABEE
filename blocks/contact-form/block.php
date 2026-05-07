@@ -13,15 +13,15 @@ if (!empty($block['className'])) $classes .= ' ' . $block['className'];
 
             <div class="block-contact-form__head">
                 <?php if ($title): ?>
-                    <h2 class="block-contact-form__title"><?= esc_html($title); ?></h2>
+                    <h2 class="block-contact-form__title" data-animate="title-reveal"><?= esc_html($title); ?></h2>
                 <?php endif; ?>
 
                 <?php if ($subtitle): ?>
-                    <p class="block-contact-form__subtitle"><?= esc_html($subtitle); ?></p>
+                    <p class="block-contact-form__subtitle" data-animate="fade-up" data-animate-delay="0.15"><?= esc_html($subtitle); ?></p>
                 <?php endif; ?>
             </div>
 
-            <div class="block-contact-form__body">
+            <div class="block-contact-form__body" data-animate="fade-up" data-animate-delay="0.3">
                 <?= $form_shortcode ? do_shortcode($form_shortcode) : ''; ?>
             </div>
 

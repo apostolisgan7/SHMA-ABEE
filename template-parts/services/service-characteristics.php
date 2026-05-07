@@ -7,12 +7,12 @@ $items = get_field('characteristics');
 <section class="service-characteristics section-full-width">
     <div class="container smaller-container">
         <?php if ($char_title): ?>
-            <div class="service-characteristics__title">
+            <div class="service-characteristics__title" data-animate="title-reveal">
                 <?= wp_kses_post($char_title); ?>
             </div>
         <?php endif; ?>
         <div class="service-characteristics__inner">
-            <div class="service-characteristics__left">
+            <div class="service-characteristics__left" data-animate="fade-up" data-animate-delay="0.15">
 
                 <?php if ($link): ?>
                     <div class="service-characteristics__button">
@@ -31,7 +31,7 @@ $items = get_field('characteristics');
 
             <div class="service-characteristics__right">
                 <?php if ($items): ?>
-                    <ul class="service-characteristics__list">
+                    <ul class="service-characteristics__list" data-animate="stagger-fade" data-animate-stagger="0.07">
                         <?php foreach ($items as $item): ?>
                             <li class="service-characteristics__item">
                                 <?php if (!empty($item['icon'])): ?>

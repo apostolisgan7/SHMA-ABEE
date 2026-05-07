@@ -8,11 +8,11 @@ $logos = get_field('logos');   // repeater
 $title_html = $title ? wp_kses_post($title) : '';
 ?>
 
-<section class="block-text-with-logos section-full-width">
-    <div class="container sec_padding sec_margin">
+<section class="block-text-with-logos sec_padding sec_margin">
+    <div class="container">
 
         <?php if (!empty($title_html)): ?>
-            <div class="block-text-with-logos__title">
+            <div class="block-text-with-logos__title" data-animate="fade-up">
                 <p><?php echo $title_html; ?></p>
             </div>
         <?php endif; ?>
@@ -39,7 +39,7 @@ $title_html = $title ? wp_kses_post($title) : '';
             <!-- RIGHT -->
             <div class="block-text-with-logos__right">
                 <?php if (!empty($text)): ?>
-                    <div class="block-text-with-logos__text">
+                    <div class="block-text-with-logos__text" data-animate="fade-up" data-animate-delay="0.15">
                         <?php echo wp_kses_post($text); ?>
                     </div>
                 <?php endif; ?>
@@ -49,7 +49,7 @@ $title_html = $title ? wp_kses_post($title) : '';
 
         <!-- LOGOS -->
         <?php if (!empty($logos)): ?>
-            <div class="block-text-with-logos__logos">
+            <div class="block-text-with-logos__logos" data-animate="stagger-fade" data-animate-stagger="0.07">
                 <?php foreach ($logos as $row): ?>
                     <?php
                     $logo = $row['logo'] ?? null;

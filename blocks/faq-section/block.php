@@ -15,7 +15,7 @@ if ($background_transparent) {
 
         <div class="faq-section__left">
             <?php if ($title): ?>
-                <h2 class="faq-section__title">
+                <h2 class="faq-section__title" data-animate="title-reveal">
                     <?= esc_html($title); ?>
                 </h2>
             <?php endif; ?>
@@ -23,7 +23,7 @@ if ($background_transparent) {
 
         <div class="faq-section__right" x-data="{ openItem: 0 }">
             <?php if ($faqs): ?>
-            <div class="faq-section__accordion">
+            <div class="faq-section__accordion" data-animate="stagger-fade" data-animate-stagger="0.07">
 
                 <?php foreach ($faqs
 

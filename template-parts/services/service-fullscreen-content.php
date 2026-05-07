@@ -34,13 +34,13 @@ $box_link  = $box['box_link']   ?? null;
 
             <div class="rv-fullscreen-content__content container">
                 <?php if ($subtitle): ?>
-                    <div class="rv-fullscreen-content__subtitle">
+                    <div class="rv-fullscreen-content__subtitle" data-animate="fade-in">
                         <?php echo esc_html($subtitle); ?>
                     </div>
                 <?php endif; ?>
 
                 <?php if ($title): ?>
-                    <div class="rv-fullscreen-content__title wysiwyg">
+                    <div class="rv-fullscreen-content__title wysiwyg" data-animate="title-reveal">
                         <?php echo wp_kses_post($title); ?>
                     </div>
                 <?php endif; ?>
@@ -49,7 +49,7 @@ $box_link  = $box['box_link']   ?? null;
 
         <?php if ( $box ): ?>
             <div class="rv-fullscreen-content__service-box-wrapper container">
-                <article class="service-box">
+                <article class="service-box" data-animate="fade-up" data-animate-delay="0.2">
 
                     <?php if ( $box_image ): ?>
                         <div class="service-box__image">

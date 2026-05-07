@@ -16,7 +16,7 @@ $header_class = 'header-' . esc_attr($header_color);
 ?>
 <header id="masthead" class="site-header header-shop <?php echo $header_class; ?>">
     <div class="container">
-        <div class="header-inner">
+        <div class="header-inner" data-header-anim>
             <div class="header-left">
                 <div class="site-branding">
                     <?php
@@ -91,7 +91,7 @@ $header_class = 'header-' . esc_attr($header_color);
                             <span class="offer_text"><?php _e('ΠΡΟΣΦΟΡΑ', 'ruined'); ?></span>
                             <span class="offer_icon">
                                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
-                                                          xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
 <path d="M7.5 18C8.32843 18 9 18.6716 9 19.5C9 20.3284 8.32843 21 7.5 21C6.67157 21 6 20.3284 6 19.5C6 18.6716 6.67157 18 7.5 18Z"
       stroke="#fff" stroke-width="1.5"/>
 <path d="M16.5 18.0001C17.3284 18.0001 18 18.6716 18 19.5001C18 20.3285 17.3284 21.0001 16.5 21.0001C15.6716 21.0001 15 20.3285 15 19.5001C15 18.6716 15.6716 18.0001 16.5 18.0001Z"
@@ -114,14 +114,17 @@ $header_class = 'header-' . esc_attr($header_color);
                     <a href="#">EN</a>
                 </div>
                 <div class="menu_btn">
+                    <span class="menu-text">MENU</span>
                     <button class="desktop-menu-button" type="button" aria-label="Open menu">
                     <span><span class="line line--top"></span>
+                            <span class="line line--center"></span>
                     <span class="line line--bottom"></span>
+
                     </button>
-                    <span class="menu-text">MENU</span>
                 </div>
                 <button href="#menu" class="mobile-menu-button" aria-label="Open menu">
                     <span class="line line--top"></span>
+                    <span class="line line--center"></span>
                     <span class="line line--bottom"></span>
                 </button>
 

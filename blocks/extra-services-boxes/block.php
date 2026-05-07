@@ -8,7 +8,7 @@ $service_boxes = get_field('service_boxes');
 
         <!-- BLOCK TITLE -->
         <?php if ($title): ?>
-            <h2 class="extra-services-boxes__title">
+            <h2 class="extra-services-boxes__title" data-animate="title-reveal">
                 <?= esc_html($title); ?>
             </h2>
         <?php endif; ?>
@@ -33,7 +33,9 @@ $service_boxes = get_field('service_boxes');
 
                         <!-- IMAGE -->
                         <?php if ($image): ?>
-                            <div class="service-box__image">
+                            <div class="service-box__image"
+                                 data-animate="image-reveal"
+                                 data-animate-direction="<?= $reversed ? 'right' : 'left'; ?>">
                                 <img src="<?= esc_url($image['url']); ?>"
                                      alt="<?= esc_attr($box_title); ?>"
                                      loading="lazy">
@@ -41,7 +43,7 @@ $service_boxes = get_field('service_boxes');
                         <?php endif; ?>
 
                         <!-- CONTENT -->
-                        <div class="service-box__content">
+                        <div class="service-box__content" data-animate="fade-up">
 
                             <?php if ($box_title): ?>
                                 <h3 class="service-box__title">

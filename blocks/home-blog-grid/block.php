@@ -10,7 +10,7 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
 <section class="home-blog-grid section-full-width">
     <div class="container smaller-container">
         <div class="first_post">
-            <div class="hbg-left">
+            <div class="hbg-left" data-animate="fade-up">
                 <div class="post_head">
         <span class="hbg-category">
             <?php echo get_the_category($big_post->ID)[0]->name; ?>
@@ -36,7 +36,7 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
                 ]);
                 ?>
             </div>
-            <div class="hbg-image">
+            <div class="hbg-image" data-animate="image-reveal" data-animate-direction="right">
                 <?php echo get_the_post_thumbnail($big_post->ID, 'large'); ?>
             </div>
         </div>
@@ -45,7 +45,7 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
             <h2 class="bottom_title"><?= __('Διαβάστε Επίσης:', 'ruined') ?></h2>
 
             <?php if ($bottom_posts): ?>
-                <div class="hbg-bottom">
+                <div class="hbg-bottom" data-animate="stagger-fade" data-animate-stagger="0.12">
                     <?php foreach ($bottom_posts
 
                                    as $post): ?>

@@ -26,7 +26,7 @@ if (!empty($block['align'])) $classes .= ' align' . $block['align'];
         <div class="block-contact-infos__inner">
 
             <!-- LEFT: Image -->
-            <div class="block-contact-infos__media">
+            <div class="block-contact-infos__media" data-animate="image-reveal" data-animate-direction="left">
                 <?php if (!empty($image['url'])): ?>
                     <img
                             class="block-contact-infos__img"
@@ -44,7 +44,7 @@ if (!empty($block['align'])) $classes .= ' align' . $block['align'];
             </div>
 
             <!-- RIGHT: Boxes -->
-            <div class="block-contact-infos__boxes">
+            <div class="block-contact-infos__boxes" data-animate="stagger-fade" data-animate-stagger="0.1">
                 <?php if (!empty($boxes) && is_array($boxes)): ?>
                 <?php foreach ($boxes
 

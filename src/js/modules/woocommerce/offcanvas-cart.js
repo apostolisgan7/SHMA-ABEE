@@ -1,148 +1,141 @@
 /**
- * Off-Canvas Cart
- * Handles the off-canvas cart functionality
+ * Off-Canvas Cart / Quote List
+ * mode = 'yith' → YITH Request a Quote
+ * mode = 'wc'   → standard WooCommerce mini-cart
  */
 export function initOffcanvasCart() {
-    const cart = document.getElementById('offcanvas-cart');
-    const cartToggle = document.querySelector('.header-cart .cart-contents');
-    const cartClose = document.querySelector('.offcanvas-cart__close');
+    const cart        = document.getElementById('offcanvas-cart');
+    const cartToggle  = document.querySelector('.header-cart .cart-contents');
+    const cartClose   = document.querySelector('.offcanvas-cart__close');
     const cartOverlay = document.querySelector('.offcanvas-cart__overlay');
 
-    if (!cart || !cartToggle) {
-        console.warn('Offcanvas cart elements not found');
-        return;
-    }
-    
-    // Initialize cart state
-    let isCartOpen = false;
+    if (!cart || !cartToggle) return;
 
-    // Toggle cart
+    const mode   = window.ruined_cart_mode || 'wc';
+    const ajaxUrl = '/wp-admin/admin-ajax.php';
+
+    const yithUrl = (typeof ywraq_frontend !== 'undefined' && ywraq_frontend.ajaxurl)
+        ? ywraq_frontend.ajaxurl.toString().replace('%%endpoint%%', 'yith_ywraq_action')
+        : '/?wc-ajax=yith_ywraq_action';
+
+    // ── Open / Close ──────────────────────────────────────────────────────────
     function toggleCart(show = true) {
-        isCartOpen = show;
-        
-        if (isCartOpen) {
+        if (show) {
             document.body.classList.add('offcanvas-cart-open');
             cart.classList.add('is-open');
-            // Prevent body scroll when cart is open
             document.body.style.overflow = 'hidden';
-            // Focus on close button for better accessibility
-            setTimeout(() => {
-                if (cartClose) cartClose.focus();
-            }, 100);
+            setTimeout(() => cartClose && cartClose.focus(), 100);
         } else {
             document.body.classList.remove('offcanvas-cart-open');
             cart.classList.remove('is-open');
-            // Restore body scroll
             document.body.style.overflow = '';
         }
     }
 
-    // Event Listeners
+    cartClose   && cartClose.addEventListener('click',   () => toggleCart(false));
+    cartOverlay && cartOverlay.addEventListener('click', () => toggleCart(false));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && cart.classList.contains('is-open')) toggleCart(false);
+    });
+
+    // ── Count badge ───────────────────────────────────────────────────────────
+    function updateCount(count) {
+        let wrapper = document.querySelector('.header-cart .count-wrapper');
+        const badge = document.querySelector('.header-cart .count');
+
+        if (count > 0) {
+            if (badge)   badge.textContent    = count;
+            if (wrapper) wrapper.style.display = '';
+            if (!wrapper) {
+                const link = document.querySelector('.header-cart .cart-contents');
+                if (link) {
+                    link.insertAdjacentHTML('beforeend',
+                        `<div class="count-wrapper"><span class="count">${count}</span></div>`);
+                }
+            }
+        } else {
+            if (wrapper) wrapper.style.display = 'none';
+        }
+    }
+
+    // ── Refresh cart body via AJAX ─────────────────────────────────────────────
+    function refreshCart() {
+        const action = mode === 'yith' ? 'rv_raq_mini_list' : 'rv_wc_mini_list';
+        return fetch(ajaxUrl, {
+            method:      'POST',
+            credentials: 'same-origin',
+            headers:     { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body:        new URLSearchParams({ action }),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                const body = document.querySelector('.offcanvas-cart__body');
+                if (body) body.innerHTML = data.data.html;
+                updateCount(data.data.count);
+            }
+        })
+        .catch(console.error);
+    }
+
+    // ── Open on click (always refresh first) ─────────────────────────────────
     cartToggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggleCart(!cart.classList.contains('is-open'));
-        return false;
+        refreshCart().then(() => toggleCart(true));
     });
 
-    cartClose.addEventListener('click', () => toggleCart(false));
-    cartOverlay.addEventListener('click', () => toggleCart(false));
+    // ── YITH mode ─────────────────────────────────────────────────────────────
+    if (mode === 'yith') {
+        // Qty +/- buttons (event delegation)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.raq-qty-btn');
+            if (!btn) return;
 
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && cart.classList.contains('is-open')) {
-            toggleCart(false);
-        }
-    });
+            e.preventDefault();
+            const key     = btn.dataset.key;
+            const isPlus  = btn.classList.contains('qty-plus');
+            const valEl   = btn.closest('.mini-cart__qty')?.querySelector('.qty-value');
+            const current = parseInt(valEl?.textContent || '1', 10);
+            const newQty  = isPlus ? current + 1 : Math.max(1, current - 1);
 
-    // Handle AJAX add to cart
-    function handleAddedToCart() {
-        // Update cart count
-        const cartCount = document.querySelector('.header-cart .header-link .count');
-        if (cartCount) {
-            // Get the current count and increment by 1
-            const currentCount = parseInt(cartCount.textContent) || 0;
-            cartCount.textContent = currentCount + 1;
-        }
+            if (newQty === current) return;
+            if (valEl) valEl.textContent = newQty;
 
-        // Refresh cart fragments
-        updateCartFragments();
-
-        // Open the cart
-        toggleCart(true);
-    }
-
-    // Update cart fragments via AJAX
-    function updateCartFragments() {
-        if (typeof wc_cart_fragments_params === 'undefined') {
-            return false;
-        }
-
-        const data = {
-            url: wc_cart_fragments_params.ajax_url,
-            data: {
-                wc_ajax: 'get_refreshed_fragments',
-                _wpnonce: wc_cart_fragments_params.wc_ajax_nonce
-            },
-            type: 'POST',
-            success: function(response) {
-                if (response && response.fragments) {
-                    // Update cart fragments
-                    Object.keys(response.fragments).forEach(key => {
-                        const element = document.querySelector(key);
-                        if (element) {
-                            element.outerHTML = response.fragments[key];
-                        }
-                    });
-
-                    // Reinitialize the cart to attach event listeners to the new elements
-                    initOffcanvasCart();
-                }
-            }
-        };
-
-        // Use jQuery.ajax if available, otherwise use fetch
-        if (typeof jQuery !== 'undefined' && jQuery.ajax) {
-            jQuery.ajax(data);
-        } else {
-            fetch(data.url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: new URLSearchParams({
-                    'wc-ajax': 'get_refreshed_fragments',
-                    _wpnonce: wc_cart_fragments_params.wc_ajax_nonce
-                })
+            fetch(yithUrl, {
+                method:      'POST',
+                credentials: 'same-origin',
+                headers:     { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body:        new URLSearchParams({
+                    ywraq_action: 'update_item_quantity',
+                    key,
+                    quantity: newQty,
+                }),
             })
-            .then(response => response.json())
-            .then(response => {
-                if (response && response.fragments) {
-                    Object.keys(response.fragments).forEach(key => {
-                        const element = document.querySelector(key);
-                        if (element) {
-                            element.outerHTML = response.fragments[key];
-                        }
-                    });
-                    initOffcanvasCart();
-                }
+            .then(r => r.json())
+            .then(() => refreshCart())
+            .catch(console.error);
+        });
+
+        if (typeof jQuery !== 'undefined') {
+            jQuery(document).on('yith_wwraq_added_successfully', () => {
+                refreshCart().then(() => toggleCart(true));
+            });
+            jQuery(document).on('yith_wwraq_removed_successfully', () => {
+                refreshCart();
             });
         }
     }
 
-    // Listen for added to cart events
-    document.body.addEventListener('added_to_cart', handleAddedToCart);
-    document.body.addEventListener('wc_fragments_refreshed', updateCartFragments);
+    // ── WC mode ───────────────────────────────────────────────────────────────
+    if (mode === 'wc' && typeof jQuery !== 'undefined') {
+        jQuery(document.body).on('added_to_cart', () => {
+            refreshCart().then(() => toggleCart(true));
+        });
+        jQuery(document.body).on('removed_from_cart wc_fragments_refreshed', () => {
+            refreshCart();
+        });
+    }
 
-    // Initialize cart fragments on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        updateCartFragments();
-    });
-
-    // Expose functions for other scripts
-    return {
-        toggleCart,
-        updateCartFragments
-    };
+    return { toggleCart, refreshCart };
 }

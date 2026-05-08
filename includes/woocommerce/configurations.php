@@ -51,38 +51,14 @@ add_action('woocommerce_after_main_content', function () {
 // Cart & Fragments
 // ========================
 add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
-    // Update cart count in header
-    ob_start();
-    $cart_count = WC()->cart->get_cart_contents_count();
-    if ($cart_count > 0) {
-        echo '<span class="count">' . esc_html($cart_count) . '</span>';
-    }
-    $fragments['.header-cart .count'] = ob_get_clean();
-
-    // Update mini cart content
-    ob_start();
-    echo '<div class="offcanvas-cart__body">';
-    woocommerce_mini_cart();
-    echo '</div>';
-    $fragments['.offcanvas-cart__body'] = ob_get_clean();
-
     return $fragments;
 });
 
-// Initialize cart fragments in footer
-add_action('wp_footer', function () {
-    if (is_cart() || is_checkout() || is_account_page()) return;
-    ?>
-    <script>
-        jQuery(function ($) {
-            $(document.body).on('wc_fragments_refreshed', function () {
-                if (typeof initOffcanvasCart === 'function') {
-                    initOffcanvasCart();
-                }
-            });
-        });
-    </script>
-    <?php
+// Pass cart mode to JS (yith = quote plugin active, wc = normal cart)
+add_action('wp_head', function () {
+    if (!class_exists('WooCommerce')) return;
+    $mode = class_exists('YITH_Request_Quote') ? 'yith' : 'wc';
+    echo '<script>window.ruined_cart_mode = ' . json_encode($mode) . ';</script>' . "\n";
 });
 
 // Hide default WooCommerce notices
@@ -245,6 +221,149 @@ add_action('ruined_before_shop_grid', 'ruined_render_shop_header');
 
 
 
+
+// ========================
+// YITH Request a Quote compatibility
+// ========================
+// Inject quote button inside the WC add-to-cart area (same position as the button it replaces).
+// Only runs in "standalone" mode — in "near add-to-cart" mode YITH hooks here itself.
+add_action( 'woocommerce_after_add_to_cart_button', function () {
+    if ( ! function_exists( 'yith_ywraq_render_button' ) ) return;
+    if ( 'yes' === get_option( 'ywraq_show_button_near_add_to_cart', 'no' ) ) return;
+    yith_ywraq_render_button();
+}, 15 );
+
+// ========================
+// RAQ OFFCANVAS MINI LIST
+// ========================
+
+// Force YITH to start its session for our AJAX action.
+// This must run before wp_loaded (where YITH calls start_session).
+if ( defined( 'DOING_AJAX' ) && DOING_AJAX
+    && isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'rv_raq_mini_list' ) {
+    add_filter( 'ywraq_force_start_session', '__return_true' );
+}
+
+function rv_get_raq_count() {
+    if ( ! class_exists( 'YITH_Request_Quote' ) ) return 0;
+    return (int) YITH_Request_Quote()->get_raq_product_number();
+}
+
+function rv_raq_mini_list_html() {
+    if ( ! class_exists( 'YITH_Request_Quote' ) ) return '';
+
+    $raq   = YITH_Request_Quote();
+    $items = $raq->get_raq_for_session();
+
+    ob_start();
+
+    if ( empty( $items ) ) : ?>
+        <p class="mini-cart__empty">Η λίστα προσφοράς σας είναι κενή.</p>
+    <?php else : ?>
+        <ul class="mini-cart">
+            <?php foreach ( $items as $key => $item ) :
+                $product_id   = (int) $item['product_id'];
+                $variation_id = ! empty( $item['variation_id'] ) ? (int) $item['variation_id'] : 0;
+                $qty          = (int) $item['quantity'];
+
+                $product = $variation_id ? wc_get_product( $variation_id ) : wc_get_product( $product_id );
+                $parent  = wc_get_product( $product_id );
+                if ( ! $product || ! $parent ) continue;
+
+                $image = $parent->get_image( 'thumbnail' );
+                $title = $parent->get_name();
+                $sku   = $product->get_sku() ?: $parent->get_sku();
+                $link  = $parent->get_permalink();
+                $nonce = wp_create_nonce( 'yith_ywraq_action' );
+
+                $variation_label = '';
+                if ( $variation_id && ! empty( $item['variations'] ) ) {
+                    $parts = [];
+                    foreach ( $item['variations'] as $attr_name => $attr_value ) {
+                        if ( $attr_value === '' ) continue;
+                        $label  = wc_attribute_label( str_replace( 'attribute_', '', $attr_name ) );
+                        $parts[] = $label . ': ' . $attr_value;
+                    }
+                    $variation_label = implode( ' / ', $parts );
+                }
+            ?>
+                <li class="mini-cart__item">
+                    <div class="mini-cart__image">
+                        <a href="<?php echo esc_url( $link ); ?>"><?php echo $image; ?></a>
+                    </div>
+                    <div class="mini-cart__content">
+                        <?php if ( $sku ) : ?>
+                            <span class="mini-cart__sku">SKU: <?php echo esc_html( $sku ); ?></span>
+                        <?php endif; ?>
+<!--                        --><?php //if ( $variation_label ) : ?>
+<!--                            <span class="mini-cart__variation">--><?php //echo esc_html( $variation_label ); ?><!--</span>-->
+<!--                        --><?php //endif; ?>
+                        <p class="mini-cart__title">
+                            <a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $title ); ?></a>
+                        </p>
+                        <div class="mini-cart__meta">
+
+                            <div class="mini-cart__qty">
+                                <button class="qty-minus raq-qty-btn" data-key="<?php echo esc_attr( $key ); ?>" aria-label="Μείωση">−</button>
+                                <span class="qty-value"><?php echo esc_html( $qty ); ?></span>
+                                <button class="qty-plus raq-qty-btn" data-key="<?php echo esc_attr( $key ); ?>" aria-label="Αύξηση">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="mini-cart__remove yith-ywraq-item-remove"
+                            data-remove-item="<?php echo esc_attr( $key ); ?>"
+                            data-product_id="<?php echo esc_attr( $product_id ); ?>"
+                            data-wp_nonce="<?php echo esc_attr( $nonce ); ?>"
+                            aria-label="Αφαίρεση">✕</button>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+        <div class="mini-cart__footer">
+            <a href="<?php echo esc_url( $raq->get_raq_page_url() ); ?>" class="button button--checkout">
+                Προβολή Λίστας Προσφοράς
+            </a>
+        </div>
+    <?php endif;
+
+    return ob_get_clean();
+}
+
+add_action( 'wp_ajax_rv_raq_mini_list', 'rv_ajax_raq_mini_list' );
+add_action( 'wp_ajax_nopriv_rv_raq_mini_list', 'rv_ajax_raq_mini_list' );
+function rv_ajax_raq_mini_list() {
+    if ( class_exists( 'YITH_Request_Quote' ) ) {
+        YITH_Request_Quote()->get_raq_for_session();
+    }
+
+    wp_send_json_success( [
+        'html'  => rv_raq_mini_list_html(),
+        'count' => rv_get_raq_count(),
+    ] );
+}
+
+
+// ========================
+// WC OFFCANVAS MINI LIST (fallback when YITH is inactive)
+// ========================
+function rv_wc_mini_list_html() {
+    if ( ! class_exists( 'WooCommerce' ) ) return '';
+    ob_start();
+    woocommerce_mini_cart();
+    return ob_get_clean();
+}
+
+add_action( 'wp_ajax_rv_wc_mini_list', 'rv_ajax_wc_mini_list' );
+add_action( 'wp_ajax_nopriv_rv_wc_mini_list', 'rv_ajax_wc_mini_list' );
+function rv_ajax_wc_mini_list() {
+    if ( function_exists( 'wc_load_cart' ) ) {
+        wc_load_cart();
+    }
+    wp_send_json_success( [
+        'html'  => rv_wc_mini_list_html(),
+        'count' => WC()->cart ? WC()->cart->get_cart_contents_count() : 0,
+    ] );
+}
 
 // ========================
 // SINGLE PRODUCT

@@ -67,19 +67,12 @@ if ($is_variable) {
             </button>
 
             <div class="main_accodion_content" x-show="open === 'tech'" x-collapse>
-                <?php
-                woocommerce_variable_add_to_cart();
-                ?>
-
+                <?php woocommerce_variable_add_to_cart(); ?>
             </div>
         </div>
     <?php endif; ?>
 
-
-
     <?php if (!$is_variable) : ?>
-        <?php
-        woocommerce_template_single_add_to_cart();
-        ?>
+        <?php woocommerce_template_single_add_to_cart(); ?>
     <?php endif; ?>
 </div>

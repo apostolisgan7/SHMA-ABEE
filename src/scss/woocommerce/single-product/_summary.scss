@@ -191,8 +191,9 @@
           }
         }
       }
-      .rv-product-actions{
-        a{
+
+      .rv-product-actions {
+        a {
           font-size: 12px;
         }
       }
@@ -574,9 +575,51 @@
     .woocommerce-variation-add-to-cart.variations_button {
       display: flex;
       margin-top: 2vh;
-      .tinv-wraper.tinv-wishlist{
+
+      .tinv-wraper.tinv-wishlist {
         display: none;
       }
+    }
+
+    /* =========================
+       YITH REQUEST A QUOTE BUTTON
+    ========================= */
+    .yith-ywraq-add-to-quote {
+      width: 100% !important;
+      .add-request-quote-button {
+        display: flex;
+        height: 60px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background-color: #000 !important;
+        border-color: #000 !important;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 15px 20px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s ease, opacity 0.2s ease;
+        margin-top: 0 !important;
+
+        &:hover,
+        &:focus {
+          background-color: #17b83a !important;
+          border-color: #17b83a !important;
+          color: #fff;
+          transform: translateY(0);
+          text-decoration: none;
+        }
+      }
+    }
+
+    .woocommerce-variation-add-to-cart-disabled .add-request-quote-button {
+      opacity: 0.4;
+      pointer-events: none;
+      cursor: not-allowed;
     }
 
     .woocommerce-variation.single_variation {
@@ -594,12 +637,12 @@
   @media screen and (max-width: 992px) {
     margin-top: 0;
     position: static;
-    .rv-summary-accordion{
+    .rv-summary-accordion {
       flex-direction: column-reverse;
     }
   }
   @media screen and (max-width: 567px) {
-    .rv-summary-accordion form.variations_form table.variations .select_box_image .select_option_image{
+    .rv-summary-accordion form.variations_form table.variations .select_box_image .select_option_image {
       min-width: 80px;
     }
   }

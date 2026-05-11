@@ -98,9 +98,13 @@
 }
 
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product .stock {
-  color: $secondary-color;
   text-transform: uppercase;
   font-size: 13px !important;
+  font-weight: 700;
+
+  &.in-stock              { color: $secondary-color; }
+  &.out-of-stock          { color: #e63232; }
+  &.available-on-backorder { color: #171717; }
 }
 
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product p.price, .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product span.price {

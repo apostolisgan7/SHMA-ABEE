@@ -114,12 +114,22 @@
     z-index: 5;
 
     i {
-      position: relative;
-      top: 0;
+      flex-shrink: 0;
       width: 9px;
       height: 9px;
-      background: $secondary-color;
       display: inline-block;
+    }
+
+    &--instock i {
+      background: $secondary-color;
+    }
+
+    &--outofstock i {
+      background: #e63232;
+    }
+
+    &--backorder i {
+      background: #171717;
     }
   }
 

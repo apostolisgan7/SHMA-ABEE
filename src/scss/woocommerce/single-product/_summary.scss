@@ -60,14 +60,17 @@
 
         &.stock-in {
           color: #5fbf55;
+          &::before { background: #5fbf55; border-radius: 0; }
         }
 
         &.stock-out {
           color: #e53935;
+          &::before { background: #e53935; border-radius: 0; }
         }
 
         &.stock-backorder {
-          color: #f9a825;
+          color: #171717;
+          &::before { background: #171717; border-radius: 50%; }
         }
       }
 
@@ -84,7 +87,7 @@
         left: -15px;
         transform: translate(-50%, -50%);
         width: 6px;
-        height: 5px;
+        height: 6px;
         background: #000;
         border-radius: 0;
       }

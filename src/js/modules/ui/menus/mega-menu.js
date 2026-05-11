@@ -63,7 +63,8 @@ export function initMegaMenu() {
         overlay.classList.add("is-open");
         openBtn.classList.add("active");
 
-        document.body.style.overflow = "hidden";
+        window.__lenis__?.stop();
+        document.documentElement.classList.add('scroll-locked');
 
         tl.restart();
     }
@@ -83,7 +84,8 @@ export function initMegaMenu() {
             menu.style.visibility = "hidden";
             overlay.style.visibility = "hidden";
 
-            document.body.style.overflow = "";
+            window.__lenis__?.start();
+            document.documentElement.classList.remove('scroll-locked');
         });
     }
 

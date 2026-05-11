@@ -144,11 +144,11 @@
         flex: 1;
       }
     }
-    .container {
-      padding: 0;
-    }
     .uiboxes-grid {
       grid-template-columns: repeat(1, 1fr);
+      .uibox{
+        aspect-ratio: 11 / 8;
+      }
     }
   }
 }

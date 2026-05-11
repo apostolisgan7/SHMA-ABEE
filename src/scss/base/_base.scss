@@ -22,6 +22,10 @@ body {
   box-sizing: content-box;
 }
 
+html.scroll-locked {
+  overflow: hidden;
+}
+
 a {
   color: $primary-color;
   text-decoration: none;

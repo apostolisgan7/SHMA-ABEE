@@ -48,6 +48,15 @@ if (is_array($cats) && !empty($cats)) $cat_name = array_shift($cats);
 $price_html = $product ? $product->get_price_html() : '';
 $in_stock = $product ? $product->is_in_stock() : false;
 
+// Stock status display
+$stock_status = $product ? $product->get_stock_status() : 'outofstock';
+$stock_map = [
+    'instock'     => ['label' => __('Διαθέσιμο', 'ruined'),          'mod' => 'rv-product-card__stock--instock'],
+    'outofstock'  => ['label' => __('Μη διαθέσιμο', 'ruined'),       'mod' => 'rv-product-card__stock--outofstock'],
+    'onbackorder' => ['label' => __('Κατόπιν παραγγελίας', 'ruined'), 'mod' => 'rv-product-card__stock--backorder'],
+];
+$stock_info = $stock_map[$stock_status] ?? null;
+
 // CTA Logic
 $show_add_to_cart = $product && $product->is_purchasable() && $in_stock;
 $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('Περισσότερα', 'ruined');
@@ -73,9 +82,9 @@ $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('�
                 }
                 ?>
             </div>
-            <?php if ($in_stock) : ?>
-                <span class="rv-product-card__stock">
-                    <i></i><?php esc_html_e('Διαθέσιμο', 'ruined'); ?>
+            <?php if ($stock_info) : ?>
+                <span class="rv-product-card__stock <?php echo esc_attr($stock_info['mod']); ?>">
+                    <i></i><?php echo esc_html($stock_info['label']); ?>
                 </span>
             <?php endif; ?>
 
@@ -102,9 +111,9 @@ $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('�
                 <div class="rv-product-card__price"><?php echo wp_kses_post($price_html); ?></div>
             <?php endif; ?>
 
-            <?php if ($in_stock) : ?>
-                <span class="rv-product-card__stock list_stock">
-                    <i></i><?php esc_html_e('Διαθέσιμο', 'ruined'); ?>
+            <?php if ($stock_info) : ?>
+                <span class="rv-product-card__stock list_stock <?php echo esc_attr($stock_info['mod']); ?>">
+                    <i></i><?php echo esc_html($stock_info['label']); ?>
                 </span>
             <?php endif; ?>
 

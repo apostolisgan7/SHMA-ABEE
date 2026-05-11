@@ -58,11 +58,26 @@ export function initCatalogMenu() {
             ease: "power3.out"
         }, "-=0.35");
 
-    toggleBtn.addEventListener("click", () => tl.play());
-    closeBtn?.addEventListener("click", () => tl.reverse());
+    const openCatalog  = () => {
+        window.__lenis__?.stop();
+        document.documentElement.classList.add('scroll-locked');
+        tl.play();
+    };
+    const closeCatalog = () => {
+        window.__lenis__?.start();
+        document.documentElement.classList.remove('scroll-locked');
+        tl.reverse();
+    };
+
+    toggleBtn.addEventListener("click", openCatalog);
+    closeBtn?.addEventListener("click", closeCatalog);
 
     backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) tl.reverse();
+        if (e.target === backdrop) closeCatalog();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeCatalog();
     });
 
     const leftItems = document.querySelectorAll(".mega-left-item");

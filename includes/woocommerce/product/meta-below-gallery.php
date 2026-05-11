@@ -34,17 +34,17 @@ global $product;
 
             switch ($stock_status) {
                 case 'instock':
-                    $status_label = __('In stock', 'ruined');
+                    $status_label = __('Διαθέσιμο', 'ruined');
                     $status_class = 'stock-in';
                     break;
 
                 case 'outofstock':
-                    $status_label = __('Out of stock', 'ruined');
+                    $status_label = __('Μη διαθέσιμο', 'ruined');
                     $status_class = 'stock-out';
                     break;
 
                 case 'onbackorder':
-                    $status_label = __('Available on backorder', 'ruined');
+                    $status_label = __('Κατόπιν παραγγελίας', 'ruined');
                     $status_class = 'stock-backorder';
                     break;
             }

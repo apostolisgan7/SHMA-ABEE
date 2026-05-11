@@ -79,6 +79,8 @@ export default class SearchPopup {
         this.popup.setAttribute('aria-hidden', 'false');
         this.overlay?.classList.add(this.activeClass);
         document.body.classList.add('search-active');
+        window.__lenis__?.stop();
+        document.documentElement.classList.add('scroll-locked');
         this.tl.play();
 
         this.input = this.popup.querySelector('.dgwt-wcas-search-input');
@@ -106,6 +108,8 @@ export default class SearchPopup {
             this.popup.setAttribute('aria-hidden', 'true');
             this.overlay?.classList.remove(this.activeClass);
             document.body.classList.remove('search-active');
+            window.__lenis__?.start();
+            document.documentElement.classList.remove('scroll-locked');
 
             if (this.stateChecker) clearInterval(this.stateChecker);
 

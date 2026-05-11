@@ -23,12 +23,14 @@ export function initOffcanvasCart() {
         if (show) {
             document.body.classList.add('offcanvas-cart-open');
             cart.classList.add('is-open');
-            document.body.style.overflow = 'hidden';
+            window.__lenis__?.stop();
+            document.documentElement.classList.add('scroll-locked');
             setTimeout(() => cartClose && cartClose.focus(), 100);
         } else {
             document.body.classList.remove('offcanvas-cart-open');
             cart.classList.remove('is-open');
-            document.body.style.overflow = '';
+            window.__lenis__?.start();
+            document.documentElement.classList.remove('scroll-locked');
         }
     }
 

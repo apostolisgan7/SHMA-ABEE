@@ -461,6 +461,22 @@ add_filter('woocommerce_get_item_data', function ($item_data, $cart_item) {
     return $item_data;
 }, 10, 2);
 
+// Ελληνικά labels για το WooCommerce default stock (variations, add-to-cart)
+add_filter('woocommerce_get_availability', function ($availability, $product) {
+    switch ($product->get_stock_status()) {
+        case 'instock':
+            $availability['availability'] = __('Διαθέσιμο', 'ruined');
+            break;
+        case 'outofstock':
+            $availability['availability'] = __('Μη διαθέσιμο', 'ruined');
+            break;
+        case 'onbackorder':
+            $availability['availability'] = __('Κατόπιν παραγγελίας', 'ruined');
+            break;
+    }
+    return $availability;
+}, 10, 2);
+
 add_action('woocommerce_checkout_create_order_line_item',
         function ($item, $cart_item_key, $values) {
 

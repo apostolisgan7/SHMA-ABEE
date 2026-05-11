@@ -15,9 +15,9 @@ export function initMobileMenu() {
     if (!menu || !openBtn || !track || !titleEl || !backBtn) return;
 
     let isAnimating = false;
+    let menuTl = null;
 
-    // history κρατάει PANEL INDEXES
-    let history = [0];
+    let panelHistory = [0];
     let titleHistory = ['Menu'];
 
     /* -------------------------
@@ -26,7 +26,7 @@ export function initMobileMenu() {
     const updateUI = () => {
         titleEl.textContent = titleHistory[titleHistory.length - 1];
 
-        if (history.length <= 1) {
+        if (panelHistory.length <= 1) {
             backBtn.classList.remove('is-visible');
             backBtn.setAttribute('aria-hidden', 'true');
         } else {
@@ -48,17 +48,21 @@ export function initMobileMenu() {
        OPEN
     ------------------------- */
     const openMenu = () => {
-        history = [0];
+        panelHistory = [0];
         titleHistory = ['Menu'];
         updateUI();
 
         openBtn.classList.add('is-active');
         menu.classList.add('is-open');
+        menu.setAttribute('aria-hidden', 'false');
+        window.__lenis__?.stop();
+        document.documentElement.classList.add('scroll-locked');
 
         const elements = getMenuElements();
         gsap.set(elements, { y: 8, autoAlpha: 0 });
 
-        gsap.timeline()
+        menuTl?.kill();
+        menuTl = gsap.timeline()
             .to(backdrop, {
                 opacity: 1,
                 duration: 0.25,
@@ -74,21 +78,33 @@ export function initMobileMenu() {
                 autoAlpha: 1,
                 duration: 0.35,
                 ease: 'power2.out',
-                stagger: 0.035
+                stagger: 0.035,
+                onComplete: () => closeBtn?.focus()
             }, 0.1);
     };
 
     /* -------------------------
        CLOSE
     ------------------------- */
-    const closeMenu = () => {
+    const closeMenu = (onDone) => {
         openBtn.classList.remove('is-active');
         menu.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
 
         const elements = getMenuElements();
 
-        gsap.timeline({
-            onComplete: resetMenu
+        menuTl?.kill();
+        menuTl = gsap.timeline({
+            onComplete: () => {
+                window.__lenis__?.start();
+                document.documentElement.classList.remove('scroll-locked');
+                resetMenu();
+                if (onDone) {
+                    onDone();
+                } else {
+                    openBtn.focus();
+                }
+            }
         })
             .to(elements, {
                 y: 6,
@@ -110,7 +126,7 @@ export function initMobileMenu() {
     };
 
     const resetMenu = () => {
-        history = [0];
+        panelHistory = [0];
         titleHistory = ['Menu'];
         updateUI();
         gsap.set(track, { x: 0 });
@@ -120,8 +136,12 @@ export function initMobileMenu() {
        EVENTS
     ------------------------- */
     openBtn.addEventListener('click', openMenu);
-    closeBtn?.addEventListener('click', closeMenu);
-    backdrop?.addEventListener('click', closeMenu);
+    closeBtn?.addEventListener('click', () => closeMenu());
+    backdrop?.addEventListener('click', () => closeMenu());
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
+    });
 
     /* -------------------------
        MENU ITEMS
@@ -129,17 +149,13 @@ export function initMobileMenu() {
     menu.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', () => {
 
-            // ✅ Απλό link
+            // ✅ Απλό link — navigate μετά το close animation
             const link = item.dataset.link;
             if (link) {
-                closeMenu();
-                setTimeout(() => {
-                    window.location.href = link;
-                }, 300);
+                closeMenu(() => { window.location.href = link; });
                 return;
             }
 
-            // ❌ δεν έχει children
             if (!item.classList.contains('has-children')) return;
             if (isAnimating) return;
 
@@ -156,7 +172,7 @@ export function initMobileMenu() {
                 return;
             }
 
-            history.push(index);
+            panelHistory.push(index);
             titleHistory.push(title);
             updateUI();
 
@@ -175,13 +191,13 @@ export function initMobileMenu() {
        BACK
     ------------------------- */
     backBtn.addEventListener('click', () => {
-        if (history.length <= 1 || isAnimating) return;
+        if (panelHistory.length <= 1 || isAnimating) return;
         isAnimating = true;
 
-        history.pop();
+        panelHistory.pop();
         titleHistory.pop();
 
-        const targetIndex = history[history.length - 1];
+        const targetIndex = panelHistory[panelHistory.length - 1];
         updateUI();
 
         gsap.to(track, {
@@ -197,27 +213,27 @@ export function initMobileMenu() {
     /* -------------------------
        BOTTOM NAV ACTIONS
     ------------------------- */
-    const closeMobileMenu = () => {
-        if (!menu.classList.contains('is-open')) return false;
-        closeBtn?.click();
-        return true;
+    const closeMobileMenu = (onDone) => {
+        if (!menu.classList.contains('is-open')) {
+            onDone?.();
+            return;
+        }
+        closeMenu(onDone);
     };
 
     if (accountBtn) {
         accountBtn.addEventListener('click', () => {
-            const didClose = closeMobileMenu();
-            setTimeout(() => {
+            closeMobileMenu(() => {
                 document.querySelector('.js-auth-modal-trigger')?.click();
-            }, didClose ? 500 : 0);
+            });
         });
     }
 
     if (searchBtn) {
         searchBtn.addEventListener('click', () => {
-            const didClose = closeMobileMenu();
-            setTimeout(() => {
+            closeMobileMenu(() => {
                 document.querySelector('.search-toggle')?.click();
-            }, didClose ? 500 : 0);
+            });
         });
     }
 }

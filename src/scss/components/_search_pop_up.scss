@@ -312,6 +312,10 @@ SEARCH POPUP STYLING (Custom)
 
 
 /* Hide/Show Logic Classes */
+#rv-fibo-results {
+  display: none;
+}
+
 .search-has-query {
   #rv-default-products {
     display: none;

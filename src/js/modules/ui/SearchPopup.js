@@ -11,7 +11,8 @@ export default class SearchPopup {
         this.container = this.popup?.querySelector('.search-container');
         this.input = null;
         this.observer = null;
-        this.stateChecker = null; // Checker για το input state
+        this.stateChecker = null;
+        this._onInput = null;
 
         if (this.buttons.length === 0 || !this.popup) return;
 
@@ -52,12 +53,13 @@ export default class SearchPopup {
         // 1. Επιστροφή στο Default State
         this.wrapper.classList.remove('search-has-query');
 
-        const titleElement = document.querySelector('#rv-search-title');
-        if (titleElement && titleElement.textContent !== 'Δημοφιλή Προϊόντα') {
+        const titleElement = this.popup.querySelector('#rv-search-title');
+        const defaultTitle = titleElement?.dataset.defaultTitle ?? '';
+        if (titleElement && titleElement.textContent.trim() !== defaultTitle) {
             gsap.to(titleElement, {
                 opacity: 0, y: -5, duration: 0.2,
                 onComplete: () => {
-                    titleElement.textContent = 'Δημοφιλή Προϊόντα';
+                    titleElement.textContent = defaultTitle;
                     gsap.to(titleElement, { opacity: 1, y: 0, duration: 0.25 });
                 }
             });
@@ -74,6 +76,7 @@ export default class SearchPopup {
 
     openPopup() {
         this.popup.classList.add(this.activeClass);
+        this.popup.setAttribute('aria-hidden', 'false');
         this.overlay?.classList.add(this.activeClass);
         document.body.classList.add('search-active');
         this.tl.play();
@@ -83,10 +86,10 @@ export default class SearchPopup {
         if (this.input) {
             this.tl.then(() => this.input.focus());
 
-            // 1. Παρακολούθηση αλλαγών (Πληκτρολόγιο)
-            this.input.addEventListener('input', () => this.handleInputState());
+            this._onInput = () => this.handleInputState();
+            this.input.addEventListener('input', this._onInput);
 
-
+            if (this.stateChecker) clearInterval(this.stateChecker);
             this.stateChecker = setInterval(() => {
                 if (this.input.value.trim().length === 0 && this.wrapper.classList.contains('search-has-query')) {
                     this.resetUI();
@@ -100,13 +103,17 @@ export default class SearchPopup {
     closePopup() {
         this.tl.reverse().then(() => {
             this.popup.classList.remove(this.activeClass);
+            this.popup.setAttribute('aria-hidden', 'true');
             this.overlay?.classList.remove(this.activeClass);
             document.body.classList.remove('search-active');
 
-            // Καθαρισμός του Checker για να μην τρώει πόρους
             if (this.stateChecker) clearInterval(this.stateChecker);
 
             if (this.input) {
+                if (this._onInput) {
+                    this.input.removeEventListener('input', this._onInput);
+                    this._onInput = null;
+                }
                 this.input.value = '';
                 this.resetUI();
             }
@@ -117,10 +124,12 @@ export default class SearchPopup {
     handleInputState() {
         if (!this.input || !this.wrapper) return;
 
-        const titleElement = document.querySelector('#rv-search-title');
-        const hasQuery = this.input.value.trim().length > 0;
-        const currentTitle = titleElement?.textContent;
-        const newTitle = hasQuery ? 'Αποτελέσματα Προϊόντων' : 'Δημοφιλή Προϊόντα';
+        const titleElement  = this.popup.querySelector('#rv-search-title');
+        const hasQuery      = this.input.value.trim().length > 0;
+        const currentTitle  = titleElement?.textContent.trim();
+        const defaultTitle  = titleElement?.dataset.defaultTitle  ?? '';
+        const resultsTitle  = titleElement?.dataset.resultsTitle  ?? '';
+        const newTitle      = hasQuery ? resultsTitle : defaultTitle;
 
         if (titleElement && currentTitle !== newTitle) {
             gsap.to(titleElement, {
@@ -226,17 +235,24 @@ export default class SearchPopup {
     }
 
     buildTimeline() {
+        const headerChildren  = this.popup.querySelectorAll('.search-header > *');
+        const searchForm      = this.popup.querySelector('.dgwt-wcas-search-form');
+        const searchTags      = this.popup.querySelectorAll('.search-tag');
+        const searchHelp      = this.popup.querySelector('.search-help');
+        const sectionTitle    = this.popup.querySelector('.section-title');
+        const defaultProducts = this.popup.querySelector('#rv-default-products');
+
         gsap.set(this.overlay, { autoAlpha: 0 });
         gsap.set(this.popup, { autoAlpha: 0 });
         gsap.set(this.container, { y: 20 });
-        gsap.set(['.search-header > *', '.dgwt-wcas-search-form', '.search-tag', '.search-help', '.section-title', '#rv-default-products'], { opacity: 0, y: 10 });
+        gsap.set([...headerChildren, searchForm, ...searchTags, searchHelp, sectionTitle, defaultProducts], { opacity: 0, y: 10 });
 
         this.tl.to(this.overlay, { opacity: 1, duration: 0.25 }, 0)
             .to(this.popup, { autoAlpha: 1, duration: 0.2 }, 0)
             .to(this.container, { y: 0, opacity: 1, duration: 0.4 }, 0.1)
-            .to('.search-header > *', { opacity: 1, y: 0, stagger: 0.05, duration: 0.3 }, 0.2)
-            .to('.dgwt-wcas-search-form', { opacity: 1, y: 0, duration: 0.3 }, 0.25)
-            .to(".search-tag", { y: 0, opacity: 1, stagger: 0.05, duration: 0.3 }, 0.3)
-            .to(['.search-help', '.section-title', '#rv-default-products'], { opacity: 1, y: 0, stagger: 0.08, duration: 0.4 }, 0.4);
+            .to(headerChildren, { opacity: 1, y: 0, stagger: 0.05, duration: 0.3 }, 0.2)
+            .to(searchForm, { opacity: 1, y: 0, duration: 0.3 }, 0.25)
+            .to(searchTags, { y: 0, opacity: 1, stagger: 0.05, duration: 0.3 }, 0.3)
+            .to([searchHelp, sectionTitle, defaultProducts], { opacity: 1, y: 0, stagger: 0.08, duration: 0.4 }, 0.4);
     }
 }

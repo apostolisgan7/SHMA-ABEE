@@ -60,17 +60,29 @@
 
         &.stock-in {
           color: #5fbf55;
-          &::before { background: #5fbf55; border-radius: 0; }
+
+          &::before {
+            background: #5fbf55;
+            border-radius: 0;
+          }
         }
 
         &.stock-out {
           color: #e53935;
-          &::before { background: #e53935; border-radius: 0; }
+
+          &::before {
+            background: #e53935;
+            border-radius: 0;
+          }
         }
 
         &.stock-backorder {
           color: #171717;
-          &::before { background: #171717; border-radius: 50%; }
+
+          &::before {
+            background: #171717;
+            border-radius: 50%;
+          }
         }
       }
 
@@ -217,6 +229,10 @@
   top: 5rem;
   z-index: 11;
   margin-top: 3vh;
+
+  .tinv-wraper.tinv-wishlist {
+    display: none;
+  }
 
   .rv-summary-accordion, .rv-offer-note-field {
     display: flex;
@@ -589,6 +605,7 @@
     ========================= */
     .yith-ywraq-add-to-quote {
       width: 100% !important;
+
       .add-request-quote-button {
         display: flex;
         height: 60px;
@@ -617,6 +634,31 @@
           text-decoration: none;
         }
       }
+    }
+
+    .yith_ywraq_add_item_browse-list-100.yith_ywraq_add_item_browse_message.hide-when-removed {
+      display: none;
+    }
+
+    .yith_ywraq_add_item_product-response-100.yith_ywraq_add_item_product_message.hide-when-removed {
+      display: flex;
+      height: 60px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background-color: #17b83a !important;
+      border-color: #000 !important;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 15px 20px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, opacity 0.2s ease;
+      margin-top: 0 !important;
+      pointer-events: none;
     }
 
     .woocommerce-variation-add-to-cart-disabled .add-request-quote-button {

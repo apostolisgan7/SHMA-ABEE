@@ -289,6 +289,11 @@
   color: #be0000;
 }
 
+.sigma-auth-modal .form-row.has-error input {
+  border-color: #dc2626 !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
 
 /* inline error κάτω από field */
 .sigma-auth-modal .woocommerce-error {

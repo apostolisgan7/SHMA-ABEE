@@ -59,5 +59,4 @@ export function initFilters() {
     ensureYithModalInBody();
     initYithModalCloseHandler();
     initArchiveHeaderFiltersToggle();
-
 }

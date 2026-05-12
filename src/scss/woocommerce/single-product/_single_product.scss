@@ -2,7 +2,7 @@
 
 .single-product {
   .product {
-    max-width: 1750px;
+    max-width: 1800px;
     margin: 2vh auto 0;
   }
 
@@ -38,7 +38,7 @@
 
   .single_top_wrapper {
     display: grid;
-    grid-template-columns:73% 27%;
+    grid-template-columns:73% calc(27% - 30px);
     gap: 30px;
     align-items: start;
     margin: 5vh 0;
@@ -87,11 +87,11 @@
      RESPONSIVE
   ========================= */
 
-  @media screen and (max-width:1600px){
+  @media screen and (max-width: 1600px) {
     .rv-breadcrumbs {
       padding: 15px 30px;
     }
-    .single_top_wrapper{
+    .single_top_wrapper {
       padding: 15px 30px;
     }
     .rv-product-card__meta {
@@ -108,9 +108,13 @@
 
   /* Tablet */
   @media (max-width: 992px) {
+    .rv-breadcrumbs {
+      padding: 0;
+    }
     .single_top_wrapper {
       grid-template-columns: 1fr;
       gap: 40px;
+      padding: 0;
 
       .summary.entry-summary {
         margin-top: 10px;
@@ -122,6 +126,7 @@
   @media (max-width: 576px) {
     .rv-breadcrumbs {
       margin-bottom: 0;
+
       nav.rank-math-breadcrumb {
         p, a {
           font-size: 12px;

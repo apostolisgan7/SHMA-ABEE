@@ -49,6 +49,12 @@ export function initCatalogMenu() {
             clearProps: "all",
             ease: "power2.out"
         }, "-=0.3")
+        // BORDER (εμφανίζεται μαζί με τα left items)
+        .from(".mega-left", {
+            borderRightColor: "rgba(0,0,0,0)",
+            duration: 0.55,
+            ease: "power2.out"
+        }, "<")
         // RIGHT SIDE (static column)
         .from(".mega-right", {
             x: 40,
@@ -131,18 +137,36 @@ export function initCatalogMenu() {
         newPanel.classList.add("active");
         newPanel.style.display = "flex";
 
+        const subItems = newPanel.querySelectorAll(".sub-item.mega-animate-right");
+        const btn = newPanel.querySelector(".catalog_btn.mega-animate-right");
+
         gsap.fromTo(
-            newPanel.querySelectorAll(".mega-animate-right"),
+            subItems,
             { opacity: 0, y: 15 },
             {
                 opacity: 1,
                 y: 0,
-                duration: 0.1,
+                duration: 0.25,
                 stagger: 0.05,
                 ease: "power2.out",
                 clearProps: "all"
             }
         );
+
+        if (btn) {
+            gsap.fromTo(
+                btn,
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.45,
+                    delay: subItems.length * 0.05 + 0.4,
+                    ease: "power3.out",
+                    clearProps: "all"
+                }
+            );
+        }
     }
 
 

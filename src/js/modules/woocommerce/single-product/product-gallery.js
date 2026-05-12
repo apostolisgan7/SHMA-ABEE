@@ -173,21 +173,28 @@ function initZoomLens(container) {
         const img = container.querySelector('.swiper-slide-active img');
         if (!img) return;
 
-        const rect = img.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const imgRect = img.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
 
-        if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+        const imgX = e.clientX - imgRect.left;
+        const imgY = e.clientY - imgRect.top;
+
+        if (imgX < 0 || imgY < 0 || imgX > imgRect.width || imgY > imgRect.height) {
             lens.style.opacity = '0';
             return;
         }
 
+        const containerX = e.clientX - containerRect.left;
+        const containerY = e.clientY - containerRect.top;
+        const lensW = lens.offsetWidth;
+        const lensH = lens.offsetHeight;
+
         lens.style.opacity = '1';
-        lens.style.left = `${x - lens.offsetWidth / 2}px`;
-        lens.style.top = `${y - lens.offsetHeight / 2}px`;
+        lens.style.left = `${containerX - lensW / 2}px`;
+        lens.style.top = `${containerY - lensH / 2}px`;
         lens.style.backgroundImage = `url(${img.src})`;
-        lens.style.backgroundSize = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`;
-        lens.style.backgroundPosition = `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`;
+        lens.style.backgroundSize = `${imgRect.width * ZOOM}px ${imgRect.height * ZOOM}px`;
+        lens.style.backgroundPosition = `-${imgX * ZOOM - lensW / 2}px -${imgY * ZOOM - lensH / 2}px`;
     });
 
     container.addEventListener('mouseleave', () => {

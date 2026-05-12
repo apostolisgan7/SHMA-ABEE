@@ -128,7 +128,7 @@ if ($menu_items) {
                                 'target' => '_self',
                                 'variant' => 'black',
                                 'icon_position' => 'left',
-                                'class' => 'catalog_btn',
+                                'class' => 'catalog_btn mega-animate-right',
                                 'register' => false,
                         ]);
                         ?>

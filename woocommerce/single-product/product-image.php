@@ -38,8 +38,7 @@ if ( empty( $all_ids ) ) {
                                 false,
                                 [
                                         'class' => 'main-slide-image',
-                                        'data-fancybox' => 'product-gallery',
-                                        'data-src' => esc_url($full),
+                                                        'data-src' => esc_url($full),
                                 ]
                         );
                     }
@@ -74,9 +73,11 @@ if ( empty( $all_ids ) ) {
             <?php endforeach; ?>
         </div>
         <div class="zoom-wrapper">
-            <a class="rv-gallery-zoom">
-                ⛶
-            </a>
+            <button type="button" class="rv-gallery-zoom" aria-label="<?php esc_attr_e('Zoom', 'ruined'); ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                </svg>
+            </button>
         </div>
     </div>
 

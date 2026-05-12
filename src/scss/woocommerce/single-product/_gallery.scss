@@ -16,7 +16,7 @@
 }
 
 .woocommerce-product-gallery.loading-gallery:after, .product-gallery.loading-gallery:after {
-  background: url(//shma-abee.local/wp-content/plugins/yith-woocommerce-color-label-variations-premium/assets/css/../images/ajax-loader.gif) #F6F6F6 no-repeat center center !important;
+  background: url(/wp-content/plugins/yith-woocommerce-color-label-variations-premium/assets/images/ajax-loader.gif) #F6F6F6 no-repeat center center !important;
 }
 
 .fancybox__backdrop, .f-panzoom__viewport {
@@ -41,7 +41,7 @@
   background: transparent;
   border-radius: 6px;
 
-  svg{
+  svg {
     width: 14px;
     height: 14px;
   }
@@ -300,9 +300,11 @@
 
     .swiper-wrapper {
       padding-bottom: 0;
-      .swiper-slide{
-        img{
-          transform: scale(1);        }
+
+      .swiper-slide {
+        img {
+          transform: scale(1.5);
+        }
       }
     }
   }

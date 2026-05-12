@@ -120,6 +120,10 @@ function destroyGallery() {
         galleryObserver = null;
     }
 
+    if (galleryRoot?._zoomCleanup) {
+        galleryRoot._zoomCleanup();
+    }
+
     if (mainSwiper) {
         mainSwiper.destroy(true, true);
         mainSwiper = null;
@@ -153,7 +157,8 @@ function observeGalleryReplacement() {
         }
     });
 
-    galleryObserver.observe(document.querySelector('.product') || document.body, {
+    const observeTarget = document.querySelector('.woocommerce-product-gallery') || document.querySelector('.product') || document.body;
+    galleryObserver.observe(observeTarget, {
         childList: true,
         subtree: true
     });
@@ -168,38 +173,52 @@ function initZoomLens(container) {
     container.appendChild(lens);
 
     const ZOOM = 2;
+    let rafId;
 
-    container.addEventListener('mousemove', e => {
-        const img = container.querySelector('.swiper-slide-active img');
-        if (!img) return;
+    function onMouseMove(e) {
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+            const img = container.querySelector('.swiper-slide-active img');
+            if (!img) return;
 
-        const imgRect = img.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
+            const imgRect = img.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
 
-        const imgX = e.clientX - imgRect.left;
-        const imgY = e.clientY - imgRect.top;
+            const imgX = e.clientX - imgRect.left;
+            const imgY = e.clientY - imgRect.top;
 
-        if (imgX < 0 || imgY < 0 || imgX > imgRect.width || imgY > imgRect.height) {
-            lens.style.opacity = '0';
-            return;
-        }
+            if (imgX < 0 || imgY < 0 || imgX > imgRect.width || imgY > imgRect.height) {
+                lens.style.opacity = '0';
+                return;
+            }
 
-        const containerX = e.clientX - containerRect.left;
-        const containerY = e.clientY - containerRect.top;
-        const lensW = lens.offsetWidth;
-        const lensH = lens.offsetHeight;
+            const containerX = e.clientX - containerRect.left;
+            const containerY = e.clientY - containerRect.top;
+            const lensW = lens.offsetWidth;
+            const lensH = lens.offsetHeight;
 
-        lens.style.opacity = '1';
-        lens.style.left = `${containerX - lensW / 2}px`;
-        lens.style.top = `${containerY - lensH / 2}px`;
-        lens.style.backgroundImage = `url(${img.src})`;
-        lens.style.backgroundSize = `${imgRect.width * ZOOM}px ${imgRect.height * ZOOM}px`;
-        lens.style.backgroundPosition = `-${imgX * ZOOM - lensW / 2}px -${imgY * ZOOM - lensH / 2}px`;
-    });
+            lens.style.opacity = '1';
+            lens.style.left = `${containerX - lensW / 2}px`;
+            lens.style.top = `${containerY - lensH / 2}px`;
+            lens.style.backgroundImage = `url(${img.dataset.src || img.src})`;
+            lens.style.backgroundSize = `${imgRect.width * ZOOM}px ${imgRect.height * ZOOM}px`;
+            lens.style.backgroundPosition = `-${imgX * ZOOM - lensW / 2}px -${imgY * ZOOM - lensH / 2}px`;
+        });
+    }
 
-    container.addEventListener('mouseleave', () => {
+    function onMouseLeave() {
         lens.style.opacity = '0';
-    });
+    }
+
+    container.addEventListener('mousemove', onMouseMove);
+    container.addEventListener('mouseleave', onMouseLeave);
+
+    container._zoomCleanup = () => {
+        container.removeEventListener('mousemove', onMouseMove);
+        container.removeEventListener('mouseleave', onMouseLeave);
+        cancelAnimationFrame(rafId);
+        delete container._zoomCleanup;
+    };
 }
 
 /* =========================
@@ -266,9 +285,7 @@ function initVariationHandlers() {
 ========================= */
 function smartUpdate() {
     requestAnimationFrame(() => {
-        mainSwiper.updateSlides();
-        mainSwiper.updateSize();
-        mainSwiper.updateProgress();
+        mainSwiper.update();
         thumbsSwiper.update();
     });
 }
@@ -282,10 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// backward compatibility
 export function initProductGalleryObserver() {
     initProductGallery();
 }
-
-// debug
-window.initProductGallery = initProductGallery;

@@ -408,17 +408,13 @@ add_action('rv_product_contact_banner', function () {
 remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
 
 
-// PRODUCT NOTES FIELD
-add_action('woocommerce_after_variations_table', function () {
-    ?>
-    <div class="rv-offer-note-field"
-         x-data="{ open: false }">
-
+// PRODUCT NOTES FIELD — variable: after variations table, simple: before add-to-cart button
+function rv_render_offer_note_field() { ?>
+    <div class="rv-offer-note-field" x-data="{ open: false }">
         <button type="button"
                 class="rv-offer-note-toggle"
                 @click="open = !open"
                 :aria-expanded="open.toString()">
-
             <span>Σχόλια Προσφοράς</span>
             <div class="rv-accordion-arrow">
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -427,16 +423,26 @@ add_action('woocommerce_after_variations_table', function () {
                 </svg>
             </div>
         </button>
-
         <div x-show="open" x-collapse>
-            <textarea
-                    name="rv_offer_note"
-                    rows="4"
-                    placeholder="Γράψτε σχόλιο για την προσφορά"></textarea>
+            <textarea name="rv_offer_note" rows="4" placeholder="Γράψτε σχόλιο για την προσφορά"></textarea>
         </div>
-
     </div>
-    <?php
+<?php }
+
+add_action('woocommerce_after_variations_table', 'rv_render_offer_note_field');
+
+// Simple: offer note πριν το quantity, μετά ανοίγει wrapper για qty+button
+add_action('woocommerce_before_add_to_cart_quantity', function () {
+    global $product;
+    if ($product && $product->is_type('variable')) return;
+    rv_render_offer_note_field();
+    echo '<div class="rv-cart-row">';
+}, 5);
+
+add_action('woocommerce_after_add_to_cart_button', function () {
+    global $product;
+    if ($product && $product->is_type('variable')) return;
+    echo '</div>';
 });
 
 add_filter('woocommerce_add_cart_item_data', function ($cart_item_data, $product_id) {

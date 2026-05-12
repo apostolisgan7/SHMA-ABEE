@@ -2,7 +2,8 @@
 defined('ABSPATH') || exit;
 global $product;
 
-$is_variable = $product->is_type('variable');
+$is_variable  = $product->is_type('variable');
+$same_products = get_field('same_cat_products', get_the_ID());
 
 $has_variations = false;
 if ($is_variable) {
@@ -11,14 +12,10 @@ if ($is_variable) {
 }
 ?>
 
-<div class="rv-summary-accordion" x-data="{ open: 'tech' }">
+<div class="rv-summary-accordion" x-data="{ open: <?php echo $is_variable ? "'tech'" : ($same_products ? "'related'" : 'null'); ?> }">
 
     <!-- ΠΡΟΪΟΝΤΑ ΙΔΙΑΣ ΚΑΤΗΓΟΡΙΑΣ -->
-    <?php
-    $same_products = get_field('same_cat_products', get_the_ID());
-
-    if ($same_products) :
-        ?>
+    <?php if ($same_products) : ?>
         <div class="rv-accordion-item">
             <button @click="open = open === 'related' ? null : 'related'"
                     :aria-expanded="open === 'related'">
@@ -33,8 +30,6 @@ if ($is_variable) {
             </button>
 
             <div class="rv-products--list-only" x-show="open === 'related'" x-collapse>
-
-
                 <ul class="products">
                     <?php
                     foreach ($same_products as $post_obj) {
@@ -43,8 +38,6 @@ if ($is_variable) {
                     }
                     ?>
                 </ul>
-
-
             </div>
         </div>
     <?php endif; ?>

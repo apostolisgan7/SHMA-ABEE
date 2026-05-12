@@ -93,8 +93,20 @@
     transform: translateY(0);
   }
 }
-.woocommerce div.product form.cart{
+.woocommerce div.product form.cart {
   display: flex;
+}
+
+.woocommerce div.product form.cart:not(.variations_form) {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.rv-cart-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product .stock {

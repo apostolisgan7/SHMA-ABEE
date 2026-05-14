@@ -1,14 +1,20 @@
 @use '../abstracts' as *;
 
-/* ================================
-SEARCH POPUP STYLING (Custom)
-================================ */
+// =============================================================================
+// SEARCH POPUP
+// =============================================================================
+
+
+// -----------------------------------------------------------------------------
+// 1. OVERLAY & POPUP SHELL
+// -----------------------------------------------------------------------------
+
 .search-overlay {
   position: fixed;
   inset: 0;
   background: rgba(12, 18, 25, 0.45);
   backdrop-filter: blur(8px);
-  z-index: 9998; // ένα κάτω από το popup
+  z-index: 9998;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease-in-out;
@@ -24,13 +30,10 @@ SEARCH POPUP STYLING (Custom)
   position: fixed;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(8px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.3s ease-in-out;
   z-index: 9999;
   top: 1.5rem;
   left: 1.5rem;
@@ -39,7 +42,10 @@ SEARCH POPUP STYLING (Custom)
   max-height: calc(100vh - 3rem);
   border-radius: 15px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
 
   &.active {
     opacity: 1;
@@ -47,6 +53,11 @@ SEARCH POPUP STYLING (Custom)
     pointer-events: auto;
   }
 }
+
+
+// -----------------------------------------------------------------------------
+// 2. CONTAINER
+// -----------------------------------------------------------------------------
 
 .search-container {
   background: rgba(255, 255, 255, 0.8);
@@ -91,6 +102,7 @@ SEARCH POPUP STYLING (Custom)
 
         button.dgwt-wcas-search-submit {
           top: 28px !important;
+          left: 0;
 
           svg {
             width: 30px;
@@ -107,38 +119,146 @@ SEARCH POPUP STYLING (Custom)
           border-radius: 0 !important;
           transition: ease-in-out .2s;
           color: #000;
-          font-size: clamp(26px, 3vw, 40px);
+          font-size: clamp(22px, 3vw, 40px);
           font-weight: 400;
 
           &::placeholder {
             color: #000;
-            font-size: clamp(26px, 3vw, 40px);
+            font-size: clamp(22px, 3vw, 40px);
             font-weight: 400;
             font-family: 'Aeonik Pro';
           }
 
-          &:hover {
-            background: #f1f1f1;
-          }
+          &:hover { background: #f1f1f1; }
 
           &:focus {
             border: none;
             border-bottom: 1px solid #000;
           }
         }
+      }
+    }
+  }
+}
 
-        button.dgwt-wcas-search-submit {
-          left: 0;
-          top: 18px;
+
+// -----------------------------------------------------------------------------
+// 3. PLUGIN GLOBAL OVERRIDES
+// -----------------------------------------------------------------------------
+
+.dgwt-wcas-style-pirx .dgwt-wcas-sf-wrapp {
+  background: transparent;
+
+  input {
+    &:hover { background: transparent !important; }
+    &:focus { background: transparent !important; }
+  }
+}
+
+.dgwt-wcas-suggestions-wrapp {
+  position: static !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-height: none !important;
+  border: none !important;
+
+  ul {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+}
+
+.dgwt-wcas-suggestion-product {
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  .dgwt-wcas-si {
+    width: 100%;
+    max-width: 110px;
+    height: 110px;
+
+    img {
+      max-height: 100%;
+      object-fit: contain;
+      margin: 0;
+      padding: 0;
+      aspect-ratio: 1;
+    }
+  }
+
+  .dgwt-wcas-content-wrapp {
+    padding-left: 20px;
+  }
+
+  .dgwt-wcas-st {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    justify-content: space-between;
+    height: 95%;
+
+    span.dgwt-wcas-sku {
+      font-size: 11px;
+      color: $primary-color;
+      font-weight: 500;
+      opacity: 1;
+      text-transform: uppercase;
+      order: 1;
+    }
+
+    span.dgwt-wcas-st-title {
+      font-size: 18px;
+      color: $primary-color;
+      max-width: 80%;
+      line-height: 1.2;
+      order: 2;
+    }
+
+    .dgwt-wcas-arrow-wrapper {
+      order: 3;
+
+      .button-arrow__icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 3px;
+        border-color: $primary-color;
+
+        .button-arrow__arrow {
+          width: 8px;
+          height: 8px;
+        }
+
+        &:hover {
+          border-color: $secondary-color;
         }
       }
     }
   }
 }
 
-/* ================================
-   HEADER
-================================ */
+
+// -----------------------------------------------------------------------------
+// 4. HEADER
+// -----------------------------------------------------------------------------
+
 .search-header {
   display: flex;
   justify-content: space-between;
@@ -158,20 +278,19 @@ SEARCH POPUP STYLING (Custom)
     }
   }
 
-
   .search-close {
     position: absolute;
-    width: 40px;
-    height: 40px;
     top: 1.2rem;
     right: 1.2rem;
+    width: 40px;
+    height: 40px;
     background: transparent;
     border: 1px solid #17B83A;
-    color: #171717;
-    padding: 6px;
     border-radius: 6px;
-    cursor: pointer;
+    padding: 6px;
+    color: #171717;
     font-size: 25px;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -179,28 +298,14 @@ SEARCH POPUP STYLING (Custom)
     &:hover {
       background: #fff;
       border: 1px solid #fff;
-
     }
   }
 }
 
 
-/* ================================
-   CONTENT AREA (Sidebar + Results)
-================================ */
-.dgwt-wcas-style-pirx .dgwt-wcas-sf-wrapp {
-  background: transparent;
-
-  input {
-    &:hover {
-      background: transparent !important;
-    }
-
-    &:focus {
-      background: transparent !important;
-    }
-  }
-}
+// -----------------------------------------------------------------------------
+// 5. CONTENT BODY
+// -----------------------------------------------------------------------------
 
 .search-content {
   display: grid;
@@ -268,14 +373,12 @@ SEARCH POPUP STYLING (Custom)
       text-transform: uppercase;
     }
   }
-
 }
 
-/* ================================
-   RESULTS GRID
-================================ */
 
-/* Στο SCSS σου */
+// -----------------------------------------------------------------------------
+// 6. RESULTS
+// -----------------------------------------------------------------------------
 
 .search-results-wrapper {
   position: relative;
@@ -288,19 +391,18 @@ SEARCH POPUP STYLING (Custom)
   }
 }
 
-/* Default Products Styling */
 #rv-default-products {
   transition: opacity 0.3s ease;
-
 
   .rv-grid-inner {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     row-gap: 2rem;
+
     @media screen and (max-width: 1550px) {
       overflow: auto;
-      max-height: 40vh;
+      max-height: 50vh;
     }
 
     @media screen and (max-width: 768px) {
@@ -310,27 +412,17 @@ SEARCH POPUP STYLING (Custom)
   }
 }
 
-
-/* Hide/Show Logic Classes */
 #rv-fibo-results {
   display: none;
 }
 
 .search-has-query {
-  #rv-default-products {
-    display: none;
-  }
-
-  #rv-fibo-results {
-    display: block !important;
-  }
+  #rv-default-products { display: none; }
+  #rv-fibo-results     { display: block !important; }
 }
 
-/* Όταν δεν υπάρχει query, κρύψε το fibo container */
 .search-no-query {
-  #rv-fibo-results {
-    display: none !important;
-  }
+  #rv-fibo-results { display: none !important; }
 }
 
 .search-results {
@@ -344,126 +436,16 @@ SEARCH POPUP STYLING (Custom)
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 
-    @media (max-width: 1550px) {
-      height: 40vh !important;
-    }
-    @media (max-width: 1200px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-    }
-  }
-}
-
-/* Fibo Override Grid Fixes */
-.dgwt-wcas-suggestions-wrapp {
-  position: static !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  width: 100% !important;
-  max-height: none !important;
-  border: none !important;
-
-  ul {
-    display: grid !important; /* <--- ΠΡΟΣΟΧΗ ΕΔΩ: Το UL γίνεται το Grid Container */
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px !important; /* Κοινό gap με τα default προϊόντα */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
-  // Το κάθε αποτέλεσμα (li)
-  li {
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-  }
-}
-
-/* Επειδή το Fibo βάζει wrapper γύρω από το card μας */
-.dgwt-wcas-suggestion-product {
-  padding: 0 !important;
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-
-  .dgwt-wcas-si {
-    width: 100%;
-    max-width: 110px;
-    height: 110px;
-
-    img {
-      max-height: 100%;
-      object-fit: contain;
-      margin: 0;
-      padding: 0;
-      aspect-ratio: 1;
-    }
-  }
-
-  .dgwt-wcas-content-wrapp {
-    padding-left: 20px;
-  }
-
-
-
-  .dgwt-wcas-st {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    justify-content: space-between;
-    height: 95%;
-
-    span.dgwt-wcas-sku {
-      font-size: 11px;
-      color: $primary-color;
-      font-weight: 500;
-      opacity: 1;
-      text-transform: uppercase;
-      order: 1;
-    }
-
-    span.dgwt-wcas-st-title {
-      font-size: 18px;
-      color: $primary-color;
-      max-width: 80%;
-      line-height: 1.2;
-      order: 2;
-    }
-
-    .dgwt-wcas-arrow-wrapper {
-      order: 3;
-
-      .button-arrow__icon {
-        width: 30px;
-        height: 30px;
-        border-radius: 3px;
-        border-color: $primary-color;
-
-        .button-arrow__arrow {
-          width: 8px;
-          height: 8px;
-        }
-
-        &:hover {
-          border-color: $secondary-color;
-        }
-      }
-    }
+    @media (max-width: 1550px) { height: 40vh !important; }
+    @media (max-width: 1200px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 768px)  { grid-template-columns: 1fr; }
   }
 }
 
 
-/* ================================
-   FOOTER
-================================ */
+// -----------------------------------------------------------------------------
+// 7. FOOTER
+// -----------------------------------------------------------------------------
 
 .search-footer {
   margin-top: 20px;
@@ -489,6 +471,10 @@ SEARCH POPUP STYLING (Custom)
 }
 
 
+// -----------------------------------------------------------------------------
+// 8. RESPONSIVE — mobile (≤ 767px)
+// -----------------------------------------------------------------------------
+
 @media screen and (max-width: 767px) {
   .search-popup {
     width: 97%;
@@ -498,7 +484,20 @@ SEARCH POPUP STYLING (Custom)
 
     .search-container {
       padding: 25px;
+      justify-content: center;
       overflow-y: auto;
+
+      .dgwt-wcas-search-wrapp .dgwt-wcas-search-form .dgwt-wcas-sf-wrapp {
+        button.dgwt-wcas-search-submit {
+          top: 20px !important;
+        }
+
+        button.dgwt-wcas-search-submit svg {
+          width: 22px;
+          height: 22px;
+          max-width: 100%;
+        }
+      }
 
       .dgwt-wcas-style-pirx .dgwt-wcas-preloader {
         margin-right: 0;
@@ -513,27 +512,25 @@ SEARCH POPUP STYLING (Custom)
           overflow-x: auto;
           display: flex;
           gap: 1rem;
-          padding: 10px 0;
+          padding: 10px 0 15px;
 
-          &::-webkit-scrollbar-track {
-            background: #fcfcfc;
-          }
+          &::-webkit-scrollbar       { height: 2px; }
+          &::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.41); }
 
           &::-webkit-scrollbar-thumb {
-            background: $primary-color;
+            background: #626262;
             border-radius: 4px;
           }
 
-          &::-webkit-scrollbar-thumb:hover {
-            background: $primary-color;
-          }
-
-          &::-webkit-scrollbar {
-            height: 2px;
-          }
+          &::-webkit-scrollbar-thumb:hover { background: $primary-color; }
 
           a {
             white-space: nowrap;
+            color: #4d4d4d;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.72);
+            border-radius: 50px;
+            padding: 4px 10px;
           }
         }
       }
@@ -544,22 +541,45 @@ SEARCH POPUP STYLING (Custom)
         height: auto;
         gap: 3rem;
 
-        .search-help {
-          .help_top {
-            h4 {
-              margin-bottom: 10px;
+        .dgwt-wcas-suggestion-product {
+          .dgwt-wcas-si {
+            width: 100%;
+            max-width: 60px;
+            height: 60px;
+          }
+
+          .dgwt-wcas-st {
+            span.dgwt-wcas-st-title {
+              font-size: 14px;
             }
 
-            ul {
-              li {
-                margin-bottom: 0;
+            .dgwt-wcas-arrow-wrapper {
+              position: absolute;
+              right: 10px;
+              bottom: 10px;
+
+              .button-arrow__icon {
+                width: 25px;
+                height: 25px;
               }
             }
           }
+        }
 
-          .help_bottom {
-            margin-top: 10px;
+        .search-results-wrapper .section-title {
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+
+        .search-help {
+          display: none;
+
+          .help_top {
+            h4 { margin-bottom: 10px; }
+            ul li { margin-bottom: 0; }
           }
+
+          .help_bottom { margin-top: 10px; }
         }
       }
     }

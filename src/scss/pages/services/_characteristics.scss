@@ -112,4 +112,17 @@
       padding-left: 0;
     }
   }
+
+  @media (max-width: 576px) {
+    .service-characteristics__item{
+      gap: 15px;
+    }
+    .service-characteristics__item-title {
+      font-size: 1rem;
+    }
+   .service-characteristics__icon{
+      width: 50px ;
+      height: 50px;
+    }
+  }
 }

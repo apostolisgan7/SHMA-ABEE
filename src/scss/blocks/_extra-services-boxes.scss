@@ -86,7 +86,7 @@
       border-color: #ddd;
     }
     .button-arrow__text{
-      font-size: 25px;
+      font-size: clamp(1.3rem, 4vw, 25px);
     }
 
 

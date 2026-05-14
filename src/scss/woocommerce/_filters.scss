@@ -274,8 +274,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     }
 
     // Χρησιμοποιούμε :has() + active class
-    &.active > label::after,
-    &:has(> label input:checked) > label::after {
+    &.hierarchy-collapsable.active > label::after{
       content: "‹";
       color: rgb(0, 171, 69);
     }
@@ -284,7 +283,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     &:has(> label input:checked) > label .term-label {
       color: rgb(0, 171, 69);
       font-weight: 600;
-      padding-left: 8px;
+      padding-left: 0;
     }
 
     // Το key fix — override inline style με :has
@@ -295,7 +294,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
   }
 
   .filter-item.level-1 {
-    padding: 6px 0 6px 16px;
+    padding: 6px 0 6px 5px;
     list-style: none;
 
     .term-label {
@@ -317,8 +316,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
       }
     }
 
-    &.active > label::after,
-    &:has(> label input:checked) > label::after {
+    &.active > label::after{
       content: "‹";
       color: rgb(0, 171, 69);
     }
@@ -336,7 +334,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
 
     // Grandchildren
     .filter-item.level-1 {
-      padding-left: 15px;
+      padding-left: 0px;
 
       .term-label {
         font-size: 12px;
@@ -344,6 +342,11 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
       }
     }
   }
+}
+
+.yith-wcan-filters .yith-wcan-filter .filter-items .filter-item label {
+  display: flex;
+  justify-content: space-between;
 }
 
 

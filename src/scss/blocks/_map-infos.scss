@@ -23,7 +23,7 @@
 
   &__heading {
     p {
-      font-size: clamp(2.5rem, 4vw, 3rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       line-height: 1;
       font-weight: 400;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -49,7 +49,7 @@
     }
 
     p {
-      font-size: 24px;
+      font-size: clamp(16px, 4vw, 24px);
       opacity: 0.6;
       line-height: 1.2;
     }
@@ -59,6 +59,7 @@
     position: relative;
     display: flex;
     justify-content: flex-end;
+    margin-top: 40px;
   }
 
   &__map {
@@ -97,21 +98,21 @@
   @media screen and (max-width: 1024px) {
     padding: 80px 20px;
     .rv-map-infos__grid {
-      display: flex;
+      display: block;
       flex-direction: column;
       gap: 60px;
       justify-content: center;
       align-items: center;
 
       .rv-map-infos__left {
-        text-align: center;
       }
 
       .rv-map-infos__carousel {
         .rv-map-infos__info {
           max-width: 100%;
         }
-        .rv-map-infos__pagination{
+
+        .rv-map-infos__pagination {
           position: static;
           text-align: center;
           display: flex;

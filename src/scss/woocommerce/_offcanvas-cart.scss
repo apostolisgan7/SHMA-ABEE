@@ -21,7 +21,11 @@
   border-radius: 12px;
 
   @media (max-width: 480px) {
-    max-width: 100%;
+    max-width: calc(100% - 30px);
+    &.is-open {
+      transform: translateX(-15px) !important;
+    }
+
   }
 
   &__content {
@@ -369,5 +373,16 @@ body.offcanvas-cart-open {
   .mini-cart__remove {
     position: absolute;
     right: 5px;
+  }
+  .mini-cart__item{
+    padding: 16px 6px 16px;
+    grid-template-columns: 80px 1fr auto;
+    .mini-cart__title{
+      font-size: 1rem;
+    }
+    .mini-cart__image{
+      width: 80px;
+      height: 80px;
+    }
   }
 }

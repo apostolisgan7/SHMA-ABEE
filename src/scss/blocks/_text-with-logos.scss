@@ -36,7 +36,7 @@
     max-width: 1200px;
 
     p {
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(1.5rem, 4vw, 3rem);
       line-height: 1.15;
       font-weight: 400;
       color: #111;
@@ -73,7 +73,7 @@
 
     p {
       margin: 0 0 18px;
-      font-size: 22px;
+      font-size: clamp(1rem, 4vw, 22px);
       line-height: 1.5;
     }
   }
@@ -132,6 +132,34 @@
 
       img {
         height: 30px;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .container {
+      padding: 1.5rem;
+    }
+    .block-text-with-logos__logos {
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+      padding: 0 0 1rem;
+      margin-top: 40px;
+
+      &::-webkit-scrollbar-track {
+        background: #fcfcfc;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $secondary-color;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: $secondary-color;
+      }
+
+      &::-webkit-scrollbar {
+        height: 3px;
       }
     }
   }

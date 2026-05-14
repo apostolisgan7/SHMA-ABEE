@@ -1,5 +1,39 @@
 import { gsap } from 'gsap';
 
+/**
+ * Sets --vh-real CSS custom property based on window.innerHeight.
+ * window.innerHeight is always the VISIBLE viewport (excludes browser chrome),
+ * unlike CSS vh which on Chrome uses the large viewport.
+ *
+ * Also sets --real-vh for use as: height: calc(var(--real-vh) * 100)
+ * if you ever need a full-height value in CSS.
+ */
+function setViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh-real', `${vh}px`);
+    document.documentElement.style.setProperty('--real-vh', `${window.innerHeight}px`);
+}
+
+// Set on load
+setViewportHeight();
+
+// Update on resize (orientation change, browser chrome show/hide)
+// Debounced to avoid excessive repaints during resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setViewportHeight, 100);
+});
+
+// Also update on visualViewport resize (more reliable on mobile)
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(setViewportHeight, 100);
+    });
+}
+
+
 export function initMobileMenu() {
     const menu = document.querySelector('.mobile-menu');
     const backdrop = document.querySelector('.mobile-menu-backdrop');
@@ -51,6 +85,10 @@ export function initMobileMenu() {
         panelHistory = [0];
         titleHistory = ['Menu'];
         updateUI();
+
+        // Refresh viewport height at moment of open
+        // (handles case where browser chrome state has changed since page load)
+        setViewportHeight();
 
         openBtn.classList.add('is-active');
         menu.classList.add('is-open');
@@ -149,7 +187,7 @@ export function initMobileMenu() {
     menu.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', () => {
 
-            // ✅ Απλό link — navigate μετά το close animation
+            // Simple link — navigate after close animation
             const link = item.dataset.link;
             if (link) {
                 closeMenu(() => { window.location.href = link; });

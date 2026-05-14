@@ -26,7 +26,7 @@
     transition: all 0.2s;
 
     p {
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(1.5rem, 4vw, 3rem);
       line-height: 1.15;
       font-weight: 400;
 
@@ -92,12 +92,14 @@
     transition: all 0.2s;
 
     &:hover {
-      .block-service-characteristics__item-title{
-        color:$secondary-color;
+      .block-service-characteristics__item-title {
+        color: $secondary-color;
       }
+
       .block-service-characteristics__button {
         transform: translate(-50%, -50%) scale(1);
         border-color: #17B83A;
+
         svg {
           width: 20px;
           height: 20px;
@@ -139,6 +141,29 @@
     &__right {
       border-left: none;
       padding-left: 0;
+    }
+  }
+  @media (max-width: 576px) {
+    .block-service-characteristics__item {
+      gap: 15px;
+    }
+    .block-service-characteristics__item-title {
+      font-size: 1rem;
+    }
+    .block-service-characteristics__button {
+      right: -15px;
+      top: 38%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 30px;
+      height: 30px;
+    }
+    .block-service-characteristics__item .block-service-characteristics__button svg {
+      width: 20px;
+      height: 20px;
+    }
+    .block-service-characteristics__icon {
+      width: 40px;
+      height: 40px;
     }
   }
 }

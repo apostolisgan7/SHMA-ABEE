@@ -35,6 +35,24 @@
   &.header-black {
     color: $primary-color;
 
+    .offer_icon {
+      svg {
+        path {
+          stroke: #000;
+        }
+      }
+    }
+
+    .header-search {
+      .search_mobile {
+        svg {
+          path {
+            fill: #000 !important;
+          }
+        }
+      }
+    }
+
     a {
       color: $primary-color;
     }
@@ -344,6 +362,7 @@
         top: 12px;
         width: 100%;
       }
+
       .line--bottom {
         top: 18px;
         width: 100%;
@@ -358,9 +377,11 @@
           top: 11px;
           width: 60%;
         }
+
         .line--center {
-        display: none;
+          display: none;
         }
+
         .line--top {
           transform: rotate(45deg);
         }
@@ -434,6 +455,7 @@
     }
     .menu_btn {
       display: none;
+
       .menu-text {
       }
     }

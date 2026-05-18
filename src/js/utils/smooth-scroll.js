@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Global reference to Lenis instance
 let lenisInstance = null;
+let gsapTickerCallback = null;
 
 // Debounce helper function
 const debounce = (func, wait) => {
@@ -58,10 +59,9 @@ export function initSmoothScroll() {
     window.__lenis__ = lenis;
     lenisInstance = lenis;
 
-    // GSAP integration
-    gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-    });
+    // GSAP integration — keep ref so we can remove it on destroy
+    gsapTickerCallback = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(gsapTickerCallback);
     
     // Improve performance
     gsap.ticker.lagSmoothing(0);
@@ -124,6 +124,19 @@ export function initSmoothScroll() {
 
     return lenis;
 }
+
+// Fully destroy Lenis and remove the GSAP ticker callback
+export const destroySmoothScroll = () => {
+    if (gsapTickerCallback) {
+        gsap.ticker.remove(gsapTickerCallback);
+        gsapTickerCallback = null;
+    }
+    if (lenisInstance) {
+        lenisInstance.destroy();
+        lenisInstance = null;
+    }
+    window.__lenis__ = null;
+};
 
 // Export utility functions
 export const refreshSmoothScroll = () => {

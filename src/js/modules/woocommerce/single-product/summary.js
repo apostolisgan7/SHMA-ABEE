@@ -1,3 +1,15 @@
+function injectSwatchLabels() {
+    document.querySelectorAll('.select_box_image .select_option_image').forEach(swatch => {
+        if (swatch.querySelector('.rv-swatch-label')) return;
+        const label = swatch.dataset.label;
+        if (!label) return;
+        const span = document.createElement('span');
+        span.className = 'rv-swatch-label';
+        span.textContent = label;
+        swatch.appendChild(span);
+    });
+}
+
 function initCustomQty() {
     const qtyInput = document.querySelector('.quantity input.qty');
     if (!qtyInput) return;
@@ -181,5 +193,10 @@ export function initSummary() {
         initCustomQty();
     });
 
+    // Inject swatch labels (YITH adds data-label after its own init)
+    requestAnimationFrame(() => injectSwatchLabels());
+    jQuery(document)
+        .on('yith_wccl_product_gallery_loaded', injectSwatchLabels)
+        .on('wc_variation_form', injectSwatchLabels);
 
 }

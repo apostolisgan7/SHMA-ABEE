@@ -2,7 +2,7 @@
 defined('ABSPATH') || exit;
 global $product;
 ?>
-<form class="variations_form cart">
+<div class="rv-product-header-wrap">
     <div class="rv-product-header">
         <?php
         $terms = get_the_terms($product->get_id(), 'product_cat');
@@ -101,7 +101,7 @@ global $product;
         </div>
 
     </div>
-</form>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

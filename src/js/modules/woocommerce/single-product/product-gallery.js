@@ -23,10 +23,8 @@ function initProductGallery() {
 
     if (!mainEl || !thumbsEl) return;
 
-    // Αν το ίδιο DOM → μην ξανακάνεις init
     if (galleryInitialized && mainEl === galleryRoot) return;
 
-    // Αν έχει αντικατασταθεί → καθάρισε
     destroyGallery();
 
     galleryInitialized = true;
@@ -151,17 +149,27 @@ function observeGalleryReplacement() {
 
     galleryObserver = new MutationObserver(() => {
         const current = document.querySelector('.rv-gallery-main');
-
         if (current && current !== galleryRoot) {
             initProductGallery();
         }
     });
 
-    const observeTarget = document.querySelector('.woocommerce-product-gallery') || document.querySelector('.product') || document.body;
+    // Use .product-gallery-area (never replaced by YITH WCCL) so the observer
+    // survives when YITH replaces .woocommerce-product-gallery via AJAX.
+    const observeTarget = document.querySelector('.product-gallery-area')
+        || document.querySelector('.product')
+        || document.body;
     galleryObserver.observe(observeTarget, {
         childList: true,
         subtree: true
     });
+
+    // YITH WCCL fires this event after replacing the gallery via AJAX.
+    // Use jQuery because YITH triggers it via jQuery's event system.
+    if (typeof jQuery !== 'undefined') {
+        jQuery(document).off('yith_wccl_product_gallery_loaded.rv')
+            .on('yith_wccl_product_gallery_loaded.rv', () => initProductGallery());
+    }
 }
 
 /* =========================
@@ -224,11 +232,22 @@ function initZoomLens(container) {
 /* =========================
    FANCYBOX
 ========================= */
-function initFancybox() {
-    const zoomBtn = document.querySelector('.rv-gallery-zoom');
-    if (!zoomBtn) return;
+let _fancyboxHandler = null;
 
-    zoomBtn.onclick = e => {
+function initFancybox() {
+    // Use event delegation on the stable gallery wrapper so that
+    // replacing .rv-gallery-thumbs (WooCommerce variable product behaviour)
+    // never breaks the button handler.
+    const wrapper = document.querySelector('.woocommerce-product-gallery');
+    if (!wrapper) return;
+
+    // Remove any previous delegation to avoid duplicates
+    if (_fancyboxHandler) {
+        wrapper.removeEventListener('click', _fancyboxHandler);
+    }
+
+    _fancyboxHandler = (e) => {
+        if (!e.target.closest('.rv-gallery-zoom')) return;
         e.preventDefault();
         if (!mainSwiper) return;
 
@@ -242,10 +261,12 @@ function initFancybox() {
             {
                 startIndex: mainSwiper.realIndex ?? mainSwiper.activeIndex,
                 Thumbs: false,
-                Toolbar: { display: ["close", "zoom", "fullscreen"] }
+                Toolbar: { display: ['close', 'zoom', 'fullscreen'] }
             }
         );
     };
+
+    wrapper.addEventListener('click', _fancyboxHandler);
 }
 
 /* =========================

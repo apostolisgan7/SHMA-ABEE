@@ -71,4 +71,6 @@ if (post_password_required()) {
 
 </div>
 
+<?php get_template_part('includes/woocommerce/product/mobile-sticky-panel'); ?>
+
 <?php do_action('woocommerce_after_single_product'); ?>

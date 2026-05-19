@@ -3,7 +3,7 @@ $title = get_field('title');
 $text = get_field('text');
 $catalogs = get_field('catalogs');
 
-if (empty($title) && empty($text) && empty($catalogs)) {
+if (empty($catalogs)) {
     return;
 }
 ?>

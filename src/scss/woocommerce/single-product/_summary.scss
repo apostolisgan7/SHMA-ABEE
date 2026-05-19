@@ -239,6 +239,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 
     /* ========== ACCORDION ITEM ========== */
     .rv-accordion-item, {
@@ -252,6 +253,7 @@
       border-radius: 6px;
       overflow: hidden;
       margin-top: 1rem;
+      width: 100%;
 
       textarea {
         background: #fff;

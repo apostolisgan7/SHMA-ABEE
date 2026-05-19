@@ -41,6 +41,7 @@ import {initProductTabs} from './modules/woocommerce/single-product/tabs.js';
 import {initVideoBox} from './modules/woocommerce/single-product/video.js';
 import {initProductCatalogs} from './modules/woocommerce/single-product/product-catalogs.js';
 import {initMobileStickyPanel} from './modules/woocommerce/single-product/mobile-sticky-panel.js';
+import {initBackToTop} from './modules/ui/back-to-top.js';
 
 // Import GSAP core and plugins
 import {gsap} from 'gsap';
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initHistory();
     initProductCatalogs();
     initMobileStickyPanel();
+    initBackToTop();
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
 

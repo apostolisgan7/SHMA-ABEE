@@ -88,11 +88,12 @@
   font-size: 18px;
   font-weight: 500;
 
-  &:hover{
+  &:hover {
     background: $secondary-color;
     transform: translateY(0);
   }
 }
+
 .woocommerce div.product form.cart {
   display: flex;
 }
@@ -104,9 +105,26 @@
 }
 
 .rv-cart-row {
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
+
+.clear {
+    display: none;
+  }
+
+  // Hide WooCommerce's own add-to-cart button — we use the YITH quote button
+  .single_add_to_cart_button {
+    display: none !important;
+  }
+
+  // Quote button fills remaining space next to quantity
+  .yith-ywraq-add-to-quote {
+    flex: 1;
+    width: auto !important;
+  }
 }
 
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product .stock {
@@ -114,9 +132,23 @@
   font-size: 13px !important;
   font-weight: 700;
 
-  &.in-stock              { color: $secondary-color; }
-  &.out-of-stock          { color: #e63232; }
-  &.available-on-backorder { color: #171717; }
+  &.in-stock {
+    color: $secondary-color;
+  }
+
+  &.out-of-stock {
+    color: #e63232;
+  }
+
+  &.available-on-backorder {
+    color: #171717;
+  }
+}
+
+// Simple products show stock below the gallery (meta-below-gallery.php) — hide it from summary
+.single-product:not(.product-type-variable) .summary.entry-summary .stock,
+.rv-mobile-panel-body .stock {
+  display: none !important;
 }
 
 .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product p.price, .woocommerce:where(body:not(.woocommerce-uses-block-theme)) div.product span.price {

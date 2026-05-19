@@ -7,7 +7,8 @@ import Splitting from 'splitting';
 ───────────────────────────────────────────── */
 function toVars(props, el, triggerMode) {
     if (triggerMode !== 'load') {
-        props.scrollTrigger = { trigger: el, start: 'top 82%', once: true };
+        const start = el.dataset.animateStart || 'top 82%';
+        props.scrollTrigger = { trigger: el, start, once: true };
     }
     return props;
 }
@@ -15,7 +16,8 @@ function toVars(props, el, triggerMode) {
 function makeTimeline(el, triggerMode, delay) {
     const config = { delay };
     if (triggerMode !== 'load') {
-        config.scrollTrigger = { trigger: el, start: 'top 82%', once: true };
+        const start = el.dataset.animateStart || 'top 82%';
+        config.scrollTrigger = { trigger: el, start, once: true };
     }
     return gsap.timeline(config);
 }

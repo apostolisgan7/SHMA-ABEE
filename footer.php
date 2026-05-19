@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="footer-bottom" data-animate="fade-in" data-animate-delay="0.25">
+        <div class="footer-bottom" data-animate="fade-in" data-animate-delay="0.25" data-animate-start="top bottom">
             <div class="footer-copyright">
                 Copyright © <?php echo date('Y'); ?> ΣΗΜΑ Α.Β.Ε.Ε. - All Rights Reserved
             </div>
@@ -62,16 +62,18 @@
             <div class="footer-partners">
                 <img style="mix-blend-mode: difference"
                      src="<?php echo get_template_directory_uri(); ?>/src/img/bottom.png" alt="Partner 1">
-                <a href="#" id="back-to-top" class="back-to-top" aria-label="<?php esc_attr_e('Επιστροφή στην κορυφή', 'ruined'); ?>">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
-                        <path d="M18 15l-6-6-6 6"/>
-                    </svg>
-                </a>
             </div>
 
 
         </div>
     </div>
 </footer>
+
+
+<button id="back-to-top" class="rv-back-to-top" aria-label="<?php esc_attr_e('Επιστροφή στην κορυφή', 'ruined'); ?>">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 15l-6-6-6 6"/>
+    </svg>
+</button>
 
 </div><?php wp_footer(); ?>

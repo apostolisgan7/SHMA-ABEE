@@ -439,11 +439,12 @@ add_action('woocommerce_before_add_to_cart_quantity', function () {
     echo '<div class="rv-cart-row">';
 }, 5);
 
+// Close rv-cart-row AFTER YITH's quote button (YITH uses priority 10)
 add_action('woocommerce_after_add_to_cart_button', function () {
     global $product;
     if ($product && $product->is_type('variable')) return;
     echo '</div>';
-});
+}, 20);
 
 add_filter('woocommerce_add_cart_item_data', function ($cart_item_data, $product_id) {
 

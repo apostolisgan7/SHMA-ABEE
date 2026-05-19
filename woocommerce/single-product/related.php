@@ -64,8 +64,9 @@ if ( $related_products ) : ?>
                         <?php
                         $post_object = get_post( $related_product->get_id() );
                         setup_postdata( $GLOBALS['post'] =& $post_object );
+                        set_query_var( 'product_post', $post_object );
 
-                        get_template_part( 'template-parts/items/item', 'product', ['post' => $post_object] );
+                        get_template_part( 'template-parts/items/item', 'product' );
                         ?>
                     <?php endforeach; ?>
                 </div>

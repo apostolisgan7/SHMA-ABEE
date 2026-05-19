@@ -325,6 +325,12 @@
     background: #EBEBEB;
     padding: 9px 17px;
     border-radius: 7px;
+    cursor: pointer;
+    transition: ease-in 0.2s;
+
+    &:hover{
+      background: #d3d3d3;
+    }
 
     span {
       line-height: 1;
@@ -368,9 +374,6 @@
         width: 100%;
       }
 
-      &:hover .line {
-        background: $secondary-color;
-      }
 
       &.active {
         .line--top, .line--bottom {

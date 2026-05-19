@@ -54,6 +54,7 @@
           border: 1px solid #e0e0e0;
           background: #f4f4f4;
           font-size: 16px;
+          margin-bottom: 0;
           outline: none;
           color: $primary-color;
 
@@ -112,7 +113,7 @@
     .footer-links-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      gap: 0;
     }
 
     .footer-col {
@@ -214,6 +215,7 @@
 
       .footer-cta {
         margin-bottom: 20px;
+
         .footer-title {
           font-size: 32px; // Λίγο πιο μικρό για κινητά
         }
@@ -303,7 +305,8 @@
   cursor: pointer;
   will-change: transform, opacity;
   pointer-events: none;
-  &:hover{
+
+  &:hover {
     background: $secondary-color;
   }
 

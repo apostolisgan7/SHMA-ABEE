@@ -55,7 +55,7 @@ function animateTitleReveal(el, { delay, trigger }) {
         toVars({
             yPercent: 0,
             duration: 1.4,
-            stagger: { amount: 0.7, ease: 'power2.in' },
+            stagger: { amount: 0.4, ease: 'power2.in' },
             ease: 'power4.out',
             delay,
         }, el, trigger)

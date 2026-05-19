@@ -43,8 +43,10 @@ if ($product) {
 $manuals = get_field('manuals');
 $has_manuals = !empty($manuals);
 $diagram = get_field('schediagramma');
+$has_diagram = $diagram && is_array($diagram);
+$has_left = $has_manuals || $has_diagram;
 
-$has_tech = $has_attributes || $has_manuals || $diagram;
+$has_tech = $has_attributes || $has_left;
 
 
 /* --------------------------------
@@ -98,10 +100,11 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
     <?php if ($has_tech): ?>
         <div x-show="tab==='tech'" x-cloak class="rv-tab-content">
 
-            <div class="rv-tech-layout">
+            <div class="rv-tech-layout<?php echo $has_left ? '' : ' rv-tech-layout--full'; ?>">
 
+                <?php if ($has_left): ?>
                 <div class="rv-tech-left">
-                    <?php if ($manuals): ?>
+                    <?php if ($has_manuals): ?>
                         <div class="rv-manuals">
                             <h3>Τεχνικοί Κατάλογοι</h3>
 
@@ -146,7 +149,7 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
                     <?php endif; ?>
 
 
-                    <?php if ($diagram && is_array($diagram)) : ?>
+                    <?php if ($has_diagram) : ?>
                         <div class="rv-tech-diagram">
                             <h3>Σχεδιάγραμμα Προϊόντος</h3>
                             <a href="<?php echo esc_url($diagram['url']); ?>"
@@ -159,6 +162,7 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
                     <?php endif; ?>
 
                 </div>
+                <?php endif; ?>
 
                 <div class="rv-tech-right">
 

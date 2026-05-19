@@ -61,6 +61,13 @@
     grid-template-columns: 450px 1fr;
     gap: 4vw;
 
+    &.rv-tech-layout--full {
+      grid-template-columns: 1fr;
+      .rv-tech-table{
+        max-width: max-content;
+      }
+    }
+
     h3 {
       font-size: clamp(18px, 3vw, 26px);
       font-weight: 500;

@@ -2,8 +2,21 @@
 
 .block-service-characteristics {
   position: relative;
-  padding: clamp(60px, 10vw, 120px) 0;
-  overflow: hidden;
+  padding: clamp(60px, 10vw, 120px) clamp(10px, 0px, 0px);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: -30%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle at center, rgba(23, 184, 58, 0.5) 0%, rgba(0, 177, 90, 0) 65%);
+    pointer-events: none;
+    animation: floatGlow 2s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+
 
   &__inner {
     position: relative;
@@ -141,6 +154,11 @@
     &__right {
       border-left: none;
       padding-left: 0;
+    }
+  }
+  @media (max-width: 768px) {
+    &::after {
+      display: none;
     }
   }
   @media (max-width: 576px) {

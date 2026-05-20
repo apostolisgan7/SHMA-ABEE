@@ -75,13 +75,6 @@ $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('�
             <?php if ($hover_image_html) : ?>
                 <?php echo $hover_image_html; ?>
             <?php endif; ?>
-            <div class="rv-product-card__wishlist">
-                <?php
-                if (shortcode_exists('ti_wishlists_addtowishlist')) {
-                    echo do_shortcode('[ti_wishlists_addtowishlist product_id="' . $post_obj->ID . '" variation_id="0"]');
-                }
-                ?>
-            </div>
             <?php if ($stock_info) : ?>
                 <span class="rv-product-card__stock <?php echo esc_attr($stock_info['mod']); ?>">
                     <i></i><?php echo esc_html($stock_info['label']); ?>
@@ -119,6 +112,14 @@ $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('�
 
         </div>
     </a>
+
+    <div class="rv-product-card__wishlist">
+        <?php
+        if (shortcode_exists('ti_wishlists_addtowishlist')) {
+            echo do_shortcode('[ti_wishlists_addtowishlist product_id="' . $post_obj->ID . '" variation_id="0"]');
+        }
+        ?>
+    </div>
 
     <a href="<?php echo esc_url($permalink); ?>"
        class="rv-product-card__btn"

@@ -71,7 +71,9 @@ export default defineConfig({
     minify: isProduction ? 'esbuild' : false,
     rollupOptions: {
       input: {
-        'main': resolve(__dirname, 'src/js/main.js'),
+        'main':           resolve(__dirname, 'src/js/main.js'),
+        'single-product': resolve(__dirname, 'src/js/single-product.js'),
+        'shop':           resolve(__dirname, 'src/js/shop.js'),
       },
       output: {
         entryFileNames: 'js/[name].js',

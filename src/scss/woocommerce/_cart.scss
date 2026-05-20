@@ -81,6 +81,18 @@
   background: transparent;
 }
 
+button#ywraq-list-to-pdf {
+  display: flex;
+  align-items: center;
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+  font-size: 16px;
+  font-weight: 400 !important;
+  padding: 20px 50px !important;
+  border-radius: 6px !important;
+}
+
 #yith-ywrq-table-list thead th {
   padding: 10px 0 !important;
   font-size: 13px;
@@ -202,14 +214,47 @@
   text-align: right;
 }
 
-#yith-ywrq-table-list .quantity input.qty {
-  width: 76px;
+#yith-ywrq-table-list .quantity {
+  position: relative;
+}
+
+#yith-ywrq-table-list .rv-qty {
+  display: flex;
+  align-items: stretch;
+  width: 90px;
   height: 44px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 700;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
   background: #fafafa;
+}
+
+#yith-ywrq-table-list .rv-qty-value {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#yith-ywrq-table-list .rv-qty-controls {
+  display: flex;
+  flex-direction: column;
+  width: 30px;
+  border-left: 1px solid #e5e5e5;
+}
+
+#yith-ywrq-table-list .rv-qty-btn {
+  all: unset;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #e9e9e9;
+  }
 }
 
 .update-list-wrapper {
@@ -249,47 +294,68 @@
 }
 
 .yith-ywraq-mail-form-wrapper .form-row {
-  margin: 0 0 18px;
+  position: relative;
+  margin: 0 0 1.75rem;
   padding: 0;
-}
 
-.yith-ywraq-mail-form-wrapper label {
-  display: block;
-  margin-bottom: 8px;
-  color: #222;
-  font-size: 14px;
-  font-weight: 700;
+  > label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-60%);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #6b7280;
+    pointer-events: none;
+    margin: 0;
+    z-index: 1;
+    transition: top 0.16s ease, transform 0.16s ease, font-size 0.16s ease, color 0.16s ease;
+  }
+
+  &:focus-within > label,
+  &.has-value > label {
+    top: 0;
+    transform: translateY(-25%);
+    font-size: 0.75rem;
+    color: #111827;
+  }
 }
 
 .yith-ywraq-mail-form-wrapper .required {
   color: #c40000;
 }
 
+.yith-ywraq-mail-form-wrapper .woocommerce-input-wrapper {
+  display: block;
+  width: 100%;
+}
+
 .yith-ywraq-mail-form-wrapper input.input-text,
 .yith-ywraq-mail-form-wrapper textarea.input-text {
   width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fafafa;
-  padding: 14px 16px;
-  font-size: 15px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 1rem 0 0.4rem;
+  height: 2.5rem;
+  font: inherit;
+  color: #111827;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
   outline: none;
-  transition: 0.2s ease;
-}
-
-.yith-ywraq-mail-form-wrapper input.input-text {
-  height: 50px;
+  transition: border-color 0.18s ease;
 }
 
 .yith-ywraq-mail-form-wrapper textarea.input-text {
-  min-height: 130px;
-  resize: vertical;
+  height: auto;
+  min-height: unset;
+  padding-top: 1.5rem;
+  resize: none;
 }
 
 .yith-ywraq-mail-form-wrapper input.input-text:focus,
 .yith-ywraq-mail-form-wrapper textarea.input-text:focus {
-  border-color: #111;
-  background: #fff;
+  border-bottom-color: $secondary-color;
+  background: transparent;
 }
 
 .yith-ywraq-mail-form-wrapper .raq-send-request-row {

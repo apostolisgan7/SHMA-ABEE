@@ -21,10 +21,10 @@ global $product;
 
         <!-- PRICE + SKU ROW -->
         <div class="rv-product-price-row">
-            <div class="summary entry-summary"
-                 data-original-price="<?php echo esc_attr($product->get_price_html()); ?>">
-                <?php wc_get_template('single-product/price.php'); ?>
-            </div>
+<!--            <div class="summary entry-summary"-->
+<!--                 data-original-price="--><?php //echo esc_attr($product->get_price_html()); ?><!--">-->
+<!--                --><?php //wc_get_template('single-product/price.php'); ?>
+<!--            </div>-->
 
             <?php
             $stock_status = $product->get_stock_status();

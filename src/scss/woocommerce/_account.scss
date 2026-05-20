@@ -9,7 +9,12 @@ $text-dark: #1e1e1e;
 $text-muted: #6b6b6b;
 $border-radius: 6px;
 
-
+.ywraq-status-ywraq-new .ywraq-admin-message {
+  background: #e8faf0;
+}
+.ywraq-status.processing, .ywraq-status.ywraq-new {
+  color: #1fb34a;
+}
 .woocommerce-account .woocommerce::after, .woocommerce-account .woocommerce::before {
   display: none;
 }

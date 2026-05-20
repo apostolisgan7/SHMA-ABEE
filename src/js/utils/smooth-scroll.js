@@ -103,15 +103,6 @@ export function initSmoothScroll() {
     // Add event listeners
     window.addEventListener('resize', handleResize, { passive: true });
     
-    // Handle page transitions or AJAX loads
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initial refresh after everything is loaded
-        setTimeout(() => {
-            lenis.resize();
-            ScrollTrigger.refresh();
-        }, 500);
-    });
-
     // Add CSS classes for styling
     document.documentElement.classList.add("smooth-scroll");
     document.documentElement.setAttribute("data-smooth-scroll", "enabled");

@@ -46,12 +46,15 @@
       font-weight: 500;
       margin-bottom: 12px;
       color: $secondary-color;
+      max-width: 200px;
     }
 
     p {
       font-size: clamp(16px, 4vw, 24px);
       opacity: 0.6;
       line-height: 1.2;
+      font-weight: 400;
+      max-width: 600px;
     }
   }
 

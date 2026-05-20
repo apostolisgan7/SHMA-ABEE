@@ -214,14 +214,15 @@ export function initMobileMenu() {
             titleHistory.push(title);
             updateUI();
 
-            gsap.to(track, {
-                x: `-${index * 100}%`,
-                duration: 0.45,
-                ease: 'power4.out',
-                onComplete: () => {
-                    isAnimating = false;
+            gsap.fromTo(track,
+                { x: `-${(index - 1) * 100}%` },
+                {
+                    x: `-${index * 100}%`,
+                    duration: 0.55,
+                    ease: 'expo.out',
+                    onComplete: () => { isAnimating = false; }
                 }
-            });
+            );
         });
     });
 
@@ -238,14 +239,15 @@ export function initMobileMenu() {
         const targetIndex = panelHistory[panelHistory.length - 1];
         updateUI();
 
-        gsap.to(track, {
-            x: `-${targetIndex * 100}%`,
-            duration: 0.45,
-            ease: 'power4.out',
-            onComplete: () => {
-                isAnimating = false;
+        gsap.fromTo(track,
+            { x: `-${(targetIndex + 1) * 100}%` },
+            {
+                x: `-${targetIndex * 100}%`,
+                duration: 0.55,
+                ease: 'expo.out',
+                onComplete: () => { isAnimating = false; }
             }
-        });
+        );
     });
 
     /* -------------------------
@@ -261,9 +263,14 @@ export function initMobileMenu() {
 
     if (accountBtn) {
         accountBtn.addEventListener('click', () => {
-            closeMobileMenu(() => {
-                document.querySelector('.js-auth-modal-trigger')?.click();
-            });
+            const accountUrl = accountBtn.dataset.accountUrl;
+            if (accountUrl) {
+                closeMobileMenu(() => { window.location.href = accountUrl; });
+            } else {
+                closeMobileMenu(() => {
+                    document.querySelector('.js-auth-modal-trigger')?.click();
+                });
+            }
         });
     }
 

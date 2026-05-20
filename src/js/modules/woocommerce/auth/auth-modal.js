@@ -28,11 +28,22 @@ export function initModal(overlay, modal, { setInitialPillPosition, refreshPassw
         .from(body,   { y: 14, autoAlpha: 0 }, '-=0.2')
         .from(footer, { y: 12, autoAlpha: 0 }, '-=0.18');
 
+    function lockScroll() {
+        window.__lenis__?.stop();
+        document.documentElement.classList.add('scroll-locked');
+    }
+
+    function unlockScroll() {
+        window.__lenis__?.start();
+        document.documentElement.classList.remove('scroll-locked');
+    }
+
     function openModal(e) {
         if (e) e.preventDefault();
         overlay.setAttribute('aria-hidden', 'false');
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');
+        lockScroll();
         tl.play(0);
         setTimeout(() => {
             refreshPasswordElsAndBind();
@@ -43,6 +54,7 @@ export function initModal(overlay, modal, { setInitialPillPosition, refreshPassw
     function closeModal(e) {
         if (e) e.preventDefault();
         overlay.setAttribute('aria-hidden', 'true');
+        unlockScroll();
         tl.reverse();
     }
 

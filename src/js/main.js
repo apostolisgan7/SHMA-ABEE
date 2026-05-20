@@ -32,15 +32,6 @@ import {initHeroVideo} from './modules/ui/hero-video';
 import {initHistory} from './modules/ui/history-horizontal';
 import {initAnimations, initFooterAnimation, initHeaderAnimation} from './modules/ui/animations';
 import {initAuthModal} from './modules/woocommerce/login-modal';
-import {initLoadMoreProducts} from './modules/woocommerce/load-more.js';
-import {initFilters} from './modules/woocommerce/filters.js';
-import {initProductList} from './modules/woocommerce/product-list.js';
-import {initProductGalleryObserver} from './modules/woocommerce/single-product/product-gallery.js';
-import {initSummary} from './modules/woocommerce/single-product/summary.js';
-import {initProductTabs} from './modules/woocommerce/single-product/tabs.js';
-import {initVideoBox} from './modules/woocommerce/single-product/video.js';
-import {initProductCatalogs} from './modules/woocommerce/single-product/product-catalogs.js';
-import {initMobileStickyPanel} from './modules/woocommerce/single-product/mobile-sticky-panel.js';
 import {initBackToTop} from './modules/ui/back-to-top.js';
 
 // Import GSAP core and plugins
@@ -82,6 +73,7 @@ import Splitting from 'splitting';
 import {initWooCommerce} from './modules/woocommerce';
 import {initOffcanvasCart} from './modules/woocommerce/offcanvas-cart';
 import {initQty} from './modules/woocommerce/qty';
+import {initYithQty} from './utils/yith-qty';
 
 import SearchPopup from './modules/ui/SearchPopup';
 
@@ -98,23 +90,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initialize Swipers and product components
     initSwipers();
-    initFilters();
-    initProductGalleryObserver();
-    initSummary();
-    initProductTabs();
-    initVideoBox();
     initHistory();
-    initProductCatalogs();
-    initMobileStickyPanel();
     initBackToTop();
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
 
-
-    // 2) Force a ScrollTrigger refresh AFTER Lenis settles
-    setTimeout(() => {
-        ScrollTrigger.refresh();
-    }, 150);
 
     initAuthModal();
 
@@ -132,8 +112,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         //  ⬇⬇ *ΜΕΤΑ το refresh* — εδώ πρέπει να μπει
         initScrollVideo();
         initHeroVideo();
-        initLoadMoreProducts();
-        initProductList();
         initAnimations();
         initFooterAnimation();
         initHeaderAnimation();
@@ -152,6 +130,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     initQty();
     if (document.getElementById('offcanvas-cart')) {
         initOffcanvasCart();
+    }
+    if (document.getElementById('yith-ywraq-form')) {
+        initYithQty();
     }
 });
 

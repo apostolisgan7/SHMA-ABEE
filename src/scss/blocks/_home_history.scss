@@ -46,7 +46,7 @@
 
   &__top-text {
     p {
-      font-size: clamp(1.8rem, 3vw, 3rem);
+      font-size: clamp(1.6rem, 3vw, 3rem);
       line-height: 1.1;
       font-weight: 400;
       max-width: 800px;
@@ -191,7 +191,7 @@
   }
 
   @media (max-width: 767px) {
-    padding: 3.5rem 0;
+    padding: 3.5rem 10px;
 
     &__counters {
       display: flex;

@@ -29,7 +29,7 @@
   @media screen and (min-width: 1921px) {
     max-width: 95% !important;
     .smaller-container {
-      max-width: 1680px !important;
+      max-width: 1880px !important;
     }
   }
 
@@ -59,6 +59,11 @@
     }
     .sec_padding {
       max-width: 96%;
+    }
+    .static-page-content{
+      .sec_padding {
+        max-width: 94%;
+      }
     }
   }
 

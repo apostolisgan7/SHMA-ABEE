@@ -5,6 +5,13 @@
   background: #fdfdfd;
   position: relative;
 
+  @media (max-width: 768px) {
+    &::after,
+    &::before {
+      display: none;
+    }
+  }
+
   &::after {
     content: "";
     position: absolute;

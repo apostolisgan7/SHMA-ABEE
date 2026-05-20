@@ -107,10 +107,7 @@
   @media (max-width: 1024px) {
 
     &:after {
-      top: 57%;
-      left: -100%;
-      width: 20%;
-      height: 15%;
+      display: none;
     }
 
     &__inner {

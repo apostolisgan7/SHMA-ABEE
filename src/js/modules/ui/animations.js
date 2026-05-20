@@ -76,7 +76,13 @@ function animateFadeUp(el, { delay, trigger }) {
 }
 
 function animateImageReveal(el, { delay, trigger, direction }) {
-    const clipFrom = direction === 'right' ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
+    const clipMap = {
+        right:  'inset(0 0 0 100%)',
+        left:   'inset(0 100% 0 0)',
+        bottom: 'inset(0 0 100% 0)',
+        top:    'inset(100% 0 0 0)',
+    };
+    const clipFrom = clipMap[direction] ?? clipMap.left;
     const clipTo   = 'inset(0% 0% 0% 0%)';
 
     // Make container visible — clip-path handles the reveal
@@ -125,16 +131,16 @@ function animateStaggerFade(el, { delay, trigger, stagger }) {
     const children = Array.from(el.children);
     if (!children.length) return;
 
-    gsap.set(children, { autoAlpha: 0, y: 40 });
+    gsap.set(children, { opacity: 0, y: 22, visibility: 'visible' });
     gsap.set(el, { opacity: 1 });
 
     gsap.fromTo(children,
-        { y: 40, autoAlpha: 0 },
+        { y: 22, opacity: 0 },
         toVars({
-            y: 0, autoAlpha: 1,
-            duration: 0.9,
+            y: 0, opacity: 1,
+            duration: 0.75,
             stagger: stagger || 0.12,
-            ease: 'power3.out',
+            ease: 'power2.out',
             delay,
         }, el, trigger)
     );

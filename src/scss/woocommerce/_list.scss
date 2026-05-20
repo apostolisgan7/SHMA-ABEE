@@ -235,6 +235,7 @@ body:not(.shop-filters-hidden) {
 
       &__tag {
         font-size: 10px;
+        line-height: 1.2;
       }
 
       &__stock {
@@ -302,6 +303,7 @@ body.shop-view-list {
       display: flex;
       align-items: center;
       gap: 5%;
+      width: 100%;
     }
 
     &__btn {
@@ -320,6 +322,18 @@ body.shop-view-list {
       justify-content: center;
       bottom: unset;
       left: unset;
+    }
+
+    &__wishlist {
+      position: absolute;
+      top: 50%;
+      right: 105px;
+      transform: translateY(-50%);
+      opacity: 1;
+
+      .tinv-wraper.tinv-wishlist {
+        display: flex;
+      }
     }
   }
 
@@ -359,7 +373,7 @@ body.shop-view-list {
 
   .rv-product-card__tag {
     margin: 0;
-    font-size: 13px !important;
+    font-size: 11px !important;
     flex: 1;
     font-weight: 400;
     color: $primary-color;
@@ -406,7 +420,9 @@ body.shop-view-list {
 }
 
 @media (max-width: 992px) {
-
+  .rv-load-more-wrap {
+    margin: 4vh 0;
+  }
   .products {
     @apply gap-3;
 

@@ -96,7 +96,11 @@ export function initMobileStickyPanel() {
         if (e.key === 'Escape' && isOpen) closePanel();
     });
 
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        if (!isMobile() && isOpen) closePanel();
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (!isMobile() && isOpen) closePanel();
+        }, 100);
     });
 }

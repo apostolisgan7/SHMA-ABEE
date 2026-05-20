@@ -34,7 +34,7 @@ if ( empty( $all_ids ) ) {
                         $full = wp_get_attachment_image_url($img_id, 'full');
                         echo wp_get_attachment_image(
                                 $img_id,
-                                'large',
+                                'full',
                                 false,
                                 [
                                         'class' => 'main-slide-image',

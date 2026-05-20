@@ -160,7 +160,7 @@
   }
 
   &__title {
-    font-size: clamp(19px, 1.4vw, 22px);
+    font-size: clamp(15px, 1.4vw, 22px);
     line-height: 1.25;
     font-weight: 400;
     color: #171717;
@@ -195,13 +195,13 @@
     bottom: 22px;
     right: 10px;
     transition: .4s ease;
-    transition-delay: .3s;
+    transition-delay: .2s;
 
     svg {
       width: 0;
       height: 0;
-      transition: .3s ease;
-      transition-delay: .5s;
+      transition: .15s ease;
+      transition-delay: 0s;
     }
 
     svg rect {
@@ -234,10 +234,13 @@
       width: 40px;
       height: 40px;
       border-color: $secondary-color;
+      transition-delay: 0s;
 
       svg {
         width: 25px;
         height: 25px;
+        transition: .25s ease;
+        transition-delay: .3s;
       }
     }
 

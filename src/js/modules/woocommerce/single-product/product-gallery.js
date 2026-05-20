@@ -71,7 +71,9 @@ function initProductGallery() {
         }
     });
 
-    initZoomLens(mainEl);
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        initZoomLens(mainEl);
+    }
     initFancybox();
     initVariationHandlers();
 

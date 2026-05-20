@@ -49,6 +49,15 @@ if (!empty($block['align']))     $classes .= ' align' . $block['align'];
                     </div>
 
                     <div class="block-contact-location__info">
+                        <?php if (!empty($location_icon['url'])): ?>
+                            <div class="block-contact-location__icon" aria-hidden="true">
+                                <img
+                                        src="<?= esc_url($location_icon['url']); ?>"
+                                        alt="<?= esc_attr($location_icon['alt'] ?? ''); ?>"
+                                        loading="lazy"
+                                >
+                            </div>
+                        <?php endif; ?>
                         <div class="block-contact-location__info-content">
 
                             <?php if (!empty($loc_title)): ?>
@@ -68,18 +77,19 @@ if (!empty($block['align']))     $classes .= ' align' . $block['align'];
                             <?php endif; ?>
 
                         </div>
-
-                        <?php if (!empty($location_icon['url'])): ?>
-                            <div class="block-contact-location__icon" aria-hidden="true">
-                                <img
-                                    src="<?= esc_url($location_icon['url']); ?>"
-                                    alt="<?= esc_attr($location_icon['alt'] ?? ''); ?>"
-                                    loading="lazy"
-                                >
-                            </div>
-                        <?php endif; ?>
                     </div>
 
+                    <div class="block-contact-location__button">
+                        <?php
+                        rv_button_arrow([
+                                'text'          => $link['title'] ?? 'Δες στο χάρτη',
+                                'url'           => $link['url']   ?? 'https://maps.app.goo.gl/LYUK4sx7iJDLya9NA',
+                                'target'        => $link['target'] ?? '_blank',
+                                'variant'       => 'black',
+                                'icon_position' => 'left',
+                        ]);
+                        ?>
+                    </div>
                 </div>
 
                 <!-- RIGHT -->

@@ -31,7 +31,7 @@ $button_link   = $bottom_row['button_link'] ?? null;
             <?php endif; ?>
 
             <?php if ( ! empty( $top_image ) ) : ?>
-                <div class="home-history__top-media" data-animate="image-reveal" data-animate-direction="right">
+                <div class="home-history__top-media" data-animate="image-reveal" data-animate-direction="top">
                     <?php
                     echo wp_get_attachment_image(
                         $top_image['ID'] ?? $top_image,
@@ -49,7 +49,7 @@ $button_link   = $bottom_row['button_link'] ?? null;
 
         <div class="home-history__bottom">
             <?php if ( ! empty( $bottom_image ) ) : ?>
-                <div class="home-history__bottom-media" data-animate="image-reveal" data-animate-direction="left">
+                <div class="home-history__bottom-media" data-animate="image-reveal" data-animate-direction="top">
                     <?php
                     echo wp_get_attachment_image(
                         $bottom_image['ID'] ?? $bottom_image,

@@ -29,20 +29,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-document.querySelectorAll('.floating-field input').forEach(input => {
-    const parent = input.closest('.floating-field');
+function initFloatingLabel(input, parentSelector) {
+    const parent = input.closest(parentSelector);
+    if (!parent) return;
 
     const checkValue = () => {
-        if (input.value.trim() !== '') {
-            parent.classList.add('has-value');
-        } else {
-            parent.classList.remove('has-value');
-        }
+        parent.classList.toggle('has-value', input.value.trim() !== '');
     };
 
     input.addEventListener('input', checkValue);
     input.addEventListener('blur', checkValue);
-
-    // init
     checkValue();
+}
+
+document.querySelectorAll('.floating-field input').forEach(input => {
+    initFloatingLabel(input, '.floating-field');
+});
+
+document.querySelectorAll('.yith-ywraq-mail-form-wrapper .form-row input, .yith-ywraq-mail-form-wrapper .form-row textarea').forEach(input => {
+    initFloatingLabel(input, '.form-row');
 });

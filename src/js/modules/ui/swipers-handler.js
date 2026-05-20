@@ -127,10 +127,9 @@ function initSwipers() {
                 type: 'progressbar',
             },
             breakpoints: {
-                640:  { slidesPerView: 1.6 },
-                880:  { slidesPerView: 2.4 },
-                1200: { slidesPerView: 3.2 },
-                1440: { slidesPerView: 4 },
+                560:  { slidesPerView: 2, spaceBetween: 16 },
+                880:  { slidesPerView: 3, spaceBetween: 20 },
+                1200: { slidesPerView: 4, spaceBetween: 24 },
             }
         });
     });
@@ -145,31 +144,32 @@ function initSwipers() {
         const swiper = new Swiper(carousel, {
             modules: [Pagination, Autoplay],
             slidesPerView: 1,
-            speed: 500  ,
-            effect: "slide",
-            grabCursor: false,
+            speed: 500,
+            grabCursor: true,
             loop: false,
-            threshold: 5,
-            touchRatio: 1.2,
-            longSwipesRatio: 0.1,
+            threshold: 10,
+            longSwipesRatio: 0.2,
 
             autoplay: {
                 delay: 4000,
-                disableOnInteraction: false,
+                disableOnInteraction: true,
                 pauseOnMouseEnter: true,
             },
 
             pagination: {
                 el: paginationEl,
+                type: 'bullets',
                 clickable: true,
-            }
+            },
+
+            on: {
+                slideChange() {
+                    this.pagination.update();
+                },
+            },
         });
 
     });
 }
 
-// Initialize on DOM ready
-document.addEventListener("DOMContentLoaded", initSwipers);
-
-// Export the function for manual initialization
 export { initSwipers };

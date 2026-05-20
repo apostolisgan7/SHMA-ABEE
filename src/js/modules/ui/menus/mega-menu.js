@@ -14,19 +14,15 @@ export function initMegaMenu() {
         defaults: { ease: "power2.out" }
     });
 
-    // OPEN ANIMATION (same style as catalog)
+    gsap.set(overlay, { backdropFilter: 'blur(8px)' });
+
+    // OPEN ANIMATION
     tl.to(overlay, {
         opacity: 1,
         visibility: "visible",
         pointerEvents: "auto",
-        backdropFilter: "blur(0px)",
         duration: 0.35
     })
-
-        .to(overlay, {
-            backdropFilter: "blur(8px)",
-            duration: 0.4
-        }, "-=0.25")
 
         .fromTo(menu,
             { y: 40, opacity: 0, scale: 0.95 },

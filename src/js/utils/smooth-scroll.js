@@ -52,7 +52,7 @@ export function initSmoothScroll() {
         gestureDirection: 'vertical',
         smoothWheel: true,
         wheelMultiplier: 1.1,
-        touchMultiplier: 2,
+        touchMultiplier: 1,
     });
 
     // Store instance globally
@@ -87,17 +87,14 @@ export function initSmoothScroll() {
         ScrollTrigger.refresh();
     }, 100);
 
-    // Handle dynamic content changes
+    // Watch only for added/removed nodes (not attribute/text changes which fire on every scroll frame)
     const observer = new MutationObserver(debounce(() => {
         handleContentChange(lenis);
-    }, 150));
+    }, 300));
 
-    // Start observing the document with the configured parameters
     observer.observe(document.body, {
         childList: true,
         subtree: true,
-        attributes: true,
-        characterData: true
     });
 
     // Add event listeners

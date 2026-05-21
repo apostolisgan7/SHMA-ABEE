@@ -15,7 +15,7 @@ $classes = 'rv-home-services';
 if (!empty($block['className'])) $classes .= ' ' . $block['className'];
 if (!empty($block['align'])) $classes .= ' align' . $block['align'];
 
-$as_carousel = is_array($items) && count($items) > 3;
+$items = is_array($items) ? array_slice($items, 0, 3) : [];
 ?>
 <section id="<?php echo esc_attr($block_id); ?>" class="<?php echo esc_attr($classes); ?> sec_padding sec_margin">
 
@@ -54,25 +54,11 @@ $as_carousel = is_array($items) && count($items) > 3;
         </div>
 
         <?php if (!empty($items)) : ?>
-            <?php if ($as_carousel) : ?>
-                <div class="rv-home-services__carousel swiper" data-slider="services">
-                    <div class="swiper-wrapper" data-animate="card-stagger">
-                        <?php foreach ($items as $post_obj) : ?>
-                            <div class="swiper-slide">
-                                <?php
-                                get_template_part(
-                                        'template-parts/items/item',
-                                        'service',
-                                        array('post' => $post_obj)
-                                );
-                                ?>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="swiper-pagination" aria-hidden="true"></div>
-                </div>
-            <?php endif; ?>
-
+            <div class="rv-home-services__list" data-animate="card-stagger">
+                <?php foreach ($items as $post_obj) : ?>
+                    <?php get_template_part('template-parts/items/item', 'service', ['post' => $post_obj]); ?>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
 
     </div>

@@ -239,4 +239,46 @@
       padding: 10vh 0 5vh;
     }
   }
+
+  @media (max-width: 767px) {
+    min-height: 60vh;
+    .inner-hero {
+      &__inner {
+        padding: 1rem 1.5rem 2rem;
+        max-width: 100%;
+        min-height: 60vh;
+      }
+      &__content {
+        padding: 18vh 0 1vh;
+      }
+      &__boxes {
+        display: none;
+        position: static;
+        margin-top: 1.5rem;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        &::-webkit-scrollbar-track {
+          background: #fcfcfc;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: $secondary-color;
+          border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: $secondary-color;
+        }
+
+        &::-webkit-scrollbar {
+          height: 3px;
+        }
+        .hero-box{
+          flex: 1;
+          flex-basis: auto;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
 }

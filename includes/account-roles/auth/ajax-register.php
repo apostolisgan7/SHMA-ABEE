@@ -120,7 +120,17 @@ function sigma_ajax_register() {
     }
 
     // 🛠 Δημιουργία Χρήστη μέσω WooCommerce
+    // Για company/municipality: απενεργοποιούμε το WC welcome email (θα στείλουμε custom pending email)
+    $is_pending_type = in_array( $type, ['company', 'municipality'], true );
+    if ( $is_pending_type ) {
+        add_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
+    }
+
     $user_id = wc_create_new_customer( $email, '', $password );
+
+    if ( $is_pending_type ) {
+        remove_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
+    }
 
     if ( is_wp_error( $user_id ) ) {
         sigma_rate_limit_hit( $rl_key, 600 );
@@ -198,7 +208,35 @@ function sigma_ajax_register() {
 
         $message .= '</table></td></tr></table></body></html>';
 
-        wp_mail( $admin_email, $subject, $message, [ 'Content-Type: text/html; charset=UTF-8' ] );
+        $set_html_type = function() { return 'text/html'; };
+        add_filter( 'wp_mail_content_type', $set_html_type );
+        wp_mail( $admin_email, $subject, $message );
+
+        // Email στον χρήστη: "Λάβαμε την αίτησή σας"
+        $user_subject = sprintf( __( 'Λάβαμε την αίτησή σας — %s', 'ruined' ), $site_name );
+        $user_message  = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">';
+        $user_message .= '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 0;">';
+        $user_message .= '<tr><td align="center">';
+        $user_message .= '<table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:6px;overflow:hidden;">';
+        $user_message .= '<tr><td style="background:#1a1a1a;padding:24px 32px;">';
+        $user_message .= '<p style="margin:0;color:#ffffff;font-size:20px;font-weight:bold;">' . esc_html( $site_name ) . '</p>';
+        $user_message .= '<p style="margin:4px 0 0;color:#aaaaaa;font-size:13px;">Αίτηση εγγραφής</p>';
+        $user_message .= '</td></tr>';
+        $user_message .= '<tr><td style="padding:32px;">';
+        $user_message .= '<p style="margin:0 0 16px;font-size:15px;color:#333333;">Γεια σας <strong>' . esc_html( $entity_name ) . '</strong>,</p>';
+        $user_message .= '<p style="margin:0 0 16px;font-size:15px;color:#333333;">Λάβαμε την αίτησή σας για εγγραφή στην πλατφόρμα μας.</p>';
+        $user_message .= '<p style="margin:0 0 24px;font-size:15px;color:#333333;">Η ομάδα μας θα την εξετάσει σύντομα και θα σας ειδοποιήσουμε μέσω email μόλις ο λογαριασμός σας ενεργοποιηθεί.</p>';
+        $user_message .= '<div style="background:#f8f8f8;border-left:3px solid #1a1a1a;padding:14px 18px;border-radius:0 4px 4px 0;font-size:13px;color:#555555;">';
+        $user_message .= 'Μέχρι τότε ο λογαριασμός σας βρίσκεται σε αναμονή έγκρισης.';
+        $user_message .= '</div>';
+        $user_message .= '</td></tr>';
+        $user_message .= '<tr><td style="background:#f4f4f4;padding:16px 32px;border-top:1px solid #e8e8e8;">';
+        $user_message .= '<p style="margin:0;font-size:12px;color:#aaaaaa;">' . esc_html( $site_name ) . ' &mdash; Αυτόματη ειδοποίηση, παρακαλώ μην απαντάτε σε αυτό το email.</p>';
+        $user_message .= '</td></tr>';
+        $user_message .= '</table></td></tr></table></body></html>';
+
+        wp_mail( $email, $user_subject, $user_message );
+        remove_filter( 'wp_mail_content_type', $set_html_type );
 
         // 3. Επιστροφή JSON Success αλλά ΧΩΡΙΣ redirect (σταματάμε το flow εδώ)
         wp_send_json_success([

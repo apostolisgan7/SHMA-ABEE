@@ -6,6 +6,8 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
     registerForm.addEventListener('submit', async e => {
         e.preventDefault();
 
+        if (registerForm.classList.contains('is-loading')) return;
+
         registerForm.querySelectorAll('.woocommerce-error, .field-error').forEach(el => el.remove());
         registerForm.classList.add('is-loading');
 
@@ -56,9 +58,30 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
                     onComplete() { window.location.href = data.data.redirect; },
                 });
             } else {
-                // company/municipality pending approval — show success message
-                registerForm.innerHTML = data.data.html;
-                modal.scrollTop = 0;
+                // company/municipality pending approval — close modal + backdrop, show page-level notice
+                gsap.to(overlay, { autoAlpha: 0, duration: 0.35, ease: 'power2.inOut' });
+                gsap.to(modal, {
+                    scale: 0.96,
+                    autoAlpha: 0,
+                    duration: 0.35,
+                    ease: 'power2.inOut',
+                    onComplete() {
+                        overlay.setAttribute('aria-hidden', 'true');
+                        overlay.classList.remove('is-open');
+                        window.__lenis__?.start();
+                        document.documentElement.classList.remove('scroll-locked');
+
+                        const notice = document.createElement('div');
+                        notice.className = 'sigma-register-notice';
+                        notice.innerHTML = data.data.html;
+                        document.body.prepend(notice);
+                        gsap.fromTo(notice, { y: -20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: 'power2.out' });
+
+                        setTimeout(() => {
+                            gsap.to(notice, { autoAlpha: 0, duration: 0.4, onComplete: () => notice.remove() });
+                        }, 7000);
+                    },
+                });
             }
         } catch (err) {
             console.error('AJAX Register error:', err);

@@ -66,11 +66,14 @@ function sigma_ajax_login() {
     $status = get_user_meta( $user->ID, '_sigma_account_status', true );
     $roles  = (array) $user->roles;
 
-    // Αν είναι pending ΚΑΙ είναι ένας από τους 2 ρόλους, τον πετάμε έξω
-    if ( $status === 'pending' && array_intersect( ['company', 'municipality'], $roles ) ) {
+    // Αν είναι pending/rejected ΚΑΙ είναι ένας από τους 2 ρόλους, τον πετάμε έξω
+    if ( in_array( $status, [ 'pending', 'rejected' ], true ) && array_intersect( [ 'company', 'municipality' ], $roles ) ) {
         wp_logout();
+        $msg = $status === 'rejected'
+            ? __( 'Η αίτηση εγγραφής σας απορρίφθηκε. Επικοινωνήστε μαζί μας για περισσότερες πληροφορίες.', 'ruined' )
+            : __( 'Ο λογαριασμός σας εκκρεμεί προς έγκριση από τη διαχείριση.', 'ruined' );
         wp_send_json_error([
-            'html' => '<div class="woocommerce-error">' . __( 'Ο λογαριασμός σας εκκρεμεί προς έγκριση από τη διαχείριση.', 'ruined' ) . '</div>'
+            'html' => '<div class="woocommerce-error">' . $msg . '</div>'
         ], 403);
         exit;
     }

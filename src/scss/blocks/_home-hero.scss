@@ -93,7 +93,7 @@
 
   &__title {
     p {
-      font-size: clamp(2.2rem,4.5vw,5rem);
+      font-size: clamp(2.4rem,4.5vw,5rem);
       line-height: 1.05;
       font-weight: 400;
       margin-bottom: 1.5rem;
@@ -237,15 +237,18 @@
     }
   }
   @media (max-width: 767px) {
+    min-height: 60vh;
     .home-hero {
       &__inner {
-        padding-bottom: 2rem;
+        padding: 1rem 1.5rem 2rem;
         max-width: 100%;
+        min-height: 60vh;
       }
       &__content {
         padding: 18vh 0 1vh;
       }
       &__boxes {
+        display: none;
         position: static;
         margin-top: 1.5rem;
         overflow-x: auto;

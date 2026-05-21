@@ -4,8 +4,8 @@
 // Container
 .container {
   width: 100%;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
   margin-right: auto;
   margin-left: auto;
   box-sizing: border-box;
@@ -27,7 +27,7 @@
   }
 
   @media screen and (min-width: 1921px) {
-    max-width: 95% !important;
+    max-width: 98% !important;
     .smaller-container {
       max-width: 1880px !important;
     }
@@ -54,13 +54,15 @@
 
   @include media-breakpoint-up(xl) {
     max-width: 1350px;
+    padding-right: 1rem;
+    padding-left: 1rem;
     .smaller-container {
       max-width: 94%;
     }
     .sec_padding {
       max-width: 96%;
     }
-    .static-page-content{
+    .static-page-content {
       .sec_padding {
         max-width: 94%;
       }
@@ -71,6 +73,12 @@
     max-width: 1890px;
     .smaller-container {
       max-width: 90%;
+    }
+  }
+  @include media-breakpoint-up(xχxl) {
+    max-width: 1920px;
+    .sec_padding {
+      max-width: 100%;
     }
   }
 }

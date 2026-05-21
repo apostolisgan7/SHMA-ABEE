@@ -89,8 +89,10 @@
     &:focus {
       background: transparent;
       border: none;
-      outline: 2px solid $secondary-color;
-      outline-offset: 2px;
+    }
+    &:focus-visible{
+      border: none;
+      outline: none;
     }
     &:hover {
       background: #fff;
@@ -217,10 +219,6 @@
     min-height: 60px;
     padding-top: 10px;
     padding-bottom: max(10px, var(--safe-bottom));
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid #e5e7eb;
     z-index: 1;
 
     .botton_item {

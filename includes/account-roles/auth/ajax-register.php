@@ -141,12 +141,64 @@ function sigma_ajax_register() {
         update_user_meta($user_id, '_sigma_account_status', 'pending');
 
         // 2. Ειδοποίηση στον Διαχειριστή (Email)
-        $admin_email = get_option('admin_email');
-        $subject = __( 'Νέα εγγραφή προς έγκριση', 'ruined' );
-        $message = sprintf( __( 'Νέος λογαριασμός (%s) ως "%s" περιμένει έγκριση.', 'ruined' ), $email, $type ) . "\r\n\r\n";
-        $message .= __( 'Διαχείριση χρήστη:', 'ruined' ) . ' ' . admin_url('user-edit.php?user_id=' . $user_id);
+        $admin_email  = get_option( 'admin_email' );
+        $site_name    = get_bloginfo( 'name' );
+        $entity_name  = $type === 'company'
+            ? ( isset( $company_name ) ? $company_name : '—' )
+            : ( isset( $municipality_name ) ? $municipality_name : '—' );
+        $type_label   = $type === 'company' ? 'Εταιρεία' : 'Δήμος';
+        $approve_url  = admin_url( 'user-edit.php?user_id=' . $user_id );
 
-        wp_mail($admin_email, $subject, $message);
+        $subject = '[' . $site_name . '] Νέα εγγραφή προς έγκριση — ' . $entity_name;
+
+        $message = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">';
+        $message .= '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 0;">';
+        $message .= '<tr><td align="center">';
+        $message .= '<table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:6px;overflow:hidden;">';
+
+        // Header
+        $message .= '<tr><td style="background:#1a1a1a;padding:24px 32px;">';
+        $message .= '<p style="margin:0;color:#ffffff;font-size:20px;font-weight:bold;">' . esc_html( $site_name ) . '</p>';
+        $message .= '<p style="margin:4px 0 0;color:#aaaaaa;font-size:13px;">Νέος λογαριασμός προς έγκριση</p>';
+        $message .= '</td></tr>';
+
+        // Body
+        $message .= '<tr><td style="padding:32px;">';
+        $message .= '<p style="margin:0 0 24px;font-size:15px;color:#333333;">Ένας νέος χρήστης ζήτησε εγγραφή και περιμένει έγκριση.</p>';
+
+        // Details table
+        $message .= '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e8e8;border-radius:4px;">';
+        $rows = [
+            [ 'Τύπος',      $type_label ],
+            [ 'Επωνυμία',   $entity_name ],
+            [ 'Email',      $email ],
+            [ 'Τηλέφωνο',   isset( $phone ) ? $phone : '—' ],
+            [ 'ΑΦΜ',        isset( $vat ) ? $vat : '—' ],
+        ];
+        foreach ( $rows as $i => $row ) {
+            $bg = $i % 2 === 0 ? '#fafafa' : '#ffffff';
+            $message .= '<tr style="background:' . $bg . ';">';
+            $message .= '<td style="padding:10px 16px;font-size:13px;color:#888888;width:120px;border-bottom:1px solid #e8e8e8;">' . esc_html( $row[0] ) . '</td>';
+            $message .= '<td style="padding:10px 16px;font-size:13px;color:#222222;border-bottom:1px solid #e8e8e8;"><strong>' . esc_html( $row[1] ) . '</strong></td>';
+            $message .= '</tr>';
+        }
+        $message .= '</table>';
+
+        // CTA button
+        $message .= '<div style="margin:28px 0 0;text-align:center;">';
+        $message .= '<a href="' . esc_url( $approve_url ) . '" style="display:inline-block;background:#1a1a1a;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:4px;font-size:14px;font-weight:bold;">Διαχείριση χρήστη &rarr;</a>';
+        $message .= '</div>';
+
+        $message .= '</td></tr>';
+
+        // Footer
+        $message .= '<tr><td style="background:#f4f4f4;padding:16px 32px;border-top:1px solid #e8e8e8;">';
+        $message .= '<p style="margin:0;font-size:12px;color:#aaaaaa;">Αυτό το email στάλθηκε αυτόματα από το ' . esc_html( $site_name ) . '.</p>';
+        $message .= '</td></tr>';
+
+        $message .= '</table></td></tr></table></body></html>';
+
+        wp_mail( $admin_email, $subject, $message, [ 'Content-Type: text/html; charset=UTF-8' ] );
 
         // 3. Επιστροφή JSON Success αλλά ΧΩΡΙΣ redirect (σταματάμε το flow εδώ)
         wp_send_json_success([

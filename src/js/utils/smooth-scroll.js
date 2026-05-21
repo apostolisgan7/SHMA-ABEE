@@ -20,13 +20,8 @@ const debounce = (func, wait) => {
 
 // Handle dynamic content changes
 const handleContentChange = (lenis) => {
-    // Recalculate scroll boundaries
     lenis.emit('resize');
-    
-    // Update ScrollTrigger
     ScrollTrigger.refresh();
-    
-    // Force update Lenis
     lenis.resize();
 };
 
@@ -44,15 +39,15 @@ export function initSmoothScroll() {
     // Configure Lenis with optimal settings
     const lenis = new Lenis({
         duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Improved easing
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smooth: true,
         smoothTouch: false,
-        infinite: false, // Prevent infinite scroll issues
+        infinite: false,
         direction: 'vertical',
         gestureDirection: 'vertical',
         smoothWheel: true,
         wheelMultiplier: 1.1,
-        touchMultiplier: 1,
+        touchMultiplier: 2,
     });
 
     // Store instance globally
@@ -62,17 +57,15 @@ export function initSmoothScroll() {
     // GSAP integration — keep ref so we can remove it on destroy
     gsapTickerCallback = (time) => lenis.raf(time * 1000);
     gsap.ticker.add(gsapTickerCallback);
-    
+
     // Improve performance
     gsap.ticker.lagSmoothing(0);
     gsap.ticker.fps(60);
 
     // Handle scroll events
-    lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-        // Update ScrollTrigger on scroll
+    lenis.on('scroll', ({ scroll, limit }) => {
         ScrollTrigger.update();
-        
-        // Handle near-bottom scroll
+
         const isNearBottom = scroll + window.innerHeight >= limit - 10;
         if (isNearBottom) {
             document.documentElement.classList.add('at-bottom');
@@ -87,19 +80,21 @@ export function initSmoothScroll() {
         ScrollTrigger.refresh();
     }, 100);
 
-    // Watch only for added/removed nodes (not attribute/text changes which fire on every scroll frame)
+    // Handle dynamic content changes
     const observer = new MutationObserver(debounce(() => {
         handleContentChange(lenis);
-    }, 300));
+    }, 150));
 
     observer.observe(document.body, {
         childList: true,
         subtree: true,
+        attributes: true,
+        characterData: true
     });
 
     // Add event listeners
     window.addEventListener('resize', handleResize, { passive: true });
-    
+
     // Add CSS classes for styling
     document.documentElement.classList.add("smooth-scroll");
     document.documentElement.setAttribute("data-smooth-scroll", "enabled");
@@ -136,14 +131,14 @@ export const refreshSmoothScroll = () => {
 
 export const scrollTo = (target, options = {}) => {
     if (!lenisInstance) return;
-    
+
     const defaultOptions = {
         offset: 0,
         immediate: false,
         duration: 1.1,
         ...options
     };
-    
+
     lenisInstance.scrollTo(target, defaultOptions);
 };
 

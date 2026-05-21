@@ -229,11 +229,11 @@ add_action( 'woocommerce_created_customer', function ( $user_id ) {
 add_filter( 'woocommerce_login_redirect', function ( $redirect, $user ) {
 
     if ( in_array( 'company', (array) $user->roles, true ) ) {
-        return home_url( '/company-dashboard/' );
+        return wc_get_page_permalink( 'myaccount' );
     }
 
     if ( in_array( 'municipality', (array) $user->roles, true ) ) {
-        return home_url( '/municipality-dashboard/' );
+        return wc_get_page_permalink( 'myaccount' );
     }
 
     return wc_get_page_permalink( 'myaccount' );

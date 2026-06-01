@@ -17,7 +17,7 @@ function sigma_ajax_register() {
 
     // 🚦 Rate limit: 5 tries / 10 λεπτά / IP
     $rl_key = sigma_rl_key( 'sigma_register' );
-    $rl     = sigma_rate_limit_check( $rl_key, 5, 600 );
+    $rl     = sigma_rate_limit_check( $rl_key, 10, 600 );
 
     if ( ! $rl['allowed'] ) {
         wp_send_json_error([

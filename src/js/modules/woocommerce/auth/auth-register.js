@@ -17,12 +17,27 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
 
         try {
             const res  = await fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData });
-            const data = await res.json();
+
+            let data;
+            const contentType = res.headers.get('content-type') || '';
+            if (contentType.includes('application/json')) {
+                data = await res.json();
+            } else {
+                // Server-level error (e.g. nginx 429) — not JSON from our PHP
+                data = {
+                    success: false,
+                    data: {
+                        html: res.status === 429
+                            ? '<ul class="woocommerce-error"><li>Πολλές προσπάθειες. Δοκίμασε ξανά σε λίγα λεπτά.</li></ul>'
+                            : '<ul class="woocommerce-error"><li>Παρουσιάστηκε σφάλμα. Δοκίμασε ξανά.</li></ul>'
+                    }
+                };
+            }
 
             registerForm.classList.remove('is-loading');
 
             if (!data.success) {
-                registerForm.insertAdjacentHTML('afterbegin', data.data.html);
+                registerForm.insertAdjacentHTML('afterbegin', data.data?.html || '<ul class="woocommerce-error"><li>Παρουσιάστηκε σφάλμα. Δοκίμασε ξανά.</li></ul>');
 
                 const temp = document.createElement('div');
                 temp.innerHTML = data.data.html;
@@ -86,6 +101,7 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
         } catch (err) {
             console.error('AJAX Register error:', err);
             registerForm.classList.remove('is-loading');
+            registerForm.insertAdjacentHTML('afterbegin', '<ul class="woocommerce-error"><li>Παρουσιάστηκε σφάλμα σύνδεσης. Δοκίμασε ξανά.</li></ul>');
         }
     });
 }

@@ -16,6 +16,7 @@ export function initAuthModal() {
     overlay.dataset.authInit = '1';
 
     const ajaxUrl =
+        window.rv_globals?.ajaxurl ||
         window.ajaxurl ||
         window.sigmaAuth?.ajaxurl ||
         window.ruined?.ajaxurl ||

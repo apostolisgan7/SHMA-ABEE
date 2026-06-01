@@ -4,7 +4,6 @@
     <div class="container">
         <div class="footer-upper">
             <div class="footer-cta">
-                <span class="subtitle" data-animate="fade-in">• ΟΙ ΥΠΗΡΕΣΙΕΣ ΜΑΣ</span>
                 <h2 class="footer-title" data-animate="title-reveal">The latest news,<br>articles, and resources.</h2>
             </div>
             <div class="footer-newsletter" data-animate="fade-up" data-animate-delay="0.2">
@@ -64,16 +63,16 @@
                      src="<?php echo get_template_directory_uri(); ?>/src/img/bottom.png" alt="Partner 1">
             </div>
 
-
+            <button id="back-to-top" class="rv-back-to-top" aria-label="<?php esc_attr_e('Επιστροφή στην κορυφή', 'ruined'); ?>">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 15l-6-6-6 6"/>
+                </svg>
+            </button>
         </div>
     </div>
 </footer>
 
 
-<!--<button id="back-to-top" class="rv-back-to-top" aria-label="--><?php //esc_attr_e('Επιστροφή στην κορυφή', 'ruined'); ?><!--">-->
-<!--    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">-->
-<!--        <path d="M18 15l-6-6-6 6"/>-->
-<!--    </svg>-->
-<!--</button>-->
+
 
 </div><?php wp_footer(); ?>

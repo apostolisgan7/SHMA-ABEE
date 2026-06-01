@@ -42,15 +42,7 @@ $product_url = get_permalink($product->get_id());
                 </span>
             <?php endif; ?>
             <span class="dgwt-wcas-st-title">
-                <?php
-                $title = $product->get_name();
-                $title_display = esc_html($title);
-                $last_space_position = strrpos($title_display, ' ');
-                if ($last_space_position !== false) {
-                    $title_display = substr_replace($title_display, '&nbsp;', $last_space_position, 1);
-                }
-                echo $title_display;
-                ?>
+                <?php echo esc_html($product->get_name()); ?>
             </span>
         </div>
 

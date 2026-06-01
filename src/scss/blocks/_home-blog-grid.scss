@@ -231,28 +231,32 @@
       .hbg-bottom {
         width: 100%;
         overflow-x: auto;
-
+        overflow-y: hidden;
+        padding-bottom: 2rem;
 
         &::-webkit-scrollbar-track {
-          background: #fcfcfc;
+          background: #252525;
         }
 
         &::-webkit-scrollbar-thumb {
-          background: $secondary-color;
+          background: #fcfcfc;
           border-radius: 4px;
         }
 
         &::-webkit-scrollbar-thumb:hover {
-          background: $secondary-color;
+          background: #fcfcfc;
         }
 
         &::-webkit-scrollbar {
-          height: 3px;
+          height: 2px;
         }
 
         .hbg-card {
           flex-direction: column;
           width: 200px;
+         .card__line{
+           display: none;
+         }
 
           .hbg-card-thumb {
             aspect-ratio: unset;

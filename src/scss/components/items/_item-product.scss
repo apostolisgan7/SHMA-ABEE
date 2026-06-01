@@ -151,7 +151,7 @@
   &__tag {
     grid-column: 1 / -1;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: .66px;
     color: $secondary-color;
     text-transform: uppercase;
@@ -160,7 +160,7 @@
   }
 
   &__title {
-    font-size: clamp(15px, 1.4vw, 22px);
+    font-size: clamp(20px, 1.4vw, 22px);
     line-height: 1.25;
     font-weight: 400;
     color: #171717;
@@ -260,6 +260,10 @@
         height: 25px;
       }
     }
+
+    .rv-product-card__btn {
+      display: none;
+    }
     .rv-product-card__stock {
       top: 8px;
       left: 2px;
@@ -267,10 +271,12 @@
     }
     .rv-product-card__tag {
       margin-bottom: 0;
+      font-size: 11px;
     }
     .rv-product-card__meta {
       gap: 10px 10px;
       padding: 14px 10px 20px;
+      height: unset;
     }
     .rv-product-card__btn {
       width: 25px;

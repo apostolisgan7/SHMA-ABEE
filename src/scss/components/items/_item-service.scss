@@ -82,7 +82,7 @@
 
   &__tag {
     grid-column: 1 / -1;
-    font-size: 12px;
+    font-size: clamp(11px, 2.2vw, 12px);
     font-weight: 400;
     letter-spacing: 0.66px;
     color: $secondary-color;
@@ -90,7 +90,7 @@
   }
 
   &__title {
-    font-size: clamp(16px, 2.2vw, 26px);
+    font-size: clamp(20px, 2.2vw, 26px);
     line-height: 1.25;
     font-weight: 400;
     color: $primary-color;
@@ -152,6 +152,11 @@
 
     &:after {
       width: 100%;
+    }
+  }
+  @media (max-width: 767px) {
+    .rv-service-card__media {
+      padding-top: calc(450 / 544 * 100%);
     }
   }
 }

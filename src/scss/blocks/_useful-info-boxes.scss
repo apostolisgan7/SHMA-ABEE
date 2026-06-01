@@ -147,10 +147,12 @@
     .uiboxes-grid {
       grid-template-columns: repeat(1, 1fr);
 
-      .uibox{
-        aspect-ratio: 11 / 8;
-        .uibox-inner{
-          justify-content: space-around;
+      .uibox {
+        aspect-ratio: unset;
+        height: 27vh;
+
+        .uibox-inner {
+          justify-content: space-between;
         }
       }
     }

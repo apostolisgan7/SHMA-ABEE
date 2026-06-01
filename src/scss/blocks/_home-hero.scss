@@ -84,7 +84,7 @@
   }
 
   &__subtitle {
-    font-size: 1.1rem;
+    font-size: clamp(15px, 4vw, 1.1rem);
     font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 1rem;
@@ -93,7 +93,7 @@
 
   &__title {
     p {
-      font-size: clamp(2.4rem,4.5vw,5rem);
+      font-size: clamp(2.4rem, 4.5vw, 5rem);
       line-height: 1.05;
       font-weight: 400;
       margin-bottom: 1.5rem;
@@ -107,7 +107,7 @@
   }
 
   &__text {
-    font-size: 1.1rem;
+    font-size: clamp(15px, 4vw, 1.1rem);
     line-height: 1.2;
     margin-bottom: 2rem;
     max-width: 460px;
@@ -224,9 +224,10 @@
         margin-top: 1.5rem;
 
       }
+
       &__inner {
         position: static;
-        left:unset;
+        left: unset;
         top: unset;
         transform: unset;
         z-index: 1;
@@ -237,22 +238,27 @@
     }
   }
   @media (max-width: 767px) {
-    min-height: 60vh;
+    min-height: 500px;
     .home-hero {
       &__inner {
-        padding: 1rem 1.5rem 2rem;
+        padding: 1rem 1.5rem 1rem;
         max-width: 100%;
-        min-height: 60vh;
+        min-height: 500px;
       }
+
       &__content {
-        padding: 18vh 0 1vh;
+        padding: 15vh 0 1vh;
+        gap: 3rem;
+        min-height: 500px;
       }
+
       &__boxes {
         display: none;
         position: static;
         margin-top: 1.5rem;
         overflow-x: auto;
         padding-bottom: 8px;
+
         &::-webkit-scrollbar-track {
           background: #fcfcfc;
         }
@@ -269,7 +275,8 @@
         &::-webkit-scrollbar {
           height: 3px;
         }
-        .hero-box{
+
+        .hero-box {
           flex: 1;
           flex-basis: auto;
           flex-shrink: 0;

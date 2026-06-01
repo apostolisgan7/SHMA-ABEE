@@ -37,7 +37,7 @@
 
   &__text {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: clamp(15px, 4vw, 1.1rem);
     line-height: 1.45;
     color: #8b8b8b;
     max-width: 52ch;

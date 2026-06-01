@@ -80,6 +80,7 @@
   }
 
   @media (max-width: 992px) {
+    padding: 2rem;
     &__inner {
       grid-template-columns: 1fr;
       text-align: left;
@@ -88,6 +89,19 @@
 
     &__right {
       align-items: flex-start;
+    }
+    .service-banner__buttons {
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+
+
+    .service-banner__button {
+      padding: 12px 15px;
+      border-radius: 3px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
   }
 }

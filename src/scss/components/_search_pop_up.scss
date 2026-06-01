@@ -237,6 +237,10 @@
       max-width: 80%;
       line-height: 1.2;
       order: 2;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .dgwt-wcas-arrow-wrapper {
@@ -375,7 +379,7 @@
   .help_bottom {
     span {
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 400;
       color: #6A6A6A;
       text-transform: uppercase;
     }

@@ -8,7 +8,7 @@
     h2 {
       font-size: clamp(1.8rem, 5vw, 2.5rem);
       line-height: 1.1;
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: -0.02em;
       margin-bottom: 2rem;
       color: #1a1a1a; // Ή το κύριο χρώμα σου
@@ -94,7 +94,7 @@
 
   // Price Styling
   .product-price {
-    font-weight: 700;
+    font-weight: 400;
     color: #1a1a1a;
 
     ins {

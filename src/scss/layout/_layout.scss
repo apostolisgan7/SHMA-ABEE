@@ -28,6 +28,9 @@
 
   @media screen and (min-width: 1921px) {
     max-width: 98% !important;
+    .sec_padding {
+      max-width: 100%;
+    }
     .smaller-container {
       max-width: 1880px !important;
     }
@@ -77,9 +80,6 @@
   }
   @include media-breakpoint-up(xχxl) {
     max-width: 1920px;
-    .sec_padding {
-      max-width: 100%;
-    }
   }
 }
 

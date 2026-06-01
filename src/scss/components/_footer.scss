@@ -25,7 +25,7 @@
   // --- UPPER SECTION ---
   .footer-upper {
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 45% 50%;
     column-gap: 100px;
     align-items: flex-start;
 
@@ -34,7 +34,7 @@
       .footer-title {
         font-size: clamp(38px, 4.5vw, 68px);
         line-height: 1;
-        font-weight: 700;
+        font-weight: 400;
         color: $primary-color;
         letter-spacing: -2px;
         margin: 0;
@@ -47,6 +47,7 @@
       .newsletter-form {
         display: flex;
         margin-bottom: 20px;
+        gap: 1.5rem;
 
         input {
           flex: 1;
@@ -68,7 +69,7 @@
           color: $white;
           border: 1px solid $secondary-color;
           padding: 0 40px;
-          font-weight: 700;
+          font-weight: 400;
           cursor: pointer;
           transition: all 0.3s ease;
 
@@ -80,7 +81,7 @@
 
       .copyright-top {
         font-size: 11px;
-        font-weight: 700;
+        font-weight: 400;
         color: $primary-color;
         opacity: 0.8;
       }
@@ -96,7 +97,7 @@
   // --- MAIN SECTION (Grid 45/55) ---
   .footer-main {
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 45% 50%;
     column-gap: 100px;
     align-items: flex-start;
     margin-bottom: 5vh;
@@ -163,7 +164,7 @@
   // --- BOTTOM SECTION ---
   .footer-bottom {
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 45% 42% 10%;
     column-gap: 100px;
     align-items: center;
     padding-top: 50px;
@@ -171,7 +172,7 @@
 
     .footer-copyright {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 400;
       color: $primary-color;
     }
 
@@ -211,7 +212,7 @@
     }
 
     .footer-upper {
-      margin-bottom: 60px;
+      margin-bottom: 0px;
 
       .footer-cta {
         margin-bottom: 20px;
@@ -233,7 +234,7 @@
 
       .footer-brand {
         img {
-          max-width: 150px; // Πιο μαζεμένο logo στο mobile
+          max-width: 230px; // Πιο μαζεμένο logo στο mobile
         }
       }
 
@@ -269,12 +270,20 @@
 // Extra fix για πολύ μικρές οθόνες (Smartphones)
 @media (max-width: 480px) {
   .site-footer {
+    .container{
+      padding: 1rem;
+    }
+    .footer-divider {
+      border: 0;
+      border-top: 1px solid #eee;
+      margin: 40px 0;
+    }
     .footer-main .footer-links-grid {
-      grid-template-columns: 1fr; // Μία στήλη στα μενού για πολύ μικρά κινητά
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .footer-upper .footer-newsletter .newsletter-form {
-      flex-direction: column; // Το email πάνω από το button
+      flex-direction: column;
       gap: 10px;
 
       button {
@@ -288,10 +297,6 @@
    BACK TO TOP — FLOATING
 ========================= */
 .rv-back-to-top {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 300;
   width: 48px;
   height: 48px;
   display: flex;

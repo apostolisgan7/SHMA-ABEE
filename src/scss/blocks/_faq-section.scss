@@ -182,15 +182,12 @@
       width: 26px;
       border-radius: 3px;
       height: 26px;
-
-      svg {
-        opacity: 0.4;
-      }
+      border: none !important;
     }
     &__inner {
       grid-template-columns: 1fr;
       gap: 40px;
-      padding: 3rem 1rem !important;
+      padding: 2rem 1rem !important;
       min-height: auto;
     }
 

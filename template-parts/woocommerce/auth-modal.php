@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
         <button type="button" class="sigma-auth-close js-auth-close"
                 aria-label="<?php esc_attr_e('Κλείσιμο', 'ruined'); ?>"
                 aria-controls="sigma-auth-modal">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">✕</span>
         </button>
 
         <!-- Header -->

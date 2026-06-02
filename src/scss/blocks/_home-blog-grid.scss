@@ -139,6 +139,7 @@
           object-fit: cover;
           border-radius: 4px;
           height: 100%;
+          transition: filter 0.4s ease;
         }
       }
 
@@ -210,10 +211,16 @@
 
           }
         }
+      }
 
-        &:hover {
-          .card__line::after {
-            width: 100%;
+      &:hover {
+        .card__line::after {
+          width: 100%;
+        }
+
+        .hbg-card-thumb {
+          img {
+            filter: brightness(0.9) blur(1.5px);
           }
         }
       }
@@ -254,9 +261,10 @@
         .hbg-card {
           flex-direction: column;
           width: 200px;
-         .card__line{
-           display: none;
-         }
+
+          .card__line {
+            display: none;
+          }
 
           .hbg-card-thumb {
             aspect-ratio: unset;

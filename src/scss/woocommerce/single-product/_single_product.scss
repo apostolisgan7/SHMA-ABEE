@@ -86,13 +86,18 @@
   /* =========================
      RESPONSIVE
   ========================= */
+  @media screen and (min-width: 1921px) {
+      .product {
+        max-width: 100% !important;
+      }
+  }
 
   @media screen and (max-width: 1600px) {
     .rv-breadcrumbs {
-      padding: 15px 30px;
+      padding: 15px 15px;
     }
     .single_top_wrapper {
-      padding: 15px 30px;
+      padding: 15px 15px;
     }
     .rv-product-card__meta {
       height: 13vh;

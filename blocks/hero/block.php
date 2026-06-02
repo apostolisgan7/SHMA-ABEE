@@ -161,7 +161,7 @@ if ($video_url) {
                                                 d="M0.977505 0.977581L5.12476 4.48757L0.977504 7.99756"
                                                 stroke="white"
                                                 stroke-width="1.95503"
-                                                stroke-linecap="round" />
+                                                stroke-linecap="round" fill="transparent" />
                                     </svg>
                                 </span>
                             </div>

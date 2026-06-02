@@ -135,6 +135,30 @@ function initSwipers() {
     });
 
     // --------------------------
+    // HISTORY HORIZONTAL SWIPER
+    // --------------------------
+    document.querySelectorAll(".history-horizontal__swiper").forEach((carousel) => {
+        const section       = carousel.closest('.history-horizontal');
+        const paginationEl  = section ? section.querySelector('.history-horizontal__pagination') : null;
+
+        new Swiper(carousel, {
+            modules: [Pagination],
+            slidesPerView: 1.2,
+            spaceBetween: 30,
+            grabCursor: true,
+            loop: false,
+            pagination: paginationEl ? {
+                el: paginationEl,
+                clickable: true,
+            } : false,
+            breakpoints: {
+                768:  { slidesPerView: 1.5, spaceBetween: 60 },
+                1024: { slidesPerView: 2.3, spaceBetween: 80 },
+            },
+        });
+    });
+
+    // --------------------------
 // MAP INFOS SWIPER
 // --------------------------
     document.querySelectorAll(".rv-map-infos__carousel").forEach((carousel) => {

@@ -141,7 +141,7 @@
     align-items: center;
     padding: 14px 16px 8px;
     margin-top: auto;
-    height: 11vh;
+    height: auto;
 
     .list_stock {
       display: none;
@@ -235,6 +235,7 @@
       height: 40px;
       border-color: $secondary-color;
       transition-delay: 0s;
+      border-radius: 6px;
 
       svg {
         width: 25px;

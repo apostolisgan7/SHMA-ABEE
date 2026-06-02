@@ -151,6 +151,7 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        transition: ease-in-out 0.3s;
       }
     }
 
@@ -201,6 +202,11 @@
 
       .hero-box__icon {
         background: $secondary-color;
+      }
+      .hero-box__image {
+        img {
+          filter: brightness(0.9) blur(1px);
+        }
       }
     }
   }

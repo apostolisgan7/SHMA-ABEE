@@ -87,6 +87,7 @@ $button-radius: 6px;
       transform: translateX(0);
       opacity: 1;
       background-color: #fff;
+      transition: transform 0.25s ease 0.35s, opacity 0.25s ease 0.35s;
     }
   }
 
@@ -134,6 +135,7 @@ $button-radius: 6px;
         transform: translateX(0);
         opacity: 1;
         background-color: #000;
+        transition: transform 0.25s ease 0.35s, opacity 0.25s ease 0.35s;
       }
     }
   }

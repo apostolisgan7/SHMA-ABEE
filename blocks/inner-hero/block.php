@@ -116,7 +116,7 @@ if ($video_url) {
                             <div class="hero-box__link">
                                 <?= esc_html($box['link']['title'] ?: 'Διάβασε περισσότερα'); ?>
                                 <span class="hero-box__icon">
-                                    <svg width="7" height="9" viewBox="0 0 7 9"><path d="M0.977505 0.977581L5.12476 4.48757L0.977504 7.99756" stroke="white" stroke-width="1.95503" stroke-linecap="round" /></svg>
+                                    <svg width="7" height="9" viewBox="0 0 7 9"><path d="M0.977505 0.977581L5.12476 4.48757L0.977504 7.99756" stroke="white" stroke-width="1.95503" stroke-linecap="round" fill="transparent" /></svg>
                                 </span>
                             </div>
                         </div>

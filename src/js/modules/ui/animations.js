@@ -181,27 +181,35 @@ export function initHeaderAnimation() {
     const inner = document.querySelector('[data-header-anim]');
     if (!inner) return;
 
-    const left       = inner.querySelector('.header-left');
-    const rightItems = Array.from(inner.querySelectorAll('.header-right > *'));
-    const allItems   = [left, ...rightItems].filter(Boolean);
+    const left        = inner.querySelector('.header-left');
+    const menuBtn     = inner.querySelector('.menu_btn');
+    const mobileBtn   = inner.querySelector('.mobile-menu-button');
+    const staggerItems = Array.from(
+        inner.querySelectorAll('.header-right > *:not(.menu_btn):not(.mobile-menu-button)')
+    );
 
-    // Logo slides in from left, rest stagger in from top
+    // Logo slides in from left
     gsap.fromTo(left,
         { autoAlpha: 0, x: -18 },
         { autoAlpha: 1, x: 0, duration: 1.2, ease: 'power3.out', delay: 0.4 }
     );
 
-    gsap.fromTo(rightItems,
-        { autoAlpha: 0, y: -14 },
-        {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1.3,
-            stagger: 0.07,
-            ease: 'power3.out',
-            delay: 0.5,
-        }
-    );
+    // Other header items stagger in from top
+    if (staggerItems.length) {
+        gsap.fromTo(staggerItems,
+            { autoAlpha: 0, y: -14 },
+            { autoAlpha: 1, y: 0, duration: 1.3, stagger: 0.07, ease: 'power3.out', delay: 0.5 }
+        );
+    }
+
+    // menu_btn animates at the same time as the first items — not after the stagger
+    [menuBtn, mobileBtn].forEach(el => {
+        if (!el) return;
+        gsap.fromTo(el,
+            { autoAlpha: 0, y: -14 },
+            { autoAlpha: 1, y: 0, duration: 1.3, ease: 'power3.out', delay: 0.5 }
+        );
+    });
 }
 
 /* ─────────────────────────────────────────────

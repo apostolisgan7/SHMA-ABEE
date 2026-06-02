@@ -1,191 +1,45 @@
-<section class="history-horizontal section-full-width" data-lenis-prevent>
-    <div class="history-track">
+<?php
+$title    = get_field('title');
+$items    = get_field('history_item');
+$block_id = 'hh-' . $block['id'];
+?>
 
-        <div class="history-slide">
-            <div class="slide-inner">
+<section class="history-horizontal section-full-width" id="<?php echo esc_attr($block_id); ?>">
+  <?php if ($title): ?>
+    <h2 class="history-horizontal__title"><?php echo esc_html($title); ?></h2>
+  <?php endif; ?>
 
-                <div class="top-row">
-                    <div class="main-title">
-                        <h2>
-                            Από το 1992 στην εταιρία μας <br>
-                            ενθαρρύνουμε τους ανθρώπους μας <br>
-                            να είναι πρωτοπόροι σε ό,τι κάνουν. <br>
-                            <span class="green">Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου.</span>
-                        </h2>
-                    </div>
-                    <div class="img-small">
-                        <img src="https://placehold.co/600x400/222/white" alt="Factory">
-                    </div>
-                </div>
-
-                <div class="bottom-row">
-                    <div class="img-large">
-                        <img src="https://placehold.co/800x500/333/white" alt="Worker">
-                    </div>
-                    <div class="info-block">
-                        <span class="label">ΙΔΡΥΣΗ ΤΗΣ ΕΤΑΙΡΙΑΣ</span>
-                        <p>Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου, προσφέροντας ολοκληρωμένες λύσεις.</p>
-                        <div class="year">1992</div>
-                    </div>
-                </div>
-
-            </div>
+  <div class="swiper history-horizontal__swiper">
+    <div class="swiper-wrapper">
+      <?php if ($items): foreach ($items as $item):
+        $img        = $item['image'];
+        $year       = $item['year'];
+        $card_title = $item['title'];
+        $text       = $item['text'];
+      ?>
+      <div class="swiper-slide history-horizontal__slide">
+        <?php if ($img): ?>
+          <div class="history-horizontal__slide-img">
+            <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>" loading="lazy"/>
+          </div>
+        <?php endif; ?>
+        <div class="history-horizontal__slide-content">
+          <?php if ($year): ?>
+            <p class="history-horizontal__year"><?php echo esc_html($year); ?></p>
+          <?php endif; ?>
+          <div class="history-horizontal__bottom">
+            <?php if ($card_title): ?>
+              <p class="history-horizontal__card-title" ><?php echo wp_kses_post($card_title); ?></p>
+            <?php endif; ?>
+            <?php if ($text): ?>
+              <div class="history-horizontal__text"><?php echo wp_kses_post($text); ?></div>
+            <?php endif; ?>
+          </div>
         </div>
-        <div class="history-slide">
-            <div class="slide-inner">
-
-                <div class="top-row">
-                    <div class="main-title">
-                        <h2>
-                            Από το 1992 στην εταιρία μας <br>
-                            ενθαρρύνουμε τους ανθρώπους μας <br>
-                            να είναι πρωτοπόροι σε ό,τι κάνουν. <br>
-                            <span class="green">Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου.</span>
-                        </h2>
-                    </div>
-                    <div class="img-small">
-                        <img src="https://placehold.co/600x400/222/white" alt="Factory">
-                    </div>
-                </div>
-
-                <div class="bottom-row">
-                    <div class="img-large">
-                        <img src="https://placehold.co/800x500/333/white" alt="Worker">
-                    </div>
-                    <div class="info-block">
-                        <span class="label">ΙΔΡΥΣΗ ΤΗΣ ΕΤΑΙΡΙΑΣ</span>
-                        <p>Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου, προσφέροντας ολοκληρωμένες λύσεις.</p>
-                        <div class="year">1992</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="history-slide">
-            <div class="slide-inner">
-
-                <div class="top-row">
-                    <div class="main-title">
-                        <h2>
-                            Από το 1992 στην εταιρία μας <br>
-                            ενθαρρύνουμε τους ανθρώπους μας <br>
-                            να είναι πρωτοπόροι σε ό,τι κάνουν. <br>
-                            <span class="green">Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου.</span>
-                        </h2>
-                    </div>
-                    <div class="img-small">
-                        <img src="https://placehold.co/600x400/222/white" alt="Factory">
-                    </div>
-                </div>
-
-                <div class="bottom-row">
-                    <div class="img-large">
-                        <img src="https://placehold.co/800x500/333/white" alt="Worker">
-                    </div>
-                    <div class="info-block">
-                        <span class="label">ΙΔΡΥΣΗ ΤΗΣ ΕΤΑΙΡΙΑΣ</span>
-                        <p>Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου, προσφέροντας ολοκληρωμένες λύσεις.</p>
-                        <div class="year">1992</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="history-slide">
-            <div class="slide-inner">
-
-                <div class="top-row">
-                    <div class="main-title">
-                        <h2>
-                            Από το 1992 στην εταιρία μας <br>
-                            ενθαρρύνουμε τους ανθρώπους μας <br>
-                            να είναι πρωτοπόροι σε ό,τι κάνουν. <br>
-                            <span class="green">Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου.</span>
-                        </h2>
-                    </div>
-                    <div class="img-small">
-                        <img src="https://placehold.co/600x400/222/white" alt="Factory">
-                    </div>
-                </div>
-
-                <div class="bottom-row">
-                    <div class="img-large">
-                        <img src="https://placehold.co/800x500/333/white" alt="Worker">
-                    </div>
-                    <div class="info-block">
-                        <span class="label">ΙΔΡΥΣΗ ΤΗΣ ΕΤΑΙΡΙΑΣ</span>
-                        <p>Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου, προσφέροντας ολοκληρωμένες λύσεις.</p>
-                        <div class="year">1992</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="history-slide">
-            <div class="slide-inner">
-
-                <div class="top-row">
-                    <div class="main-title">
-                        <h2>
-                            Από το 1992 στην εταιρία μας <br>
-                            ενθαρρύνουμε τους ανθρώπους μας <br>
-                            να είναι πρωτοπόροι σε ό,τι κάνουν. <br>
-                            <span class="green">Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου.</span>
-                        </h2>
-                    </div>
-                    <div class="img-small">
-                        <img src="https://placehold.co/600x400/222/white" alt="Factory">
-                    </div>
-                </div>
-
-                <div class="bottom-row">
-                    <div class="img-large">
-                        <img src="https://placehold.co/800x500/333/white" alt="Worker">
-                    </div>
-                    <div class="info-block">
-                        <span class="label">ΙΔΡΥΣΗ ΤΗΣ ΕΤΑΙΡΙΑΣ</span>
-                        <p>Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου, προσφέροντας ολοκληρωμένες λύσεις.</p>
-                        <div class="year">1992</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="history-slide">
-            <div class="slide-inner">
-
-                <div class="top-row">
-                    <div class="main-title">
-                        <h2>
-                            Από το 1992 στην εταιρία μας <br>
-                            ενθαρρύνουμε τους ανθρώπους μας <br>
-                            να είναι πρωτοπόροι σε ό,τι κάνουν. <br>
-                            <span class="green">Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου.</span>
-                        </h2>
-                    </div>
-                    <div class="img-small">
-                        <img src="https://placehold.co/600x400/222/white" alt="Factory">
-                    </div>
-                </div>
-
-                <div class="bottom-row">
-                    <div class="img-large">
-                        <img src="https://placehold.co/800x500/333/white" alt="Worker">
-                    </div>
-                    <div class="info-block">
-                        <span class="label">ΙΔΡΥΣΗ ΤΗΣ ΕΤΑΙΡΙΑΣ</span>
-                        <p>Καλύπτουμε πλήρως όλες τις ανάγκες του κλάδου, προσφέροντας ολοκληρωμένες λύσεις.</p>
-                        <div class="year">1992</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+      </div>
+      <?php endforeach; endif; ?>
     </div>
+  </div>
 
-    <div class="history-footer">
-        <div class="f-left">1992 - 2026</div>
-        <div class="f-center"><div class="progress-bar"><span></span></div></div>
-        <div class="f-right">COPYRIGHT © 2026 ΣΗΜΑ Α.Β.Ε.Ε ALL RIGHTS RESERVED</div>
-    </div>
+  <div class="history-horizontal__pagination"></div>
 </section>

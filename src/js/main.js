@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initialize Swipers and product components
     initSwipers();
-    initHistory();
     initBackToTop();
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
@@ -113,6 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         initScrollVideo();
         initHeroVideo();
         initAnimations();
+        initHistory();
         initFooterAnimation();
         initHeaderAnimation();
         if (typeof initMegaMenu === 'function') {

@@ -204,7 +204,7 @@ function sigma_registrations_page() {
     </div>
 
     <style>
-    .sigma-reg-wrap { max-width: 1200px; }
+    .sigma-reg-wrap { max-width: 1600px; }
     .sigma-reg-subtitle { color: #666; margin-bottom: 20px; }
     .sigma-reg-empty { background: #fff; padding: 32px; text-align: center; color: #888; border: 1px solid #ddd; border-radius: 4px; }
 

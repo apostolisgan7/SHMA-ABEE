@@ -14,8 +14,6 @@ export function initMegaMenu() {
         defaults: { ease: "power2.out" }
     });
 
-    gsap.set(overlay, { backdropFilter: 'blur(8px)' });
-
     // OPEN ANIMATION
     tl.to(overlay, {
         opacity: 1,
@@ -54,6 +52,7 @@ export function initMegaMenu() {
         // ⭐ MUST MAKE VISIBLE BEFORE PLAY
         menu.style.visibility = "visible";
         overlay.style.visibility = "visible";
+        gsap.set(overlay, { backdropFilter: 'blur(8px)' });
 
         menu.classList.add("is-open");
         overlay.classList.add("is-open");

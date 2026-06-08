@@ -1,6 +1,8 @@
 @use '../abstracts' as *;
 
-
+a.button.wc-backward {
+  width: auto !important;
+}
 // WooCommerce Styles
 .woocommerce {
 

@@ -12,9 +12,11 @@ $border-radius: 6px;
 .ywraq-status-ywraq-new .ywraq-admin-message {
   background: #e8faf0;
 }
+
 .ywraq-status.processing, .ywraq-status.ywraq-new {
   color: #1fb34a;
 }
+
 .woocommerce-account .woocommerce::after, .woocommerce-account .woocommerce::before {
   display: none;
 }
@@ -26,6 +28,10 @@ $border-radius: 6px;
 // ===============================
 // MY ACCOUNT WRAPPER
 .woocommerce-account {
+ footer .footer-main {
+    display: none;
+  }
+
   @media (min-width: 1200px) {
     .pages-hero {
       min-height: 50vh;
@@ -286,6 +292,83 @@ $border-radius: 6px;
         width: 100%;
       }
     }
+  }
+}
+
+// ===============================
+// EDIT ADDRESS — FLOATING LABELS
+.woocommerce-address-fields {
+
+  // Override box style → underline (same as .floating-field pattern)
+  .form-row input.input-text {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 0;
+    padding: 1rem 0 0.5rem;
+    font-size: 0.95rem;
+    height: auto;
+
+    &:focus {
+      border-bottom-color: $green;
+    }
+  }
+
+  // Floating label — all .form-row types (first, last, wide)
+  .form-row {
+    position: relative;
+
+    > label {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-60%);
+      font-size: 0.9rem;
+      color: #6b7280;
+      pointer-events: none;
+      margin: 0;
+      z-index: 1;
+      transition: top 0.16s ease,
+                  transform 0.16s ease,
+                  font-size 0.16s ease,
+                  color 0.16s ease;
+    }
+
+    &:focus-within > label,
+    &.has-value > label {
+      top: 12px;
+      transform: translateY(-100%);
+      font-size: 0.72rem;
+      color: #111827;
+    }
+  }
+
+  // Select2 — underline style
+  .select2-container--default .select2-selection--single {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 0;
+    background: transparent;
+    height: auto;
+    padding: 1rem 1.5rem 0.5rem 0;
+
+    .select2-selection__rendered {
+      padding: 0;
+      color: #111827;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .select2-selection__arrow {
+      top: auto;
+      bottom: 0.6rem;
+      right: 0;
+    }
+  }
+
+  .select2-container--default.select2-container--open .select2-selection--single,
+  .select2-container--default.select2-container--focus .select2-selection--single {
+    border-bottom-color: $green;
   }
 }
 

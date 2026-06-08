@@ -49,3 +49,24 @@ document.querySelectorAll('.floating-field input').forEach(input => {
 document.querySelectorAll('.yith-ywraq-mail-form-wrapper .form-row input, .yith-ywraq-mail-form-wrapper .form-row textarea').forEach(input => {
     initFloatingLabel(input, '.form-row');
 });
+
+// Edit Address — floating labels
+document.addEventListener('DOMContentLoaded', () => {
+    const addressForm = document.querySelector('.woocommerce-address-fields');
+    if (!addressForm) return;
+
+    // Text inputs
+    addressForm.querySelectorAll('.form-row input.input-text').forEach(input => {
+        initFloatingLabel(input, '.form-row');
+    });
+
+    // Selects (native select fires change even when Select2 is active)
+    addressForm.querySelectorAll('.form-row select').forEach(select => {
+        const row = select.closest('.form-row');
+        if (!row) return;
+
+        const check = () => row.classList.toggle('has-value', select.value.trim() !== '');
+        select.addEventListener('change', check);
+        check(); // Initial state (e.g. Greece pre-selected)
+    });
+});

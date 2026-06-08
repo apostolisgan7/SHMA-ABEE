@@ -1,6 +1,9 @@
 @use '../abstracts' as *;
 // Cart Page
 .woocommerce-cart {
+  footer .footer-main{
+    display: none;
+  }
   .woocommerce {
     @apply max-w-7xl mx-auto px-4 py-8;
   }

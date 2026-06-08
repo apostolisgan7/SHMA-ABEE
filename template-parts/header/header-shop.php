@@ -117,7 +117,7 @@ $header_class = 'header-' . esc_attr($header_color);
                     <a href="#">EN</a>
                 </div>
                 <div class="menu_btn">
-                    <span class="menu-text">MENU</span>
+                    <span class="menu-text">MENOY</span>
                     <button class="desktop-menu-button" type="button" aria-label="Open menu">
                     <span><span class="line line--top"></span>
                             <span class="line line--center"></span>

@@ -96,6 +96,16 @@
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
+
+      &:hover {
+        color: #fff;
+         .tinvwl_add_to_wishlist_button.tinvwl-icon-custom img.icon-already-on-wishlist{
+          display: block !important;
+        }
+        .tinvwl_add_to_wishlist_button.tinvwl-icon-custom img.icon-add-on-wishlist{
+          display: none !important;
+        }
+      }
     }
   }
 
@@ -139,7 +149,7 @@
     grid-template-columns: 1fr auto;
     gap: 10px 16px;
     align-items: center;
-    padding: 14px 16px 8px;
+    padding: 14px 16px 14px;
     margin-top: auto;
     height: auto;
 
@@ -160,23 +170,19 @@
   }
 
   &__title {
-    font-size: clamp(20px, 1.4vw, 22px);
+    font-size: clamp(17px, 1.4vw, 18px);
     line-height: 1.25;
     font-weight: 400;
     color: #171717;
     margin: 0;
-
-    /* Ενεργοποίηση Ellipsis για πολλαπλές γραμμές */
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Κόψιμο μετά τη 2η γραμμή */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis; /* Αυτό προσθέτει τις τελείες */
-
-    /* Διορθώσεις για το σπάσιμο των λέξεων */
-    word-break: break-word; /* Επιτρέπει το σπάσιμο αν η λέξη είναι πολύ μεγάλη */
+    text-overflow: ellipsis;
+    word-break: break-word;
     overflow-wrap: anywhere;
-    text-wrap: wrap; /* Αφαίρεσε το balance αν συνεχίζει να δημιουργεί θέμα */
+    text-wrap: wrap;
     max-width: 90%;
   }
 
@@ -192,7 +198,7 @@
     border-radius: 3px;
     border: 1.5px solid #858585;
     position: absolute;
-    bottom: 22px;
+    bottom: 18px;
     right: 10px;
     transition: .4s ease;
     transition-delay: .2s;

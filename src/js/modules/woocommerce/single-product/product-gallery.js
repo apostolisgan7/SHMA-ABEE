@@ -288,6 +288,9 @@ function initVariationHandlers() {
 
             pendingVariationImage = variation.image;
 
+            // Targeted preload: YITH's AJAX takes ~300ms — enough to cache
+            const preload = new Image();
+            preload.src = variation.image.src;
         }
     );
 
@@ -314,11 +317,38 @@ function smartUpdate() {
 }
 
 /* =========================
+   PRELOAD VARIATION IMAGES
+========================= */
+function preloadVariationImages() {
+    const form = document.querySelector('form.variations_form');
+    if (!form) return;
+
+    let variations;
+    try {
+        variations = JSON.parse(form.dataset.product_variations || '[]');
+    } catch { return; }
+
+    if (!Array.isArray(variations)) return;
+
+    variations.slice(0, 27).forEach(v => {
+        if (!v?.image?.src) return;
+        const img = new Image();
+        img.src = v.image.src;
+    });
+}
+
+/* =========================
    BOOT
 ========================= */
 document.addEventListener('DOMContentLoaded', () => {
     if (document.body.classList.contains('single-product')) {
         initProductGallery();
+        const preload = () => preloadVariationImages();
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(preload, { timeout: 3000 });
+        } else {
+            setTimeout(preload, 1500);
+        }
     }
 });
 

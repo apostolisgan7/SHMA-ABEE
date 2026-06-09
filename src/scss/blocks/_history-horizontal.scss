@@ -16,6 +16,11 @@
   &__swiper {
     width: 100%;
     overflow: visible;
+    position: relative;
+
+    .swiper-wrapper {
+      padding: 0 0 30px;
+    }
   }
 
   &__slide {
@@ -48,7 +53,7 @@
   }
 
   &__year {
-    font-size: clamp(50px, 5vw, 110px);
+    font-size: clamp(65px, 5vw, 110px);
     font-weight: 400;
     color: #111111;
     line-height: 0.9;
@@ -149,14 +154,25 @@
     }
 
   }
-  @media (max-width: 400px) {
+  @media (max-width: 435px) {
     &__slide-content {
-      padding: 25px 15px;
+      padding: 25px 15px 40px;
     }
     &__slide {
       height: auto;
       flex-direction: column;
       aspect-ratio: 400 / 650;
+    }
+    &__pagination {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 0;
+      position: absolute;
+      bottom: 60px !important;
+      width: fit-content !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
     }
   }
 }

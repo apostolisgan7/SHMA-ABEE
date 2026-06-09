@@ -29,7 +29,7 @@
       background: #fff;
       border-radius: 6px;
       padding: 1rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, .02);
     }
 
@@ -40,7 +40,7 @@
       letter-spacing: .08em;
       text-transform: uppercase;
       color: #BBBBBB;
-      padding: 1rem 0;
+      padding: 1rem 0 1rem;
       margin-bottom: 0;
       display: flex;
       justify-content: space-between;
@@ -152,7 +152,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
 
   label {
     position: relative;
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
     gap: 10px;
     cursor: pointer;

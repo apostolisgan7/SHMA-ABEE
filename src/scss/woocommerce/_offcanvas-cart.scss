@@ -21,9 +21,14 @@
   border-radius: 20px;
 
   @media (max-width: 480px) {
-    max-width: calc(100% - 30px);
+    min-height: calc(100vh - 16px);
+    height: auto;
+    top: 8px;
+    left: 0;
+
     &.is-open {
-      transform: translateX(-15px) !important;
+      transform: translateX(8px) !important;
+      max-width: calc(100% - 1rem);
     }
 
   }

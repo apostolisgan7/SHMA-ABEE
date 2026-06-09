@@ -2,7 +2,7 @@
 
 // ===============================
 // VARIABLES (προσαρμόζεις αν θες)
-$green: #1fb34a;
+$green: rgb(0 171 69);
 $green-soft: rgba(31, 179, 74, 0.12);
 $bg-card: rgba(255, 255, 255, 0.75);
 $text-dark: #1e1e1e;
@@ -13,8 +13,12 @@ $border-radius: 6px;
   background: #e8faf0;
 }
 
+li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--orders {
+  display: none;
+}
+
 .ywraq-status.processing, .ywraq-status.ywraq-new {
-  color: #1fb34a;
+  color: rgb(0 171 69);
 }
 
 .woocommerce-account .woocommerce::after, .woocommerce-account .woocommerce::before {
@@ -28,7 +32,7 @@ $border-radius: 6px;
 // ===============================
 // MY ACCOUNT WRAPPER
 .woocommerce-account {
- footer .footer-main {
+  footer .footer-main {
     display: none;
   }
 
@@ -160,12 +164,18 @@ $border-radius: 6px;
     // ADDRESS HEADER
     .woocommerce-Address-title {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 24px;
+      margin-bottom: 5px;
+      flex-direction: column;
+      gap: 16px;
+
+      &:before {
+        display: none;
+      }
 
       h2 {
-        font-size: 32px;
+        font-size: 26px;
         font-weight: 400;
         color: $text-dark;
         margin: 0;
@@ -329,9 +339,9 @@ $border-radius: 6px;
       margin: 0;
       z-index: 1;
       transition: top 0.16s ease,
-                  transform 0.16s ease,
-                  font-size 0.16s ease,
-                  color 0.16s ease;
+      transform 0.16s ease,
+      font-size 0.16s ease,
+      color 0.16s ease;
     }
 
     &:focus-within > label,

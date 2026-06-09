@@ -69,6 +69,10 @@
   &__carousel {
     position: relative;
 
+    .rv-product-card__title {
+      font-size: clamp(19px, 1.4vw, 24px);
+    }
+
     .swiper-wrapper {
       align-items: stretch;
     }

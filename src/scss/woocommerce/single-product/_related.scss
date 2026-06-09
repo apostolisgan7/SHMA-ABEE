@@ -17,11 +17,11 @@
   }
 
   &__title {
-      font-size: clamp(28px, 3vw, 42px);
-      line-height: 1;
-      font-weight: 400;
-      color: $primary-color;
-      margin: 0;
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1;
+    font-weight: 400;
+    color: $primary-color;
+    margin: 0;
   }
 
   &__list {
@@ -42,6 +42,10 @@
 
   &__carousel {
     position: relative;
+
+    .rv-product-card__title {
+      font-size: clamp(19px, 1.4vw, 24px);
+    }
 
     .swiper-wrapper {
       align-items: stretch;

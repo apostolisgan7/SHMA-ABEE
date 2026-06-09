@@ -59,10 +59,10 @@
         font-weight: 400;
 
         &.stock-in {
-          color: #5fbf55;
+          color: $secondary-color;
 
           &::before {
-            background: #5fbf55;
+            background: $secondary-color;
             border-radius: 0;
           }
         }
@@ -138,12 +138,12 @@
         }
 
         &.copied {
-          color: #5fbf55;
+          color: $secondary-color;
 
           &::after {
             content: '✓ Αντιγράφηκε';
             opacity: 1;
-            color: #5fbf55;
+            color: $secondary-color;
           }
         }
       }
@@ -376,6 +376,7 @@
         .select_box_image {
           display: flex;
           justify-content: space-between;
+          padding-bottom: 20px;
 
 
           .select_option_image {
@@ -393,13 +394,16 @@
 
             img.yith_wccl_value {
               max-width: 100%;
-              max-height: 50px;
+              height: 50px;
               object-fit: contain;
               display: block;
             }
 
-            .rv-swatch-label {
-              font-size: 11px;
+            // Label via CSS — never removed by YITH DOM manipulation
+            &::after {
+              content: attr(data-label);
+              display: block;
+              font-size: 12px;
               font-weight: 500;
               color: #333;
               text-align: center;
@@ -408,6 +412,8 @@
               overflow: hidden;
               text-overflow: ellipsis;
               max-width: 100%;
+              position: absolute;
+              top: 115%;
             }
 
             &:hover {
@@ -416,28 +422,23 @@
 
             &.selected {
               border: 1px solid $secondary-color;
+              &::after {
+                color: $secondary-color;
+              }
 
-              &:after {
+              // CSS triangle corner indicator — uses only ::before so ::after stays free for the label
+              &::before {
                 content: "";
                 position: absolute;
                 top: 0;
-                right: 0px;
-                width: 15px;
-                height: 15px;
-                border-radius: 0 0 0 2px;
-                background: $secondary-color;
+                right: 0;
+                width: 0;
+                height: 0;
+                border-radius: 2px;
+                border-style: solid;
+                border-width: 6px;
+                border-color:  $secondary-color ;
                 z-index: 1;
-              }
-
-              &:before {
-                content: "";
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                width: 4px;
-                height: 4px;
-                background: #fff;
-                z-index: 2;
               }
             }
           }
@@ -512,13 +513,12 @@
 
     /* ========== RESET LINK (Clear) ========== */
     .reset_variations {
-      display: inline-block;
       margin-top: 10px;
       font-size: 13px;
       color: #999;
       text-decoration: underline;
       cursor: pointer;
-      display: none;
+      display: none !important;
     }
 
 
@@ -662,7 +662,8 @@
     .yith_ywraq_add_item_browse_message.hide-when-removed {
       display: none !important;
     }
-.yith_ywraq_add_item_product_message.hide-when-removed,
+
+    .yith_ywraq_add_item_product_message.hide-when-removed,
     .yith_ywraq_add_item_response_message.show.hide-when-removed {
       display: flex;
       height: 60px;

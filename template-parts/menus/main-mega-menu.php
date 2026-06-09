@@ -31,8 +31,8 @@ foreach ($menu_items as $item) {
 
 $parents = array_values($parents);
 
-$left_items = array_slice($parents, 0, 3);
-$right_items = array_slice($parents, 3);
+$left_items = array_slice($parents, 0, 5);
+$right_items = array_slice($parents, 5);
 ?>
 
 <div class="mega-overlay" id="megaMenuOverlay"></div>

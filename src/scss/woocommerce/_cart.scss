@@ -1,9 +1,10 @@
 @use '../abstracts' as *;
 // Cart Page
 .woocommerce-cart {
-  footer .footer-main{
+  footer .footer-main {
     display: none;
   }
+
   .woocommerce {
     @apply max-w-7xl mx-auto px-4 py-8;
   }
@@ -33,10 +34,10 @@
 
 
 /* YITH Request Quote premium layout */
-.woocommerce.ywraq-wrapper.ywraq-with-form {
-  max-width: 1700px;
+.woocommerce.ywraq-wrapper {
+  max-width: 100%;
   margin: 80px auto;
-  padding: 0 24px;
+  padding: 10vh 24px 5vh;
 }
 
 .yith-ywraq-before-table {
@@ -399,9 +400,9 @@ button#ywraq-list-to-pdf {
 }
 
 @media (max-width: 768px) {
-  .woocommerce.ywraq-wrapper.ywraq-with-form {
+  .woocommerce.ywraq-wrapper {
     margin: 40px auto;
-    padding: 0 16px;
+    padding: 15vh 16px 5vh;
   }
 
   #yith-ywrq-table-list thead {
@@ -417,7 +418,7 @@ button#ywraq-list-to-pdf {
   }
 
   #yith-ywrq-table-list tbody tr.cart_item {
-    padding: 20px;
+    padding: 0px;
   }
 
   #yith-ywrq-table-list tbody td {

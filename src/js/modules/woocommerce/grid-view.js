@@ -23,6 +23,17 @@ export function shopHeader() {
         toggleFilters() {
             this.filtersHidden = !this.filtersHidden;
             document.body.classList.toggle('shop-filters-hidden');
+
+            clearTimeout(this._colTimer);
+            if (this.filtersHidden) {
+                // Switch to 5 cols AFTER content finishes expanding (60ms delay + 400ms transition)
+                this._colTimer = setTimeout(() => {
+                    document.body.classList.add('shop-filters-5col');
+                }, 480);
+            } else {
+                // Revert to 3 cols IMMEDIATELY so it's already 3 when content starts shrinking
+                document.body.classList.remove('shop-filters-5col');
+            }
         },
 
         handleFiltersClick() {

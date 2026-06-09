@@ -209,7 +209,7 @@
   .header-right {
     display: flex;
     align-items: center;
-    gap: 1.8rem;
+    gap: 1rem;
 
 
     .head_item {
@@ -335,8 +335,8 @@
     gap: 0.8rem;
     align-items: center;
     background: #EBEBEB;
-    padding: 9px 17px;
-    border-radius: 7px;
+    padding: 10px 17px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color ease-in 0.2s;
 
@@ -352,7 +352,7 @@
 
     .desktop-menu-button {
       top: -4px;
-      width: 20px;
+      width: 15px;
       height: 20px;
       position: relative;
       background: none;
@@ -372,7 +372,7 @@
       }
 
       .line--top {
-        top: 6px;
+        top: 7px;
         width: 100%;
       }
 
@@ -382,7 +382,7 @@
       }
 
       .line--bottom {
-        top: 18px;
+        top: 17px;
         width: 100%;
       }
 

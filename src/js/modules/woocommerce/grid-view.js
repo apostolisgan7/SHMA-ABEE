@@ -1,7 +1,33 @@
+import gsap from 'gsap';
+import { Flip } from 'gsap/Flip';
+gsap.registerPlugin(Flip);
 
+function flipTo5Cols() {
+    const cards = document.querySelectorAll('.shop_content ul.products li.product');
+    if (!cards.length) return;
+    const state = Flip.getState(cards);
+    document.body.classList.add('shop-filters-5col');
+    Flip.from(state, {
+        duration: 0.45,
+        ease: 'power2.inOut',
+        stagger: { amount: 0.12, from: 'start' },
+    });
+}
 
-
-
+function flipFrom5Cols() {
+    const cards = document.querySelectorAll('.shop_content ul.products li.product');
+    if (!cards.length) {
+        document.body.classList.remove('shop-filters-5col');
+        return;
+    }
+    const state = Flip.getState(cards);
+    document.body.classList.remove('shop-filters-5col');
+    Flip.from(state, {
+        duration: 0.35,
+        ease: 'power2.out',
+        stagger: { amount: 0.08, from: 'end' },
+    });
+}
 
 // 🔹 Alpine component
 export function shopHeader() {
@@ -11,6 +37,9 @@ export function shopHeader() {
 
         init() {
             document.body.classList.add(`shop-view-${this.view}`);
+            if (this.filtersHidden) {
+                document.body.classList.add('shop-filters-5col');
+            }
         },
 
         setView(type) {
@@ -26,13 +55,11 @@ export function shopHeader() {
 
             clearTimeout(this._colTimer);
             if (this.filtersHidden) {
-                // Switch to 5 cols AFTER content finishes expanding (60ms delay + 400ms transition)
-                this._colTimer = setTimeout(() => {
-                    document.body.classList.add('shop-filters-5col');
-                }, 480);
+                // Wait for content to finish expanding, then Flip cards to 5 cols
+                this._colTimer = setTimeout(flipTo5Cols, 480);
             } else {
-                // Revert to 3 cols IMMEDIATELY so it's already 3 when content starts shrinking
-                document.body.classList.remove('shop-filters-5col');
+                // Flip cards back immediately (before content starts shrinking)
+                flipFrom5Cols();
             }
         },
 

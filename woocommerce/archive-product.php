@@ -51,6 +51,7 @@ get_header();
                         </div>
                     </div>
                 </div>
+        <?php do_action('rv_after_products_section'); ?>
     </main>
 
 <?php

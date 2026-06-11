@@ -1,10 +1,23 @@
 @use '../../abstracts' as *;
 
+
+.archive{
+  .product-catalogs {
+    max-width: 1800px !important;
+    margin: 0 auto 5rem;
+  }
+}
+
 .product-catalogs {
   margin: 5rem 0;
   background: #fff;
-  padding: 1rem 0;
+  padding: 1rem;
   border-radius: 15px;
+
+  .container {
+   padding: 0;
+    max-width: 100% !important;
+  }
 
   .catalogs-grid {
     display: grid;
@@ -142,7 +155,7 @@
     padding-bottom: 2rem;
     margin-bottom: 4rem;
     .container {
-      padding: 0 1rem;
+      padding: 0;
     }
     .catalogs-grid {
       grid-template-columns: 1fr;

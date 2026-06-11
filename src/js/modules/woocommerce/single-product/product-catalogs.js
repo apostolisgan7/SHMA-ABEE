@@ -6,7 +6,8 @@ export function initProductCatalogs() {
 
     if (!items.length || !preview) return;
 
-    let activeSrc = preview.getAttribute("src");
+    // Use .src (normalized absolute URL) instead of getAttribute to avoid comparison mismatches
+    let activeSrc = preview.src;
 
     items.forEach(item => {
         const image = item.dataset.image;
@@ -15,12 +16,13 @@ export function initProductCatalogs() {
         item.addEventListener("mouseenter", () => {
             if (image === activeSrc) return;
 
+            gsap.killTweensOf(preview);
             gsap.to(preview, {
                 opacity: 0,
                 duration: 0.3,
                 onComplete: () => {
                     preview.src = image;
-                    activeSrc = image;
+                    activeSrc = preview.src;
 
                     gsap.to(preview, {
                         opacity: 1,

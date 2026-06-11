@@ -260,7 +260,7 @@
       background: transparent;
       border-radius: 6px;
       overflow: hidden;
-      margin: 1rem 0;
+      margin: 1rem 0 10px;
       width: 100%;
 
       textarea {
@@ -443,7 +443,6 @@
                 right: 0;
                 width: 0;
                 height: 0;
-                border-radius: 2px;
                 border-style: solid;
                 border-width: 6px;
                 border-color: $secondary-color;
@@ -672,6 +671,7 @@
       display: none !important;
     }
 
+    .yith_ywraq_add_item_response_message.hide-when-removed,
     .yith_ywraq_add_item_product_message.hide-when-removed,
     .yith_ywraq_add_item_response_message.show.hide-when-removed {
       display: flex;

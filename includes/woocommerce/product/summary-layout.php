@@ -10,9 +10,24 @@ if ($is_variable) {
     $variation_attributes = $product->get_variation_attributes();
     $has_variations = !empty(array_filter($variation_attributes));
 }
+
+$has_simple_attributes = false;
+if (!$is_variable) {
+    foreach ($product->get_attributes() as $attribute) {
+        if (!$attribute->get_visible()) continue;
+        if ($attribute->is_taxonomy()) {
+            $terms = wc_get_product_terms($product->get_id(), $attribute->get_name(), ['fields' => 'names']);
+            if (!empty($terms)) { $has_simple_attributes = true; break; }
+        } else {
+            if (!empty($attribute->get_options())) { $has_simple_attributes = true; break; }
+        }
+    }
+}
+
+$default_open = $is_variable ? 'tech' : ($has_simple_attributes ? 'tech' : ($same_products ? 'related' : 'null'));
 ?>
 
-<div class="rv-summary-accordion" x-data="{ open: <?php echo $is_variable ? "'tech'" : ($same_products ? "'related'" : 'null'); ?> }">
+<div class="rv-summary-accordion" x-data="{ open: '<?php echo $default_open; ?>' }">
 
     <!-- ΠΡΟΪΟΝΤΑ ΙΔΙΑΣ ΚΑΤΗΓΟΡΙΑΣ -->
     <?php if ($same_products) : ?>
@@ -42,7 +57,7 @@ if ($is_variable) {
         </div>
     <?php endif; ?>
 
-    <!-- ΤΕΧΝΙΚΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ (ΜΟΝΟ ΑΝ ΥΠΑΡΧΟΥΝ VARIATIONS) -->
+    <!-- ΤΕΧΝΙΚΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ -->
     <?php if ($has_variations) : ?>
         <div class="rv-accordion-item">
             <button
@@ -61,6 +76,43 @@ if ($is_variable) {
 
             <div class="main_accodion_content" x-show="open === 'tech'" x-collapse>
                 <?php woocommerce_variable_add_to_cart(); ?>
+            </div>
+        </div>
+    <?php elseif ($has_simple_attributes) : ?>
+        <div class="rv-accordion-item">
+            <button
+                    @click="open = open === 'tech' ? null : 'tech'"
+                    :aria-expanded="open === 'tech'"
+            >
+                <span>Τεχνικά Χαρακτηριστικά</span>
+                <div class="rv-accordion-arrow">
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black"
+                              stroke-width="1.82386"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </button>
+
+            <div class="main_accodion_content" x-show="open === 'tech'" x-collapse>
+                <div class="rv-tech-table">
+                    <?php foreach ($product->get_attributes() as $attribute) :
+                        if (!$attribute->get_visible()) continue;
+                        $label = wc_attribute_label($attribute->get_name());
+                        if ($attribute->is_taxonomy()) {
+                            $terms = wc_get_product_terms($product->get_id(), $attribute->get_name(), ['fields' => 'names']);
+                            $value = !empty($terms) ? implode(' &nbsp; ', $terms) : '';
+                        } else {
+                            $value = !empty($attribute->get_options()) ? implode(' &nbsp; ', $attribute->get_options()) : '';
+                        }
+                        if (empty($value)) continue;
+                    ?>
+                        <div class="row">
+                            <span><?php echo esc_html($label); ?></span>
+                            <strong><?php echo wp_kses_post($value); ?></strong>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     <?php endif; ?>

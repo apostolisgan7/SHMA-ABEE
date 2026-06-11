@@ -246,13 +246,21 @@
       background: transparent;
       border-radius: 6px;
       overflow: hidden;
+
+      .rv-tech-table {
+        padding: 20px;
+        margin-top: 1vh;
+        background: #fff;
+        border: none;
+        border-radius: 6px;
+      }
     }
 
     .rv-offer-note-field {
       background: transparent;
       border-radius: 6px;
       overflow: hidden;
-      margin-top: 1rem;
+      margin: 1rem 0;
       width: 100%;
 
       textarea {
@@ -422,6 +430,7 @@
 
             &.selected {
               border: 1px solid $secondary-color;
+
               &::after {
                 color: $secondary-color;
               }
@@ -437,7 +446,7 @@
                 border-radius: 2px;
                 border-style: solid;
                 border-width: 6px;
-                border-color:  $secondary-color ;
+                border-color: $secondary-color;
                 z-index: 1;
               }
             }
@@ -703,6 +712,31 @@
     }
   }
 
+  .rv-summary-accordion .rv-tech-table {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(214, 214, 214, 0.63);
+
+      span {
+        font-size: 14px;
+        color: #777;
+      }
+
+      strong {
+        font-size: 14px;
+        font-weight: 500;
+        color: #111;
+      }
+    }
+  }
+
   @media screen and (max-width: 992px) {
     margin-top: 0;
     position: static;
@@ -710,6 +744,12 @@
   @media screen and (max-width: 567px) {
     .rv-summary-accordion form.variations_form table.variations .select_box_image .select_option_image {
       min-width: 80px;
+    }
+    .rv-summary-accordion .rv-tech-table {
+
+      .row {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }

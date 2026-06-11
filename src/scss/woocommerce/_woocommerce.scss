@@ -57,7 +57,7 @@ a.button.wc-backward.yith-ywraq-before-table-wc-backward {
     pointer-events: none;
     opacity: 1;
     // arrow-exit transition | color shift delayed to match fill midpoint
-    transition:all ease 0.2s;
+    transition: all ease 0.2s;
   }
 
   &:hover {
@@ -76,6 +76,7 @@ a.button.wc-backward.yith-ywraq-before-table-wc-backward {
     }
   }
 }
+
 // WooCommerce Styles
 .woocommerce {
 
@@ -177,6 +178,7 @@ a.button.wc-backward.yith-ywraq-before-table-wc-backward {
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  margin-top: -20- px;
 }
 
 .rv-cart-row {
@@ -186,7 +188,7 @@ a.button.wc-backward.yith-ywraq-before-table-wc-backward {
   justify-content: space-between;
   gap: 10px;
 
-.clear {
+  .clear {
     display: none;
   }
 

@@ -84,11 +84,6 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
             </button>
         <?php endif; ?>
 
-        <?php if ($has_desc): ?>
-            <button @click="tab='desc'; $dispatch('rv-tab-changed')" :class="{active: tab==='desc'}">
-                Περιγραφή Προϊόντος
-            </button>
-        <?php endif; ?>
 
         <?php if ($has_projects): ?>
             <button @click="tab='projects'; $dispatch('rv-tab-changed')" :class="{active: tab==='projects'}">
@@ -166,6 +161,17 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
 
                 <div class="rv-tech-right">
 
+                    <?php if ($has_desc) :
+                        $raw_desc = get_post_field('post_content', get_the_ID());
+                    ?>
+                        <div class="rv-description-block">
+                            <h3><?php echo esc_html__('Περιγραφή', 'woocommerce'); ?></h3>
+                            <div class="rv-description-inner">
+                                <?php echo wpautop(wp_kses_post($raw_desc)); ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <?php if ($product) :
 
                         $attributes = $product->get_attributes();
@@ -220,13 +226,6 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
         </div>
     <?php endif; ?>
 
-    <?php if ($has_desc): ?>
-        <div x-show="tab==='desc'" x-cloak class="rv-tab-content">
-            <div class="rv-description-inner">
-                <?php the_content(); ?>
-            </div>
-        </div>
-    <?php endif; ?>
 
     <?php if ($has_projects): ?>
         <div x-show="tab==='projects'" x-cloak class="rv-tab-content" id="rv-projects-tab">

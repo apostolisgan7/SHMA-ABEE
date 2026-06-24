@@ -3,14 +3,17 @@
 .tinv-wishlist.woocommerce.tinv-wishlist-clear {
   margin: 2rem auto;
   padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 
   .tinv-header {
     h2 {
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-size: clamp(1.8rem, 5vw, 2rem);
       line-height: 1.1;
       font-weight: 400;
       letter-spacing: -0.02em;
-      margin-bottom: 2rem;
+      margin-bottom: 0;
       color: #1a1a1a; // Ή το κύριο χρώμα σου
     }
   }

@@ -17,6 +17,13 @@ if ( empty( $all_ids ) ) {
 <div class="woocommerce-product-gallery woocommerce-product-gallery--with-swiper">
 
     <div class="rv-gallery-main swiper">
+
+        <?php if (shortcode_exists('ti_wishlists_addtowishlist')) : ?>
+            <div class="rv-gallery-wishlist">
+                <?php echo do_shortcode('[ti_wishlists_addtowishlist product_id="' . get_the_ID() . '" variation_id="0"]'); ?>
+            </div>
+        <?php endif; ?>
+
         <div class="swiper-wrapper">
 
             <?php foreach ($all_ids as $img_id): ?>

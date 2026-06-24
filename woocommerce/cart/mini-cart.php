@@ -61,7 +61,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 
                         <div class="mini-cart__qty">
                             <button class="qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">−</button>
-                            <span class="qty-value"><?php echo esc_html($cart_item['quantity']); ?></span>
+                            <input type="number" class="qty-value" value="<?php echo esc_attr($cart_item['quantity']); ?>" min="1" data-key="<?php echo esc_attr($cart_item_key); ?>">
                             <button class="qty-plus" data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
                         </div>
                         <span class="mini-cart__price">
@@ -95,7 +95,13 @@ do_action('woocommerce_before_mini_cart'); ?>
     </div>
 
 <?php else : ?>
-    <p class="mini-cart__empty">Το καλάθι είναι άδειο</p>
+    <div class="mini-cart__empty">
+        <?php
+        $svg = get_template_directory() . '/src/img/icons/empty-cart.svg';
+        if (file_exists($svg)) echo file_get_contents($svg);
+        ?>
+        <p>Το καλάθι σας είναι άδειο</p>
+    </div>
 <?php endif; ?>
 
 

@@ -182,8 +182,22 @@ function initZoomLens(container) {
     lens.className = 'rv-zoom-lens';
     container.appendChild(lens);
 
-    const ZOOM = 2;
+    const ZOOM = 3;
     let rafId;
+
+
+    const fullSizeCache = new Map();
+
+    function getFullSizeWidth(src) {
+        const cached = fullSizeCache.get(src);
+        if (cached) return cached;
+
+        const probe = new Image();
+        probe.onload = () => fullSizeCache.set(src, probe.naturalWidth);
+        probe.src = src;
+
+        return null;
+    }
 
     function onMouseMove(e) {
         cancelAnimationFrame(rafId);
@@ -207,12 +221,20 @@ function initZoomLens(container) {
             const lensW = lens.offsetWidth;
             const lensH = lens.offsetHeight;
 
+            const bgSrc = img.dataset.src || img.src;
+            const fullWidth = getFullSizeWidth(bgSrc) || img.naturalWidth;
+
+            const dpr = window.devicePixelRatio || 1;
+            const maxZoom = fullWidth
+                ? Math.min(ZOOM, fullWidth / (imgRect.width * dpr))
+                : ZOOM;
+
             lens.style.opacity = '1';
             lens.style.left = `${containerX - lensW / 2}px`;
             lens.style.top = `${containerY - lensH / 2}px`;
             lens.style.backgroundImage = `url(${img.dataset.src || img.src})`;
-            lens.style.backgroundSize = `${imgRect.width * ZOOM}px ${imgRect.height * ZOOM}px`;
-            lens.style.backgroundPosition = `-${imgX * ZOOM - lensW / 2}px -${imgY * ZOOM - lensH / 2}px`;
+            lens.style.backgroundSize = `${imgRect.width * maxZoom}px ${imgRect.height * maxZoom}px`;
+            lens.style.backgroundPosition = `-${imgX * maxZoom - lensW / 2}px -${imgY * maxZoom - lensH / 2}px`;
         });
     }
 

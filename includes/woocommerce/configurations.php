@@ -130,7 +130,7 @@ function ruined_update_cart_qty()
         wp_die(__('Security check failed', 'ruined'));
     }
 
-    if (!isset($_POST['cart_item_key'], $_POST['delta'])) {
+    if (!isset($_POST['cart_item_key']) || (!isset($_POST['delta']) && !isset($_POST['qty']))) {
         wp_send_json_error(__('Missing required parameters', 'ruined'));
         wp_die();
     }
@@ -147,7 +147,6 @@ function ruined_update_cart_qty()
     }
 
     $key = sanitize_text_field($_POST['cart_item_key']);
-    $delta = intval($_POST['delta']);
 
     if (!isset($cart->cart_contents[$key])) {
         wp_send_json_error(__('Cart item not found', 'ruined'));
@@ -155,7 +154,11 @@ function ruined_update_cart_qty()
     }
 
     $item = $cart->cart_contents[$key];
-    $new_qty = max(1, $item['quantity'] + $delta);
+    if (isset($_POST['qty'])) {
+        $new_qty = max(1, intval($_POST['qty']));
+    } else {
+        $new_qty = max(1, $item['quantity'] + intval($_POST['delta']));
+    }
 
     $cart->set_quantity($key, $new_qty, true);
 
@@ -258,9 +261,15 @@ function rv_raq_mini_list_html() {
     ob_start();
 
     if ( empty( $items ) ) : ?>
-        <p class="mini-cart__empty">Η λίστα προσφοράς σας είναι κενή.</p>
+        <div class="mini-cart__empty">
+            <?php
+            $svg = get_template_directory() . '/src/img/icons/empty-cart.svg';
+            if ( file_exists( $svg ) ) echo file_get_contents( $svg );
+            ?>
+            <p>Η λίστα προσφοράς σας είναι κενή.</p>
+        </div>
     <?php else : ?>
-        <ul class="mini-cart">
+        <ul class="mini-cart" data-lenis-prevent>
             <?php foreach ( $items as $key => $item ) :
                 $product_id   = (int) $item['product_id'];
                 $variation_id = ! empty( $item['variation_id'] ) ? (int) $item['variation_id'] : 0;

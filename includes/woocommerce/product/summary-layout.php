@@ -59,42 +59,20 @@ $default_open = $is_variable ? 'tech' : ($has_simple_attributes ? 'tech' : ($sam
 
     <!-- ΤΕΧΝΙΚΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ -->
     <?php if ($has_variations) : ?>
-        <div class="rv-accordion-item">
-            <button
-                    @click="open = open === 'tech' ? null : 'tech'"
-                    :aria-expanded="open === 'tech'"
-            >
+        <div class="rv-accordion-item rv-accordion-item--static">
+            <div class="rv-accordion-header">
                 <span>Τεχνικά Χαρακτηριστικά</span>
-                <div class="rv-accordion-arrow">
-                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black"
-                              stroke-width="1.82386"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </button>
-
-            <div class="main_accodion_content" x-show="open === 'tech'" x-collapse>
+            </div>
+            <div class="main_accodion_content">
                 <?php woocommerce_variable_add_to_cart(); ?>
             </div>
         </div>
     <?php elseif ($has_simple_attributes) : ?>
-        <div class="rv-accordion-item">
-            <button
-                    @click="open = open === 'tech' ? null : 'tech'"
-                    :aria-expanded="open === 'tech'"
-            >
+        <div class="rv-accordion-item rv-accordion-item--static">
+            <div class="rv-accordion-header">
                 <span>Τεχνικά Χαρακτηριστικά</span>
-                <div class="rv-accordion-arrow">
-                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black"
-                              stroke-width="1.82386"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </button>
-
-            <div class="main_accodion_content" x-show="open === 'tech'" x-collapse>
+            </div>
+            <div class="main_accodion_content">
                 <div class="rv-tech-table">
                     <?php foreach ($product->get_attributes() as $attribute) :
                         if (!$attribute->get_visible()) continue;

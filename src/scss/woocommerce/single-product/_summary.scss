@@ -273,6 +273,19 @@
     }
 
     /* ========== HEADER ========== */
+    .rv-accordion-item--static .rv-accordion-header {
+      background: #fff;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-weight: 500;
+      color: $primary-color;
+    }
+
     .rv-accordion-item > button, .rv-offer-note-field > button {
       background: #fff;
       border: none;
@@ -388,7 +401,7 @@
 
 
           .select_option_image {
-            min-width: 120px;
+            min-width: 150px;
             border: 1px solid #EEEEEE;
             border-radius: 5px;
             display: flex;
@@ -411,7 +424,7 @@
             &::after {
               content: attr(data-label);
               display: block;
-              font-size: 12px;
+              font-size: 14px;
               font-weight: 500;
               color: #333;
               text-align: center;
@@ -562,11 +575,24 @@
     ========================= */
     .rv-qty-value {
       flex: 1;
-      display: grid;
-      place-items: center;
+      width: 0;
+      min-width: 0;
+      text-align: center;
       font-size: 18px;
       font-weight: 400;
+      margin: 0;
       color: #111;
+      border: none;
+      background: transparent;
+      outline: none;
+      padding: 0;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
     }
 
     /* =========================

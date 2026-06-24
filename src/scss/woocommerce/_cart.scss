@@ -75,6 +75,7 @@
   background: #fff;
   padding: 32px;
   border-radius: 10px;
+  height: max-content;
 }
 
 #yith-ywrq-table-list {
@@ -235,10 +236,22 @@ button#ywraq-list-to-pdf {
 
 #yith-ywrq-table-list .rv-qty-value {
   flex: 1;
-  display: grid;
-  place-items: center;
+  width: 0;
+  min-width: 0;
+  text-align: center;
   font-size: 15px;
   font-weight: 500;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 #yith-ywrq-table-list .rv-qty-controls {

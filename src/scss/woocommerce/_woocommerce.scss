@@ -1,5 +1,10 @@
 @use '../abstracts' as *;
 
+.tinv-wishlist .product-stock p {
+  display: table;
+  margin: 0 !important;
+}
+
 a.button.wc-backward {
   width: auto !important;
 }
@@ -114,7 +119,7 @@ a.button.wc-backward.yith-ywraq-before-table-wc-backward {
 
 .single-product {
   main {
-    padding-top: 10vh;
+    padding-top: 12vh;
   }
 }
 

@@ -32,8 +32,13 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
 // ===============================
 // MY ACCOUNT WRAPPER
 .woocommerce-account {
-  footer .footer-main {
-    display: none;
+  footer {
+    .footer-main {
+      display: none;
+    }
+    .footer-divider {
+      margin: 20px 0;
+    }
   }
 
   @media (min-width: 1200px) {
@@ -308,7 +313,13 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
 // ===============================
 // EDIT ADDRESS — FLOATING LABELS
 .woocommerce-address-fields {
-
+  #billing_address_1_field, #shipping_address_1_field {
+    input {
+      &::placeholder {
+        opacity: 0;
+      }
+    }
+  }
   // Override box style → underline (same as .floating-field pattern)
   .form-row input.input-text {
     background: transparent;
@@ -367,6 +378,7 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
       color: #111827;
       font-size: 0.95rem;
       line-height: 1.4;
+      opacity: 0;
     }
 
     .select2-selection__arrow {

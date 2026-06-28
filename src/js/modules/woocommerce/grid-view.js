@@ -64,18 +64,8 @@ export function shopHeader() {
         },
 
         handleFiltersClick() {
-            // 📱 MOBILE → modal
-            if (window.innerWidth < 768) {
-                const modal = document.querySelector('.yith-wcan-filters.filters-modal');
-                if (modal) {
-                    modal.style.display = 'block';
-                    modal.classList.add('is-open');
-                    document.body.classList.add('filters-modal-open');
-                }
-                return;
-            }
-
-            // 🖥 DESKTOP → sidebar
+            // Mobile modal is handled entirely by filters.js (initArchiveHeaderFiltersToggle)
+            if (window.innerWidth <= 993) return;
             this.toggleFilters();
         },
 

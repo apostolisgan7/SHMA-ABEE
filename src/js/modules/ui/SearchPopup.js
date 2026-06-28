@@ -241,7 +241,7 @@ export default class SearchPopup {
     buildTimeline() {
         const headerChildren  = this.popup.querySelectorAll('.search-header > *');
         const searchForm      = this.popup.querySelector('.dgwt-wcas-search-form');
-        const searchTags      = this.popup.querySelectorAll('.search-tag');
+        const searchTags      = [...this.popup.querySelectorAll('.search-tag')];
         const searchHelp      = this.popup.querySelector('.search-help');
         const sectionTitle    = this.popup.querySelector('.section-title');
         const defaultProducts = this.popup.querySelector('#rv-default-products');
@@ -255,8 +255,12 @@ export default class SearchPopup {
             .to(this.popup, { autoAlpha: 1, duration: 0.2 }, 0)
             .to(this.container, { y: 0, opacity: 1, duration: 0.4 }, 0.1)
             .to(headerChildren, { opacity: 1, y: 0, stagger: 0.05, duration: 0.3 }, 0.2)
-            .to(searchForm, { opacity: 1, y: 0, duration: 0.3 }, 0.25)
-            .to(searchTags, { y: 0, opacity: 1, stagger: 0.05, duration: 0.3 }, 0.3)
-            .to([searchHelp, sectionTitle, defaultProducts], { opacity: 1, y: 0, stagger: 0.08, duration: 0.4 }, 0.4);
+            .to(searchForm, { opacity: 1, y: 0, duration: 0.3 }, 0.25);
+
+        if (searchTags.length) {
+            this.tl.to(searchTags, { y: 0, opacity: 1, stagger: 0.05, duration: 0.3 }, 0.3);
+        }
+
+        this.tl.to([searchHelp, sectionTitle, defaultProducts], { opacity: 1, y: 0, stagger: 0.08, duration: 0.4 }, 0.4);
     }
 }

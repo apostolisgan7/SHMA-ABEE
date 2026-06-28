@@ -4,6 +4,7 @@ import { initProductTabs }            from './modules/woocommerce/single-product
 import { initVideoBox }               from './modules/woocommerce/single-product/video.js';
 import { initProductCatalogs }        from './modules/woocommerce/single-product/product-catalogs.js';
 import { initMobileStickyPanel }      from './modules/woocommerce/single-product/mobile-sticky-panel.js';
+import { initVariationTech }          from './modules/woocommerce/single-product/variation-tech.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initProductGalleryObserver();
@@ -12,4 +13,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initVideoBox();
     initProductCatalogs();
     initMobileStickyPanel();
+    initVariationTech();
 });

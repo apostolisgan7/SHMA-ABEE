@@ -229,7 +229,7 @@
   position: sticky;
   top: 5rem;
   z-index: 11;
-  margin-top: 3vh;
+  margin-top: 0;
 
   .tinv-wraper.tinv-wishlist {
     display: none;
@@ -401,7 +401,9 @@
 
 
           .select_option_image {
-            min-width: 150px;
+            max-width: 200px;
+            margin-right: 10px;
+            width: 100%;
             border: 1px solid #EEEEEE;
             border-radius: 5px;
             display: flex;
@@ -459,7 +461,7 @@
                 border-style: solid;
                 border-width: 6px;
                 border-color: $secondary-color;
-                z-index: 1;
+                z-index: 0;
               }
             }
           }
@@ -587,6 +589,9 @@
       outline: none;
       padding: 0;
       -moz-appearance: textfield;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
@@ -769,7 +774,7 @@
   }
   @media screen and (max-width: 567px) {
     .rv-summary-accordion form.variations_form table.variations .select_box_image .select_option_image {
-      min-width: 80px;
+      min-width: 90px;
     }
     .rv-summary-accordion .rv-tech-table {
 

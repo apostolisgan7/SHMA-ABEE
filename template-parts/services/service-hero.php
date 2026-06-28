@@ -1,10 +1,20 @@
 <?php
 // ACF fields
 $image = get_field('image');
-$video_url = get_field('video');
+$video_field = get_field('video');
 $title = get_field('title');
 $sub_texts = get_field('sub_texts');
 $hero_boxes = get_field('hero_box');
+
+// Normalize video field to a plain URL string regardless of ACF field type
+// (File/Image field types return an array, URL/Text/oEmbed return a string)
+$video_url = '';
+if (is_array($video_field)) {
+    $video_url = $video_field['url'] ?? '';
+} elseif (is_string($video_field)) {
+    $video_url = $video_field;
+}
+$video_url = trim((string) $video_url);
 
 // detect video platform
 $video_type = '';
@@ -131,11 +141,12 @@ if ($video_url) {
         <?php if ($hero_boxes): ?>
             <div class="service-hero__boxes" data-animate="stagger-fade" data-animate-trigger="load" data-animate-delay="0.6">
                 <?php foreach ($hero_boxes as $box): ?>
+                    <?php $box_link = $box['link'] ?? []; ?>
                     <article class="hero-box">
 
                         <a class="hero__link"
-                           href="<?= esc_url($box['link']['url']); ?>"
-                           target="<?= esc_attr($box['link']['target']); ?>">
+                           href="<?= esc_url($box_link['url'] ?? '#'); ?>"
+                           target="<?= esc_attr($box_link['target'] ?? '_self'); ?>">
                         </a>
 
                         <?php if (!empty($box['image'])): ?>
@@ -157,7 +168,7 @@ if ($video_url) {
                             </h3>
 
                             <div class="hero-box__link">
-                                <?= esc_html($box['link']['title'] ?: 'Διάβασε περισσότερα'); ?>
+                                <?= esc_html($box_link['title'] ?? '' ?: 'Διάβασε περισσότερα'); ?>
 
                                 <span class="hero-box__icon">
                                     <svg width="7" height="9" viewBox="0 0 7 9">

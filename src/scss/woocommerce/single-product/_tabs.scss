@@ -267,6 +267,7 @@
     .rv-tabs-nav {
       gap: 20px;
       overflow-x: auto;
+      overflow-y: hidden;
 
       &::-webkit-scrollbar-track {
         background: #fcfcfc;
@@ -282,7 +283,7 @@
       }
 
       &::-webkit-scrollbar {
-        height: 2px;
+        height:0px;
       }
 
       button {

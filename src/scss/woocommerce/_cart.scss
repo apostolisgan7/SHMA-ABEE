@@ -1,8 +1,13 @@
 @use '../abstracts' as *;
 // Cart Page
 .woocommerce-cart {
-  footer .footer-main {
-    display: none;
+  footer {
+    .footer-main {
+      display: none;
+    }
+     .footer-divider {
+      margin: 20px 0;
+    }
   }
 
   .woocommerce {

@@ -87,7 +87,7 @@
       }
 
       ul.filter-items.filter-checkbox.level-1 {
-        padding: 0 15px;
+        padding: 0;
         border-radius: 5px;
 
         li {
@@ -239,11 +239,6 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
 
 
 #filter_425_0 {
-  .toggle-handle {
-    display: none;
-  }
-
-
   input[type="checkbox"] {
     display: none;
   }
@@ -262,41 +257,58 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     }
   }
 
+  // CSS grid places YITH's native toggle-handle to the right of the label, child ul below.
+  // YITH binds click only to toggle-handle (with stopPropagation + preventDefault),
+  // so clicking the name = filter selection only; clicking the arrow = hierarchy toggle only.
+  .filter-item.hierarchy-collapsable {
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    > label {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    > ul {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    > .toggle-handle {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      color: #999;
+      user-select: none;
+      transition: color 0.2s ease;
+
+
+    }
+
+
+
+    // Show child ul when YITH marks item as opened (YITH's init doesn't explicitly
+    // slideDown items it marks opened, it just skips hiding them — PHP renders all
+    // child uls hidden, so we need CSS to reveal them for the opened state).
+    &.opened > ul,
+    &:has(ul input:checked) > ul {
+      display: block !important;
+    }
+  }
+
   .filter-item.level-0 {
     padding: 0;
     list-style: none;
-
-    &.hierarchy-collapsable > label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      &::after {
-        content: "›";
-        color: #999;
-        font-size: 18px;
-        line-height: 1;
-        transition: color 0.2s ease;
-      }
-    }
-
-    // Χρησιμοποιούμε :has() + active class
-    &.hierarchy-collapsable.active > label::after {
-      content: "‹";
-      color: rgb(0, 171, 69);
-    }
 
     &.active > label .term-label,
     &:has(> label input:checked) > label .term-label {
       color: rgb(0, 171, 69);
       font-weight: 600;
-      padding-left: 0;
-    }
-
-    // Το key fix — override inline style με :has
-    &.active > ul.level-1,
-    &:has(> label input:checked) > ul.level-1 {
-      display: block !important;
     }
   }
 
@@ -309,44 +321,30 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
       color: #555;
     }
 
-    &.hierarchy-collapsable > label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      &::after {
-        content: "›";
-        color: #999;
-        font-size: 16px;
-        line-height: 1;
-        transition: color 0.2s ease;
-      }
-    }
-
-    &.active > label::after {
-      content: "‹";
-      color: rgb(0, 171, 69);
-    }
-
-    &.active > ul.level-1,
-    &:has(> label input:checked) > ul.level-1 {
-      display: block !important;
-      padding: 0;
-    }
-
     & input:checked ~ a {
       color: rgb(0, 171, 69);
       font-weight: 500;
     }
 
-    // Grandchildren
     .filter-item.level-1 {
-      padding-left: 0px;
+      padding-left: 0;
 
       .term-label {
         font-size: 12px;
         color: #777;
       }
+    }
+  }
+
+  .filter-item.level-2 {
+    padding: 6px 0 6px 10px;
+    list-style: none;
+
+    .term-label {
+      font-size: 12px;
+      color: #777;
+
+      &:hover { color: rgb(0, 171, 69); }
     }
   }
 }
@@ -366,6 +364,9 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     z-index: 9999;
     transform: translateX(-100%) !important;
     overflow-y: auto;
+    a.clear-selection{
+      display: none !important;
+    }
   }
   .shop_sidebar {
     display: none;
@@ -392,4 +393,5 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
   body.filters-modal-open {
     overflow: hidden;
   }
+
 }

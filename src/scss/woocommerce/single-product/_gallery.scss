@@ -16,7 +16,7 @@
 }
 
 .woocommerce-product-gallery.loading-gallery:after, .product-gallery.loading-gallery:after {
-display: none;
+  display: none;
   background: url(/wp-content/plugins/yith-woocommerce-color-label-variations-premium/assets/images/ajax-loader.gif) #F6F6F6 no-repeat center center !important;
 }
 
@@ -343,6 +343,19 @@ display: none;
     }
   }
   .rv-gallery-main {
+    .rv-gallery-wishlist {
+      .tinv-wraper.tinv-wishlist {
+
+        a {
+          margin-right: 0;
+        }
+      }
+
+      .tinvwl-tooltip {
+        display: none !important;
+      }
+    }
+
     .rv-gallery-controls {
       display: none;
     }

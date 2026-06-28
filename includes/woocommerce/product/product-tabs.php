@@ -75,6 +75,45 @@ if (!$has_tech && !$has_desc && !$has_projects) {
 $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
 ?>
 
+<?php if ($product->is_type('variable') && $has_attributes) :
+    $vt_base = [];
+    $vt_vars = [];
+
+    foreach ($product->get_attributes() as $attr_name => $attribute) {
+        if (!$attribute->get_visible() || $attribute->get_variation()) continue;
+        $label = wc_attribute_label($attribute->get_name());
+        if ($attribute->is_taxonomy()) {
+            $terms = wc_get_product_terms($product->get_id(), $attribute->get_name(), ['fields' => 'names']);
+            $value = implode(' / ', $terms);
+        } else {
+            $value = implode(' / ', $attribute->get_options());
+        }
+        if ($value !== '') $vt_base[] = ['label' => $label, 'value' => $value];
+    }
+
+    foreach ($product->get_available_variations() as $var) {
+        $var_id = $var['variation_id'];
+        $rows   = [];
+        foreach ($product->get_attributes() as $attr_name => $attribute) {
+            if (!$attribute->get_visible() || !$attribute->get_variation()) continue;
+            $label    = wc_attribute_label($attribute->get_name());
+            $attr_key = 'attribute_' . $attr_name;
+            $slug     = $var['attributes'][$attr_key] ?? '';
+            if ($slug === '') continue;
+            if ($attribute->is_taxonomy()) {
+                $term  = get_term_by('slug', $slug, $attribute->get_name());
+                $value = $term ? $term->name : $slug;
+            } else {
+                $value = $slug;
+            }
+            $rows[] = ['label' => $label, 'value' => $value];
+        }
+        $vt_vars[$var_id] = $rows;
+    }
+    ?>
+    <script>window.rvVariationTech = <?php echo wp_json_encode(['base' => $vt_base, 'vars' => $vt_vars]); ?>;</script>
+<?php endif; ?>
+
 <div id="tabdetails" class="rv-product-tabs" x-data="{ tab: '<?php echo $default_tab; ?>' }">
 
     <div class="rv-tabs-nav">

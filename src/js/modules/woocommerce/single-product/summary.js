@@ -82,6 +82,76 @@ export function initSummary() {
     }
 
     /* =========================
+     * SKU on variation change
+     * ========================= */
+    const skuEl      = summary.querySelector('.rv-product-sku');
+    const panelSkuEl = document.querySelector('.rv-mobile-panel-sku');
+
+    if (skuEl || panelSkuEl) {
+        const skuSpan          = skuEl?.querySelector('span');
+        const originalSku      = skuEl?.dataset.sku ?? '';
+        const originalSkuText  = skuSpan?.textContent ?? '';
+        const originalPanelSku = panelSkuEl?.textContent ?? '';
+
+        jQuery(document.body).on('found_variation.rvSku', (e, variation) => {
+            const hasSku = Boolean(variation.sku);
+            if (skuEl) {
+                skuEl.hidden = !hasSku;
+                if (hasSku) {
+                    skuEl.dataset.sku = variation.sku;
+                    if (skuSpan) skuSpan.textContent = 'Κωδικός: ' + variation.sku;
+                }
+            }
+            if (panelSkuEl) {
+                panelSkuEl.hidden = !hasSku;
+                if (hasSku) panelSkuEl.textContent = 'Κωδικός: ' + variation.sku;
+            }
+        });
+
+        jQuery(document.body).on('reset_data.rvSku', () => {
+            if (skuEl) {
+                skuEl.hidden = false;
+                skuEl.dataset.sku = originalSku;
+                if (skuSpan) skuSpan.textContent = originalSkuText;
+            }
+            if (panelSkuEl) {
+                panelSkuEl.hidden = false;
+                panelSkuEl.textContent = originalPanelSku;
+            }
+        });
+    }
+
+    /* =========================
+     * STOCK STATUS on variation change
+     * ========================= */
+    const stockEl = summary.querySelector('.rv-product-stock');
+
+    if (stockEl) {
+        const stockSpan     = stockEl.querySelector('span');
+        const originalClass = stockEl.className;
+        const originalLabel = stockSpan?.textContent ?? '';
+
+        const STOCK_MAP = {
+            in:        { label: 'Διαθέσιμο',           cls: 'rv-product-stock dot_icon stock-in' },
+            out:       { label: 'Μη διαθέσιμο',        cls: 'rv-product-stock dot_icon stock-out' },
+            backorder: { label: 'Κατόπιν παραγγελίας', cls: 'rv-product-stock dot_icon stock-backorder' },
+        };
+
+        jQuery(document.body).on('found_variation.rvStock', (e, variation) => {
+            let key = variation.is_in_stock ? 'in' : 'out';
+            if (!variation.is_in_stock && variation.backorders_allowed) key = 'backorder';
+            const { label, cls } = STOCK_MAP[key];
+            stockEl.className = cls;
+            if (stockSpan) stockSpan.textContent = label;
+        });
+
+        jQuery(document.body).on('reset_data.rvStock', () => {
+            stockEl.className = originalClass;
+            if (stockSpan) stockSpan.textContent = originalLabel;
+        });
+    }
+
+    /* =========================
      * COPY SKU
      * ========================= */
 

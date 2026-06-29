@@ -41,6 +41,32 @@ export function initYithModalCloseHandler() {
     });
 }
 
+export function initProductCatExclusiveFilter() {
+    // YITH tracks active state via .active class on .filter-item, not checkbox.checked.
+    // mergeProperties() joins active terms from all blocks with '+' — we prevent that
+    // by clearing .active on other product_cat blocks before YITH reads the DOM.
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('.yith-wcan-filter[data-taxonomy="product_cat"] label > a');
+        if (!link) return;
+
+        const clickedBlock = link.closest('.yith-wcan-filter');
+        const preset = link.closest('.yith-wcan-filters');
+        if (!clickedBlock || !preset) return;
+
+        preset.querySelectorAll('.yith-wcan-filter[data-taxonomy="product_cat"]').forEach(block => {
+            if (block === clickedBlock) return;
+            block.querySelectorAll('.filter-item.active').forEach(item => {
+                item.classList.remove('active');
+                const cb = item.querySelector('input[type="checkbox"]');
+                if (cb) {
+                    cb.checked = false;
+                    cb.closest('.checked')?.classList.remove('checked');
+                }
+            });
+        });
+    }, true);
+}
+
 let _yithInitCount = 0;
 
 export function initFilters() {

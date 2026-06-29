@@ -3,7 +3,7 @@ $title = get_field('faq_title');
 $faqs = get_field('faqs');
 ?>
 
-<section class="faq-section">
+<section class="faq-section" id="service_faq">
     <div class="faq-section__inner container">
 
         <!-- LEFT COLUMN (STICKY TITLE) -->

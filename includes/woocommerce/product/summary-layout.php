@@ -62,6 +62,13 @@ $default_open = $is_variable ? 'tech' : ($has_simple_attributes ? 'tech' : ($sam
         <div class="rv-accordion-item rv-accordion-item--static">
             <div class="rv-accordion-header">
                 <span>Τεχνικά Χαρακτηριστικά</span>
+                <div class="rv-accordion-arrow">
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black"
+                              stroke-width="1.82386"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
             </div>
             <div class="main_accodion_content">
                 <?php woocommerce_variable_add_to_cart(); ?>

@@ -238,7 +238,7 @@
   .rv-summary-accordion, .rv-offer-note-field {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 1vh;
     width: 100%;
 
     /* ========== ACCORDION ITEM ========== */
@@ -284,6 +284,20 @@
       font-size: 15px;
       font-weight: 500;
       color: $primary-color;
+
+      .rv-accordion-arrow {
+        transition: transform 0.3s ease;
+        border: solid 1px #D6D6D6;
+        width: 48px;
+        border-radius: 6px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-basis: auto;
+        flex-shrink: 0;
+        opacity: 0;
+      }
     }
 
     .rv-accordion-item > button, .rv-offer-note-field > button {
@@ -570,6 +584,7 @@
       border-radius: 6px;
       overflow: hidden;
       background: #fff;
+      margin-right: 10px;
     }
 
     /* =========================
@@ -774,7 +789,11 @@
   }
   @media screen and (max-width: 567px) {
     .rv-summary-accordion form.variations_form table.variations .select_box_image .select_option_image {
-      min-width: 90px;
+
+
+      &:last-child {
+        margin: 0;
+      }
     }
     .rv-summary-accordion .rv-tech-table {
 

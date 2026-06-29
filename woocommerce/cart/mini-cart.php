@@ -50,7 +50,7 @@ do_action('woocommerce_before_mini_cart'); ?>
                     ?>
                     <?php if ($sku) : ?>
                         <span class="mini-cart__sku">
-                              SKU: <?php echo esc_html($sku); ?>
+                              <?php esc_html_e( 'SKU:', 'ruined' ); ?> <?php echo esc_html($sku); ?>
                              </span>
                     <?php endif; ?>
                     <p class="mini-cart__title">
@@ -86,11 +86,11 @@ do_action('woocommerce_before_mini_cart'); ?>
         </div>
 
         <a href="<?php echo wc_get_cart_url(); ?>" class="button button--primary">
-            View cart
+            <?php esc_html_e( 'View cart', 'ruined' ); ?>
         </a>
 
         <a href="<?php echo wc_get_checkout_url(); ?>" class="button button--checkout">
-            Checkout
+            <?php esc_html_e( 'Checkout', 'ruined' ); ?>
         </a>
     </div>
 

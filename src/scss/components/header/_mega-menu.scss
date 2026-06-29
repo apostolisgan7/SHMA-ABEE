@@ -88,7 +88,7 @@
 }
 
 .mega-parent {
-  font-size: 30px;
+  font-size: clamp(20px, 1.7vw, 30px);
   font-weight: 300;
   color: #222;
   display: block;
@@ -108,7 +108,7 @@
 
 .mega-sub-link {
   position: relative;
-  font-size: 15px;
+  font-size: clamp(14px, 0.9vw, 15px);
   color: #2F2F2F;
   display: inline-flex;
   align-items: baseline;
@@ -161,7 +161,8 @@
           margin-left: 10px;
           transition: all 0.3s ease;
         }
-        &:hover{
+
+        &:hover {
           &:after {
             margin-left: 18px;
           }
@@ -183,6 +184,7 @@
     margin-top: 3vh;
     display: flex;
     gap: 1rem;
+
     a {
       font-size: 10px;
       font-weight: 400;
@@ -192,7 +194,7 @@
       color: #6D6D6D;
       transition: ease 0.3s;
 
-      &:hover{
+      &:hover {
         color: $secondary-color;
       }
     }

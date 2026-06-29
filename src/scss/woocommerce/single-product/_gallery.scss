@@ -149,6 +149,13 @@
         text-decoration: none;
       }
 
+      img {
+        width: 20px !important;
+        height: 20px;
+        max-width: 20px;
+        max-height: 20px;
+      }
+
       svg {
         width: 18px;
         height: 18px;
@@ -157,7 +164,7 @@
 
     .tinvwl-tooltip {
       display: block !important;
-      font-size: 14px;
+      font-size: 17px;
     }
   }
 

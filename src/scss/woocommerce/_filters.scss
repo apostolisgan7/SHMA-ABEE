@@ -20,6 +20,9 @@
     text-transform: uppercase;
     letter-spacing: 1px;
   }
+}
+
+.woocommerce {
 
   .yith-wcan-filters {
     background: transparent;
@@ -37,7 +40,7 @@
     .filter-title {
       font-size: .7rem;
       font-weight: 400;
-      letter-spacing: .08em;
+      letter-spacing: .04em;
       text-transform: uppercase;
       color: #BBBBBB;
       padding: 1rem 0 1rem;
@@ -47,14 +50,17 @@
       align-items: center;
 
       &.collapsable {
-        &:after {
+        &::after {
+          content: "";
+          display: block;
+          flex-shrink: 0;
           right: 5px;
           top: 5px;
           width: 35px;
           height: 35px;
           border: 1px solid currentColor;
-          border-radius: 4px;
-          background-size: 38% auto;
+          border-radius: 6px;
+          background-size: 29% auto;
           background-repeat: no-repeat;
           background-position: center;
         }
@@ -66,22 +72,38 @@
 
       button,
       .toggle {
-        background: #f9fafb;
-        border-radius: 8px;
-        width: 32px;
-        height: 32px;
+        flex-shrink: 0;
+        background: transparent;
+        border: 1px solid currentColor;
+        border-radius: 6px;
+        width: 35px;
+        height: 35px;
         display: grid;
         place-items: center;
+        padding: 0;
+        cursor: pointer;
       }
     }
 
     .filter-content {
       label {
+        line-height: 2.2;
+
         a {
-          font-size: 16px;
+          font-size: 15px;
 
           &:hover {
             color: $secondary-color !important;
+          }
+        }
+      }
+
+      ul.filter-items.filter-checkbox.level-0 {
+        li.filter-item.checkbox.level-0 {
+          font-weight: 600;
+
+          a {
+            font-size: 15px;
           }
         }
       }
@@ -90,12 +112,19 @@
         padding: 0;
         border-radius: 5px;
 
-        li {
-          line-height: 1.5;
+        a {
+          font-size: 15px;
+          font-weight: 400;
         }
 
-        a {
-          font-size: 14px;
+        ul.filter-items.filter-checkbox.level-1 {
+          li {
+            opacity: 0.6;
+
+            a {
+              font-size: 13px;
+            }
+          }
         }
       }
     }
@@ -110,49 +139,58 @@
       display: none;
     }
   }
-}
 
 
-.yith-wcan-active-filters {
-  h4 {
-    display: none;
-  }
+  .yith-wcan-active-filters {
+    h4 {
+      display: none;
+    }
 
-  .active-filter .active-filter-label {
-    background: #fff;
-    border: none;
-    padding-right: 30px;
+    .active-filter .active-filter-label {
+      background: #fff;
+      border: none;
+      padding-right: 30px;
 
-    &:after {
-      background-color: $primary-color;
-      right: 5px;
-      top: 5px;
+      &:after {
+        background-color: $primary-color;
+        right: 5px;
+        top: 5px;
+      }
     }
   }
-}
 
-button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
-  border: none;
-  border-bottom: 1px solid $primary-color;
-  padding: 0;
-  border-radius: 0;
-  font-size: 15px;
-  margin-bottom: 2rem;
-  background: transparent;
-  color: $primary-color;
-  font-weight: 500;
+  button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
+    border: none;
+    border-bottom: 1px solid $primary-color;
+    padding: 0;
+    border-radius: 0;
+    font-size: 15px;
+    margin-bottom: 2rem;
+    background: transparent;
+    color: $primary-color;
+    font-weight: 500;
 
+  }
 }
 
 /* ===============================
    STOCK FILTER – TOGGLE SWITCH
    =============================== */
 
+.filter-stock-sale {
+  h4.filter-title.collapsable.opened {
+    display: none;
+  }
+
+  .filter-items .filter-item label {
+    flex-direction: row-reverse;
+  }
+}
+
 .filter-item.filter-in-stock, .filter-item.filter-on-sale {
 
   label {
     position: relative;
-    display: inline-flex !important;
     align-items: center;
     gap: 10px;
     cursor: pointer;
@@ -185,7 +223,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
   label::after {
     content: "";
     position: absolute;
-    left: 2px;
+    right: 2px;
     top: 50%;
     width: 16px;
     height: 16px;
@@ -212,7 +250,7 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
   }
 
   label:has(input:checked)::after {
-    transform: translate(20px, -50%);
+    transform: translate(-20px, -50%);
   }
 
   label:has(input:checked) .term-label {
@@ -238,117 +276,6 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
 }
 
 
-#filter_425_0 {
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  .term-label {
-    color: #333;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    display: block;
-    padding: 2px 0;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: rgb(0, 171, 69);
-    }
-  }
-
-  // CSS grid places YITH's native toggle-handle to the right of the label, child ul below.
-  // YITH binds click only to toggle-handle (with stopPropagation + preventDefault),
-  // so clicking the name = filter selection only; clicking the arrow = hierarchy toggle only.
-  .filter-item.hierarchy-collapsable {
-    display: grid;
-    grid-template-columns: 1fr auto;
-
-    > label {
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    > ul {
-      grid-column: 1 / -1;
-      grid-row: 2;
-    }
-
-    > .toggle-handle {
-      grid-column: 2;
-      grid-row: 1;
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      color: #999;
-      user-select: none;
-      transition: color 0.2s ease;
-
-
-    }
-
-
-
-    // Show child ul when YITH marks item as opened (YITH's init doesn't explicitly
-    // slideDown items it marks opened, it just skips hiding them — PHP renders all
-    // child uls hidden, so we need CSS to reveal them for the opened state).
-    &.opened > ul,
-    &:has(ul input:checked) > ul {
-      display: block !important;
-    }
-  }
-
-  .filter-item.level-0 {
-    padding: 0;
-    list-style: none;
-
-    &.active > label .term-label,
-    &:has(> label input:checked) > label .term-label {
-      color: rgb(0, 171, 69);
-      font-weight: 600;
-    }
-  }
-
-  .filter-item.level-1 {
-    padding: 6px 0 6px 5px;
-    list-style: none;
-
-    .term-label {
-      font-size: 13px;
-      color: #555;
-    }
-
-    & input:checked ~ a {
-      color: rgb(0, 171, 69);
-      font-weight: 500;
-    }
-
-    .filter-item.level-1 {
-      padding-left: 0;
-
-      .term-label {
-        font-size: 12px;
-        color: #777;
-      }
-    }
-  }
-
-  .filter-item.level-2 {
-    padding: 6px 0 6px 10px;
-    list-style: none;
-
-    .term-label {
-      font-size: 12px;
-      color: #777;
-
-      &:hover { color: rgb(0, 171, 69); }
-    }
-  }
-}
-
 .yith-wcan-filters .yith-wcan-filter .filter-items .filter-item label {
   display: flex;
   justify-content: space-between;
@@ -364,7 +291,8 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     z-index: 9999;
     transform: translateX(-100%) !important;
     overflow-y: auto;
-    a.clear-selection{
+
+    a.clear-selection {
       display: none !important;
     }
   }
@@ -378,12 +306,19 @@ button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     overflow-y: scroll;
     padding: 20px;
     background: #f6f6f6;
+    border: none;
   }
   .yith-wcan-filters.filters-modal h3.mobile-only {
     background: #f6f6f6;
   }
   .yith-wcan-filters.filters-modal .yith-wcan-filter {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+    border: none;
+    border-radius: 6px;
+
+    .filter-content {
+      margin: 0;
+    }
   }
   .yith-wcan-filters.filters-modal.open {
     display: block;

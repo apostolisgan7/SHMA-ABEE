@@ -59,7 +59,7 @@ global $product;
             <?php if ($product->get_sku()) : ?>
                 <div class="rv-product-sku dot_icon" data-sku="<?php echo esc_attr($product->get_sku()); ?>">
                     <span>Κωδικός: <?php echo esc_html($product->get_sku()); ?></span>
-                    <button class="copy-sku" aria-label="Copy SKU">
+                    <button class="copy-sku" aria-label="<?php esc_attr_e( 'Copy SKU', 'ruined' ); ?>">
                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_0_2086)">
                                 <path d="M12.3885 5.57532H6.81318C6.12892 5.57532 5.57422 6.13002 5.57422 6.81428V12.3896C5.57422 13.0739 6.12892 13.6286 6.81318 13.6286H12.3885C13.0728 13.6286 13.6275 13.0739 13.6275 12.3896V6.81428C13.6275 6.13002 13.0728 5.57532 12.3885 5.57532Z"
@@ -88,7 +88,7 @@ global $product;
                         <circle cx="15.3979" cy="15.3979" r="15.3979" fill="black"/>
                         <path d="M12.7305 18.9425V13.3772C12.7305 12.7606 13.4057 12.3819 13.9319 12.7034L18.4853 15.4861C18.9891 15.794 18.9891 16.5257 18.4853 16.8336L13.9319 19.6163C13.4057 19.9378 12.7305 19.5592 12.7305 18.9425Z" fill="#F7F7F9"/>
                     </svg>
-                    Video Tutorial
+                    <?php esc_html_e( 'Video Tutorial', 'ruined' ); ?>
                 </a>
             <?php endif; ?>
 

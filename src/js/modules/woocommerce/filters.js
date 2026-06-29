@@ -4,7 +4,9 @@ function moveModalToBody() {
     if (window.innerWidth > MOBILE_BREAKPOINT) return;
     const inSidebar = document.querySelector('.yith-wcan-filters:not(body > .yith-wcan-filters)');
     if (!inSidebar) return;
-    document.querySelectorAll('body > .yith-wcan-filters').forEach(el => el.remove());
+    document.querySelectorAll('body > .yith-wcan-filters').forEach(el => {
+        if (el !== inSidebar) el.remove();
+    });
     document.body.appendChild(inSidebar);
 }
 

@@ -2,7 +2,7 @@
 function rv_button_arrow( $args = [] ) {
     // default values
     $defaults = [
-        'text'          => 'Read more',
+        'text'          => __( 'Read more', 'ruined' ),
         'url'           => '#',
         'target'        => '_self',
         'variant'       => 'black', // black | white

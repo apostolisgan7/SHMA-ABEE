@@ -118,14 +118,14 @@ $header_class = 'header-' . esc_attr($header_color);
                 </div>
                 <div class="menu_btn">
                     <span class="menu-text">MENOY</span>
-                    <button class="desktop-menu-button" type="button" aria-label="Open menu">
+                    <button class="desktop-menu-button" type="button" aria-label="<?php esc_attr_e( 'Open menu', 'ruined' ); ?>">
                     <span><span class="line line--top"></span>
                             <span class="line line--center"></span>
                     <span class="line line--bottom"></span>
 
                     </button>
                 </div>
-                <button href="#menu" class="mobile-menu-button" aria-label="Open menu">
+                <button href="#menu" class="mobile-menu-button" aria-label="<?php esc_attr_e( 'Open menu', 'ruined' ); ?>">
                     <span class="line line--top"></span>
                     <span class="line line--center"></span>
                     <span class="line line--bottom"></span>

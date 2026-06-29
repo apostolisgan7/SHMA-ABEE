@@ -136,7 +136,7 @@ if ($menu_items) {
                         <div class="mega-bottom">
                             <div class="footer-links">
                                 <span>ολα τα προιοντα μασ</span>
-                                <span>product resources</span>
+                                <span><?php esc_html_e( 'product resources', 'ruined' ); ?></span>
                             </div>
                         </div>
 

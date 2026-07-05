@@ -12,7 +12,7 @@ $bg = $banner_image ? 'style="background-image:url(' . esc_url($banner_image['ur
     <div class="service-banner__bg" <?= $bg ?>></div>
     <div class="service-banner__overlay"></div>
 
-    <div class="service-banner__inner container smaller-container">
+    <div class="service-banner__inner container">
 
         <!-- LEFT -->
         <div class="service-banner__left">

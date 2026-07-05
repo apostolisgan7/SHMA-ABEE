@@ -15,8 +15,7 @@
     height: 100%;
     background: radial-gradient(circle at center, rgba(23, 184, 58, 0.4) 0%, rgba(0, 177, 90, 0) 50%);
     pointer-events: none;
-    animation: floatGlow 2s
-    ease-in-out infinite alternate;
+    animation: floatGlow 2s ease-in-out infinite alternate;
   }
 
   &__inner {
@@ -37,6 +36,7 @@
 
   &__title {
     margin-bottom: 40px;
+
     p {
       font-size: clamp(1.5rem, 4vw, 3rem);
       line-height: 1.15;
@@ -114,16 +114,17 @@
   }
 
   @media (max-width: 576px) {
-    .service-characteristics__item{
+    .service-characteristics__item {
       gap: 15px;
     }
     .service-characteristics__item-title {
       font-size: 1rem;
     }
-   .service-characteristics__icon{
-      width: 50px ;
+    .service-characteristics__icon {
+      width: 50px;
+      min-width: 50px;
       height: 50px;
-     border: 1.5px solid #33CF1B;
+      border: 1.5px solid #33CF1B;
     }
   }
 }

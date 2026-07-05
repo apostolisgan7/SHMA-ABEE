@@ -2,6 +2,8 @@
 
 // Pre-hide header items — cleared by initHeaderAnimation before first paint
 [data-header-anim] {
+  opacity: 0;
+
   .header-left,
   .header-right > * {
     opacity: 0;

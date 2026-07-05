@@ -26,6 +26,17 @@
       position: absolute;
       inset: 0;
       overflow: hidden;
+
+      // background-attachment: fixed is broken on iOS (WebKit doesn't render it inside
+      // this overflow:hidden stack) and glitches on Android during scroll compositing.
+      // On touch devices the parallax movement is instead driven by JS (initScrollVideo,
+      // translateY via GSAP ScrollTrigger) so the element is oversized top/bottom to
+      // leave room for that translate without exposing gaps at the edges.
+      @media (hover: none) and (pointer: coarse) {
+        background-attachment: scroll !important;
+        top: -20%;
+        bottom: -20%;
+      }
     }
 
     &__video {

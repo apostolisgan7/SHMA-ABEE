@@ -235,7 +235,14 @@
     .rv-tech-layout {
       grid-template-columns: 1fr;
     }
+    .rv-tech-right {
+      margin-top: 40px;
 
+      h3 {
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+    }
     .rv-tech-table .row {
       grid-template-columns: 1fr;
       gap: 6px;
@@ -259,15 +266,18 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
+    margin-top: 30px;
     .row {
       grid-template-columns: 1fr;
       gap: 6px;
     }
 
     .rv-tabs-nav {
+      padding: 0rem 2rem 0;
       gap: 20px;
       overflow-x: auto;
       overflow-y: hidden;
+      margin-bottom: 20px;
 
       &::-webkit-scrollbar-track {
         background: #fcfcfc;
@@ -283,7 +293,7 @@
       }
 
       &::-webkit-scrollbar {
-        height:0px;
+        height: 0px;
       }
 
       button {

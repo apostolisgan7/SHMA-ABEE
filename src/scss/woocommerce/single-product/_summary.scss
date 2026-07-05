@@ -191,11 +191,12 @@
 
   @media screen and (max-width: 768px) {
     padding: 3vh 0 0;
+
     .rv-product-header {
       .rv-product-price-row {
-        flex-direction: column;
+        margin-top: 1.5vh;
         align-items: flex-start;
-        gap: 0;
+        gap: 16px;
 
         .dot_icon {
           padding: 0;
@@ -209,7 +210,7 @@
 
       .rv-product-actions {
         a {
-          font-size: 12px;
+          font-size: 13px;
         }
       }
     }
@@ -242,7 +243,7 @@
     width: 100%;
 
     /* ========== ACCORDION ITEM ========== */
-    .rv-accordion-item, {
+    .rv-accordion-item {
       background: transparent;
       border-radius: 6px;
       overflow: hidden;
@@ -260,16 +261,21 @@
       background: transparent;
       border-radius: 6px;
       overflow: hidden;
-      margin: 1rem 0 10px;
+      margin: 1vh 0;
       width: 100%;
+      gap: 0;
 
       textarea {
         background: #fff;
         border-radius: 6px;
         padding: 18px 20px;
         font-size: 14px;
+        margin-bottom: 0;
       }
 
+      > div {
+        padding-top: 1vh;
+      }
     }
 
     /* ========== HEADER ========== */
@@ -344,11 +350,22 @@
       }
     }
 
+    // rv-offer-note-toggle: arrow should point down at rest, up when expanded — reversed vs. the default above
+    button.rv-offer-note-toggle {
+      .rv-accordion-arrow svg {
+        transform: rotate(180deg);
+      }
+
+      &[aria-expanded="true"] .rv-accordion-arrow svg {
+        transform: rotate(0deg);
+      }
+    }
+
 
     /* ========== CONTENT ========== */
+
     .rv-accordion-item > div {
       padding: 20px;
-      margin-top: 1vh;
       background: #fff;
       border: none;
       border-radius: 6px;
@@ -670,7 +687,7 @@
 
     .woocommerce-variation-add-to-cart.variations_button {
       display: flex;
-      margin-top: 2vh;
+      margin-top: 0;
 
       .tinv-wraper.tinv-wishlist {
         display: none;
@@ -765,7 +782,7 @@
 
     .row {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
       padding: 10px 14px;
       border-bottom: 1px solid rgba(214, 214, 214, 0.63);

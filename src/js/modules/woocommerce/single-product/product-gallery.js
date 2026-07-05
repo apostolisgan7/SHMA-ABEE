@@ -226,7 +226,7 @@ function initZoomLens(container) {
 
             const dpr = window.devicePixelRatio || 1;
             const maxZoom = fullWidth
-                ? Math.min(ZOOM, fullWidth / (imgRect.width * dpr))
+                ? Math.max(1.2, Math.min(ZOOM, fullWidth / (imgRect.width * dpr)))
                 : ZOOM;
 
             lens.style.opacity = '1';

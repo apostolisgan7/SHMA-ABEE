@@ -188,28 +188,40 @@ export function initHeaderAnimation() {
         inner.querySelectorAll('.header-right > *:not(.menu_btn):not(.mobile-menu-button)')
     );
 
+    const tl = gsap.timeline({ delay: 0.2 });
+
+    // header-inner (backdrop blur / bg) fades in first, before any child element
+    tl.fromTo(inner,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.4, ease: 'power2.out' },
+        0
+    );
+
     // Logo slides in from left
-    gsap.fromTo(left,
+    tl.fromTo(left,
         { autoAlpha: 0, x: -18 },
-        { autoAlpha: 1, x: 0, duration: 1.2, ease: 'power3.out', delay: 0.4 }
+        { autoAlpha: 1, x: 0, duration: 1.2, ease: 'power3.out' },
+        0.4
     );
 
     // Other header items stagger in from top
     if (staggerItems.length) {
-        gsap.fromTo(staggerItems,
+        tl.fromTo(staggerItems,
             { autoAlpha: 0, y: -14 },
-            { autoAlpha: 1, y: 0, duration: 1.3, stagger: 0.07, ease: 'power3.out', delay: 0.5 }
+            { autoAlpha: 1, y: 0, duration: 1.3, stagger: 0.07, ease: 'power3.out' },
+            0.5
         );
     }
 
     // menu_btn animates at the same time as the first items — not after the stagger
-    [menuBtn, mobileBtn].forEach(el => {
-        if (!el) return;
-        gsap.fromTo(el,
+    const menuEls = [menuBtn, mobileBtn].filter(Boolean);
+    if (menuEls.length) {
+        tl.fromTo(menuEls,
             { autoAlpha: 0, y: -14 },
-            { autoAlpha: 1, y: 0, duration: 1.3, ease: 'power3.out', delay: 0.5 }
+            { autoAlpha: 1, y: 0, duration: 1.3, ease: 'power3.out' },
+            0.5
         );
-    });
+    }
 }
 
 /* ─────────────────────────────────────────────

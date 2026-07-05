@@ -43,34 +43,35 @@ $title_html = $title ? wp_kses_post($title) : '';
                         <?php echo wp_kses_post($text); ?>
                     </div>
                 <?php endif; ?>
+                <!-- LOGOS -->
+                <?php if (!empty($logos)): ?>
+                    <div class="block-text-with-logos__logos" data-animate="stagger-fade" data-animate-stagger="0.07">
+                        <?php foreach ($logos as $row): ?>
+                            <?php
+                            $logo = $row['logo'] ?? null;
+                            if (empty($logo) || empty($logo['ID'])) continue;
+                            ?>
+                            <div class="block-text-with-logos__logo">
+                                <?php
+                                echo wp_get_attachment_image(
+                                        $logo['ID'],
+                                        'medium',
+                                        false,
+                                        [
+                                                'loading' => 'lazy',
+                                                'alt'     => esc_attr($logo['alt'] ?? ''),
+                                        ]
+                                );
+                                ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
 
         </div>
 
-        <!-- LOGOS -->
-        <?php if (!empty($logos)): ?>
-            <div class="block-text-with-logos__logos" data-animate="stagger-fade" data-animate-stagger="0.07">
-                <?php foreach ($logos as $row): ?>
-                    <?php
-                    $logo = $row['logo'] ?? null;
-                    if (empty($logo) || empty($logo['ID'])) continue;
-                    ?>
-                    <div class="block-text-with-logos__logo">
-                        <?php
-                        echo wp_get_attachment_image(
-                            $logo['ID'],
-                            'medium',
-                            false,
-                            [
-                                'loading' => 'lazy',
-                                'alt'     => esc_attr($logo['alt'] ?? ''),
-                            ]
-                        );
-                        ?>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+
 
     </div>
 </section>

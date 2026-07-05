@@ -78,13 +78,33 @@
         outline: none;
       }
 
+      &.is-open {
+        .shop-sorting__icon {
+          opacity: 1;
+        }
+
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      opacity: .7;
+      outline: 1px solid #9c9c9c;
+      outline-offset: 5px;
+      border-radius: 1px;
+      transition: opacity .2s ease;
+
       svg {
-        opacity: .7;
-        width: 25px;
-        height: 25px;
-        outline: 1px solid #9c9c9c;
-        outline-offset: 5px;
-        border-radius: 1px;
+        width: 100%;
+        height: 100%;
+        transition: transform .3s ease;
       }
     }
 
@@ -359,7 +379,7 @@ body.shop-view-list {
     &__wishlist {
       position: absolute;
       top: 50%;
-      right: 105px;
+      right: 85px;
       transform: translateY(-50%);
       opacity: 0;
       transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);

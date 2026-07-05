@@ -76,13 +76,16 @@
         >
             <button
                     class="shop-sorting__trigger"
+                    :class="{ 'is-open': open }"
                     @click="open = !open"
                     type="button"
             >
                 <span x-text="currentLabel"></span>
-                <svg width="14" height="14" viewBox="0 0 20 20">
-                    <path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1"/>
-                </svg>
+                <span class="shop-sorting__icon">
+                    <svg width="14" height="14" viewBox="0 0 20 20">
+                        <path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1"/>
+                    </svg>
+                </span>
             </button>
 
             <div

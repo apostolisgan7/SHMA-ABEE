@@ -86,7 +86,7 @@
     }
   }
 
-  /* ===== GRID LAYOUT (Desktop) ===== */
+  /* ===== GRID LAYOUT (Desktop + Mobile, stacked) ===== */
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -95,8 +95,10 @@
     margin: 0 -1rem;
     padding: 0 1rem;
 
+    // Mobile: same "one below the other" stack as .rv-home-services__list,
+    // no slider — just collapse to a single column instead of hiding it.
     @media (max-width: 991px) {
-      display: none;
+      grid-template-columns: 1fr;
     }
   }
 
@@ -113,7 +115,7 @@
     }
   }
 
-  /* ===== CAROUSEL LAYOUT (Mobile) ===== */
+  /* ===== CAROUSEL LAYOUT (disabled — mobile now uses __grid stacked instead) ===== */
   &__carousel {
     display: none !important;
     position: relative;
@@ -121,12 +123,6 @@
     margin: 0 -1rem;
     padding: 0 1rem 3rem;
     margin-right: calc(-50vw + 50% + var(--scrollbar-width, 0px) / 2) !important;
-
-
-
-    @media (max-width: 991px) {
-      display: block !important;
-    }
 
     .swiper-wrapper {
       align-items: stretch;

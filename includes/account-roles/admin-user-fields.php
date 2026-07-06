@@ -25,8 +25,8 @@ function sigma_admin_entity_fields($user) {
 
     $roles = (array) $user->roles;
 
-    // Εμφάνιση μόνο για Company ή Municipality
-    if (!array_intersect($roles, ['company', 'municipality'])) {
+    // Εμφάνιση για Customer, Company ή Municipality
+    if (!array_intersect($roles, ['customer', 'company', 'municipality'])) {
         return;
     }
 

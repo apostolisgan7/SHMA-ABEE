@@ -32,6 +32,7 @@ export function initMobileStickyPanel() {
 
     const overlay  = panel.querySelector('.rv-mobile-panel-overlay');
     const closeBtn = panel.querySelector('.rv-mobile-panel-close');
+    const drawerEl = panel.querySelector('.rv-mobile-panel-drawer');
 
     let isOpen         = false;
     let summaryInPanel = false;
@@ -72,6 +73,9 @@ export function initMobileStickyPanel() {
         isOpen = true;
     }
 
+    // Matches the .rv-mobile-panel-drawer transform transition duration
+    const DRAWER_TRANSITION_MS = 400;
+
     function closePanel() {
         stickyBtn.focus(); // return focus before aria-hidden is set
         panel.classList.remove('is-open');
@@ -80,10 +84,23 @@ export function initMobileStickyPanel() {
         stickyBtn.querySelector('span').textContent = 'Αίτηση Προσφοράς';
         unlockBodyScroll();
         initSmoothScroll();
-
-        // Move summary back so it stays in its original DOM location
-        restoreSummary();
         isOpen = false;
+
+        // Wait for the slide-down animation to finish before ripping the
+        // summary out of the drawer body, otherwise the drawer visibly
+        // empties out mid-transition instead of just sliding away.
+        let done = false;
+        const finish = () => {
+            if (done) return;
+            done = true;
+            drawerEl?.removeEventListener('transitionend', onTransitionEnd);
+            restoreSummary();
+        };
+        const onTransitionEnd = (e) => {
+            if (e.target === drawerEl && e.propertyName === 'transform') finish();
+        };
+        drawerEl?.addEventListener('transitionend', onTransitionEnd);
+        setTimeout(finish, DRAWER_TRANSITION_MS + 50);
     }
 
     stickyBtn.addEventListener('click', () => {
@@ -103,5 +120,12 @@ export function initMobileStickyPanel() {
         resizeTimer = setTimeout(() => {
             if (!isMobile() && isOpen) closePanel();
         }, 100);
+    });
+
+    // Close the drawer in the same tick the minicart opens (e.g. after adding
+    // a request for quote from inside the drawer), so it doesn't stay stacked
+    // behind it and the two transitions don't run one after the other.
+    document.addEventListener('ruined:offcanvas-cart:opening', () => {
+        if (isOpen) closePanel();
     });
 }

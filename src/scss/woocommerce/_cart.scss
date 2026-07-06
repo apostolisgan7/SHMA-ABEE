@@ -1,5 +1,15 @@
 @use '../abstracts' as *;
 // Cart Page
+
+
+.woocommerce #content table.cart .product-thumbnail, .woocommerce table.cart .product-thumbnail, .woocommerce-page #content table.cart .product-thumbnail, .woocommerce-page table.cart .product-thumbnail {
+  display: table-cell;
+
+  img {
+
+  }
+}
+
 .woocommerce-cart {
   footer {
     .footer-main {
@@ -215,7 +225,7 @@ button#ywraq-list-to-pdf {
 #yith-ywrq-table-list .product-name li {
   margin: 0 0 7px;
   color: #555;
-  font-size: 12px !important;
+  font-size: 14px !important;
   line-height: 1;
 }
 
@@ -316,9 +326,15 @@ button#ywraq-list-to-pdf {
   color: #111;
 }
 
+#yith-ywrq-table-list .product-quantity {
+  text-align: left;
+  padding: 0;
+}
+
 .yith-ywraq-mail-form-wrapper form {
   margin: 0;
 }
+
 
 .yith-ywraq-mail-form-wrapper .form-row {
   position: relative;
@@ -422,10 +438,56 @@ button#ywraq-list-to-pdf {
   }
 }
 
+@media (min-width: 769px) {
+  #yith-ywrq-table-list .product-thumbnail {
+    width: 120px;
+    padding: 0;
+
+    img {
+      width: 120px;
+      border-radius: 5px;
+    }
+  }
+}
+
 @media (max-width: 768px) {
+
+  .woocommerce #content table.cart .product-thumbnail, .woocommerce table.cart .product-thumbnail, .woocommerce-page #content table.cart .product-thumbnail, .woocommerce-page table.cart .product-thumbnail {
+
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+  }
   .woocommerce.ywraq-wrapper {
     margin: 40px auto;
-    padding: 15vh 16px 5vh;
+    padding: 15vh 5px 5vh;
+  }
+
+  #yith-ywrq-table-list tbody tr.cart_item {
+    position: relative;
+    padding: 30px 0;
+
+    &:first-child {
+      padding: 0 0 30px;
+    }
+
+    .product-quantity {
+      padding: 0;
+    }
+
+    .product-remove {
+      position: absolute;
+      top: 10%;
+      right: 8%;
+
+      a.yith-ywraq-item-remove.remove {
+        width: 40px;
+        height: 40px;
+        border: none;
+      }
+    }
   }
 
   #yith-ywrq-table-list thead {
@@ -438,10 +500,6 @@ button#ywraq-list-to-pdf {
   #yith-ywrq-table-list td {
     display: block;
     width: 100%;
-  }
-
-  #yith-ywrq-table-list tbody tr.cart_item {
-    padding: 0px;
   }
 
   #yith-ywrq-table-list tbody td {
@@ -463,6 +521,7 @@ button#ywraq-list-to-pdf {
 
   #yith-ywrq-table-list .product-quantity {
     text-align: left;
+    padding: 0;
   }
 
   .update-list-wrapper {
@@ -473,5 +532,20 @@ button#ywraq-list-to-pdf {
   .update-list-wrapper .button,
   .update-list-wrapper input[type="submit"] {
     width: 100%;
+  }
+  .yith-ywraq-before-table {
+    margin: 24px auto;
+  }
+  a.button.wc-backward.yith-ywraq-before-table-wc-backward {
+    font-size: 18px !important;
+
+    &:before {
+      width: 35px !important;
+      height: 35px !important;
+    }
+
+    &:after {
+      left: 11px !important;
+    }
   }
 }

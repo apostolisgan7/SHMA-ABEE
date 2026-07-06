@@ -121,12 +121,13 @@
     border-radius: 6px;
     top: 12px;
     right: 12px;
-    z-index: 10;
+    z-index: 99;
     line-height: 1;
 
     .tinv-wraper.tinv-wishlist {
       width: auto;
       height: auto;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -135,8 +136,15 @@
       text-decoration: none;
       padding: 10px  14px  10px  10px;
 
+      img{
+        transition: all 0.3s ease;
+      }
       &:hover {
-        background: #fff;
+        background: black;
+        color: #fff;
+        img{
+          filter: brightness(0) invert(1);
+        }
       }
 
       a {

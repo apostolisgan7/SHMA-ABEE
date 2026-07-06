@@ -7,8 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'admin_menu', function () {
     add_submenu_page(
         'users.php',
-        'Εγγραφές B2B',
-        'Εγγραφές B2B',
+        'Κατάλογος Πελατών',
+        'Κατάλογος Πελατών',
         'manage_options',
         'sigma-registrations',
         'sigma_registrations_page'
@@ -35,7 +35,7 @@ function sigma_ajax_update_status() {
     }
 
     $user = get_userdata( $user_id );
-    if ( ! $user || ! array_intersect( [ 'company', 'municipality' ], (array) $user->roles ) ) {
+    if ( ! $user || ! array_intersect( [ 'customer', 'company', 'municipality' ], (array) $user->roles ) ) {
         wp_send_json_error( [ 'message' => 'User not found' ], 404 );
     }
 
@@ -58,6 +58,7 @@ function sigma_send_approval_email( $user ) {
 
     $entity_name = get_user_meta( $user->ID, 'company_name', true )
         ?: get_user_meta( $user->ID, 'municipality_name', true )
+        ?: get_user_meta( $user->ID, 'customer_name', true )
         ?: $user->display_name;
 
     $subject = sprintf( __( 'Ο λογαριασμός σας εγκρίθηκε — %s', 'ruined' ), $site_name );
@@ -99,7 +100,7 @@ function sigma_registrations_page() {
     if ( ! current_user_can( 'manage_options' ) ) return;
 
     $users = get_users( [
-        'role__in' => [ 'company', 'municipality' ],
+        'role__in' => [ 'customer', 'company', 'municipality' ],
         'orderby'  => 'registered',
         'order'    => 'DESC',
     ] );
@@ -107,8 +108,8 @@ function sigma_registrations_page() {
     $nonce = wp_create_nonce( 'sigma_update_status' );
     ?>
     <div class="wrap sigma-reg-wrap">
-        <h1>Εγγραφές B2B</h1>
-        <p class="sigma-reg-subtitle">Λίστα εταιρειών &amp; δήμων που έχουν κάνει αίτηση εγγραφής.</p>
+        <h1>Κατάλογος Πελατών</h1>
+        <p class="sigma-reg-subtitle">Λίστα πελατών που έχουν κάνει αίτηση εγγραφής.</p>
 
         <?php if ( empty( $users ) ) : ?>
             <div class="sigma-reg-empty">Δεν υπάρχουν εγγραφές ακόμα.</div>
@@ -128,15 +129,22 @@ function sigma_registrations_page() {
             </thead>
             <tbody>
             <?php foreach ( $users as $user ) :
-                $status   = get_user_meta( $user->ID, '_sigma_account_status', true ) ?: 'pending';
-                $roles    = (array) $user->roles;
-                $is_co    = in_array( 'company', $roles, true );
-                $name     = $is_co
+                // Χρήστες από πριν το approval flow δεν έχουν αυτό το meta καθόλου —
+                // τους θεωρούμε ήδη εγκεκριμένους αντί να τους δείχνουμε "σε αναμονή".
+                $raw_status = get_user_meta( $user->ID, '_sigma_account_status', true );
+                $status     = $raw_status ?: 'approved';
+                $roles      = (array) $user->roles;
+                $is_co      = in_array( 'company', $roles, true );
+                $is_muni    = in_array( 'municipality', $roles, true );
+                $name       = $is_co
                     ? get_user_meta( $user->ID, 'company_name', true )
-                    : get_user_meta( $user->ID, 'municipality_name', true );
+                    : ( $is_muni
+                        ? get_user_meta( $user->ID, 'municipality_name', true )
+                        : get_user_meta( $user->ID, 'customer_name', true ) );
                 $phone    = get_user_meta( $user->ID, 'phone', true );
                 $vat      = get_user_meta( $user->ID, 'vat', true );
-                $type_lbl = $is_co ? 'Εταιρεία' : 'Δήμος';
+                $type_key = $is_co ? 'company' : ( $is_muni ? 'municipality' : 'customer' );
+                $type_lbl = $is_co ? 'Εταιρεία' : ( $is_muni ? 'Δήμος' : 'Ιδιώτης' );
                 $reg_date = date_i18n( 'd/m/Y', strtotime( $user->user_registered ) );
 
                 // JSON data για το popup
@@ -156,7 +164,7 @@ function sigma_registrations_page() {
                     <td><?php echo esc_html( $user->user_email ); ?></td>
                     <td><?php echo esc_html( $phone ?: '—' ); ?></td>
                     <td><?php echo esc_html( $vat ?: '—' ); ?></td>
-                    <td><span class="sigma-type-badge sigma-type-<?php echo $is_co ? 'company' : 'municipality'; ?>"><?php echo $type_lbl; ?></span></td>
+                    <td><span class="sigma-type-badge sigma-type-<?php echo esc_attr( $type_key ); ?>"><?php echo $type_lbl; ?></span></td>
                     <td><?php echo $reg_date; ?></td>
                     <td>
                         <span class="sigma-status sigma-status-<?php echo esc_attr( $status ); ?>">
@@ -216,6 +224,7 @@ function sigma_registrations_page() {
     .sigma-type-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
     .sigma-type-company      { background: #e8f0fe; color: #1a56db; }
     .sigma-type-municipality { background: #fef3c7; color: #92400e; }
+    .sigma-type-customer     { background: #f3e8ff; color: #6b21a8; }
 
     .sigma-status { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
     .sigma-status-pending  { background: #fff7ed; color: #c2410c; }

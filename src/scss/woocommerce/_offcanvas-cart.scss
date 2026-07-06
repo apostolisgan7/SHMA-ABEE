@@ -21,9 +21,12 @@
   border-radius: 20px;
 
   @media (max-width: 480px) {
-    min-height: calc(100vh - 16px);
+    // top+bottom instead of height:vh so Chrome's bottom tab bar
+    // (which shrinks the visible viewport, not the vh unit) doesn't
+    // clip the content — matches the approach used for .mobile-menu.
     height: auto;
     top: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
     left: 0;
 
     &.is-open {
@@ -292,11 +295,8 @@
   }
 
   &__footer {
-    position: sticky;
-    bottom: 0;
-    margin-top: 2rem;
+    margin-top: auto;
     padding-top: 1.2rem;
-    border-top: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
     gap: .75rem;

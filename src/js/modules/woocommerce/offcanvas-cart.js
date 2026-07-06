@@ -21,6 +21,11 @@ export function initOffcanvasCart() {
     // ── Open / Close ──────────────────────────────────────────────────────────
     function toggleCart(show = true) {
         if (show) {
+            // Let other UI (e.g. the mobile request-quote drawer) close itself
+            // in the same tick, instead of on the earlier "added" event, so
+            // the two transitions don't visibly happen one after the other.
+            document.dispatchEvent(new CustomEvent('ruined:offcanvas-cart:opening'));
+
             document.body.classList.add('offcanvas-cart-open');
             cart.classList.add('is-open');
             window.__lenis__?.stop();

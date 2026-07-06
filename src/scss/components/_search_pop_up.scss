@@ -508,11 +508,15 @@
 
 @media screen and (max-width: 767px) {
   .search-popup {
+    // top+bottom instead of centered + vh min-height, so Chrome's bottom
+    // tab bar (which shrinks the visible viewport, not the vh unit)
+    // doesn't clip the popup — matches the approach used for .mobile-menu.
     width: calc(100% - 1rem);
-    top: 50%;
+    top: 1.5rem;
     left: 50%;
-    transform: translate(-50%, -50%);
-    min-height: calc(100vh - 1rem);
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    height: auto;
 
 
     .search-header {

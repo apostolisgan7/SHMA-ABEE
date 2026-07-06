@@ -247,6 +247,9 @@
       background: transparent;
       border-radius: 6px;
       overflow: hidden;
+      gap: 1vh;
+      display: flex;
+      flex-direction: column;
 
       .rv-tech-table {
         padding: 20px;
@@ -279,30 +282,35 @@
     }
 
     /* ========== HEADER ========== */
-    .rv-accordion-item--static .rv-accordion-header {
-      background: #fff;
-      border: none;
-      border-radius: 6px;
-      width: 100%;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      font-size: 15px;
-      font-weight: 500;
-      color: $primary-color;
-
-      .rv-accordion-arrow {
-        transition: transform 0.3s ease;
-        border: solid 1px #D6D6D6;
-        width: 48px;
+    .rv-accordion-item--static {
+      .main_accodion_content{
+        margin-top: 0 !important;
+      }
+      .rv-accordion-header {
+        background: #fff;
+        border: none;
         border-radius: 6px;
-        height: 48px;
+        width: 100%;
+        padding: 18px 20px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-basis: auto;
-        flex-shrink: 0;
-        opacity: 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: $primary-color;
+
+        .rv-accordion-arrow {
+          transition: transform 0.3s ease;
+          border: solid 1px #D6D6D6;
+          width: 48px;
+          border-radius: 6px;
+          height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-basis: auto;
+          flex-shrink: 0;
+          opacity: 0;
+        }
       }
     }
 
@@ -446,6 +454,10 @@
             position: relative;
             transition: ease-in-out 0.2s;
 
+            &:last-child {
+              margin-right: 0;
+            }
+
             img.yith_wccl_value {
               max-width: 100%;
               height: 50px;
@@ -479,20 +491,6 @@
 
               &::after {
                 color: $secondary-color;
-              }
-
-              // CSS triangle corner indicator — uses only ::before so ::after stays free for the label
-              &::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 0;
-                height: 0;
-                border-style: solid;
-                border-width: 6px;
-                border-color: $secondary-color;
-                z-index: 0;
               }
             }
           }

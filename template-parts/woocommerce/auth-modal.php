@@ -46,9 +46,9 @@ if (!defined('ABSPATH')) {
         <div class="sigma-auth-roles">
             <div class="sigma-auth-roles-inner" role="tablist" aria-label="<?php esc_attr_e('Επιλογή τύπου λογαριασμού', 'ruined'); ?>">
                 <div class="sigma-auth-roles-pill" role="presentation"></div>
-                <button type="button" 
-                        class="sigma-auth-role-btn is-active" 
-                        data-role="individual"
+                <button type="button"
+                        class="sigma-auth-role-btn is-active"
+                        data-role="customer"
                         role="tab"
                         id="tab-individual"
                         aria-selected="true"
@@ -129,7 +129,7 @@ if (!defined('ABSPATH')) {
             </div>
 
             <span class="sigma-auth-footer-brand">
-               σημα αββε 2025
+           © 2026 ΣΗΜΑ Α.Β.Ε.Ε.
             </span>
         </div>
 

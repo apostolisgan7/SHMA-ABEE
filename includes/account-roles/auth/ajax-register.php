@@ -120,17 +120,12 @@ function sigma_ajax_register() {
     }
 
     // 🛠 Δημιουργία Χρήστη μέσω WooCommerce
-    // Για company/municipality: απενεργοποιούμε το WC welcome email (θα στείλουμε custom pending email)
-    $is_pending_type = in_array( $type, ['company', 'municipality'], true );
-    if ( $is_pending_type ) {
-        add_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
-    }
+    // Απενεργοποιούμε το WC welcome email (θα στείλουμε custom pending email)
+    add_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
 
     $user_id = wc_create_new_customer( $email, '', $password );
 
-    if ( $is_pending_type ) {
-        remove_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
-    }
+    remove_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
 
     if ( is_wp_error( $user_id ) ) {
         sigma_rate_limit_hit( $rl_key, 600 );
@@ -142,131 +137,108 @@ function sigma_ajax_register() {
 
     /**
      * -----------------------------------------------------------------
-     * 🚀 PENDING APPROVAL LOGIC
+     * 🚀 PENDING APPROVAL LOGIC (όλοι οι τύποι λογαριασμού)
      * -----------------------------------------------------------------
      */
-    if ( in_array($type, ['company', 'municipality'], true) ) {
 
-        // 1. Ορισμός κατάστασης σε "pending"
-        update_user_meta($user_id, '_sigma_account_status', 'pending');
+    // 1. Ορισμός κατάστασης σε "pending"
+    update_user_meta($user_id, '_sigma_account_status', 'pending');
 
-        // 2. Ειδοποίηση στον Διαχειριστή (Email)
-        $admin_email  = get_option( 'admin_email' );
-        $site_name    = get_bloginfo( 'name' );
-        $entity_name  = $type === 'company'
-            ? ( isset( $company_name ) ? $company_name : '—' )
-            : ( isset( $municipality_name ) ? $municipality_name : '—' );
-        $type_label   = $type === 'company' ? 'Εταιρεία' : 'Δήμος';
-        $approve_url  = admin_url( 'user-edit.php?user_id=' . $user_id );
+    // 2. Ειδοποίηση στον Διαχειριστή (Email)
+    $admin_email  = get_option( 'admin_email' );
+    $site_name    = get_bloginfo( 'name' );
+    $entity_name  = $type === 'company'
+        ? ( isset( $company_name ) ? $company_name : '—' )
+        : ( $type === 'municipality'
+            ? ( isset( $municipality_name ) ? $municipality_name : '—' )
+            : ( isset( $customer_name ) ? $customer_name : '—' ) );
+    $type_label   = $type === 'company' ? 'Εταιρεία' : ( $type === 'municipality' ? 'Δήμος' : 'Ιδιώτης' );
+    $approve_url  = admin_url( 'user-edit.php?user_id=' . $user_id );
 
-        $subject = '[' . $site_name . '] Νέα εγγραφή προς έγκριση — ' . $entity_name;
+    $subject = '[' . $site_name . '] Νέα εγγραφή προς έγκριση — ' . $entity_name;
 
-        $message = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">';
-        $message .= '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 0;">';
-        $message .= '<tr><td align="center">';
-        $message .= '<table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:6px;overflow:hidden;">';
+    $message = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">';
+    $message .= '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 0;">';
+    $message .= '<tr><td align="center">';
+    $message .= '<table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:6px;overflow:hidden;">';
 
-        // Header
-        $message .= '<tr><td style="background:#1a1a1a;padding:24px 32px;">';
-        $message .= '<p style="margin:0;color:#ffffff;font-size:20px;font-weight:bold;">' . esc_html( $site_name ) . '</p>';
-        $message .= '<p style="margin:4px 0 0;color:#aaaaaa;font-size:13px;">Νέος λογαριασμός προς έγκριση</p>';
-        $message .= '</td></tr>';
+    // Header
+    $message .= '<tr><td style="background:#1a1a1a;padding:24px 32px;">';
+    $message .= '<p style="margin:0;color:#ffffff;font-size:20px;font-weight:bold;">' . esc_html( $site_name ) . '</p>';
+    $message .= '<p style="margin:4px 0 0;color:#aaaaaa;font-size:13px;">Νέος λογαριασμός προς έγκριση</p>';
+    $message .= '</td></tr>';
 
-        // Body
-        $message .= '<tr><td style="padding:32px;">';
-        $message .= '<p style="margin:0 0 24px;font-size:15px;color:#333333;">Ένας νέος χρήστης ζήτησε εγγραφή και περιμένει έγκριση.</p>';
+    // Body
+    $message .= '<tr><td style="padding:32px;">';
+    $message .= '<p style="margin:0 0 24px;font-size:15px;color:#333333;">Ένας νέος χρήστης ζήτησε εγγραφή και περιμένει έγκριση.</p>';
 
-        // Details table
-        $message .= '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e8e8;border-radius:4px;">';
-        $rows = [
-            [ 'Τύπος',      $type_label ],
-            [ 'Επωνυμία',   $entity_name ],
-            [ 'Email',      $email ],
-            [ 'Τηλέφωνο',   isset( $phone ) ? $phone : '—' ],
-            [ 'ΑΦΜ',        isset( $vat ) ? $vat : '—' ],
-        ];
-        foreach ( $rows as $i => $row ) {
-            $bg = $i % 2 === 0 ? '#fafafa' : '#ffffff';
-            $message .= '<tr style="background:' . $bg . ';">';
-            $message .= '<td style="padding:10px 16px;font-size:13px;color:#888888;width:120px;border-bottom:1px solid #e8e8e8;">' . esc_html( $row[0] ) . '</td>';
-            $message .= '<td style="padding:10px 16px;font-size:13px;color:#222222;border-bottom:1px solid #e8e8e8;"><strong>' . esc_html( $row[1] ) . '</strong></td>';
-            $message .= '</tr>';
-        }
-        $message .= '</table>';
-
-        // CTA button
-        $message .= '<div style="margin:28px 0 0;text-align:center;">';
-        $message .= '<a href="' . esc_url( $approve_url ) . '" style="display:inline-block;background:#1a1a1a;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:4px;font-size:14px;font-weight:bold;">Διαχείριση χρήστη &rarr;</a>';
-        $message .= '</div>';
-
-        $message .= '</td></tr>';
-
-        // Footer
-        $message .= '<tr><td style="background:#f4f4f4;padding:16px 32px;border-top:1px solid #e8e8e8;">';
-        $message .= '<p style="margin:0;font-size:12px;color:#aaaaaa;">Αυτό το email στάλθηκε αυτόματα από το ' . esc_html( $site_name ) . '.</p>';
-        $message .= '</td></tr>';
-
-        $message .= '</table></td></tr></table></body></html>';
-
-        $set_html_type = function() { return 'text/html'; };
-        add_filter( 'wp_mail_content_type', $set_html_type );
-        wp_mail( $admin_email, $subject, $message );
-
-        // Email στον χρήστη: "Λάβαμε την αίτησή σας"
-        $user_subject = sprintf( __( 'Λάβαμε την αίτησή σας — %s', 'ruined' ), $site_name );
-        $user_message  = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">';
-        $user_message .= '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 0;">';
-        $user_message .= '<tr><td align="center">';
-        $user_message .= '<table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:6px;overflow:hidden;">';
-        $user_message .= '<tr><td style="background:#1a1a1a;padding:24px 32px;">';
-        $user_message .= '<p style="margin:0;color:#ffffff;font-size:20px;font-weight:bold;">' . esc_html( $site_name ) . '</p>';
-        $user_message .= '<p style="margin:4px 0 0;color:#aaaaaa;font-size:13px;">Αίτηση εγγραφής</p>';
-        $user_message .= '</td></tr>';
-        $user_message .= '<tr><td style="padding:32px;">';
-        $user_message .= '<p style="margin:0 0 16px;font-size:15px;color:#333333;">Γεια σας <strong>' . esc_html( $entity_name ) . '</strong>,</p>';
-        $user_message .= '<p style="margin:0 0 16px;font-size:15px;color:#333333;">Λάβαμε την αίτησή σας για εγγραφή στην πλατφόρμα μας.</p>';
-        $user_message .= '<p style="margin:0 0 24px;font-size:15px;color:#333333;">Η ομάδα μας θα την εξετάσει σύντομα και θα σας ειδοποιήσουμε μέσω email μόλις ο λογαριασμός σας ενεργοποιηθεί.</p>';
-        $user_message .= '<div style="background:#f8f8f8;border-left:3px solid #1a1a1a;padding:14px 18px;border-radius:0 4px 4px 0;font-size:13px;color:#555555;">';
-        $user_message .= 'Μέχρι τότε ο λογαριασμός σας βρίσκεται σε αναμονή έγκρισης.';
-        $user_message .= '</div>';
-        $user_message .= '</td></tr>';
-        $user_message .= '<tr><td style="background:#f4f4f4;padding:16px 32px;border-top:1px solid #e8e8e8;">';
-        $user_message .= '<p style="margin:0;font-size:12px;color:#aaaaaa;">' . esc_html( $site_name ) . ' &mdash; Αυτόματη ειδοποίηση, παρακαλώ μην απαντάτε σε αυτό το email.</p>';
-        $user_message .= '</td></tr>';
-        $user_message .= '</table></td></tr></table></body></html>';
-
-        wp_mail( $email, $user_subject, $user_message );
-        remove_filter( 'wp_mail_content_type', $set_html_type );
-
-        // 3. Επιστροφή JSON Success αλλά ΧΩΡΙΣ redirect (σταματάμε το flow εδώ)
-        wp_send_json_success([
-            'redirect'    => false,
-            'html'        => '<div class="woocommerce-message">' . __( 'Η εγγραφή ολοκληρώθηκε! Ο λογαριασμός σας τελεί υπό έγκριση από τη διαχείριση. Θα λάβετε email μόλις ενεργοποιηθεί.', 'ruined' ) . '</div>',
-            'vat_valid'   => true, // Το θεωρούμε true για το UI αφού πέρασε το validation
-            'vat_message' => __( 'Το ΑΦΜ καταχωρήθηκε επιτυχώς.', 'ruined' ),
-        ]);
-        exit;
+    // Details table
+    $message .= '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e8e8;border-radius:4px;">';
+    $rows = [
+        [ 'Τύπος',      $type_label ],
+        [ 'Επωνυμία',   $entity_name ],
+        [ 'Email',      $email ],
+        [ 'Τηλέφωνο',   isset( $phone ) ? $phone : '—' ],
+        [ 'ΑΦΜ',        isset( $vat ) ? $vat : '—' ],
+    ];
+    foreach ( $rows as $i => $row ) {
+        $bg = $i % 2 === 0 ? '#fafafa' : '#ffffff';
+        $message .= '<tr style="background:' . $bg . ';">';
+        $message .= '<td style="padding:10px 16px;font-size:13px;color:#888888;width:120px;border-bottom:1px solid #e8e8e8;">' . esc_html( $row[0] ) . '</td>';
+        $message .= '<td style="padding:10px 16px;font-size:13px;color:#222222;border-bottom:1px solid #e8e8e8;"><strong>' . esc_html( $row[1] ) . '</strong></td>';
+        $message .= '</tr>';
     }
+    $message .= '</table>';
 
-    /**
-     * -----------------------------------------------------------------
-     * 🔐 AUTO-LOGIN (Μόνο για απλούς Customers)
-     * -----------------------------------------------------------------
-     */
-    wp_set_current_user( $user_id );
-    wp_set_auth_cookie( $user_id );
+    // CTA button
+    $message .= '<div style="margin:28px 0 0;text-align:center;">';
+    $message .= '<a href="' . esc_url( $approve_url ) . '" style="display:inline-block;background:#1a1a1a;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:4px;font-size:14px;font-weight:bold;">Διαχείριση χρήστη &rarr;</a>';
+    $message .= '</div>';
 
-    // ✅ VAT feedback για Customers (αν υπάρχει)
-    $vat_valid   = false;
-    $vat_message = '';
-    if ( ! empty($_POST['vat']) ) {
-        $vat_valid = true;
-        $vat_message = __( 'Το ΑΦΜ καταχωρήθηκε.', 'ruined' );
-    }
+    $message .= '</td></tr>';
 
+    // Footer
+    $message .= '<tr><td style="background:#f4f4f4;padding:16px 32px;border-top:1px solid #e8e8e8;">';
+    $message .= '<p style="margin:0;font-size:12px;color:#aaaaaa;">Αυτό το email στάλθηκε αυτόματα από το ' . esc_html( $site_name ) . '.</p>';
+    $message .= '</td></tr>';
+
+    $message .= '</table></td></tr></table></body></html>';
+
+    $set_html_type = function() { return 'text/html'; };
+    add_filter( 'wp_mail_content_type', $set_html_type );
+    wp_mail( $admin_email, $subject, $message );
+
+    // Email στον χρήστη: "Λάβαμε την αίτησή σας"
+    $user_subject = sprintf( __( 'Λάβαμε την αίτησή σας — %s', 'ruined' ), $site_name );
+    $user_message  = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">';
+    $user_message .= '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 0;">';
+    $user_message .= '<tr><td align="center">';
+    $user_message .= '<table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:6px;overflow:hidden;">';
+    $user_message .= '<tr><td style="background:#1a1a1a;padding:24px 32px;">';
+    $user_message .= '<p style="margin:0;color:#ffffff;font-size:20px;font-weight:bold;">' . esc_html( $site_name ) . '</p>';
+    $user_message .= '<p style="margin:4px 0 0;color:#aaaaaa;font-size:13px;">Αίτηση εγγραφής</p>';
+    $user_message .= '</td></tr>';
+    $user_message .= '<tr><td style="padding:32px;">';
+    $user_message .= '<p style="margin:0 0 16px;font-size:15px;color:#333333;">Γεια σας <strong>' . esc_html( $entity_name ) . '</strong>,</p>';
+    $user_message .= '<p style="margin:0 0 16px;font-size:15px;color:#333333;">Λάβαμε την αίτησή σας για εγγραφή στην πλατφόρμα μας.</p>';
+    $user_message .= '<p style="margin:0 0 24px;font-size:15px;color:#333333;">Η ομάδα μας θα την εξετάσει σύντομα και θα σας ειδοποιήσουμε μέσω email μόλις ο λογαριασμός σας ενεργοποιηθεί.</p>';
+    $user_message .= '<div style="background:#f8f8f8;border-left:3px solid #1a1a1a;padding:14px 18px;border-radius:0 4px 4px 0;font-size:13px;color:#555555;">';
+    $user_message .= 'Μέχρι τότε ο λογαριασμός σας βρίσκεται σε αναμονή έγκρισης.';
+    $user_message .= '</div>';
+    $user_message .= '</td></tr>';
+    $user_message .= '<tr><td style="background:#f4f4f4;padding:16px 32px;border-top:1px solid #e8e8e8;">';
+    $user_message .= '<p style="margin:0;font-size:12px;color:#aaaaaa;">' . esc_html( $site_name ) . ' &mdash; Αυτόματη ειδοποίηση, παρακαλώ μην απαντάτε σε αυτό το email.</p>';
+    $user_message .= '</td></tr>';
+    $user_message .= '</table></td></tr></table></body></html>';
+
+    wp_mail( $email, $user_subject, $user_message );
+    remove_filter( 'wp_mail_content_type', $set_html_type );
+
+    // 3. Επιστροφή JSON Success αλλά ΧΩΡΙΣ redirect (σταματάμε το flow εδώ)
     wp_send_json_success([
-        'redirect'    => wc_get_page_permalink( 'myaccount' ),
-        'vat_valid'   => $vat_valid,
-        'vat_message' => $vat_message,
+        'redirect'    => false,
+        'html'        => '<div class="woocommerce-message">' . __( 'Η εγγραφή ολοκληρώθηκε! Ο λογαριασμός σας τελεί υπό έγκριση από τη διαχείριση. Θα λάβετε email μόλις ενεργοποιηθεί.', 'ruined' ) . '</div>',
+        'vat_valid'   => true, // Το θεωρούμε true για το UI αφού πέρασε το validation
+        'vat_message' => __( 'Το ΑΦΜ καταχωρήθηκε επιτυχώς.', 'ruined' ),
     ]);
 }

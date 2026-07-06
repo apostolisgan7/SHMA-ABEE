@@ -4,7 +4,7 @@
     <div class="container">
         <div class="footer-upper">
             <div class="footer-cta">
-                <h2 class="footer-title" data-animate="title-reveal"><?php echo wp_kses_post( __( 'The latest news,<br>articles, and resources.', 'ruined' ) ); ?></h2>
+                <h2 class="footer-title" data-animate="title-reveal"><?php echo wp_kses_post( __( 'Κατεύθυνση μας <br>η Οδική Ασφάλεια', 'ruined' ) ); ?></h2>
             </div>
             <div class="footer-newsletter" data-animate="fade-up" data-animate-delay="0.2">
                 <span class="subtitle">• <?php esc_html_e( 'YOUR EMAIL', 'ruined' ); ?></span>
@@ -24,10 +24,6 @@
             <div class="footer-brand" data-animate="fade-up">
                 <?php if (has_custom_logo()) : ?>
                     <?php the_custom_logo(); ?>
-                <?php else : ?>
-                    <a href="<?php echo esc_url(home_url('/')); ?>">
-                        <img src="path/to/your/logo-black.png" alt="ΣΗΜΑ" class="footer-logo">
-                    </a>
                 <?php endif; ?>
             </div>
 
@@ -59,8 +55,10 @@
             </div>
 
             <div class="footer-partners">
+                <a href="/protypa-iso-poiotita-ypiresion/">
                 <img style="mix-blend-mode: difference"
-                     src="<?php echo get_template_directory_uri(); ?>/src/img/bottom.png" alt="Partner 1">
+                     src="<?php echo get_template_directory_uri(); ?>/src/img/Certifications_Shma_Grey.png" alt="ISO">
+                </a>
             </div>
 
             <button id="back-to-top" class="rv-back-to-top" aria-label="<?php esc_attr_e('Επιστροφή στην κορυφή', 'ruined'); ?>">

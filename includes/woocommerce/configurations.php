@@ -513,3 +513,38 @@ add_action('woocommerce_checkout_create_order_line_item',
         }, 10, 3
 );
 
+// ========================
+// YITH Ajax Product Filter — scope sidebar category blocks to current category
+// ========================
+// This preset has one product_cat filter-tax block per top-level category.
+// YITH's own relevance check can't tell them apart: when computing term
+// counts *within* a taxonomy it deliberately ignores that taxonomy's own
+// active filter (so sibling terms in the same block don't vanish once you
+// pick one) — but that means every top-level block reports products
+// everywhere, since it never knows which block corresponds to the category
+// you're actually browsing. Restrict relevance ourselves using the real
+// category hierarchy.
+add_filter('yith_wcan_is_filter_relevant', function ($is_relevant, $filter) {
+    if (
+        ! $is_relevant
+        || 'tax' !== $filter->get_type()
+        || 'product_cat' !== $filter->get_taxonomy()
+        || $filter->use_all_terms()
+        || ! is_product_category()
+    ) {
+        return $is_relevant;
+    }
+
+    $current_term = get_queried_object();
+    if (! $current_term instanceof WP_Term) {
+        return $is_relevant;
+    }
+
+    $current_cat_ids = array_merge(
+        [$current_term->term_id],
+        get_ancestors($current_term->term_id, 'product_cat')
+    );
+
+    return (bool) array_intersect($current_cat_ids, array_keys($filter->get_terms_options()));
+}, 10, 2);
+

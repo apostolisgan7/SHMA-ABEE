@@ -44,14 +44,14 @@
                 <div class="help_top">
                     <h4><?php esc_html_e('Βοήθεια', 'ruined'); ?></h4>
                     <?php
-                    $faq_url     = get_permalink(get_page_by_path('faq'))     ?: home_url('/');
-                    $contact_url = get_permalink(get_page_by_path('contact')) ?: home_url('/');
+                    $faq_url     = get_permalink(get_page_by_path('faq'))     ?: home_url('/sychnes-erotiseis/');
+                    $contact_url = get_permalink(get_page_by_path('contact')) ?: home_url('/epikinonia/');
                     $account_url = wc_get_page_permalink('myaccount');
                     ?>
                     <ul>
                         <li><a href="<?php echo esc_url($faq_url); ?>"><?php esc_html_e('Συχνές Ερωτήσεις', 'ruined'); ?></a></li>
                         <li><a href="<?php echo esc_url($contact_url); ?>"><?php esc_html_e('Επικοινωνία', 'ruined'); ?></a></li>
-                        <li><a href="<?php echo esc_url($account_url); ?>"><?php esc_html_e('Ο Λογαριασμός μου', 'ruined'); ?></a></li>
+<!--                        <li><a href="--><?php //echo esc_url($account_url); ?><!--">--><?php //esc_html_e('Ο Λογαριασμός μου', 'ruined'); ?><!--</a></li>-->
                     </ul>
                 </div>
                 <div class="help_bottom">

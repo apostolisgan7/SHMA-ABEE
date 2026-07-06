@@ -81,7 +81,7 @@ if ($menu_items) {
                     <?php
                     rv_button_arrow([
                             'text' => __('Όλες οι κατηγορίες', 'ruined'),
-                            'url' => '#',
+                            'url' => '/shop/',
                             'target' => '_self',
                             'variant' => 'black',
                             'icon_position' => 'left',
@@ -93,9 +93,13 @@ if ($menu_items) {
 
                 <div class="left-footer mega-animate-right">
                     <div class="mega-very-bottom mega-animate-header">
-                        <span>o λογαριασμοσ μου</span>
-                        <span>AΓΑΠΗΜΕΝΑ ΠΡΟΙΟΝΤΑ</span>
-                        <span>επικοινωνια με πωλησεισ</span>
+                        <?php if (is_user_logged_in()) : ?>
+                            <a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>">o λογαριασμοσ μου</a>
+                        <?php else : ?>
+                            <a href="#" class="js-auth-modal-trigger">o λογαριασμοσ μου</a>
+                        <?php endif; ?>
+                        <a href="<?php echo esc_url(function_exists('tinv_url_wishlist_default') ? tinv_url_wishlist_default() : '#'); ?>">AΓΑΠΗΜΕΝΑ ΠΡΟΙΟΝΤΑ</a>
+                        <a href="<?php echo esc_url(home_url('/epikoinonia/')); ?>">επικοινωνια με πωλησεισ</a>
                     </div>
                 </div>
             </div>
@@ -124,7 +128,7 @@ if ($menu_items) {
                         <?php
                         rv_button_arrow([
                                 'text' => __('Όλα τα προιόντα', 'ruined'),
-                                'url' => '#',
+                                'url' => $parent->url,
                                 'target' => '_self',
                                 'variant' => 'black',
                                 'icon_position' => 'left',

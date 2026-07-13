@@ -7,14 +7,14 @@
                 <h2 class="footer-title" data-animate="title-reveal"><?php echo wp_kses_post( __( 'Κατεύθυνση μας <br>η Οδική Ασφάλεια', 'ruined' ) ); ?></h2>
             </div>
             <div class="footer-newsletter" data-animate="fade-up" data-animate-delay="0.2">
-                <span class="subtitle">• <?php esc_html_e( 'YOUR EMAIL', 'ruined' ); ?></span>
+                <span class="subtitle">• <?php esc_html_e( 'ΤΟ EMAIL ΣΑΣ', 'ruined' ); ?></span>
                 <div class="newsletter-wrapper">
                     <form class="newsletter-form">
-                        <input type="email" placeholder="<?php esc_attr_e( 'Enter your email', 'ruined' ); ?>" required>
-                        <button type="submit"><?php esc_html_e( 'Subscribe', 'ruined' ); ?></button>
+                        <input type="email" placeholder="<?php esc_attr_e( 'Εισάγετε το email σας', 'ruined' ); ?>" required>
+                        <button type="submit"><?php esc_html_e( 'Εγγραφή', 'ruined' ); ?></button>
                     </form>
                 </div>
-                <p class="copyright-top">Copyright © <?php echo date('Y'); ?> ΣΗΜΑ Α.Β.Ε.Ε. - <?php esc_html_e( 'All Rights Reserved', 'ruined' ); ?></p>
+                <p class="copyright-top">Copyright © <?php echo date('Y'); ?> ΣΗΜΑ Α.Β.Ε.Ε. - <?php esc_html_e( 'Με Επιφύλαξη Παντός Δικαιώματος', 'ruined' ); ?></p>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
 
         <div class="footer-bottom" data-animate="fade-in" data-animate-delay="0.25" data-animate-start="top bottom">
             <div class="footer-copyright">
-                Copyright © <?php echo date('Y'); ?> ΣΗΜΑ Α.Β.Ε.Ε. - <?php esc_html_e( 'All Rights Reserved', 'ruined' ); ?>
+                Copyright © <?php echo date('Y'); ?> ΣΗΜΑ Α.Β.Ε.Ε. - <?php esc_html_e( 'Με Επιφύλαξη Παντός Δικαιώματος', 'ruined' ); ?>
             </div>
 
             <div class="footer-partners">

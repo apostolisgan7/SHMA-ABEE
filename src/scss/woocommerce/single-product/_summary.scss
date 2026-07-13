@@ -217,6 +217,10 @@
   }
 }
 
+.ywraq-loader{
+  position: absolute;
+  opacity: 0;
+}
 
 /* =========================
    RIGHT SIDE SUMMARY ACCORDIONS
@@ -253,7 +257,6 @@
 
       .rv-tech-table {
         padding: 20px;
-        margin-top: 1vh;
         background: #fff;
         border: none;
         border-radius: 6px;

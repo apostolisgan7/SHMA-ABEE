@@ -34,16 +34,20 @@
     <!-- RIGHT -->
     <div class="archive-header__right">
         <!-- View toggle -->
+        <?php
+        $grid_active_svg   = get_template_directory() . '/src/img/icons/GRID-ACTIVE.svg';
+        $grid_inactive_svg = get_template_directory() . '/src/img/icons/GRID-INACTIVE.svg';
+        $list_active_svg   = get_template_directory() . '/src/img/icons/LIST-ACTIVE.svg';
+        $list_inactive_svg = get_template_directory() . '/src/img/icons/LIST-INACTIVE.svg';
+        ?>
         <div class="shop-view-toggle flex items-center gap-2 archive_head_item">
             <button
                     :class="{ active: view === 'grid' }"
                     @click="setView('grid')"
                     aria-label="Προβολή σε Grid"
             >
-                <svg width="20px" height="20px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M7 1H1V7H7V1ZM7 9H1V15H7V9ZM9 1H15V7H9V1ZM15 9H9V15H15V9Z" fill="#000000"/>
-                </svg>
+                <span x-show="view === 'grid'" x-cloak><?php if (file_exists($grid_active_svg)) echo file_get_contents($grid_active_svg); ?></span>
+                <span x-show="view !== 'grid'" x-cloak><?php if (file_exists($grid_inactive_svg)) echo file_get_contents($grid_inactive_svg); ?></span>
             </button>
 
             <button
@@ -51,17 +55,8 @@
                     @click="setView('list')"
                     aria-label="Προβολή σε Λίστα"
             >
-                <svg width="20px" height="20px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <line id="primary-upstroke" x1="3.45" y1="6" x2="3.55" y2="6"
-                          style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px"></line>
-                    <line id="primary-upstroke-2" data-name="primary-upstroke" x1="3.45" y1="12" x2="3.55" y2="12"
-                          style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px"></line>
-                    <line id="primary-upstroke-3" data-name="primary-upstroke" x1="3.45" y1="18" x2="3.55" y2="18"
-                          style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px"></line>
-                    <path id="primary" d="M9,6H21M9,12H21M9,18H21"
-                          style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px"></path>
-                </svg>
+                <span x-show="view === 'list'" x-cloak><?php if (file_exists($list_active_svg)) echo file_get_contents($list_active_svg); ?></span>
+                <span x-show="view !== 'list'" x-cloak><?php if (file_exists($list_inactive_svg)) echo file_get_contents($list_inactive_svg); ?></span>
             </button>
             <div class="text_label" x-text="viewLabel"></div>
         </div>

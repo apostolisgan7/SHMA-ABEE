@@ -38,8 +38,8 @@ get_header();
                 <?php
                 the_posts_pagination([
                     'mid_size'  => 2,
-                    'prev_text' => '&larr; ' . esc_html__('Previous', 'ruined'),
-                    'next_text' => esc_html__('Next', 'ruined') . ' &rarr;',
+                    'prev_text' => '&larr; ' . esc_html__('Προηγούμενο', 'ruined'),
+                    'next_text' => esc_html__('Επόμενο', 'ruined') . ' &rarr;',
                     'class'     => 'pagination flex justify-center space-x-2',
                 ]);
                 ?>

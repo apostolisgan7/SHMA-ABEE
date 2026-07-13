@@ -21,7 +21,7 @@ if ($background_transparent) {
             <?php endif; ?>
         </div>
 
-        <div class="faq-section__right" x-data="{ openItem: 0 }">
+        <div class="faq-section__right" x-data="{ openItem: window.innerWidth <= 992 ? null : 0 }">
             <?php if ($faqs): ?>
             <div class="faq-section__accordion" data-animate="stagger-fade" data-animate-stagger="0.07">
 

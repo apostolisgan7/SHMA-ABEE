@@ -60,7 +60,7 @@ $show_line_total   = ywraq_show_element_on_list( 'line_total' );
 $show_single_price = ywraq_show_element_on_list( 'single_price' );
 $show_thumbnail    = ywraq_show_element_on_list( 'images' );
 $show_totals       = ywraq_show_element_on_list( 'total' );
-$document_title    = apply_filters( 'ywpar_pdf_preview_list_title', __( 'Products in your quote list:', 'yith-woocommerce-request-a-quote' ) );
+$document_title    = apply_filters( 'ywpar_pdf_preview_list_title', __( 'Προϊόντα στη λίστα προσφοράς σας:', 'yith-woocommerce-request-a-quote' ) );
 
 $shop_address = 'Διεύθυνση: Λευκάδος 15, Λεβιδίου 2, Μοσχάτο 183 46';
 $shop_phone   = 'Τηλέφωνο: 21 0483 1996';
@@ -209,24 +209,24 @@ $shop_phone   = 'Τηλέφωνο: 21 0483 1996';
 			?>
 			<th scope="col" colspan="<?php echo esc_attr( $colspan ); ?>"
 				style="text-align:left; border-bottom: 1px solid #eee;" cellspacing="20px">
-				<?php esc_html_e( 'Product', 'yith-woocommerce-request-a-quote' ); ?>
+				<?php esc_html_e( 'Προϊόν', 'yith-woocommerce-request-a-quote' ); ?>
 				<?php ++ $colspan; ?>
 			</th>
 			<?php if ( $show_quantity ) : ?>
 				<th scope="col" style="text-align:right; border-bottom: 1px solid #eee;">
-					<?php esc_html_e( 'Quantity', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php esc_html_e( 'Ποσότητα', 'yith-woocommerce-request-a-quote' ); ?>
 					<?php ++ $colspan; ?>
 				</th>
 			<?php endif ?>
 			<?php if ( $show_single_price ) : ?>
 				<th scope="col" style="text-align:right; border-bottom: 1px solid #eee;">
-					<?php esc_html_e( 'Unit Price', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php esc_html_e( 'Τιμή Μονάδας', 'yith-woocommerce-request-a-quote' ); ?>
 					<?php ++ $colspan; ?>
 				</th>
 			<?php endif ?>
 			<?php if ( $show_line_total ) : ?>
 				<th scope="col" class="last-col number" style="border-bottom: 1px solid #eee;text-align: right">
-					<?php esc_html_e( 'Subtotal', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php esc_html_e( 'Υποσύνολο', 'yith-woocommerce-request-a-quote' ); ?>
 					<?php ++ $colspan; ?>
 				</th>
 			<?php endif ?>
@@ -282,7 +282,7 @@ $shop_phone   = 'Τηλέφωνο: 21 0483 1996';
 								if ( strpos( $individual_item['value'], 'Attached file' ) ) {
 									$array = new SimpleXMLElement( $individual_item['value'] );
 									$link  = $array['href']; //phpcs:ignore
-									$value = '<a href="' . esc_url( $link ) . '" target="_blank">' . esc_html_x( 'Attached file', 'Integration: product add-ons attachment', 'yith-woocommerce-request-a-quote' ) . '</a>';
+									$value = '<a href="' . esc_url( $link ) . '" target="_blank">' . esc_html_x( 'Επισυναπτόμενο αρχείο', 'Integration: product add-ons attachment', 'yith-woocommerce-request-a-quote' ) . '</a>';
 								} else {
 									$value = YITH_WAPO_WPML::string_translate( $individual_item['value'] );
 								}
@@ -406,7 +406,7 @@ $shop_phone   = 'Τηλέφωνο: 21 0483 1996';
 						$title = $_product->get_title(); //phpcs:ignore
 
 						if ( '' !== $_product->get_sku() && $show_sku ) {
-							$sku_label = apply_filters( 'ywraq_sku_label', __( ' SKU:', 'yith-woocommerce-request-a-quote' ) );
+							$sku_label = apply_filters( 'ywraq_sku_label', __( ' Κωδικός:', 'yith-woocommerce-request-a-quote' ) );
 							$sku       = sprintf( '<br><small>%s %s</small>', $sku_label, $_product->get_sku() );
 							$title .=  apply_filters( 'ywraq_sku_label_html', $sku, $_product ); //phpcs:ignore
 						}
@@ -521,13 +521,13 @@ $shop_phone   = 'Τηλέφωνο: 21 0483 1996';
 			<tr class="tot" >
 				<th colspan="<?php echo esc_attr( $colspan ); ?>"></th>
 				<th class="raq-totals-label">
-					<?php esc_html_e( 'Total:', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php esc_html_e( 'Σύνολο:', 'yith-woocommerce-request-a-quote' ); ?>
 				</th>
 				<td class="raq-totals number">
 					<?php
 					echo wp_kses_post( wc_price( $total ) );
 					if ( $total_tax > 0 && 'incl' === $tax_display_list && ywraq_show_taxes_on_quote_list() ) {
-						echo wp_kses_post( '<br><small class="includes_tax">' . sprintf( '%1$s %2$s %3$s', __( 'includes', 'yith-woocommerce-request-a-quote' ), wp_kses_post( wc_price( $total_tax ) ), wp_kses_post( WC()->countries->tax_or_vat() ) ) . '</small>' );
+						echo wp_kses_post( '<br><small class="includes_tax">' . sprintf( '%1$s %2$s %3$s', __( 'περιλαμβάνει', 'yith-woocommerce-request-a-quote' ), wp_kses_post( wc_price( $total_tax ) ), wp_kses_post( WC()->countries->tax_or_vat() ) ) . '</small>' );
 					}
 					?>
 				</td>

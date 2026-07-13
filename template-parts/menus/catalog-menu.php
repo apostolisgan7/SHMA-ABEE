@@ -32,20 +32,37 @@ if ($menu_items) {
         <div class="mega-header mega-animate-header">
             <div class="left mega-animate-header">
                 <div class="logo mega-animate-header">
-                    <svg width="190" height="41" viewBox="0 0 190 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M72.3809 26.89L72.6536 26.6173L79.3289 20.0618L72.2033 13.2337H87.3012V8.00002H63V11.7301L71.6911 20.0618L71.5713 20.1527L63 28.3935V32.1236H87.5697V26.89H72.3809Z"
-                              fill="#000"/>
-                        <path d="M112.193 8.00416V17.2075H97.9379V8.00416H91.8037V32.1236H97.9379V22.4411H112.193V32.1236H118.327V8.00416H112.193Z"
-                              fill="#000"/>
-                        <path d="M146.743 8.00415L139.014 23.701L138.894 23.4284L131.314 8.00002H123.102V32.1195H129.27V16.9018L136.73 32.1195H141.331L148.792 16.9018V32.1195H154.926V8.00415H146.747H146.743Z"
-                              fill="#000"/>
-                        <path d="M177.946 8.09502L171.659 8.15699H169.553L157.491 32.1277H163.956L166.062 27.9763H172.771L181.462 27.9144L181.491 28.0053L183.564 32.0658H190L177.938 8.09502H177.946ZM172.985 22.499H168.834L173.27 13.8368H174.729L174.791 13.9276L178.698 22.47L172.985 22.499Z"
-                              fill="#000"/>
-                        <path d="M41.3449 0H12.2898V1.14957L41.3449 17.5243V0Z" fill="#000"/>
-                        <path d="M41.3449 40.2041H12.2898V39.0502L41.3449 22.6754V40.2041Z" fill="#000"/>
-                        <path d="M0 1.52588e-05V8.42871L16.1422 17.5243V1.52588e-05H0Z" fill="#000"/>
-                        <path d="M0 31.7754V40.2041H16.1422V22.6798L0 31.7754Z" fill="#000"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" version="1.1" viewBox="0 0 227 44">
+                        <defs>
+                            <style>
+                                .st0 {
+                                    fill: #000;
+                                }
+
+                                .st1 {
+                                    fill: none;
+                                }
+
+                                .st2 {
+                                    clip-path: url(#clippath);
+                                }
+                            </style>
+                            <clipPath id="clippath">
+                                <rect class="st1" y="0" width="227" height="43.5"></rect>
+                            </clipPath>
+                        </defs>
+                        <g class="st2">
+                            <g>
+                                <path class="st0" d="M76.7,30.8l.4-.4,8.7-8.6-9.3-9h19.6v-6.9h-31.6v4.9l11.3,10.9h-.2c0,.1-11.1,10.9-11.1,10.9v4.9h31.9v-6.9h-19.7Z"></path>
+                                <path class="st0" d="M128.4,6v12.1h-18.5V6h-8v31.7h8v-12.7h18.5v12.7h8V6h-8Z"></path>
+                                <path class="st0" d="M173.3,6l-10,20.6-.2-.4-9.8-20.3h-10.7v31.7h8v-20l9.7,20h6l9.7-20v20h8V6h-10.6Z"></path>
+                                <path class="st0" d="M211.3,6.1h-6.6c0,0-2.7,0-2.7,0l-15.7,31.5h8.4l2.7-5.5h18.4c0,0,0,0,0,0l2.7,5.3h8.4l-15.7-31.5ZM206.5,25h-5.4l5.7-11.3h.4s5.1,11.3,5.1,11.3h-5.8s0,0,0,0Z"></path>
+                                <path class="st0" d="M0,0v8.4l19.6,9.3V6.6l23.4,11.1V0H0Z"></path>
+                                <path class="st0" d="M0,43.5v-8.4l19.6-9.3v11.1l23.4-11.1v17.7H0Z"></path>
+                            </g>
+                        </g>
                     </svg>
+
                 </div>
                 <h2 class="mega-title mega-animate-header">Κατάλογος Προϊόντων</h2>
             </div>
@@ -140,7 +157,7 @@ if ($menu_items) {
                         <div class="mega-bottom">
                             <div class="footer-links">
                                 <span>ολα τα προιοντα μασ</span>
-                                <span><?php esc_html_e( 'product resources', 'ruined' ); ?></span>
+                                <span><?php esc_html_e( 'πόροι προϊόντων', 'ruined' ); ?></span>
                             </div>
                         </div>
 

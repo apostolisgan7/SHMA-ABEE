@@ -8,12 +8,12 @@
 
 <div class="text-center py-16">
     <h2 class="text-2xl font-bold text-dark-900 dark:text-white mb-4">
-        <?php esc_html_e('No posts found', 'ruined'); ?>
+        <?php esc_html_e('Δεν βρέθηκαν αναρτήσεις', 'ruined'); ?>
     </h2>
     <p class="text-gray-600 dark:text-gray-300">
-        <?php esc_html_e('It seems we can&rsquo;t find what you&rsquo;re looking for.', 'ruined'); ?>
+        <?php esc_html_e('Φαίνεται πως δεν μπορέσαμε να βρούμε αυτό που ψάχνετε.', 'ruined'); ?>
     </p>
     <a href="<?php echo esc_url(home_url('/')); ?>" class="mt-4 inline-block text-primary-600 dark:text-primary-400 hover:underline">
-        <?php esc_html_e('Return to Home', 'ruined'); ?>
+        <?php esc_html_e('Επιστροφή στην Αρχική', 'ruined'); ?>
     </a>
 </div>

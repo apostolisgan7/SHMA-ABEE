@@ -15,7 +15,7 @@
                 ?>
                     <div class="flex flex-wrap justify-center gap-2 mt-8">
                         <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors <?php echo is_home() ? 'bg-primary-600 text-white' : 'bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-600'; ?>">
-                            <?php esc_html_e('All', 'ruined'); ?>
+                            <?php esc_html_e('Όλα', 'ruined'); ?>
                         </a>
                         <?php foreach ($categories as $category) : ?>
                             <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>" class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors <?php echo (is_category($category->term_id) ? 'bg-primary-600 text-white' : 'bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-600'); ?>">
@@ -61,7 +61,7 @@
                                     <span><?php the_reading_time(); ?></span>
                                 </div>
                                 <a href="<?php the_permalink(); ?>" class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
-                                    <?php esc_html_e('Read More', 'ruined'); ?>
+                                    <?php esc_html_e('Περισσότερα', 'ruined'); ?>
                                     <span aria-hidden="true">→</span>
                                 </a>
                             </div>
@@ -74,8 +74,8 @@
                 <?php
                 the_posts_pagination([
                     'mid_size'  => 2,
-                    'prev_text' => '&larr; ' . __('Previous', 'ruined'),
-                    'next_text' => __('Next', 'ruined') . ' &rarr;',
+                    'prev_text' => '&larr; ' . __('Προηγούμενο', 'ruined'),
+                    'next_text' => __('Επόμενο', 'ruined') . ' &rarr;',
                     'class'     => 'pagination',
                 ]);
                 ?>
@@ -83,10 +83,10 @@
 
         <?php else : ?>
             <div class="text-center py-16">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4"><?php esc_html_e('No posts found', 'ruined'); ?></h2>
-                <p class="text-gray-600 dark:text-gray-400"><?php esc_html_e('It seems we can&rsquo;t find what you&rsquo;re looking for.', 'ruined'); ?></p>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4"><?php esc_html_e('Δεν βρέθηκαν αναρτήσεις', 'ruined'); ?></h2>
+                <p class="text-gray-600 dark:text-gray-400"><?php esc_html_e('Φαίνεται πως δεν μπορέσαμε να βρούμε αυτό που ψάχνετε.', 'ruined'); ?></p>
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-block mt-6 px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors">
-                    <?php esc_html_e('Back to Home', 'ruined'); ?>
+                    <?php esc_html_e('Επιστροφή στην Αρχική', 'ruined'); ?>
                 </a>
             </div>
         <?php endif; ?>

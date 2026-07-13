@@ -19,7 +19,7 @@
 <?php get_template_part( 'template-parts/menus/mobile-menu' ); ?>
 
 <div id="page" class="site flex flex-col min-h-screen">
-    <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'ruined'); ?></a>
+    <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Μετάβαση στο περιεχόμενο', 'ruined'); ?></a>
 
     <?php
     // Get the selected header style from customizer

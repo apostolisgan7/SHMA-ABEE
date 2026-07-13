@@ -160,7 +160,7 @@ if ($video_url) {
 
                         <div class="hero-box__content">
                             <span class="related_title">
-                                <?= __('RELATED ARTICLE', 'ruined'); ?>
+                                <?= __('ΣΧΕΤΙΚΟ ΑΡΘΡΟ', 'ruined'); ?>
                             </span>
 
                             <h3 class="hero-box__title">

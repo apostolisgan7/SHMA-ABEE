@@ -265,6 +265,13 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
 
 // ===============================
 // BUTTONS
+
+.woocommerce-account{
+  .woocommerce a.button,
+  .woocommerce button.button {
+    width: fit-content;
+  }
+}
 .woocommerce a.button,
 .woocommerce button.button {
   background: $green;
@@ -278,6 +285,7 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
   &:hover {
     background: color.adjust($green, $lightness: -6%);
     transform: translateY(-1px);
+    color: #fff;
   }
 }
 

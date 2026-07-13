@@ -98,10 +98,14 @@
         z-index: 1;
         pointer-events: none;
         background: linear-gradient(48deg, rgb(0, 171, 69) 0%, rgba(30, 157, 74, 0) 60%);
-        opacity: 1;
+        opacity: 0;
         transition: opacity 0.5s ease;
         transition-delay: 0.3s;
       }
+    }
+
+    &:hover .hbg-image:after {
+      opacity: 1;
     }
   }
 
@@ -133,6 +137,7 @@
         height: 100%;
         aspect-ratio: 1;
         max-height: 132px;
+        overflow: hidden;
 
         img {
           width: 100%;
@@ -220,7 +225,7 @@
 
         .hbg-card-thumb {
           img {
-            filter: brightness(0.9) blur(1.5px);
+            filter: brightness(0.9) blur(1px);
           }
         }
       }

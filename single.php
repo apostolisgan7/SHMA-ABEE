@@ -49,7 +49,7 @@ get_header(); ?>
                     <!-- Post Tags -->
                     <?php if (has_tag()) : ?>
                         <div class="mt-12 pt-6 border-t border-gray-200 dark:border-dark-600">
-                            <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4"><?php esc_html_e('Tags', 'ruined'); ?></h3>
+                            <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4"><?php esc_html_e('Ετικέτες', 'ruined'); ?></h3>
                             <div class="flex flex-wrap gap-2">
                                 <?php
                                 $tags = get_the_tags();

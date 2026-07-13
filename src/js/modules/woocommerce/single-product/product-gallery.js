@@ -360,11 +360,31 @@ function preloadVariationImages() {
 }
 
 /* =========================
+   WISHLIST — WHOLE BUTTON CLICKABLE
+   The plugin renders the visible text (.tinvwl-tooltip) as a sibling of the
+   real <a>, not inside it, so only the icon is clickable by default. Forward
+   clicks anywhere on the wrapper to the real button instead of restyling it.
+========================= */
+function initWishlistFullClick() {
+    document.addEventListener('click', (e) => {
+        const wrapper = e.target.closest('.rv-gallery-wishlist .tinv-wraper.tinv-wishlist');
+        if (!wrapper || e.target.closest('.tinvwl_add_to_wishlist_button')) return;
+
+        const button = wrapper.querySelector('.tinvwl_add_to_wishlist_button');
+        if (!button) return;
+
+        e.preventDefault();
+        button.click();
+    });
+}
+
+/* =========================
    BOOT
 ========================= */
 document.addEventListener('DOMContentLoaded', () => {
     if (document.body.classList.contains('single-product')) {
         initProductGallery();
+        initWishlistFullClick();
         const preload = () => preloadVariationImages();
         if ('requestIdleCallback' in window) {
             requestIdleCallback(preload, { timeout: 3000 });

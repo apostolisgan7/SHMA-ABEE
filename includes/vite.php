@@ -21,7 +21,9 @@ function ruined_enqueue_entry(string $entry_key, string $handle, array $deps = [
     $entry = $manifest[$entry_key];
 
     // JS
-    wp_register_script($handle, DIST_URI . '/' . $entry['file'], $deps, null, [
+    $js_path = DIST_PATH . '/' . $entry['file'];
+    $js_ver  = file_exists($js_path) ? filemtime($js_path) : null;
+    wp_register_script($handle, DIST_URI . '/' . $entry['file'], $deps, $js_ver, [
         'in_footer' => true,
         'strategy'  => 'defer',
     ]);
@@ -30,7 +32,9 @@ function ruined_enqueue_entry(string $entry_key, string $handle, array $deps = [
     // CSS bundled with this entry
     if (!empty($entry['css'])) {
         foreach ($entry['css'] as $i => $css_file) {
-            wp_enqueue_style($handle . '-css-' . $i, DIST_URI . '/' . $css_file, [], null);
+            $css_path = DIST_PATH . '/' . $css_file;
+            $css_ver  = file_exists($css_path) ? filemtime($css_path) : null;
+            wp_enqueue_style($handle . '-css-' . $i, DIST_URI . '/' . $css_file, [], $css_ver);
         }
     }
 }

@@ -103,7 +103,9 @@ add_action('woocommerce_save_account_details', function ($user_id) {
 
 add_action('woocommerce_save_account_details_errors', function ($errors, $user) {
 
-    if (in_array('company', $user->roles)) {
+    $user_roles = ! empty($user->roles) ? $user->roles : get_userdata($user->ID)->roles;
+
+    if (in_array('company', $user_roles)) {
         if (empty($_POST['vat'])) {
             $errors->add('vat_error', 'Το ΑΦΜ είναι υποχρεωτικό για εταιρείες.');
         }

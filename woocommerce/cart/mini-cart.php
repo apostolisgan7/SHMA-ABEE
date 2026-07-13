@@ -50,7 +50,7 @@ do_action('woocommerce_before_mini_cart'); ?>
                     ?>
                     <?php if ($sku) : ?>
                         <span class="mini-cart__sku">
-                              <?php esc_html_e( 'SKU:', 'ruined' ); ?> <?php echo esc_html($sku); ?>
+                              <?php esc_html_e( 'Κωδικός:', 'ruined' ); ?> <?php echo esc_html($sku); ?>
                              </span>
                     <?php endif; ?>
                     <p class="mini-cart__title">
@@ -81,16 +81,16 @@ do_action('woocommerce_before_mini_cart'); ?>
 
     <div class="mini-cart__footer">
         <div class="mini-cart__subtotal">
-            <span><?php esc_html_e('Subtotal', 'ruined'); ?></span>
+            <span><?php esc_html_e('Υποσύνολο', 'ruined'); ?></span>
             <strong><?php echo WC()->cart->get_cart_subtotal(); ?></strong>
         </div>
 
         <a href="<?php echo wc_get_cart_url(); ?>" class="button button--primary">
-            <?php esc_html_e( 'View cart', 'ruined' ); ?>
+            <?php esc_html_e( 'Προβολή καλαθιού', 'ruined' ); ?>
         </a>
 
         <a href="<?php echo wc_get_checkout_url(); ?>" class="button button--checkout">
-            <?php esc_html_e( 'Checkout', 'ruined' ); ?>
+            <?php esc_html_e( 'Ολοκλήρωση παραγγελίας', 'ruined' ); ?>
         </a>
     </div>
 

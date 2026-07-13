@@ -4,7 +4,7 @@
     <div class="search-container" data-lenis-prevent>
         <div class="search-header">
             <div class="site-logo"><?php the_custom_logo(); ?></div>
-            <button type="button" class="search-close" aria-label="<?php esc_attr_e('Close search', 'ruined'); ?>">
+            <button type="button" class="search-close" aria-label="<?php esc_attr_e('Κλείσιμο αναζήτησης', 'ruined'); ?>">
                 ✕
             </button>
         </div>

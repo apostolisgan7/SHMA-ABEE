@@ -18,12 +18,12 @@ $has_yith = class_exists('YITH_WCAN');
     <?php else : ?>
         <?php if (!$has_yith) : ?>
             <div class="default-widget">
-                <h3><?php esc_html_e('Categories', 'ruined'); ?></h3>
+                <h3><?php esc_html_e('Κατηγορίες', 'ruined'); ?></h3>
                 <?php the_widget('WC_Widget_Product_Categories'); ?>
             </div>
 
             <div class="default-widget">
-                <h3><?php esc_html_e('Filter by Price', 'ruined'); ?></h3>
+                <h3><?php esc_html_e('Φιλτράρισμα κατά Τιμή', 'ruined'); ?></h3>
                 <?php the_widget('WC_Widget_Price_Filter'); ?>
             </div>
         <?php endif; ?>

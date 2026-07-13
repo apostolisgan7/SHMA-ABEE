@@ -8,6 +8,9 @@ add_action('init', 'ruined_add_post_thumbnail_support', 0); // Changed priority 
 add_action('current_screen', 'ruined_ensure_featured_image_support'); // Changed to current_screen hook
 
 function ruined_theme_setup() {
+    // Load theme translations
+    load_theme_textdomain('ruined', get_template_directory() . '/languages');
+
     // Let WordPress manage the document title
     add_theme_support('title-tag');
     

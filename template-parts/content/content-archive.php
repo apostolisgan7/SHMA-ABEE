@@ -38,7 +38,7 @@
         
         <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100 dark:border-dark-700">
             <a href="<?php the_permalink(); ?>" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">
-                <?php esc_html_e('Read More', 'ruined'); ?>
+                <?php esc_html_e('Περισσότερα', 'ruined'); ?>
                 <span class="ml-1">→</span>
             </a>
             

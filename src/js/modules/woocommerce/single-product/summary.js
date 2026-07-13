@@ -55,6 +55,14 @@ function initCustomQty() {
 
     visibleInput.addEventListener('change', () => update(parseInt(visibleInput.value) || min));
     visibleInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); visibleInput.blur(); } });
+
+    // Keep the real (hidden) qty input in sync on every keystroke, so
+    // clicking "Add to cart" without first blurring the visible input
+    // still submits the value the user actually typed.
+    visibleInput.addEventListener('input', () => {
+        const typed = parseInt(visibleInput.value);
+        if (!isNaN(typed)) qtyInput.value = typed;
+    });
 }
 
 
@@ -248,6 +256,92 @@ export function initSummary() {
 
     jQuery(document).on('found_variation reset_data', () => {
         initCustomQty();
+    });
+
+    /* =========================
+     * RAQ "already in quote" live check
+     *
+     * The product page is served from full-page cache, so the "already in
+     * quote" state baked into the cached HTML only reflects whoever's
+     * session generated that cache entry. Re-check the real state for the
+     * current visitor after load and fix up the DOM if it's wrong.
+     * ========================= */
+    document.querySelectorAll('.yith-ywraq-add-to-quote').forEach((wrapper) => {
+        const link       = wrapper.querySelector('.add-request-quote-button');
+        const productId  = link?.dataset.product_id;
+        if (!productId) return;
+
+        fetch('/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ action: 'rv_ywraq_check_exists', product_id: productId })
+        })
+            .then(r => r.ok ? r.json() : null)
+            .then((res) => {
+                if (!res?.success) return;
+
+                // The label text itself is static (same for every visitor), but a
+                // stale cached page can still have it baked in empty/wrong from
+                // before the label was set. Refresh it unconditionally so it's
+                // never left blank waiting on a reload.
+                const responseElAlways = wrapper.querySelector(`.yith_ywraq_add_item_response-${productId}`);
+                if (responseElAlways && res.data.message) {
+                    responseElAlways.textContent = res.data.message;
+                }
+
+                // Scoped to this product: a page can have more than one RAQ
+                // button (e.g. related/upsell products below the main one), and
+                // only the main product's variations_form should drive its own
+                // wrapper's variation matching.
+                const variationsForm = Array.from(document.querySelectorAll('form.variations_form'))
+                    .find(f => f.dataset.product_id === productId);
+                if (variationsForm) {
+                    // Variable product: YITH's own JS decides button-vs-message by
+                    // matching the *selected* variation id against this attribute.
+                    // Refresh it, then force WooCommerce to re-run that match.
+                    wrapper.setAttribute('data-variation', res.data.variations || '');
+                    jQuery(variationsForm).trigger('check_variations');
+
+                    // YITH's own AJAX "add to quote" handler wipes this div's
+                    // text (`.html('')`) right after a successful add, and never
+                    // refills it — so switching variations afterward re-shows it
+                    // empty. Patch it back in every time the message would show.
+                    const restoreMessage = () => {
+                        if (res.data.message && !responseElAlways?.textContent) {
+                            responseElAlways.textContent = res.data.message;
+                        }
+                    };
+                    jQuery(variationsForm).on('found_variation.rvRaqFix', restoreMessage);
+                    jQuery(document).on('yith_wwraq_added_successfully.rvRaqFix', restoreMessage);
+                    return;
+                }
+
+                if (!res.data.exists) return;
+
+                const addButton = wrapper.querySelector('.yith-ywraq-add-button');
+                if (addButton) {
+                    addButton.classList.remove('show');
+                    addButton.classList.add('hide');
+                    addButton.style.display = 'none';
+                }
+
+                const responseEl = wrapper.querySelector(`.yith_ywraq_add_item_response-${productId}`);
+                if (responseEl) {
+                    responseEl.textContent = res.data.message;
+                    responseEl.classList.remove('hide');
+                    responseEl.classList.add('show');
+                    responseEl.style.display = 'block';
+                }
+
+                const browseEl = wrapper.querySelector(`.yith_ywraq_add_item_browse-list-${productId}`);
+                if (browseEl) {
+                    browseEl.classList.remove('hide');
+                    browseEl.classList.add('show');
+                    browseEl.style.display = 'block';
+                }
+            })
+            .catch(err => console.error('RAQ exists check error:', err));
     });
 
 }

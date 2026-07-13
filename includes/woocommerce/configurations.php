@@ -128,11 +128,11 @@ function ruined_update_cart_qty()
 {
     // Verify nonce for security
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ruined_cart_nonce')) {
-        wp_die(__('Security check failed', 'ruined'));
+        wp_die(__('Ο έλεγχος ασφαλείας απέτυχε', 'ruined'));
     }
 
     if (!isset($_POST['cart_item_key']) || (!isset($_POST['delta']) && !isset($_POST['qty']))) {
-        wp_send_json_error(__('Missing required parameters', 'ruined'));
+        wp_send_json_error(__('Λείπουν απαραίτητες παράμετροι', 'ruined'));
         wp_die();
     }
 
@@ -143,14 +143,14 @@ function ruined_update_cart_qty()
     $cart = WC()->cart;
 
     if (!$cart) {
-        wp_send_json_error(__('Cart not found', 'ruined'));
+        wp_send_json_error(__('Το καλάθι δεν βρέθηκε', 'ruined'));
         wp_die();
     }
 
     $key = sanitize_text_field($_POST['cart_item_key']);
 
     if (!isset($cart->cart_contents[$key])) {
-        wp_send_json_error(__('Cart item not found', 'ruined'));
+        wp_send_json_error(__('Το προϊόν δεν βρέθηκε στο καλάθι', 'ruined'));
         wp_die();
     }
 
@@ -165,7 +165,7 @@ function ruined_update_cart_qty()
 
     // Send success response with updated cart data
     wp_send_json_success([
-        'message' => __('Cart updated successfully', 'ruined'),
+        'message' => __('Το καλάθι ενημερώθηκε επιτυχώς', 'ruined'),
         'new_quantity' => $new_qty,
         'cart_total' => WC()->cart->get_cart_total(),
         'cart_count' => WC()->cart->get_cart_contents_count()
@@ -237,6 +237,11 @@ add_action( 'woocommerce_after_add_to_cart_button', function () {
     yith_ywraq_render_button();
 }, 15 );
 
+// The "Hide prices" YITH setting (ywraq_hide_price) already hides price/subtotal
+// on the customer-facing quote request emails, but the plugin always shows price
+// on the admin notification email regardless of that setting. Force it to comply too.
+add_filter( 'ywraq_hide_prices_email_admin', '__return_true' );
+
 // ========================
 // RAQ OFFCANVAS MINI LIST
 // ========================
@@ -244,8 +249,45 @@ add_action( 'woocommerce_after_add_to_cart_button', function () {
 // Force YITH to start its session for our AJAX action.
 // This must run before wp_loaded (where YITH calls start_session).
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX
-    && isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'rv_raq_mini_list' ) {
+    && isset( $_REQUEST['action'] )
+    && in_array( $_REQUEST['action'], [ 'rv_raq_mini_list', 'rv_ywraq_check_exists' ], true ) ) {
     add_filter( 'ywraq_force_start_session', '__return_true' );
+}
+
+// ========================
+// RAQ "already in quote" live check
+// ========================
+// Product pages are served from full-page cache (SG Optimizer), so the
+// "already in quote" state baked into the HTML at cache time is only correct
+// for whoever's session generated that cache entry — every other visitor
+// sees a stale state. This lets JS re-check the real per-session state after
+// the page loads and correct the DOM if needed.
+add_action( 'wp_ajax_rv_ywraq_check_exists', 'rv_ywraq_check_exists' );
+add_action( 'wp_ajax_nopriv_rv_ywraq_check_exists', 'rv_ywraq_check_exists' );
+function rv_ywraq_check_exists() {
+    if ( ! function_exists( 'YITH_Request_Quote' ) ) {
+        wp_send_json_error();
+    }
+
+    // No nonce check: the nonce on the page is itself baked into the cached
+    // HTML (tied to whoever's session generated that cache entry), so it
+    // won't match any other visitor's session. This endpoint is read-only —
+    // it doesn't change any state — so that's fine to skip.
+    $product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+
+    if ( ! $product_id ) {
+        wp_send_json_error();
+    }
+
+    wp_send_json_success( [
+        'exists'     => (bool) YITH_Request_Quote()->exists( $product_id ),
+        // Variable products don't key their "already in quote" state off
+        // $product_id (no variation is selected yet at render time) — YITH's
+        // own JS instead matches the *selected* variation id against this
+        // comma-separated list of every variation id currently in the quote.
+        'variations' => implode( ',', YITH_Request_Quote()->get_variations_list() ),
+        'message'    => ywraq_get_label( 'already_in_quote' ),
+    ] );
 }
 
 function rv_get_raq_count() {

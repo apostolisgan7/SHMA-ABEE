@@ -11,7 +11,7 @@ $is_yith = class_exists('YITH_Request_Quote');
             <h3 class="offcanvas-cart__title">
                 <?php echo $is_yith ? 'Λίστα Προσφοράς' : __('Καλάθι', 'ruined'); ?>
             </h3>
-            <button class="offcanvas-cart__close" aria-label="<?php esc_attr_e('Close', 'ruined'); ?>">
+            <button class="offcanvas-cart__close" aria-label="<?php esc_attr_e('Κλείσιμο', 'ruined'); ?>">
                 ✕
             </button>
         </div>

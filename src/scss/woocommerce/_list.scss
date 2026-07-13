@@ -15,6 +15,7 @@
     background: #fff;
     border-radius: 5px;
     padding: 5px 20px;
+    gap: 2px;
     height: 62px;
     display: flex;
     justify-content: center;
@@ -26,10 +27,22 @@
       background: transparent;
       padding: 0px;
 
+      svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
     }
 
     .text_label {
       font-size: 14px;
+      display: inline-block;
+      width: 8.5em;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 8px;
     }
   }
 
@@ -172,7 +185,7 @@
 /* inner <aside> slides in/out */
 .shop-sidebar {
   transition: transform 0.32s cubic-bezier(.4, 0, .2, 1),
-              opacity 0.25s ease;
+  opacity 0.25s ease;
 }
 
 /* ===   SHOP SIDEBAR ANIMATION  === */
@@ -191,7 +204,7 @@
   overflow: hidden;
   /* width collapses AFTER inner has slid out */
   transition: width 0.38s cubic-bezier(.4, 0, .2, 1) 0.28s,
-              opacity 0.25s ease 0.28s;
+  opacity 0.25s ease 0.28s;
 
   button.btn.btn-primary.yith-wcan-reset-filters.reset-filters {
     margin-bottom: 1rem;
@@ -239,9 +252,9 @@ body:not(.shop-filters-hidden) {
   .shop_sidebar {
     width: 25%;
     padding-right: 0;
-    opacity: 1;
     transition: width 0.38s cubic-bezier(.4, 0, .2, 1),
-                opacity 0.25s ease;
+    opacity 0.25s ease;
+    opacity: 1 !important;
   }
 
   /* inner slides in after outer opens */
@@ -249,7 +262,7 @@ body:not(.shop-filters-hidden) {
     transform: translateX(0);
     opacity: 1;
     transition: transform 0.32s cubic-bezier(.4, 0, .2, 1) 0.22s,
-                opacity 0.25s ease 0.22s;
+    opacity 0.25s ease 0.22s;
   }
 }
 

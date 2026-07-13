@@ -1,9 +1,71 @@
 @use '../abstracts' as *;
 // Checkout Page
 
-.wp-block-woocommerce-checkout-order-summary-block{
+.wp-block-woocommerce-checkout-order-summary-block {
   background: #fff;
   border: none;
   padding: 1rem;
   border-radius: 8px;
+}
+
+body {
+  .ywraq-view-quote-wrapper.ywraq-status-ywraq-new {
+    padding: 15vh 0;
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  .ywraq-status.processing, .ywraq-status.ywraq-new {
+    color: #00ab45;
+  }
+
+  .ywraq-status-ywraq-new .ywraq-admin-message {
+    background: #e8faee;
+    box-shadow: none;
+    color: #535353;
+    font-style: normal;
+    background-image: none;
+  }
+
+  .ywraq-view-quote-wrapper table.shop_table.order_details {
+    background-color: rgb(255 255 255);
+    padding: 20px 50px 40px 20px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 60px;
+    width: 100%;
+  }
+
+  .ywraq-view-quote-wrapper table.shop_table.order_details .product-name {
+    font-size: 26px;
+    font-weight: 400;
+  }
+
+  .ywraq-view-quote-wrapper.ywraq-status-ywraq-new span.product-name-item {
+    font-size: 18px;
+  }
+
+  .wc-item-meta {
+    li {
+      line-height: 1;
+    }
+
+    strong {
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+    }
+  }
+
+  .ywraq-additional-information > div {
+    width: 47%;
+    border-radius: 10px;
+    padding: 20px;
+    background: #fff;
+    border: none;
+  }
 }

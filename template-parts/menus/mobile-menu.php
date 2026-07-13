@@ -14,11 +14,11 @@ $menu_items = wp_get_nav_menu_items('mobile-menu');
 
 <div class="mobile-menu-backdrop"></div>
 
-<aside class="mobile-menu" aria-hidden="true" aria-label="<?php esc_attr_e('Mobile Navigation', 'ruined'); ?>">
+<aside class="mobile-menu" aria-hidden="true" aria-label="<?php esc_attr_e('Πλοήγηση Κινητού', 'ruined'); ?>">
 
     <div class="mobile-menu__header">
         <button class="mobile-menu__back" aria-label="<?php esc_attr_e('Πίσω', 'ruined'); ?>" aria-hidden="true">←</button>
-        <h3 class="mobile-menu__title"><?php esc_html_e('Menu', 'ruined'); ?></h3>
+        <h3 class="mobile-menu__title"><?php esc_html_e('Μενού', 'ruined'); ?></h3>
         <button class="mobile-menu__close" aria-label="<?php esc_attr_e('Κλείσιμο μενού', 'ruined'); ?>">✕</button>
     </div>
 

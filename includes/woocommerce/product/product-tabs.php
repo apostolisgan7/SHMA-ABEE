@@ -159,7 +159,7 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
                                         </div>
 
                                         <div class="rv-manual-meta">
-                                            <strong>Download Manual</strong>
+                                            <strong><?php esc_html_e( 'Λήψη Εγχειριδίου', 'ruined' ); ?></strong>
                                             <span><?php echo esc_html($title); ?></span>
                                         </div>
 

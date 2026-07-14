@@ -58,6 +58,7 @@ function sigma_send_approval_email( $user ) {
 
     $entity_name = get_user_meta( $user->ID, 'company_name', true )
         ?: get_user_meta( $user->ID, 'municipality_name', true )
+        ?: trim( $user->first_name . ' ' . $user->last_name )
         ?: get_user_meta( $user->ID, 'customer_name', true )
         ?: $user->display_name;
 
@@ -140,7 +141,7 @@ function sigma_registrations_page() {
                     ? get_user_meta( $user->ID, 'company_name', true )
                     : ( $is_muni
                         ? get_user_meta( $user->ID, 'municipality_name', true )
-                        : get_user_meta( $user->ID, 'customer_name', true ) );
+                        : ( trim( $user->first_name . ' ' . $user->last_name ) ?: get_user_meta( $user->ID, 'customer_name', true ) ) );
                 $phone    = get_user_meta( $user->ID, 'phone', true );
                 $vat      = get_user_meta( $user->ID, 'vat', true );
                 $type_key = $is_co ? 'company' : ( $is_muni ? 'municipality' : 'customer' );

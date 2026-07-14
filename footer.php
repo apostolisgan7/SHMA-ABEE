@@ -7,7 +7,7 @@
                 <h2 class="footer-title" data-animate="title-reveal"><?php echo wp_kses_post( __( 'Κατεύθυνση μας <br>η Οδική Ασφάλεια', 'ruined' ) ); ?></h2>
             </div>
             <div class="footer-newsletter" data-animate="fade-up" data-animate-delay="0.2">
-                <span class="subtitle">• <?php esc_html_e( 'ΤΟ EMAIL ΣΑΣ', 'ruined' ); ?></span>
+                <span class="subtitle">• <?php esc_html_e( 'Εγγραφή στο newsletter', 'ruined' ); ?></span>
                 <div class="newsletter-wrapper">
                     <form class="newsletter-form">
                         <input type="email" placeholder="<?php esc_attr_e( 'Εισάγετε το email σας', 'ruined' ); ?>" required>

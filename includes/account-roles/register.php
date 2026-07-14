@@ -81,11 +81,11 @@ add_filter( 'woocommerce_registration_errors', function ( $errors ) {
     }
 
 
-    // --- Customer (B2C)
-    if ( $type === 'customer' && empty( $_POST['customer_name'] ) ) {
+    // --- Όνομα / Επώνυμο (όλοι)
+    if ( empty( $_POST['first_name'] ) || empty( $_POST['last_name'] ) ) {
         $errors->add(
                 'name_required',
-                __( 'Το όνομα είναι υποχρεωτικό.', 'ruined' )
+                __( 'Το όνομα και το επώνυμο είναι υποχρεωτικά.', 'ruined' )
         );
     }
 
@@ -179,13 +179,13 @@ add_action( 'woocommerce_created_customer', function ( $user_id ) {
         );
     }
 
-    // Customer name
-    if ( ! empty( $_POST['customer_name'] ) ) {
-        update_user_meta(
-                $user_id,
-                'customer_name',
-                sanitize_text_field( $_POST['customer_name'] )
-        );
+    // Όνομα / Επώνυμο (όλοι)
+    if ( ! empty( $_POST['first_name'] ) || ! empty( $_POST['last_name'] ) ) {
+        wp_update_user( [
+                'ID'         => $user_id,
+                'first_name' => isset( $_POST['first_name'] ) ? sanitize_text_field( $_POST['first_name'] ) : '',
+                'last_name'  => isset( $_POST['last_name'] ) ? sanitize_text_field( $_POST['last_name'] ) : '',
+        ] );
     }
 
     // Company name

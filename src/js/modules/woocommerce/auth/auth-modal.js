@@ -65,5 +65,18 @@ export function initModal(overlay, modal, { setInitialPillPosition, refreshPassw
         if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
     });
 
+    // Guests can't add to a quote — block YITH's own handler (bound on
+    // document in the bubble phase) and open the auth modal instead.
+    // A capture-phase listener always runs before it, so stopping the
+    // event here keeps it from ever reaching YITH's listener.
+    document.addEventListener('click', (e) => {
+        if (document.body.classList.contains('logged-in')) return;
+        const btn = e.target.closest('.add-request-quote-button');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        openModal();
+    }, true);
+
     return { openModal, closeModal };
 }

@@ -7,12 +7,10 @@ export function initTabs(overlay, { refreshPasswordElsAndBind, updatePasswordMet
     const roleInputs = overlay.querySelectorAll('.js-auth-role-input');
 
     function syncFields(role) {
-        const customer = overlay.querySelector('.js-customer-name-field');
         const company  = overlay.querySelector('.js-company-name-field');
         const muni     = overlay.querySelector('.js-municipality-name-field');
         const vat      = overlay.querySelector('.js-vat-field');
 
-        if (customer) customer.style.display = role === 'customer' ? '' : 'none';
         if (company)  company.style.display  = role === 'company'  ? '' : 'none';
         if (muni)     muni.style.display     = role === 'municipality' ? '' : 'none';
         if (vat)      vat.style.display      = (role === 'company' || role === 'municipality') ? '' : 'none';

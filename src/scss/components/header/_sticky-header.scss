@@ -42,13 +42,14 @@ html {
 
       .header-catalog {
         color: $primary-color;
+
         &:before {
           background: $primary-color;
         }
       }
 
 
-      .offer_icon{
+      .offer_icon {
         svg {
           path {
             stroke: $primary-color !important;
@@ -67,6 +68,19 @@ html {
 
     a {
       color: $primary-color;
+    }
+
+    .header-account {
+      a {
+        color: #fff;
+      }
+      &:hover {
+        background: #fff;
+        color: #000 !important;
+        a {
+          color: #000 !important;
+        }
+      }
     }
 
     // Dark mode support

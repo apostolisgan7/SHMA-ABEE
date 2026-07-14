@@ -65,7 +65,7 @@ export function initMegaMenu() {
     }
 
     // -------------------- CLOSE --------------------
-    function closeMenu() {
+    function closeMenu(onDone) {
 
         tl.reverse();
 
@@ -81,13 +81,15 @@ export function initMegaMenu() {
 
             window.__lenis__?.start();
             document.documentElement.classList.remove('scroll-locked');
+
+            onDone?.();
         });
     }
 
 
     // EVENTS
     openBtn.addEventListener("click", openMenu);
-    closeBtn?.addEventListener("click", closeMenu);
+    closeBtn?.addEventListener("click", () => closeMenu());
     overlay.addEventListener("click", (e) => {
         if (e.target === overlay) closeMenu();
     });
@@ -95,4 +97,9 @@ export function initMegaMenu() {
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeMenu();
     });
+
+    // Exposed so other modules (e.g. an account menu link that needs to
+    // close this menu before navigating or opening the auth modal) can
+    // request a close-with-callback without reaching into this closure.
+    window.__ruinedCloseMegaMenu = closeMenu;
 }

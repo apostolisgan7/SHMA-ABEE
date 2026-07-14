@@ -261,6 +261,11 @@ export function initMobileMenu() {
         closeMenu(onDone);
     };
 
+    // Exposed for the same reason as window.__ruinedCloseMegaMenu — lets an
+    // account menu link close this menu (if open) before it navigates or
+    // opens the auth modal.
+    window.__ruinedCloseMobileMenu = closeMobileMenu;
+
     if (accountBtn) {
         accountBtn.addEventListener('click', () => {
             const accountUrl = accountBtn.dataset.accountUrl;

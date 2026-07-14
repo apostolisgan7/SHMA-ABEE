@@ -26,6 +26,7 @@ import {initStickyHeader} from './modules/ui/sticky-header';
 import {initCatalogMenu} from './modules/ui/menus/catalog-menu.js';
 import {initMobileMenu } from './modules/ui/menus/mobile-menu.js';
 import {initMegaMenu} from './modules/ui/menus/mega-menu.js';
+import {initAccountMenuLink} from './modules/ui/menus/account-menu-link.js';
 import {initSwipers} from './modules/ui/swipers-handler';
 import {initScrollVideo} from './modules/ui/scroll-video';
 import {initHeroVideo} from './modules/ui/hero-video';
@@ -96,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     initAuthModal();
+    initAccountMenuLink();
 
     if (typeof Splitting !== 'undefined') {
         Splitting();

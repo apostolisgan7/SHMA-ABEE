@@ -66,25 +66,6 @@ $header_class = 'header-' . esc_attr($header_color);
                         </button>
                     </div>
 
-                    <div class="header-account head_item">
-                        <?php if (is_user_logged_in()) : ?>
-
-                            <a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>"
-                               class="header-link">
-                                <?php _e('ΛΟΓΑΡΙΑΣΜΟΣ', 'ruined'); ?>
-                            </a>
-
-                        <?php else : ?>
-
-                            <a href="#"
-                               class="header-link js-auth-modal-trigger">
-                                <?php _e('ΛΟΓΑΡΙΑΣΜΟΣ', 'ruined'); ?>
-                            </a>
-
-                        <?php endif; ?>
-                    </div>
-
-
                     <div class="header-cart head_item">
                         <a href="<?php echo esc_url(wc_get_cart_url()); ?>" class="header-link has-badge cart-contents">
                             <span class="offer_text"><?php _e('ΠΡΟΣΦΟΡΑ', 'ruined'); ?></span>
@@ -109,12 +90,31 @@ $header_class = 'header-' . esc_attr($header_color);
                             <?php endif; ?>
                         </a>
                     </div>
+
                 <?php endif; ?>
 
                 <div class="header-lang head_item desktop-only">
                     <a href="#" class="is-active">EL</a>
                     <span>/</span>
                     <a href="#">EN</a>
+                </div>
+                <div class="header-account head_item">
+                    <?php if (is_user_logged_in()) : ?>
+
+                        <a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>"
+                           class="header-link account_link">
+                            <?php _e('ΛΟΓΑΡΙΑΣΜΟΣ', 'ruined'); ?>
+                            <svg width="7" height="9" viewBox="0 0 7 9"> <path d="M0.977505 0.977581L5.12476 4.48757L0.977504 7.99756" stroke="white" stroke-width="1" stroke-linecap="round" fill="transparent"></path> </svg>
+                        </a>
+
+                    <?php else : ?>
+
+                        <a href="#"
+                           class="header-link js-auth-modal-trigger">
+                            <?php _e('ΣΥΝΔΕΣΗ / ΕΓΓΡΑΦΗ', 'ruined'); ?>
+                        </a>
+
+                    <?php endif; ?>
                 </div>
                 <div class="menu_btn">
                     <span class="menu-text"><?php esc_html_e('ΜΕΝΟΥ', 'ruined'); ?></span>

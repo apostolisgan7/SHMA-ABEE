@@ -556,6 +556,53 @@ add_action('woocommerce_checkout_create_order_line_item',
 );
 
 // ========================
+// My Account — copy billing address to shipping (only if shipping is empty)
+// ========================
+add_action( 'woocommerce_customer_save_address', 'ruined_copy_billing_to_empty_shipping_address', 20, 3 );
+function ruined_copy_billing_to_empty_shipping_address( $user_id, $address_type, $address = array() ) {
+    // Run only when the customer saves the billing address.
+    if ( 'billing' !== $address_type || ! $user_id ) {
+        return;
+    }
+
+    $customer = new WC_Customer( $user_id );
+
+    // Do not overwrite an existing shipping address.
+    $shipping_already_exists =
+        ! empty( $customer->get_shipping_address_1() ) ||
+        ! empty( $customer->get_shipping_city() ) ||
+        ! empty( $customer->get_shipping_postcode() );
+
+    if ( $shipping_already_exists ) {
+        return;
+    }
+
+    $fields = array(
+        'first_name',
+        'last_name',
+        'company',
+        'address_1',
+        'address_2',
+        'city',
+        'state',
+        'postcode',
+        'country',
+        'phone',
+    );
+
+    foreach ( $fields as $field ) {
+        $billing_getter  = 'get_billing_' . $field;
+        $shipping_setter = 'set_shipping_' . $field;
+
+        if ( is_callable( array( $customer, $billing_getter ) ) && is_callable( array( $customer, $shipping_setter ) ) ) {
+            $customer->{$shipping_setter}( $customer->{$billing_getter}() );
+        }
+    }
+
+    $customer->save();
+}
+
+// ========================
 // YITH Ajax Product Filter — scope sidebar category blocks to current category
 // ========================
 // This preset has one product_cat filter-tax block per top-level category.

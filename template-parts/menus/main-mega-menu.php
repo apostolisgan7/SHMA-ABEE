@@ -51,14 +51,14 @@ $right_items = array_slice($parents, 5);
             <div class="mega-col">
                 <?php foreach ($left_items as $block): ?>
                     <div class="mega-item">
-                        <a href="<?php echo esc_url($block['item']->url); ?>" class="mega-parent">
+                        <a href="<?php echo esc_url($block['item']->url); ?>" class="mega-parent <?php echo esc_attr(implode(' ', $block['item']->classes)); ?>">
                             <?php echo esc_html($block['item']->title); ?>
                         </a>
 
                         <?php if (!empty($block['childs'])): ?>
                             <div class="mega-sub">
                                 <?php foreach ($block['childs'] as $sub): ?>
-                                    <a href="<?php echo esc_url($sub->url); ?>" class="mega-sub-link">
+                                    <a href="<?php echo esc_url($sub->url); ?>" class="mega-sub-link <?php echo esc_attr(implode(' ', $sub->classes)); ?>">
                                         <?php echo esc_html($sub->title); ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -73,14 +73,14 @@ $right_items = array_slice($parents, 5);
             <div class="mega-col">
                 <?php foreach ($right_items as $block): ?>
                     <div class="mega-item">
-                        <a href="<?php echo esc_url($block['item']->url); ?>" class="mega-parent">
+                        <a href="<?php echo esc_url($block['item']->url); ?>" class="mega-parent <?php echo esc_attr(implode(' ', $block['item']->classes)); ?>">
                             <?php echo esc_html($block['item']->title); ?>
                         </a>
 
                         <?php if (!empty($block['childs'])): ?>
                             <div class="mega-sub">
                                 <?php foreach ($block['childs'] as $sub): ?>
-                                    <a href="<?php echo esc_url($sub->url); ?>" class="mega-sub-link">
+                                    <a href="<?php echo esc_url($sub->url); ?>" class="mega-sub-link <?php echo esc_attr(implode(' ', $sub->classes)); ?>">
                                         <?php echo esc_html($sub->title); ?>
                                     </a>
                                 <?php endforeach; ?>

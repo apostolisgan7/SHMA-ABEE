@@ -68,19 +68,30 @@
 }
 
 .sigma-auth-header {
-  padding: 10vh 2.5rem 0.5rem;
+  padding: 3rem 2.5rem 0.5rem;
 }
 
 .sigma-auth-logo-wrap {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 3vh;
+  margin-bottom: 1.5rem;
 
 
   img {
     filter: brightness(0);
     max-width: 160px;
+  }
+}
+
+/* Όνομα / Επώνυμο σε μία σειρά για να μη διπλασιάζουν το ύψος της φόρμας */
+.sigma-auth-name-row {
+  display: flex;
+  gap: 1rem;
+
+  .floating-field {
+    flex: 1;
+    min-width: 0;
   }
 }
 
@@ -164,9 +175,20 @@
 /* Body */
 .sigma-auth-body {
   padding: 1rem 2.5rem 1.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   overflow-y: auto;
   flex: 1;
+
+  // Πιο compact floating fields — χωράνε περισσότερα πεδία χωρίς εσωτερικό scroll
+  .floating-field {
+    margin-bottom: 1.1rem;
+
+    input,
+    textarea,
+    select {
+      height: 2.2rem;
+    }
+  }
 
   form.woocommerce-form.woocommerce-form-login.login {
     border: none;
@@ -174,7 +196,7 @@
   }
 
   .submit_btn_row {
-    margin-top: 3vh !important;
+    margin-top: 1.5rem !important;
 
     .button-arrow__icon {
       width: 40px;
@@ -346,7 +368,7 @@
 }
 
 .password-strength {
-  margin-top: -29px;
+  margin-top: -20px;
   margin-bottom: 27px;
   display: flex;
   flex-direction: column;
@@ -421,23 +443,38 @@
     padding: 0.5rem;
   }
   .sigma-auth-modal {
-    height: 80vh;
+    height: 90vh;
     padding: 10px;
   }
   .sigma-auth-roles {
     padding: 0.75rem 0.5rem 0;
   }
   .sigma-auth-logo-wrap {
-    margin-bottom: 3vh;
+    margin-bottom: 1.5rem;
   }
   .sigma-auth-header {
     padding: 1rem 0.5rem 0rem;
   }
   .sigma-auth-body {
     padding: 0rem 0.5rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     overflow-y: auto;
     flex: 1;
+
+    .password-strength {
+      margin-top: -14px;
+      margin-bottom: 14px;
+    }
+
+    .floating-field {
+      margin-bottom: 0.9rem;
+    }
+  }
+
+  // Όνομα/Επώνυμο στοιβαγμένα (όχι δίπλα-δίπλα) — αποφυγή στριμώγματος σε στενές οθόνες
+  .sigma-auth-name-row {
+    flex-direction: column;
+    gap: 0;
   }
   .sigma-auth-logo-wrap img {
     max-width: 120px;

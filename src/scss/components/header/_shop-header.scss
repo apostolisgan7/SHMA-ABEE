@@ -55,6 +55,17 @@
       }
     }
 
+    .header-account {
+      a {
+        color: #fff;
+      }
+      &:hover{
+        a {
+          color: #000;
+        }
+      }
+    }
+
     a {
       color: $primary-color;
     }
@@ -247,6 +258,47 @@
         padding: 5px 8px;
       }
     }
+
+    .header-account {
+      background: #000;
+      color: #fff;
+      height: 40px;
+      padding: 10px 17px;
+      border-radius: 4px;
+      transition: all 0.1s ease;
+
+      .account_link {
+        display: flex;
+        gap: 10px;
+
+        svg {
+          transition: all 0.3s ease;
+          position: relative;
+          left: 0;
+        }
+      }
+
+      &:hover {
+        background: #fff;
+        color: #000;
+
+        .account_link {
+          gap: 10px;
+
+          svg {
+            left: 10px;
+
+            path {
+              stroke: #000;
+            }
+          }
+        }
+
+        &:after {
+          display: none;
+        }
+      }
+    }
   }
 
   .header-link {
@@ -342,7 +394,7 @@
     cursor: pointer;
     transition: background-color ease-in 0.2s;
 
-    &:hover{
+    &:hover {
       background: #d3d3d3;
     }
 

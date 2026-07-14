@@ -48,12 +48,11 @@ function sigma_ajax_register() {
         $errors->add('phone_format', __( 'Μη έγκυρη μορφή τηλεφώνου.', 'ruined' ));
     }
 
-    // Validation ανά τύπο (B2C / B2B)
-    if ( $type === 'customer' ) {
-        $customer_name = isset($_POST['customer_name']) ? sanitize_text_field($_POST['customer_name']) : '';
-        if ( empty($customer_name) ) {
-            $errors->add('name_required', __( 'Το ονοματεπώνυμο είναι υποχρεωτικό.', 'ruined' ));
-        }
+    // Όνομα / Επώνυμο (υποχρεωτικά για όλους τους τύπους)
+    $first_name = isset($_POST['first_name']) ? sanitize_text_field($_POST['first_name']) : '';
+    $last_name  = isset($_POST['last_name']) ? sanitize_text_field($_POST['last_name']) : '';
+    if ( empty($first_name) || empty($last_name) ) {
+        $errors->add('name_required', __( 'Το όνομα και το επώνυμο είναι υποχρεωτικά.', 'ruined' ));
     }
 
     if ( in_array($type, ['company', 'municipality'], true) ) {
@@ -123,7 +122,10 @@ function sigma_ajax_register() {
     // Απενεργοποιούμε το WC welcome email (θα στείλουμε custom pending email)
     add_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
 
-    $user_id = wc_create_new_customer( $email, '', $password );
+    $user_id = wc_create_new_customer( $email, '', $password, [
+        'first_name' => $first_name,
+        'last_name'  => $last_name,
+    ] );
 
     remove_filter( 'woocommerce_email_enabled_customer_new_account', '__return_false' );
 
@@ -147,11 +149,12 @@ function sigma_ajax_register() {
     // 2. Ειδοποίηση στον Διαχειριστή (Email)
     $admin_email  = get_option( 'admin_email' );
     $site_name    = get_bloginfo( 'name' );
+    $contact_name = trim( $first_name . ' ' . $last_name );
     $entity_name  = $type === 'company'
         ? ( isset( $company_name ) ? $company_name : '—' )
         : ( $type === 'municipality'
             ? ( isset( $municipality_name ) ? $municipality_name : '—' )
-            : ( isset( $customer_name ) ? $customer_name : '—' ) );
+            : ( $contact_name ?: '—' ) );
     $type_label   = $type === 'company' ? 'Εταιρεία' : ( $type === 'municipality' ? 'Δήμος' : 'Ιδιώτης' );
     $approve_url  = admin_url( 'user-edit.php?user_id=' . $user_id );
 
@@ -177,10 +180,13 @@ function sigma_ajax_register() {
     $rows = [
         [ 'Τύπος',      $type_label ],
         [ 'Επωνυμία',   $entity_name ],
-        [ 'Email',      $email ],
-        [ 'Τηλέφωνο',   isset( $phone ) ? $phone : '—' ],
-        [ 'ΑΦΜ',        isset( $vat ) ? $vat : '—' ],
     ];
+    if ( in_array( $type, [ 'company', 'municipality' ], true ) ) {
+        $rows[] = [ 'Υπεύθυνος Επικοινωνίας', $contact_name ?: '—' ];
+    }
+    $rows[] = [ 'Email',    $email ];
+    $rows[] = [ 'Τηλέφωνο', isset( $phone ) ? $phone : '—' ];
+    $rows[] = [ 'ΑΦΜ',      isset( $vat ) ? $vat : '—' ];
     foreach ( $rows as $i => $row ) {
         $bg = $i % 2 === 0 ? '#fafafa' : '#ffffff';
         $message .= '<tr style="background:' . $bg . ';">';

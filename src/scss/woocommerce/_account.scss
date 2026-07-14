@@ -36,11 +36,13 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
     .footer-main {
       display: none;
     }
+
     .footer-divider {
       margin: 20px 0;
     }
-    .footer-bottom{
-      border:none;
+
+    .footer-bottom {
+      border: none;
     }
   }
 
@@ -117,6 +119,63 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
     border-radius: $border-radius;
     padding: 40px;
     width: 100%;
+
+    .ywraq-view-quote-wrapper.ywraq-status-ywraq-new {
+      padding: 0;
+    }
+
+    .ywraq-view-quote-wrapper.ywraq-status-ywraq-pending {
+      table.shop_table.order_details {
+        padding: 0;
+
+        .order_item {
+          .product-name-item {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
+
+            a {
+              font-size: 18px;
+            }
+
+            strong.product-quantity {
+              font-size: 14px;
+              font-weight: 400;
+              color: #000;
+            }
+
+            strong {
+              font-size: 14px;
+              font-weight: 400;
+              color: #000;
+            }
+
+            .wc-item-meta {
+              li {
+                display: flex;
+                align-items: baseline;
+                gap: 5px;
+
+                strong.wc-item-meta-label {
+                  color: #646464;
+
+                }
+
+                p {
+                  font-size: 14px;
+                  font-weight: 400;
+                  color: #000;
+                }
+              }
+            }
+          }
+
+          .product-total {
+            display: none;
+          }
+        }
+      }
+    }
 
     p {
       font-size: 16px;
@@ -266,12 +325,13 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
 // ===============================
 // BUTTONS
 
-.woocommerce-account{
+.woocommerce-account {
   .woocommerce a.button,
   .woocommerce button.button {
     width: fit-content;
   }
 }
+
 .woocommerce a.button,
 .woocommerce button.button {
   background: $green;
@@ -331,6 +391,7 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
       }
     }
   }
+
   // Override box style → underline (same as .floating-field pattern)
   .form-row input.input-text {
     background: transparent;
@@ -389,7 +450,6 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
       color: #111827;
       font-size: 0.95rem;
       line-height: 1.4;
-      opacity: 0;
     }
 
     .select2-selection__arrow {
@@ -412,12 +472,14 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
     grid-template-columns: 1fr;
     padding: 0px;
 
-    .woocommerce-MyAccount-content{
+    .woocommerce-MyAccount-content {
       padding: 1rem;
-      h2,h3{
+
+      h2, h3 {
         margin-bottom: 1rem;
       }
-     .addresses {
+
+      .addresses {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 32px;

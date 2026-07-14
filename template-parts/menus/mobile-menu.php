@@ -44,7 +44,7 @@ $menu_items = wp_get_nav_menu_items('mobile-menu');
                         $has_children = isset($levels[$item->ID]);
 
                         echo '<button
-            class="menu-item ' . ($has_children ? 'has-children' : '') . '"
+            class="menu-item ' . ($has_children ? 'has-children' : '') . ' ' . esc_attr(implode(' ', $item->classes)) . '"
             data-id="' . (int) $item->ID . '"
             data-title="' . esc_attr($item->title) . '"
             ' . (!$has_children ? 'data-link="' . esc_url($item->url) . '"' : '') . '

@@ -90,15 +90,28 @@ function sigma_auth_register_form() {
 
 
 
-    <!-- ================= ΟΝΟΜΑ (ΙΔΙΩΤΗΣ) ================= -->
-    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide floating-field js-customer-name-field">
-        <input type="text"
-               class="woocommerce-Input woocommerce-Input--text input-text"
-               name="customer_name"
-               id="customer_name<?php echo esc_attr($form_suffix); ?>"
-               placeholder=" ">
-        <label for="customer_name<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Ονοματεπώνυμο', 'ruined' ); ?></label>
-    </p>
+    <!-- ================= ΟΝΟΜΑ / ΕΠΩΝΥΜΟ (ΟΛΟΙ) ================= -->
+    <div class="sigma-auth-name-row">
+        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide floating-field">
+            <input type="text"
+                   class="woocommerce-Input woocommerce-Input--text input-text"
+                   name="first_name"
+                   id="first_name<?php echo esc_attr($form_suffix); ?>"
+                   placeholder=" "
+                   required>
+            <label for="first_name<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Όνομα', 'ruined' ); ?></label>
+        </p>
+
+        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide floating-field">
+            <input type="text"
+                   class="woocommerce-Input woocommerce-Input--text input-text"
+                   name="last_name"
+                   id="last_name<?php echo esc_attr($form_suffix); ?>"
+                   placeholder=" "
+                   required>
+            <label for="last_name<?php echo esc_attr($form_suffix); ?>"><?php esc_html_e( 'Επώνυμο', 'ruined' ); ?></label>
+        </p>
+    </div>
 
     <!-- ================= ΕΠΩΝΥΜΙΑ ΕΤΑΙΡΕΙΑΣ ================= -->
     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide floating-field js-company-name-field"

@@ -192,6 +192,70 @@ textarea:focus {
 }
 
 
+// Auth modal — newsletter / terms consent checkboxes
+.sigma-auth-consent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.sigma-auth-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #4b5563;
+  line-height: 1.4;
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &__box {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-top: 0.1rem;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    background: transparent;
+    position: relative;
+    transition: background 0.16s ease, border-color 0.16s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 5px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) scale(0);
+      transform-origin: center;
+      transition: transform 0.16s ease;
+    }
+  }
+
+  input[type="checkbox"]:checked ~ .sigma-auth-checkbox__box {
+    background: $primary-color;
+    border-color: $primary-color;
+
+    &::after {
+      transform: rotate(45deg) scale(1);
+    }
+  }
+
+  input[type="checkbox"]:focus-visible ~ .sigma-auth-checkbox__box {
+    outline: 2px solid $secondary-color;
+    outline-offset: 2px;
+  }
+}
+
 .wpcf7 form.invalid .wpcf7-response-output, .wpcf7 form.unaccepted .wpcf7-response-output, .wpcf7 form.payment-required .wpcf7-response-output {
   background: #ffb900;
   border: none;

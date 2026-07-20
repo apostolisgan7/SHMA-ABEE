@@ -55,6 +55,14 @@ function sigma_ajax_register() {
         $errors->add('name_required', __( 'Το όνομα και το επώνυμο είναι υποχρεωτικά.', 'ruined' ));
     }
 
+    // Αποδοχή όρων χρήσης (υποχρεωτική)
+    $accept_terms = isset($_POST['accept_terms']) && $_POST['accept_terms'] === '1';
+    if ( ! $accept_terms ) {
+        $errors->add('terms_required', __( 'Πρέπει να αποδεχτείτε τους όρους χρήσης.', 'ruined' ));
+    }
+
+    $newsletter_optin = isset($_POST['newsletter_optin']) && $_POST['newsletter_optin'] === '1';
+
     if ( in_array($type, ['company', 'municipality'], true) ) {
         if ( $type === 'company' ) {
             $company_name = isset($_POST['company_name']) ? sanitize_text_field($_POST['company_name']) : '';
@@ -145,6 +153,8 @@ function sigma_ajax_register() {
 
     // 1. Ορισμός κατάστασης σε "pending"
     update_user_meta($user_id, '_sigma_account_status', 'pending');
+    update_user_meta($user_id, '_sigma_accepted_terms', current_time('mysql'));
+    update_user_meta($user_id, '_sigma_newsletter_optin', $newsletter_optin ? '1' : '0');
 
     // 2. Ειδοποίηση στον Διαχειριστή (Email)
     $admin_email  = get_option( 'admin_email' );

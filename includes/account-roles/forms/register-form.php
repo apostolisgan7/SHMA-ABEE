@@ -159,6 +159,28 @@ function sigma_auth_register_form() {
 
     <?php do_action( 'woocommerce_register_form' ); ?>
 
+    <!-- ================= NEWSLETTER / ΟΡΟΙ ΧΡΗΣΗΣ ================= -->
+    <div class="sigma-auth-consent">
+        <label class="sigma-auth-checkbox">
+            <input type="checkbox"
+                   name="newsletter_optin"
+                   id="newsletter_optin<?php echo esc_attr($form_suffix); ?>"
+                   value="1">
+            <span class="sigma-auth-checkbox__box" aria-hidden="true"></span>
+            <span class="sigma-auth-checkbox__text"><?php esc_html_e( 'Επιθυμώ να εγγραφώ στο newsletter', 'ruined' ); ?></span>
+        </label>
+
+        <label class="sigma-auth-checkbox">
+            <input type="checkbox"
+                   name="accept_terms"
+                   id="accept_terms<?php echo esc_attr($form_suffix); ?>"
+                   value="1"
+                   required>
+            <span class="sigma-auth-checkbox__box" aria-hidden="true"></span>
+            <span class="sigma-auth-checkbox__text"><?php esc_html_e( 'Αποδέχομαι τους όρους χρήσης', 'ruined' ); ?></span>
+        </label>
+    </div>
+
     <p class="woocommerce-form-row form-row submit_btn_row">
         <?php
         rv_button_arrow( [

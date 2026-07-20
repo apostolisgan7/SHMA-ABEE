@@ -57,7 +57,7 @@
             <div class="footer-partners">
                 <a href="/protypa-iso-poiotita-ypiresion/">
                 <img style="mix-blend-mode: difference"
-                     src="<?php echo get_template_directory_uri(); ?>/src/img/Certifications_Shma_Grey.png" alt="ISO">
+                     src="<?php echo get_template_directory_uri(); ?>/src/img/Certifications_Shma.png" alt="ISO">
                 </a>
             </div>
 

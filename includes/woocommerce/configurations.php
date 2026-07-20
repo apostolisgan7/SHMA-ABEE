@@ -541,6 +541,76 @@ add_filter('woocommerce_get_availability', function ($availability, $product) {
     return $availability;
 }, 10, 2);
 
+// Το site δεν εμφανίζει τιμές ή βαθμολογίες προϊόντων, άρα αφαιρούμε τις αντίστοιχες επιλογές ταξινόμησης
+add_filter('woocommerce_catalog_orderby', function ($options) {
+    unset($options['price'], $options['price-desc'], $options['rating']);
+    return $options;
+});
+
+add_filter('woocommerce_default_catalog_orderby_options', function ($options) {
+    unset($options['price'], $options['price-desc'], $options['rating']);
+    return $options;
+});
+
+// ========================
+// Custom σειρά κατηγοριών στο Shop (πεδίο "Σειρά Εμφάνισης στο Shop" ανά product_cat)
+// ========================
+add_action('product_cat_add_form_fields', function () {
+    ?>
+    <div class="form-field">
+        <label for="rv_cat_order"><?php esc_html_e('Σειρά Εμφάνισης στο Shop', 'ruined'); ?></label>
+        <input type="number" name="rv_cat_order" id="rv_cat_order" value="0" step="1">
+        <p class="description"><?php esc_html_e('Μικρότερος αριθμός εμφανίζεται πρώτα στη σελίδα Shop (προεπιλεγμένη ταξινόμηση).', 'ruined'); ?></p>
+    </div>
+    <?php
+});
+
+add_action('product_cat_edit_form_fields', function ($term) {
+    $order = get_term_meta($term->term_id, 'rv_cat_order', true);
+    ?>
+    <tr class="form-field">
+        <th scope="row"><label for="rv_cat_order"><?php esc_html_e('Σειρά Εμφάνισης στο Shop', 'ruined'); ?></label></th>
+        <td>
+            <input type="number" name="rv_cat_order" id="rv_cat_order" value="<?php echo esc_attr($order !== '' ? $order : 0); ?>" step="1">
+            <p class="description"><?php esc_html_e('Μικρότερος αριθμός εμφανίζεται πρώτα στη σελίδα Shop (προεπιλεγμένη ταξινόμηση).', 'ruined'); ?></p>
+        </td>
+    </tr>
+    <?php
+});
+
+foreach (['created_product_cat', 'edited_product_cat'] as $rv_cat_order_hook) {
+    add_action($rv_cat_order_hook, function ($term_id) {
+        if (isset($_POST['rv_cat_order'])) {
+            update_term_meta($term_id, 'rv_cat_order', (int) $_POST['rv_cat_order']);
+        }
+    });
+}
+
+// Στη Shop σελίδα (όλα τα προϊόντα), με την προεπιλεγμένη ταξινόμηση, ομαδοποίηση κατά κατηγορία βάσει της παραπάνω σειράς
+add_action('pre_get_posts', function ($query) {
+    if (is_admin() || !$query->is_main_query() || !is_shop()) return;
+
+    $orderby = isset($_GET['orderby']) ? sanitize_key($_GET['orderby']) : '';
+    if ($orderby && $orderby !== 'menu_order') return;
+
+    $query->set('rv_order_by_category', true);
+}, 20);
+
+add_filter('posts_clauses', function ($clauses, $query) {
+    if (is_admin() || !$query->get('rv_order_by_category')) return $clauses;
+
+    global $wpdb;
+
+    $clauses['join'] .= " LEFT JOIN {$wpdb->term_relationships} rv_tr ON ({$wpdb->posts}.ID = rv_tr.object_id)
+        LEFT JOIN {$wpdb->term_taxonomy} rv_tt ON (rv_tr.term_taxonomy_id = rv_tt.term_taxonomy_id AND rv_tt.taxonomy = 'product_cat')
+        LEFT JOIN {$wpdb->termmeta} rv_tm ON (rv_tm.term_id = rv_tt.term_id AND rv_tm.meta_key = 'rv_cat_order')";
+
+    $clauses['groupby'] = "{$wpdb->posts}.ID";
+    $clauses['orderby'] = "MIN(COALESCE(rv_tm.meta_value + 0, 9999)) ASC, {$wpdb->posts}.menu_order ASC, {$wpdb->posts}.post_title ASC";
+
+    return $clauses;
+}, 10, 2);
+
 add_action('woocommerce_checkout_create_order_line_item',
         function ($item, $cart_item_key, $values) {
 

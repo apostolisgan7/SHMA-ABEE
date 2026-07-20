@@ -7,10 +7,7 @@ document.addEventListener('alpine:init', () => {
         options: [
             { value: 'menu_order', label: 'Ανά προεπιλογή' },
             { value: 'date', label: 'Ανά ημερομηνία' },
-            { value: 'price', label: 'Αύξουσα τιμή' },
-            { value: 'price-desc', label: 'Φθίνουσα τιμή' },
             { value: 'popularity', label: 'Δημοφιλή' },
-            { value: 'rating', label: 'Καλύτερη βαθμολογία' },
         ],
 
         init() {

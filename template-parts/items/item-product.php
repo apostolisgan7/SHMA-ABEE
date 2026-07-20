@@ -48,7 +48,7 @@ if (is_array($cats) && !empty($cats)) $cat_name = array_shift($cats);
 $price_html = $product ? $product->get_price_html() : '';
 $in_stock = $product ? $product->is_in_stock() : false;
 
-// Stock status display
+// Stock status display — prefer "Availability" taxonomy (pa_availability), fallback to Woo stock status
 $stock_status = $product ? $product->get_stock_status() : 'outofstock';
 $stock_map = [
     'instock'     => ['label' => __('Διαθέσιμο', 'ruined'),          'mod' => 'rv-product-card__stock--instock'],
@@ -56,6 +56,14 @@ $stock_map = [
     'onbackorder' => ['label' => __('Κατόπιν παραγγελίας', 'ruined'), 'mod' => 'rv-product-card__stock--backorder'],
 ];
 $stock_info = $stock_map[$stock_status] ?? null;
+
+$availability_terms = $product ? get_the_terms($product->get_id(), 'pa_availability') : false;
+if ($availability_terms && !is_wp_error($availability_terms) && !empty($availability_terms)) {
+    $availability_term = array_shift($availability_terms);
+    if ($stock_info === null) $stock_info = [];
+    $stock_info['label'] = $availability_term->name;
+    $stock_info['availability_class'] = 'availability-' . sanitize_html_class($availability_term->slug);
+}
 
 // CTA Logic
 $show_add_to_cart = $product && $product->is_purchasable() && $in_stock;
@@ -76,7 +84,7 @@ $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('�
                 <?php echo $hover_image_html; ?>
             <?php endif; ?>
             <?php if ($stock_info) : ?>
-                <span class="rv-product-card__stock <?php echo esc_attr($stock_info['mod']); ?>">
+                <span class="rv-product-card__stock <?php echo esc_attr($stock_info['mod'] ?? ''); ?> <?php echo esc_attr($stock_info['availability_class'] ?? ''); ?>">
                     <i></i><?php echo esc_html($stock_info['label']); ?>
                 </span>
             <?php endif; ?>
@@ -105,7 +113,7 @@ $add_to_cart_text = $show_add_to_cart ? __('Προσθήκη', 'ruined') : __('�
             <?php endif; ?>
 
             <?php if ($stock_info) : ?>
-                <span class="rv-product-card__stock list_stock <?php echo esc_attr($stock_info['mod']); ?>">
+                <span class="rv-product-card__stock list_stock <?php echo esc_attr($stock_info['mod'] ?? ''); ?> <?php echo esc_attr($stock_info['availability_class'] ?? ''); ?>">
                     <i></i><?php echo esc_html($stock_info['label']); ?>
                 </span>
             <?php endif; ?>

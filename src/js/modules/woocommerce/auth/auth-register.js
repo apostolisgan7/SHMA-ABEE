@@ -48,9 +48,10 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
                     if (msg.includes('τηλέφωνο'))  field = registerForm.querySelector('input[name="phone"]');
                     if (msg.includes('επωνυμία'))   field = registerForm.querySelector('input[name="company_name"]');
                     if (msg.includes('αφμ'))        field = registerForm.querySelector('input[name="vat"]');
+                    if (msg.includes('όρους χρήσης')) field = registerForm.querySelector('input[name="accept_terms"]');
 
                     if (field) {
-                        const row = field.closest('.form-row');
+                        const row = field.closest('.form-row') || field.closest('.sigma-auth-consent');
                         row?.querySelectorAll('.field-error').forEach(el => el.remove());
                         const error = document.createElement('div');
                         error.className   = 'field-error';

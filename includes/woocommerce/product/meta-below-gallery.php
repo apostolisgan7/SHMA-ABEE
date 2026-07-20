@@ -31,6 +31,7 @@ global $product;
 
             $status_label = '';
             $status_class = '';
+            $availability_class = '';
 
             switch ($stock_status) {
                 case 'instock':
@@ -48,10 +49,17 @@ global $product;
                     $status_class = 'stock-backorder';
                     break;
             }
+
+            $availability_terms = get_the_terms($product->get_id(), 'pa_availability');
+            if ($availability_terms && !is_wp_error($availability_terms) && !empty($availability_terms)) {
+                $availability_term = array_shift($availability_terms);
+                $status_label = $availability_term->name;
+                $availability_class = 'availability-' . sanitize_html_class($availability_term->slug);
+            }
             ?>
 
             <?php if ($status_label) : ?>
-                <div class="rv-product-stock dot_icon <?php echo esc_attr($status_class); ?>">
+                <div class="rv-product-stock dot_icon <?php echo esc_attr($status_class); ?> <?php echo esc_attr($availability_class); ?>">
                     <span><?php echo esc_html($status_label); ?></span>
                 </div>
             <?php endif; ?>

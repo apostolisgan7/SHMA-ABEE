@@ -56,7 +56,10 @@ add_action('template_redirect', function () {
 
 /**
  * Point the "Services" breadcrumb crumb to /ypiresies/ instead of the
- * empty /service/ archive link that Rank Math builds from the CPT rewrite slug.
+ * empty /service/ archive link that Rank Math builds from the CPT rewrite slug,
+ * and swap its label to Greek — the "service" CPT labels (ACF JSON) are English
+ * ("Services"), and that raw label never passes through gettext, so
+ * includes/translations.php can't catch it.
  */
 add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs) {
     $services_page = ruined_get_services_page();
@@ -70,6 +73,7 @@ add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs) {
 
     foreach ($crumbs as $index => $crumb) {
         if ($archive_link && isset($crumb[1]) && untrailingslashit($crumb[1]) === untrailingslashit($archive_link)) {
+            $crumbs[$index][0] = 'Υπηρεσίες';
             $crumbs[$index][1] = $services_url;
         }
     }

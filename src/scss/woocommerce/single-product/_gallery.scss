@@ -245,15 +245,36 @@
 
 }
 
+/* Wrapper around the thumbs strip + zoom button (kept as separate elements so
+   capping the thumbs strip height, below, can't also clip the zoom button) */
+.rv-gallery-thumbs-wrap {
+  width: 100%;
+
+  @media (min-width: 992px) {
+    width: 100px;
+    // The wrap is stretched full-height by the parent flex row (to match
+    // .rv-gallery-main); anchor the (capped) thumbs strip + zoom button as a
+    // group to the bottom instead of leaving them stuck at the top of it.
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
 /* Thumbnails container */
 .rv-gallery-thumbs {
   width: 100%;
   padding: 5px;
   opacity: 1;
-
+  box-sizing: border-box;
 
   @media (min-width: 992px) {
-    width: 100px;
+    // Cap the strip to exactly 4 thumbs (60px + 10px gap x4) so products with
+    // many gallery images don't stretch the strip down the whole page; the
+    // rest are reachable via the "+N" badge → full gallery.
+    height: 280px;
+    overflow: hidden;
   }
 
   .swiper-wrapper {
@@ -261,7 +282,6 @@
       flex-direction: column;
       justify-content: flex-end;
       align-items: center;
-      margin-top: -8vh !important;
     }
   }
 
@@ -277,6 +297,7 @@
     padding: 5px;
     box-sizing: border-box;
     background: #E2E3E7;
+    position: relative;
 
     &:hover {
       opacity: 0.8;
@@ -292,6 +313,29 @@
       height: 100%;
       object-fit: contain;
       mix-blend-mode: darken;
+    }
+  }
+
+  .rv-gallery-thumb--more {
+    opacity: 1;
+
+    img{
+      filter: blur(3px);
+    }
+
+    .rv-gallery-thumb-count {
+      position: absolute;
+      inset: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.0);
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      font-weight: 400;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
     }
   }
 }
@@ -331,7 +375,12 @@
     grid-template-columns: 1fr;
     display: grid;
 
-    .rv-gallery-thumbs {
+
+    > * {
+      min-width: 0;
+    }
+
+    .rv-gallery-thumbs-wrap {
       order: 2;
 
       .zoom-wrapper {
@@ -348,6 +397,7 @@
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .rv-gallery-thumbs {
+
     .swiper-wrapper {
       height: auto;
       justify-content: center;

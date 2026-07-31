@@ -37,6 +37,7 @@ $includes = [
     'includes/services.php',          // Services archive/breadcrumb consolidation
     'includes/woocommerce/configurations.php',       // WooCommerce customizations
     'includes/woocommerce/load-more.php',       // WooCommerce load more
+    'includes/woocommerce/catalog-menu-sync.php',       // Catalog Menu category sync
     'pages-hero.php',
 ];
 

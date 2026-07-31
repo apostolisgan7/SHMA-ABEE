@@ -59,7 +59,8 @@
       a {
         color: #fff;
       }
-      &:hover{
+
+      &:hover {
         a {
           color: #000;
         }
@@ -275,6 +276,7 @@
           transition: all 0.3s ease;
           position: relative;
           left: 0;
+          top: 1px;
         }
       }
 

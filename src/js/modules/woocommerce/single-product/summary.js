@@ -90,6 +90,25 @@ export function initSummary() {
     }
 
     /* =========================
+     * TITLE on variation change (per-variation SoftOne name, _erp_name)
+     * ========================= */
+    const titleEl = summary.querySelector('.rv-product-title');
+
+    if (titleEl) {
+        const originalTitle = titleEl.textContent;
+
+        jQuery(document.body).on('found_variation.rvTitle', (e, variation) => {
+            if (variation.erp_name) {
+                titleEl.textContent = variation.erp_name;
+            }
+        });
+
+        jQuery(document.body).on('reset_data.rvTitle', () => {
+            titleEl.textContent = originalTitle;
+        });
+    }
+
+    /* =========================
      * SKU on variation change
      * ========================= */
     const skuEl      = summary.querySelector('.rv-product-sku');

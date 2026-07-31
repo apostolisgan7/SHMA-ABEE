@@ -4,7 +4,7 @@
     <div class="container">
         <div class="footer-upper">
             <div class="footer-cta">
-                <h2 class="footer-title" data-animate="title-reveal"><?php echo wp_kses_post( __( 'Κατεύθυνση μας <br>η Οδική Ασφάλεια', 'ruined' ) ); ?></h2>
+                <h2 class="footer-title" data-animate="title-reveal"><?php echo wp_kses_post( __( 'Κατεύθυνσή μας: <br>Η Οδική Ασφάλεια', 'ruined' ) ); ?></h2>
             </div>
             <div class="footer-newsletter" data-animate="fade-up" data-animate-delay="0.2">
                 <span class="subtitle">• <?php esc_html_e( 'Εγγραφή στο newsletter', 'ruined' ); ?></span>

@@ -237,6 +237,16 @@ add_action( 'woocommerce_after_add_to_cart_button', function () {
     yith_ywraq_render_button();
 }, 15 );
 
+// Discontinued products are synced from SoftOne as WooCommerce out-of-stock,
+// so hide the quote button for those too — regardless of which of the two
+// modes above actually renders it, since both call yith_ywraq_render_button().
+add_filter( 'yith_ywraq_before_print_button', function ( $show, $product ) {
+    if ( $product instanceof WC_Product && 'outofstock' === $product->get_stock_status() ) {
+        return false;
+    }
+    return $show;
+}, 10, 2 );
+
 // The "Hide prices" YITH setting (ywraq_hide_price) already hides price/subtotal
 // on the customer-facing quote request emails, but the plugin always shows price
 // on the admin notification email regardless of that setting. Force it to comply too.
@@ -433,6 +443,18 @@ add_action('after_setup_theme', function () {
 add_action('rv_product_meta_below_gallery', function () {
     get_template_part('includes/woocommerce/product/meta-below-gallery');
 });
+
+// Variations can carry their own SoftOne-synced display name (_erp_name),
+// different from the parent product title. WooCommerce doesn't send custom
+// variation meta to the front-end by default, so expose it here — the
+// single-product title JS (summary.js) swaps to it on found_variation.
+add_filter('woocommerce_available_variation', function ($data, $product, $variation) {
+    $erp_name = get_post_meta($variation->get_id(), '_erp_name', true);
+    if ($erp_name !== '') {
+        $data['erp_name'] = $erp_name;
+    }
+    return $data;
+}, 10, 3);
 
 
 add_action('rv_custom_summary_layout', function () {

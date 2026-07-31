@@ -258,6 +258,22 @@ function initZoomLens(container) {
 ========================= */
 let _fancyboxHandler = null;
 
+function openFullGallery(startIndex) {
+    const images = document.querySelectorAll('.main-slide-image');
+
+    Fancybox.show(
+        [...images].map(img => ({
+            src: img.dataset.src || img.src,
+            type: 'image'
+        })),
+        {
+            startIndex: startIndex ?? 0,
+            Thumbs: false,
+            Toolbar: { display: ['close', 'zoom', 'fullscreen'] }
+        }
+    );
+}
+
 function initFancybox() {
     // Use event delegation on the stable gallery wrapper so that
     // replacing .rv-gallery-thumbs (WooCommerce variable product behaviour)
@@ -271,23 +287,21 @@ function initFancybox() {
     }
 
     _fancyboxHandler = (e) => {
+        // "+N" overflow badge: open the full gallery (all images) instead of
+        // just switching the main slider to the 4th thumb, since the hidden
+        // images beyond it have no other visible thumb to click.
+        if (e.target.closest('.rv-gallery-thumb-count')) {
+            e.preventDefault();
+            e.stopPropagation();
+            openFullGallery(mainSwiper?.realIndex ?? mainSwiper?.activeIndex);
+            return;
+        }
+
         if (!e.target.closest('.rv-gallery-zoom')) return;
         e.preventDefault();
         if (!mainSwiper) return;
 
-        const images = document.querySelectorAll('.main-slide-image');
-
-        Fancybox.show(
-            [...images].map(img => ({
-                src: img.dataset.src || img.src,
-                type: 'image'
-            })),
-            {
-                startIndex: mainSwiper.realIndex ?? mainSwiper.activeIndex,
-                Thumbs: false,
-                Toolbar: { display: ['close', 'zoom', 'fullscreen'] }
-            }
-        );
+        openFullGallery(mainSwiper.realIndex ?? mainSwiper.activeIndex);
     };
 
     wrapper.addEventListener('click', _fancyboxHandler);

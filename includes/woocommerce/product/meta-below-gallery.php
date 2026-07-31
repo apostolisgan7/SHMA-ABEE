@@ -50,11 +50,10 @@ global $product;
                     break;
             }
 
-            $availability_terms = get_the_terms($product->get_id(), 'pa_availability');
-            if ($availability_terms && !is_wp_error($availability_terms) && !empty($availability_terms)) {
-                $availability_term = array_shift($availability_terms);
-                $status_label = $availability_term->name;
-                $availability_class = 'availability-' . sanitize_html_class($availability_term->slug);
+            $erp_availability = get_post_meta($product->get_id(), '_erp_availability', true);
+            if ($erp_availability !== '') {
+                $status_label = $erp_availability;
+                $availability_class = 'availability-' . sanitize_html_class(sanitize_title($erp_availability));
             }
             ?>
 

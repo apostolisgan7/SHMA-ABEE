@@ -72,11 +72,25 @@
 
     .btn_left {
       background: #fff;
+      transition: ease 0.3s;
+
+      &:hover {
+        background: #000;
+        color: #fff;
+      }
     }
 
     .btn_right {
       border: 1px solid #fff;
       color: #fff;
+      transition: ease 0.3s;
+
+
+      &:hover {
+        background: #000;
+        color: #fff;
+        border: 1px solid #000;
+      }
     }
   }
 

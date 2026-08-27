@@ -82,7 +82,7 @@ if (!empty($block['align']))     $classes .= ' align' . $block['align'];
                     <div class="block-contact-location__button">
                         <?php
                         rv_button_arrow([
-                                'text'          => $link['title'] ?? 'Δες στο χάρτη',
+                                'text'          => $link['title'] ?? 'Βρείτε μας στο χάρτη',
                                 'url'           => $link['url']   ?? 'https://maps.app.goo.gl/LYUK4sx7iJDLya9NA',
                                 'target'        => $link['target'] ?? '_blank',
                                 'variant'       => 'black',

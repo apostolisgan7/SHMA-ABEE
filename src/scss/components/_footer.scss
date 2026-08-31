@@ -109,6 +109,48 @@
         display: block;
         filter: invert(1);
       }
+
+      .footer-social {
+        margin-top: 40px;
+      }
+
+      .footer-social-title {
+        color: $primary-color;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        margin: 0 0 10px;
+      }
+
+      .footer-social-icons {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 2px;
+      }
+
+      .footer-social-icon {
+        color: $primary-color;
+        transition: all 0.25s ease;
+
+        svg {
+          width: 22px;
+          display: block;
+          path{
+            transition: all 0.25s ease;
+
+          }
+
+        }
+
+        &:hover {
+          svg {
+            path {
+              fill: $secondary-color;
+            }
+          }
+        }
+      }
     }
 
     .footer-links-grid {
@@ -213,7 +255,7 @@
 
         .footer-title {
           font-size: 32px;
-         letter-spacing: 0;
+          letter-spacing: 0;
         }
       }
 
@@ -254,7 +296,7 @@
         gap: 20px;
 
         img {
-          max-height: 25px; // Πιο μικρά logos συνεργατών
+          max-height: 48px;
         }
       }
 
@@ -265,14 +307,16 @@
 // Extra fix για πολύ μικρές οθόνες (Smartphones)
 @media (max-width: 480px) {
   .site-footer {
-    .container{
+    .container {
       padding: 1rem;
     }
+
     .footer-divider {
       border: 0;
       border-top: 1px solid #eee;
       margin: 40px 0;
     }
+
     .footer-main .footer-links-grid {
       grid-template-columns: repeat(2, 1fr);
     }

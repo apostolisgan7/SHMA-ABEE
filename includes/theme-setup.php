@@ -43,6 +43,7 @@ function ruined_theme_setup() {
             'footer-col-2'      => __('Footer Column 2 (Services)', 'ruined'),
             'footer-col-3'      => __('Footer Column 3 (Legal)', 'ruined'),
             'footer-col-4'      => __('Footer Column 4 (Contact)', 'ruined'),
+            'footer-social'     => __('Footer Social', 'ruined'),
     ]);
 }
 

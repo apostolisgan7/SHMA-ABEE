@@ -25,6 +25,25 @@
                 <?php if (has_custom_logo()) : ?>
                     <?php the_custom_logo(); ?>
                 <?php endif; ?>
+
+                <?php if (has_nav_menu('footer-social')) :
+                    $footer_social_menu_id = get_nav_menu_locations()['footer-social'];
+                    $footer_social_items   = wp_get_nav_menu_items($footer_social_menu_id);
+                    if ($footer_social_items) : ?>
+                        <div class="footer-social">
+                            <p class="footer-social-title"><?php esc_html_e('Ακολουθήστε μας', 'ruined'); ?></p>
+                            <div class="footer-social-icons">
+                                <?php foreach ($footer_social_items as $social_item) :
+                                    $icon = shma_get_social_icon($social_item->url);
+                                    if (!$icon) continue; ?>
+                                    <a href="<?php echo esc_url($social_item->url); ?>" class="footer-social-icon" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($social_item->title); ?>">
+                                        <?php echo $icon; ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif;
+                endif; ?>
             </div>
 
             <div class="footer-links-grid" data-animate="stagger-fade" data-animate-stagger="0.12">

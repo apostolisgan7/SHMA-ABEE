@@ -463,8 +463,8 @@
   }
   .sigma-auth-body {
     padding: 0rem 0.5rem;
-    margin-top: 0.5rem;
-    overflow-y: auto;
+    margin-top: 1rem;
+    overflow-y: visible;
     flex: 1;
 
     .password-strength {

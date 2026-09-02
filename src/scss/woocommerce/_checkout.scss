@@ -21,6 +21,7 @@ body {
 
   .ywraq-status-ywraq-new .ywraq-admin-message {
     background: #e8faee;
+    width: 100%;
     box-shadow: none;
     color: #535353;
     font-style: normal;
@@ -67,5 +68,14 @@ body {
     padding: 20px;
     background: #fff;
     border: none;
+  }
+
+  @media (max-width: 767px) {
+    .ywraq-view-quote-wrapper table.shop_table.order_details {
+      padding: 0;
+    }
+    body .ywraq-additional-information > div{
+      width: 100%;
+    }
   }
 }

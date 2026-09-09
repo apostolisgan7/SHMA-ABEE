@@ -27,6 +27,7 @@ $includes = [
     'includes/theme-setup.php',       // Theme setup and features
     'includes/vite.php',              // Vite asset loading
     'includes/admin.php',             // Admin area customizations
+    'includes/admin-docs.php',        // Admin-only "Τεκμηρίωση" viewer (renders woocommerce-admin-docs.md)
     'includes/shortcodes.php',        // Custom shortcodes
     'includes/utilities.php',         // Utility functions
     'includes/translations.php',      // Site-wide English -> Greek string overrides

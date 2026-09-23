@@ -40,12 +40,12 @@ function sigma_ajax_register() {
         $errors->add('invalid_type', __( 'Invalid customer type.', 'ruined' ));
     }
 
-    // Κοινά πεδία (Phone)
+    // Κοινά πεδία (Phone) — ίδιος κανόνας με το native WC registration path (register.php): Ελλάδα, 10 ψηφία
     $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
     if ( empty($phone) ) {
         $errors->add('phone_required', __( 'Το τηλέφωνο είναι υποχρεωτικό.', 'ruined' ));
-    } elseif (!preg_match('/^[+]?[\d\s\-\(\)]{7,15}$/', $phone)) {
-        $errors->add('phone_format', __( 'Μη έγκυρη μορφή τηλεφώνου.', 'ruined' ));
+    } elseif ( strlen( preg_replace( '/\D/', '', $phone ) ) !== 10 ) {
+        $errors->add('phone_format', __( 'Το τηλέφωνο πρέπει να έχει 10 ψηφία.', 'ruined' ));
     }
 
     // Όνομα / Επώνυμο (υποχρεωτικά για όλους τους τύπους)

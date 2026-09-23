@@ -563,16 +563,123 @@ add_filter('woocommerce_get_availability', function ($availability, $product) {
     return $availability;
 }, 10, 2);
 
-// Το site δεν εμφανίζει τιμές ή βαθμολογίες προϊόντων, άρα αφαιρούμε τις αντίστοιχες επιλογές ταξινόμησης
+// Το site δεν εμφανίζει τιμές ή βαθμολογίες προϊόντων, άρα αφαιρούμε τις αντίστοιχες επιλογές ταξινόμησης.
+// Αφαιρούμε επίσης το "Default sorting" (menu_order) και προσθέτουμε αλφαβητική ταξινόμηση (title).
 add_filter('woocommerce_catalog_orderby', function ($options) {
-    unset($options['price'], $options['price-desc'], $options['rating']);
+    unset($options['price'], $options['price-desc'], $options['rating'], $options['menu_order']);
+    $options['title'] = 'Ανά αλφαβητική σειρά';
     return $options;
-});
+}, 20);
 
 add_filter('woocommerce_default_catalog_orderby_options', function ($options) {
-    unset($options['price'], $options['price-desc'], $options['rating']);
+    unset($options['price'], $options['price-desc'], $options['rating'], $options['menu_order']);
+    $options['title'] = 'Ανά αλφαβητική σειρά';
     return $options;
+}, 999);
+
+// ========================
+// Ταξινόμηση "Δημοφιλή" (popularity): τα featured προϊόντα πάντα πρώτα
+// ========================
+add_filter('posts_clauses', function ($clauses, $query) {
+    // Να μην επηρεάσει τα κανονικά queries της διαχείρισης
+    if (is_admin() && !wp_doing_ajax()) return $clauses;
+
+    // Μόνο σε queries του product catalog (Shop / κατηγορίες / tags κ.λπ.)
+    $is_product_catalog_query = 'product_query' === $query->get('wc_query')
+        || $query->is_post_type_archive('product')
+        || $query->is_tax(get_object_taxonomies('product'));
+
+    if (!$is_product_catalog_query) return $clauses;
+
+    // Εντοπισμός της επιλεγμένης ταξινόμησης, και σε AJAX requests
+    $catalog_orderby = isset($_REQUEST['orderby'])
+        ? sanitize_text_field(wp_unslash($_REQUEST['orderby']))
+        : get_option('woocommerce_default_catalog_orderby', 'menu_order');
+
+    // Αλλάζουμε μόνο την ταξινόμηση "Δημοφιλή" (popularity)
+    if ('popularity' !== $catalog_orderby) return $clauses;
+
+    if (!function_exists('wc_get_product_visibility_term_ids')) return $clauses;
+
+    $visibility_terms = wc_get_product_visibility_term_ids();
+    $featured_term_id = isset($visibility_terms['featured']) ? absint($visibility_terms['featured']) : 0;
+
+    if (!$featured_term_id) return $clauses;
+
+    global $wpdb;
+    $alias = 'shma_featured_products';
+
+    if (false === strpos($clauses['join'], $alias)) {
+        $clauses['join'] .= " LEFT JOIN {$wpdb->term_relationships} AS {$alias} ON ( {$wpdb->posts}.ID = {$alias}.object_id AND {$alias}.term_taxonomy_id = {$featured_term_id} ) ";
+    }
+
+    $featured_order = "CASE WHEN {$alias}.object_id IS NULL THEN 1 ELSE 0 END ASC";
+    $clauses['orderby'] = !empty($clauses['orderby'])
+        ? $featured_order . ', ' . $clauses['orderby']
+        : $featured_order;
+
+    return $clauses;
+}, 999, 2);
+
+// Συγχρονισμός του custom dropdown ταξινόμησης (.shop-sorting) με τις παραπάνω αλλαγές·
+// το Alpine component (shop-sorting.js) έχει στατική λίστα options, οπότε εδώ ξαναχτίζουμε
+// τα κουμπιά του dropdown από τις πραγματικές <option> του κρυφού WooCommerce select.
+add_action('wp_footer', function () {
+    $script = <<<'JS'
+document.addEventListener('DOMContentLoaded', function () {
+    function shmaSyncSortingMenu() {
+        document.querySelectorAll('.shop-sorting').forEach(function (root) {
+            var select = root.querySelector('select.orderby');
+            var dropdown = root.querySelector('.shop-sorting__dropdown');
+            var currentLabel = root.querySelector(
+                '.shop-sorting__trigger [x-text="currentLabel"]'
+            );
+
+            if (!select || !dropdown) {
+                return;
+            }
+
+            var labels = {
+                popularity: 'Δημοφιλή',
+                date: 'Ανά ημερομηνία',
+                title: 'Ανά αλφαβητική σειρά'
+            };
+
+            dropdown.innerHTML = '';
+
+            Array.from(select.options).forEach(function (option) {
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = labels[option.value] || option.textContent.trim();
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    select.value = option.value;
+                    if (currentLabel) {
+                        currentLabel.textContent = button.textContent;
+                    }
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                });
+                dropdown.appendChild(button);
+            });
+
+            if (currentLabel && select.selectedIndex >= 0) {
+                var selected = select.options[select.selectedIndex];
+                currentLabel.textContent = labels[selected.value] || selected.textContent.trim();
+            }
+        });
+    }
+
+    shmaSyncSortingMenu();
+
+    document.addEventListener('yith-wcan-ajax-filtered', shmaSyncSortingMenu);
+    if (window.jQuery) {
+        window.jQuery(document).on('yith-wcan-ajax-filtered', shmaSyncSortingMenu);
+    }
 });
+JS;
+    echo '<script>' . $script . '</script>';
+}, 999);
 
 // ========================
 // Custom σειρά κατηγοριών στο Shop (πεδίο "Σειρά Εμφάνισης στο Shop" ανά product_cat)

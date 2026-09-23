@@ -70,6 +70,11 @@ function rv_load_more_products() {
     $query_vars['post_status'] = 'publish';
     $query_vars['post_type'] = 'product';
 
+    // Cap posts_per_page so a crafted request (eg. posts_per_page: -1) can't dump the whole catalog in one call
+    $query_vars['posts_per_page'] = isset($query_vars['posts_per_page'])
+        ? min(absint($query_vars['posts_per_page']), 24)
+        : (int) get_option('posts_per_page');
+
     $query = new WP_Query($query_vars);
 
     if ($query->have_posts()) {

@@ -100,7 +100,10 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
             <div class="hbg-left" data-animate="fade-up">
                 <div class="post_head">
         <span class="hbg-category">
-            <?php echo get_the_category($big_post->ID)[0]->name; ?>
+            <?php
+            $big_post_categories = get_the_category($big_post->ID);
+            if ($big_post_categories) echo esc_html($big_post_categories[0]->name);
+            ?>
         </span>
                     <span class="hbg-date">
             <?php echo get_the_date('F j, Y', $big_post->ID); ?>
@@ -144,7 +147,10 @@ $big_post = is_array($big_post) ? $big_post[0] : $big_post;
                             <div class="hbg-card-info">
                                 <div class="hbg-card-meta">
                     <span class="hbg-card-category">
-                        <?php echo get_the_category($post->ID)[0]->name; ?>
+                        <?php
+                        $card_categories = get_the_category($post->ID);
+                        if ($card_categories) echo esc_html($card_categories[0]->name);
+                        ?>
                     </span>
                                     <span class="hbg-card-date">
                         <?php echo get_the_date('F j, Y', $post->ID); ?>

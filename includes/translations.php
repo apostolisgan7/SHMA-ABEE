@@ -16,6 +16,16 @@ function ruined_translation_strings() {
         'Checkout'         => 'Ολοκλήρωση παραγγελίας',
         'Continue shopping' => 'Συνέχεια αγορών',
         'Related products' => 'Σχετικά προϊόντα',
+
+        // WP core login error strings (surfaced by wp_signon() in the AJAX login handler)
+        'Unknown email address. Check again or try your username.' => 'Άγνωστη διεύθυνση email. Ελέγξτε ξανά ή δοκιμάστε το όνομα χρήστη σας.',
+        '<strong>Error:</strong> The password you entered for the email address %s is incorrect.' => '<strong>Σφάλμα:</strong> Ο κωδικός πρόσβασης που εισάγατε για τη διεύθυνση email %s είναι λανθασμένος.',
+        '<strong>Error:</strong> The username <strong>%s</strong> is not registered on this site. If you are unsure of your username, try your email address instead.' => '<strong>Σφάλμα:</strong> Το όνομα χρήστη <strong>%s</strong> δεν είναι καταχωρημένο σε αυτόν τον ιστότοπο. Αν δεν είστε σίγουροι για το όνομα χρήστη σας, δοκιμάστε τη διεύθυνση email σας.',
+        '<strong>Error:</strong> The password you entered for the username %s is incorrect.' => '<strong>Σφάλμα:</strong> Ο κωδικός πρόσβασης που εισάγατε για το όνομα χρήστη %s είναι λανθασμένος.',
+        '<strong>Error:</strong> The username field is empty.' => '<strong>Σφάλμα:</strong> Το πεδίο ονόματος χρήστη είναι κενό.',
+        '<strong>Error:</strong> The email field is empty.' => '<strong>Σφάλμα:</strong> Το πεδίο email είναι κενό.',
+        '<strong>Error:</strong> The password field is empty.' => '<strong>Σφάλμα:</strong> Το πεδίο κωδικού πρόσβασης είναι κενό.',
+        'Lost your password?' => 'Ξεχάσατε τον κωδικό σας;',
     ];
 }
 

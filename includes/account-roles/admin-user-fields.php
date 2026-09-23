@@ -36,6 +36,7 @@ function sigma_admin_entity_fields($user) {
 
     ?>
     <hr />
+    <?php if (current_user_can('edit_users')) : ?>
     <h3>Έγκριση Λογαριασμού</h3>
     <table class="form-table">
         <tr>
@@ -49,6 +50,7 @@ function sigma_admin_entity_fields($user) {
             </td>
         </tr>
     </table>
+    <?php endif; ?>
 
     <h3>Στοιχεία Φορέα</h3>
     <table class="form-table">
@@ -87,8 +89,9 @@ function sigma_save_admin_entity_fields($user_id) {
         return;
     }
 
-    // Διαχείριση Status & Email
-    if (isset($_POST['sigma_account_status'])) {
+    // Διαχείριση Status & Email — μόνο χρήστες που μπορούν να διαχειριστούν ΑΛΛΟΥΣ χρήστες
+    // (edit_user() πάνω επιστρέφει πάντα true όταν κάποιος επεξεργάζεται το δικό του προφίλ)
+    if (current_user_can('edit_users') && isset($_POST['sigma_account_status'])) {
         $old_status = get_user_meta($user_id, '_sigma_account_status', true);
         $new_status = sanitize_text_field($_POST['sigma_account_status']);
 

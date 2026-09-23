@@ -42,7 +42,7 @@ add_action('admin_menu', 'ruined_register_admin_docs_page');
 function ruined_register_admin_docs_page() {
     add_menu_page(
             'Admin Documentation',
-            'Τεκμηρίωση',
+            'Documentation',
             'manage_options',
             'ruined-admin-docs',
             'ruined_render_admin_docs_page',

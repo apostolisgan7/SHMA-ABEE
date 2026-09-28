@@ -25,10 +25,9 @@ function ruined_sync_catalog_menu_categories() {
 
     /*
      * Ευρετήριο υπαρχόντων menu items ανά term_id, μόνο για product_cat items.
-     * Έτσι γίνεται update in place αντί για delete+recreate, και δεν χάνονται
-     * meta (π.χ. το ACF "menu_icon") που είναι δεμένα πάνω στο post ID του item.
-     * Τυχόν custom links στο ίδιο menu δεν αγγίζονται καθόλου, αφού δεν μπαίνουν
-     * σε αυτό το ευρετήριο.
+     * Τα υπάρχοντα items δεν ξαναδημιουργούνται (ώστε να μη χάνονται meta, π.χ. το
+     * ACF "menu_icon") και ΔΕΝ αλλάζουν θέση: η σειρά που έστησε ο διαχειριστής στο
+     * Εμφάνιση → Μενού κρατιέται. Τυχόν custom links στο ίδιο menu δεν αγγίζονται.
      */
     $existing_by_term = array();
 
@@ -53,24 +52,17 @@ function ruined_sync_catalog_menu_categories() {
     }
 
     $seen_term_ids = array();
-    $position      = 1;
+    $to_place      = array(); // menu item ID => parent menu item ID (νέα ή μετακινημένα items)
 
     foreach ( $parent_terms as $parent_term ) {
 
-        $parent_menu_item_id = ruined_upsert_catalog_menu_item(
-            $menu_id,
-            $parent_term,
-            0,
-            $position,
-            $existing_by_term
-        );
+        $parent_menu_item_id = ruined_upsert_catalog_menu_item( $menu_id, $parent_term, 0, $existing_by_term, $to_place );
 
         if ( is_wp_error( $parent_menu_item_id ) ) {
             continue;
         }
 
         $seen_term_ids[] = $parent_term->term_id;
-        $position++;
 
         $child_terms = get_terms(
             array(
@@ -88,20 +80,13 @@ function ruined_sync_catalog_menu_categories() {
 
         foreach ( $child_terms as $child_term ) {
 
-            $child_menu_item_id = ruined_upsert_catalog_menu_item(
-                $menu_id,
-                $child_term,
-                $parent_menu_item_id,
-                $position,
-                $existing_by_term
-            );
+            $child_menu_item_id = ruined_upsert_catalog_menu_item( $menu_id, $child_term, $parent_menu_item_id, $existing_by_term, $to_place );
 
             if ( is_wp_error( $child_menu_item_id ) ) {
                 continue;
             }
 
             $seen_term_ids[] = $child_term->term_id;
-            $position++;
         }
     }
 
@@ -116,18 +101,32 @@ function ruined_sync_catalog_menu_categories() {
         }
     }
 
+    ruined_place_new_catalog_menu_items( $menu_id, $to_place );
+
     return true;
 }
 
-function ruined_upsert_catalog_menu_item( $menu_id, $term, $parent_menu_item_id, $position, $existing_by_term ) {
+/**
+ * Νέα κατηγορία → νέο menu item. Υπάρχουσα → μένει στη θέση της· αλλάζει μόνο ο
+ * parent αν άλλαξε η ιεραρχία στο WooCommerce (τότε ξανατοποθετείται σαν νέο).
+ * Ο τίτλος υπαρχόντων items δεν αλλάζει, ώστε να κρατιούνται custom ετικέτες.
+ */
+function ruined_upsert_catalog_menu_item( $menu_id, $term, $parent_menu_item_id, $existing_by_term, &$to_place ) {
 
-    $existing_item_id = isset( $existing_by_term[ $term->term_id ] )
-        ? $existing_by_term[ $term->term_id ]->ID
-        : 0;
+    if ( isset( $existing_by_term[ $term->term_id ] ) ) {
+        $item = $existing_by_term[ $term->term_id ];
 
-    return wp_update_nav_menu_item(
+        if ( (int) $item->menu_item_parent !== (int) $parent_menu_item_id ) {
+            update_post_meta( $item->ID, '_menu_item_menu_item_parent', (int) $parent_menu_item_id );
+            $to_place[ $item->ID ] = (int) $parent_menu_item_id;
+        }
+
+        return $item->ID;
+    }
+
+    $item_id = wp_update_nav_menu_item(
         $menu_id,
-        $existing_item_id,
+        0,
         array(
             'menu-item-title'     => $term->name,
             'menu-item-object'    => 'product_cat',
@@ -135,9 +134,75 @@ function ruined_upsert_catalog_menu_item( $menu_id, $term, $parent_menu_item_id,
             'menu-item-type'      => 'taxonomy',
             'menu-item-status'    => 'publish',
             'menu-item-parent-id' => $parent_menu_item_id,
-            'menu-item-position'  => $position,
         )
     );
+
+    if ( ! is_wp_error( $item_id ) ) {
+        $to_place[ $item_id ] = (int) $parent_menu_item_id;
+    }
+
+    return $item_id;
+}
+
+/**
+ * Βάζει τα νέα/μετακινημένα items στο τέλος της ομάδας τους χωρίς να πειράξει τη
+ * σχετική σειρά των υπολοίπων: child → μετά το τελευταίο αδερφάκι του (ή αμέσως
+ * μετά τον parent), top-level → στο τέλος του menu. Μετά αριθμεί ξανά τα menu_order.
+ */
+function ruined_place_new_catalog_menu_items( $menu_id, $to_place ) {
+
+    if ( empty( $to_place ) ) {
+        return;
+    }
+
+    $items = (array) wp_get_nav_menu_items( $menu_id, array( 'post_status' => 'any' ) );
+    usort( $items, fn ( $a, $b ) => (int) $a->menu_order <=> (int) $b->menu_order );
+
+    $parent_of = array();
+    foreach ( $items as $item ) {
+        $parent_of[ (int) $item->ID ] = (int) $item->menu_item_parent;
+    }
+
+    // Η σειρά χωρίς τα items που πρέπει να τοποθετηθούν
+    $order = array();
+    foreach ( $items as $item ) {
+        if ( ! isset( $to_place[ (int) $item->ID ] ) ) {
+            $order[] = (int) $item->ID;
+        }
+    }
+
+    // Αληθεύει αν το $id είναι ο $ancestor ή απόγονός του
+    $is_within = function ( $id, $ancestor ) use ( $parent_of ) {
+        for ( $guard = 0; $id && $guard < 20; $guard++ ) {
+            if ( $id === $ancestor ) {
+                return true;
+            }
+            $id = isset( $parent_of[ $id ] ) ? $parent_of[ $id ] : 0;
+        }
+        return false;
+    };
+
+    foreach ( $to_place as $item_id => $parent_id ) {
+        $insert_at = count( $order );
+
+        if ( $parent_id ) {
+            $last = array_search( $parent_id, $order, true );
+            if ( false !== $last ) {
+                foreach ( $order as $index => $id ) {
+                    if ( $index > $last && $is_within( $id, $parent_id ) ) {
+                        $last = $index;
+                    }
+                }
+                $insert_at = $last + 1;
+            }
+        }
+
+        array_splice( $order, $insert_at, 0, array( (int) $item_id ) );
+    }
+
+    foreach ( $order as $index => $id ) {
+        wp_update_post( array( 'ID' => $id, 'menu_order' => $index + 1 ) );
+    }
 }
 
 /**

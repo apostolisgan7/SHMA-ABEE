@@ -34,6 +34,7 @@ import {initHistory} from './modules/ui/history-horizontal';
 import {initAnimations, initFooterAnimation, initHeaderAnimation} from './modules/ui/animations';
 import {initAuthModal} from './modules/woocommerce/login-modal';
 import {initBackToTop} from './modules/ui/back-to-top.js';
+import {initVideoPopup} from './modules/ui/video-popup';
 
 // Import GSAP core and plugins
 import {gsap} from 'gsap';
@@ -92,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize Swipers and product components
     initSwipers();
     initBackToTop();
+    initVideoPopup();
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();
 

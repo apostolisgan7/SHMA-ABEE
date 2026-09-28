@@ -7,7 +7,7 @@ $items = get_field('characteristics');
 <section class="block-service-characteristics section-full-width">
     <div class="container smaller-container">
         <?php if ($char_title): ?>
-            <div class="block-service-characteristics__title" data-animate="fade-up">
+            <div class="block-service-characteristics__title" data-animate="fade-up" data-animate-start="top bottom">
                 <?= wp_kses_post($char_title); ?>
             </div>
         <?php endif; ?>

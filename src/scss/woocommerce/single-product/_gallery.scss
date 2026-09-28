@@ -21,7 +21,8 @@
 }
 
 .fancybox__backdrop, .f-panzoom__viewport {
-  background: #F6F6F6 !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(8px);
 }
 
 .f-panzoom__viewport > .f-panzoom__content, {

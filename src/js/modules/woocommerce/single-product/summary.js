@@ -363,4 +363,60 @@ export function initSummary() {
             .catch(err => console.error('RAQ exists check error:', err));
     });
 
+    initQuoteVariationNotice();
+}
+
+/* =========================
+ * RAQ button clicked before all variation options are chosen
+ *
+ * YITH marks the button .disabled until a variation is picked and answers a
+ * click with an English window.alert(). Catch the click first (capture phase,
+ * before YITH's delegated jQuery handler) and show an inline message instead.
+ * ========================= */
+const QUOTE_VARIATION_MSG_DURATION = 5500; // ms
+const QUOTE_VARIATION_MSG = 'Παρακαλώ επιλέξτε όλες τις επιλογές του προϊόντος πριν το προσθέσετε στη λίστα προσφορών σας.';
+
+function initQuoteVariationNotice() {
+    const isBlocked = (btn) =>
+        btn.classList.contains('disabled') ||
+        !!btn.closest('.woocommerce-variation-add-to-cart-disabled');
+
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.add-request-quote-button');
+        if (!btn || !isBlocked(btn) || btn.classList.contains('outofstock')) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        // Below the whole qty + button row (that row is a flex row)
+        const row = btn.closest('.variations_button') || btn.closest('.yith-ywraq-add-to-quote') || btn.parentElement;
+        let notice = row.parentElement.querySelector(':scope > .rv-quote-variation-notice');
+        if (!notice) {
+            notice = document.createElement('p');
+            notice.className = 'rv-quote-variation-notice';
+            notice.setAttribute('role', 'alert');
+            notice.textContent = QUOTE_VARIATION_MSG;
+            row.after(notice);
+        }
+        // Restart the fade-in so repeated clicks are noticed
+        notice.classList.remove('is-visible');
+        void notice.offsetWidth;
+        notice.classList.add('is-visible');
+
+        // Fade out after a few seconds, then remove (each click restarts the timer)
+        clearTimeout(notice._hideTimer);
+        notice._hideTimer = setTimeout(() => {
+            notice.classList.remove('is-visible');
+            // Remove after the 0.25s fade (a timer, not transitionend, which doesn't
+            // fire in background tabs). Skip if a new click faded it back in.
+            notice._hideTimer = setTimeout(() => {
+                if (!notice.classList.contains('is-visible')) notice.remove();
+            }, 300);
+        }, QUOTE_VARIATION_MSG_DURATION);
+    }, true);
+
+    // Hide the message once a full variation is selected
+    jQuery(document.body).on('found_variation.rvQuoteNotice', () => {
+        document.querySelectorAll('.rv-quote-variation-notice').forEach(n => n.remove());
+    });
 }

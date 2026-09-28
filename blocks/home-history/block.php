@@ -25,7 +25,7 @@ $button_link   = $bottom_row['button_link'] ?? null;
     <div class="home-history__inner container smaller-container">
         <div class="home-history__top">
             <?php if ( ! empty( $top_text ) ) : ?>
-                <div class="home-history__top-text" data-animate="fade-up">
+                <div class="home-history__top-text" data-animate="fade-up" data-animate-start="top bottom">
                     <?php echo wp_kses_post( $top_text ); ?>
                 </div>
             <?php endif; ?>

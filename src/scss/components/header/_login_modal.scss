@@ -112,6 +112,11 @@
   display: block;
 }
 
+// Role tabs only matter for signup — login works with any account type
+[data-auth-mode="login"] .sigma-auth-roles {
+  display: none;
+}
+
 .sigma-auth-subtitle {
   font-size: clamp(14px, 3vw, 15px);
   line-height: 1.2;

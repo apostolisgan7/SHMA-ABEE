@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 
-export function initToggle(overlay, modal, { refreshPasswordElsAndBind, updatePasswordMeter }) {
+export function initToggle(overlay, modal, { setInitialPillPosition, refreshPasswordElsAndBind, updatePasswordMeter }) {
     const toggleBtn  = overlay.querySelector('.js-auth-toggle');
     const loginPane  = overlay.querySelector('.sigma-auth-pane--login');
     const signupPane = overlay.querySelector('.sigma-auth-pane--signup');
@@ -14,6 +14,9 @@ export function initToggle(overlay, modal, { refreshPasswordElsAndBind, updatePa
     toggleBtn.addEventListener('click', () => {
         const isLogin = modal.dataset.authMode === 'login';
         modal.dataset.authMode = isLogin ? 'signup' : 'login';
+
+        // Role tabs were display:none in login mode — measure the pill now that they're visible
+        if (isLogin) requestAnimationFrame(setInitialPillPosition);
 
         const outPane = isLogin ? loginPane : signupPane;
         const inPane  = isLogin ? signupPane : loginPane;

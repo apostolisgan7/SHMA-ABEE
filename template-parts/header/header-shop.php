@@ -66,6 +66,7 @@ $header_class = 'header-' . esc_attr($header_color);
                         </button>
                     </div>
 
+                    <?php if (is_user_logged_in()) : ?>
                     <div class="header-cart head_item">
                         <a href="<?php echo esc_url(wc_get_cart_url()); ?>" class="header-link has-badge cart-contents">
                             <span class="offer_text"><?php _e('ΠΡΟΣΦΟΡΑ', 'ruined'); ?></span>
@@ -90,6 +91,7 @@ $header_class = 'header-' . esc_attr($header_color);
                             <?php endif; ?>
                         </a>
                     </div>
+                    <?php endif; ?>
 
                 <?php endif; ?>
 

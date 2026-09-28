@@ -199,6 +199,36 @@ function ruined_custom_related_products_args($args)
 
 add_filter('woocommerce_output_related_products_args', 'ruined_custom_related_products_args', 20);
 
+/**
+ * Related products only from the product's deepest category.
+ *
+ * WooCommerce relates by every assigned category (parents included) and by tags,
+ * so a product in "Parent > Sub" also pulls items from the whole parent. Keep only
+ * the assigned categories at the deepest level: a product in a level-2 subcategory
+ * gets items from that subcategory only (even if it's also in an unrelated
+ * top-level category), a product in a level-1 category gets items from that level,
+ * and so on.
+ *
+ * Note: WooCommerce caches related IDs per product in the "wc_related_{id}"
+ * transient (up to a day), so existing products pick this up as that cache expires.
+ */
+add_filter('woocommerce_get_related_product_cat_terms', function ($term_ids, $product_id) {
+    if (count($term_ids) < 2) {
+        return $term_ids;
+    }
+
+    $depths = [];
+    foreach ($term_ids as $term_id) {
+        $depths[$term_id] = count(get_ancestors($term_id, 'product_cat', 'taxonomy'));
+    }
+
+    $max = max($depths);
+
+    return array_keys(array_filter($depths, fn ($depth) => $depth === $max));
+}, 10, 2);
+
+add_filter('woocommerce_product_related_posts_relate_by_tag', '__return_false');
+
 
 // ========================
 // Remove default archive elements
@@ -251,6 +281,76 @@ add_filter( 'yith_ywraq_before_print_button', function ( $show, $product ) {
 // on the customer-facing quote request emails, but the plugin always shows price
 // on the admin notification email regardless of that setting. Force it to comply too.
 add_filter( 'ywraq_hide_prices_email_admin', '__return_true' );
+
+// Quote PDFs never show prices: drop the Unit Price / Subtotal columns and the
+// totals row, whatever the YITH PDF settings say.
+add_filter( 'option_ywraq_pdf_columns', function ( $columns ) {
+    $columns = (array) $columns;
+    if ( in_array( 'all', $columns, true ) ) {
+        $columns = [ 'thumbnail', 'product_name', 'quantity' ];
+    }
+    return array_values( array_diff( $columns, [ 'unit_price', 'product_subtotal' ] ) );
+} );
+add_filter( 'pre_option_ywraq_pdf_hide_total_row', function () {
+    return 'yes';
+} );
+
+// No "Pay Now" action in the My Account quotes list — the shop doesn't sell online
+add_filter( 'ywraq_valid_order_statuses_for_payment', '__return_empty_array' );
+
+// ========================
+// RAQ FORM PREFILL
+// ========================
+// YITH autofills the request form from billing_* fields only, but our signup
+// saves to custom user meta (phone, vat, company_name, municipality_name).
+// Fall back to those when the billing value is empty.
+function rv_ywraq_prefill_value( $value, $meta_keys ) {
+    if ( ! empty( $value ) || ! is_user_logged_in() || ! empty( $_POST ) ) {
+        return $value;
+    }
+    $user_id = get_current_user_id();
+    foreach ( $meta_keys as $meta_key ) {
+        $meta = get_user_meta( $user_id, $meta_key, true );
+        if ( $meta ) {
+            return $meta;
+        }
+    }
+    return $value;
+}
+
+// "Ονοματεπώνυμο / Επωνυμία Εταιρείας": company or municipality name first, else full name
+add_filter( 'ywraq_get_default_form_field_first_name', function ( $value ) {
+    $value = rv_ywraq_prefill_value( $value, [ 'company_name', 'municipality_name' ] );
+    if ( empty( $value ) && is_user_logged_in() && empty( $_POST ) ) {
+        $user  = wp_get_current_user();
+        $value = trim( $user->first_name . ' ' . $user->last_name );
+    }
+    return $value;
+} );
+
+add_filter( 'ywraq_get_default_form_field_phone', function ( $value ) {
+    return rv_ywraq_prefill_value( $value, [ 'phone' ] );
+} );
+
+add_filter( 'ywraq_get_default_form_field_vat_number', function ( $value ) {
+    return rv_ywraq_prefill_value( $value, [ 'vat' ] );
+} );
+
+// Remember address / VAT from a logged-in user's first quote request, so the
+// next request is prefilled (there's no Addresses tab on My Account)
+add_action( 'ywraq_process', function ( $fields ) {
+    if ( ! is_user_logged_in() ) {
+        return;
+    }
+    $user_id = get_current_user_id();
+    $map     = [ 'address' => 'billing_address_1', 'vat_number' => 'vat' ];
+
+    foreach ( $map as $field => $meta_key ) {
+        if ( ! empty( $fields[ $field ]['value'] ) && ! get_user_meta( $user_id, $meta_key, true ) ) {
+            update_user_meta( $user_id, $meta_key, sanitize_text_field( $fields[ $field ]['value'] ) );
+        }
+    }
+}, 5 );
 
 // ========================
 // RAQ OFFCANVAS MINI LIST
@@ -613,10 +713,10 @@ add_filter('posts_clauses', function ($clauses, $query) {
         $clauses['join'] .= " LEFT JOIN {$wpdb->term_relationships} AS {$alias} ON ( {$wpdb->posts}.ID = {$alias}.object_id AND {$alias}.term_taxonomy_id = {$featured_term_id} ) ";
     }
 
+    // Featured πρώτα, μετά αλφαβητικά (όχι το WooCommerce popularity = πωλήσεις/νεότερα,
+    // που χωρίς online πωλήσεις κατέληγε σε "νεότερο πρώτα")
     $featured_order = "CASE WHEN {$alias}.object_id IS NULL THEN 1 ELSE 0 END ASC";
-    $clauses['orderby'] = !empty($clauses['orderby'])
-        ? $featured_order . ', ' . $clauses['orderby']
-        : $featured_order;
+    $clauses['orderby'] = "{$featured_order}, {$wpdb->posts}.post_title ASC, {$wpdb->posts}.ID ASC";
 
     return $clauses;
 }, 999, 2);

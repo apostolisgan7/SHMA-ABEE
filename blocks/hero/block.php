@@ -128,12 +128,21 @@ if ($video_url) {
         <?php if ($hero_boxes): ?>
             <div class="home-hero__boxes" data-animate="stagger-fade" data-animate-trigger="load" data-animate-delay="0.6" data-animate-stagger="0.1">
                 <?php foreach ($hero_boxes as $box): ?>
+                    <?php
+                    $box_url  = $box['link']['url'] ?? '';
+                    // YouTube / Vimeo / video file links open in a Fancybox popup instead of navigating
+                    $is_video = (bool) preg_match('~(youtube\.com|youtu\.be|vimeo\.com)|\.(mp4|webm|ogg)(\?|$)~i', $box_url);
+                    ?>
                     <article class="hero-box">
 
                         <a
                                 class="hero__link"
-                                href="<?= esc_url($box['link']['url']); ?>"
-                                target="<?= esc_attr($box['link']['target']); ?>"
+                                href="<?= esc_url($box_url); ?>"
+                                <?php if ($is_video): ?>
+                                    data-video-popup
+                                <?php else: ?>
+                                    target="<?= esc_attr($box['link']['target']); ?>"
+                                <?php endif; ?>
                                 aria-label="<?= esc_attr($box['title']); ?>">
                         </a>
 

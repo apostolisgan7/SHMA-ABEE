@@ -11,6 +11,8 @@ add_action('woocommerce_edit_account_form', function () {
 
     $phone = get_user_meta($user_id, 'phone', true);
     $vat   = get_user_meta($user_id, 'vat', true);
+    // Stored as billing_address_1 so YITH's quote form autofills it natively
+    $address = get_user_meta($user_id, 'billing_address_1', true);
 
     ?>
 
@@ -57,18 +59,23 @@ add_action('woocommerce_edit_account_form', function () {
                    value="<?php echo esc_attr($phone); ?>">
         </p>
 
-        <?php if (in_array('company', $user->roles) || in_array('municipality', $user->roles)) : ?>
+        <!-- Address -->
+        <p class="woocommerce-form-row form-row form-row-wide">
+            <label for="billing_address_1">Διεύθυνση</label>
+            <input type="text"
+                   name="billing_address_1"
+                   id="billing_address_1"
+                   value="<?php echo esc_attr($address); ?>">
+        </p>
 
-            <!-- VAT -->
-            <p class="woocommerce-form-row form-row form-row-wide">
-                <label for="vat">ΑΦΜ</label>
-                <input type="text"
-                       name="vat"
-                       id="vat"
-                       value="<?php echo esc_attr($vat); ?>">
-            </p>
-
-        <?php endif; ?>
+        <!-- VAT (all roles; also prefills the quote form) -->
+        <p class="woocommerce-form-row form-row form-row-wide">
+            <label for="vat">ΑΦΜ</label>
+            <input type="text"
+                   name="vat"
+                   id="vat"
+                   value="<?php echo esc_attr($vat); ?>">
+        </p>
 
 
 
@@ -89,6 +96,10 @@ add_action('woocommerce_save_account_details', function ($user_id) {
 
     if (isset($_POST['vat'])) {
         update_user_meta($user_id, 'vat', sanitize_text_field($_POST['vat']));
+    }
+
+    if (isset($_POST['billing_address_1'])) {
+        update_user_meta($user_id, 'billing_address_1', sanitize_text_field($_POST['billing_address_1']));
     }
 
     if (isset($_POST['company_name'])) {

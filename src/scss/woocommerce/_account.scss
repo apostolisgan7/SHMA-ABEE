@@ -124,7 +124,8 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
       padding: 0;
     }
 
-    .ywraq-view-quote-wrapper.ywraq-status-ywraq-pending {
+    // Same product layout for every quote status (new, pending, accepted, ...)
+    .ywraq-view-quote-wrapper {
       table.shop_table.order_details {
         padding: 0;
 
@@ -197,6 +198,10 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
         &:hover {
           border-color: $green;
         }
+      }
+
+      a.button.wc-backward {
+        color: #fff;
       }
     }
 
@@ -315,6 +320,7 @@ li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--
   td {
     padding: 14px;
     color: $text-muted;
+    font-size: 14px;
   }
 
   tr {

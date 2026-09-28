@@ -29,7 +29,7 @@ export function initAuthModal() {
     const tabs     = initTabs(overlay, password);
 
     initModal(overlay, modal, { ...tabs, ...password });
-    initToggle(overlay, modal, password);
+    initToggle(overlay, modal, { ...tabs, ...password });
     initVat(overlay, ajaxUrl);
     initValidation(overlay, password);
     initLogin(overlay, modal, loginForm, ajaxUrl);

@@ -141,12 +141,18 @@ function initSwipers() {
         const section       = carousel.closest('.history-horizontal');
         const paginationEl  = section ? section.querySelector('.history-horizontal__pagination') : null;
 
-        new Swiper(carousel, {
-            modules: [Pagination],
+        const historySwiper = new Swiper(carousel, {
+            modules: [Pagination, Autoplay],
             slidesPerView: 1.2,
             spaceBetween: 30,
             grabCursor: true,
             loop: false,
+            rewind: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
             pagination: paginationEl ? {
                 el: paginationEl,
                 clickable: true,
@@ -156,6 +162,8 @@ function initSwipers() {
                 1024: { slidesPerView: 2.3, spaceBetween: 80 },
             },
         });
+        // Autoplay starts only when the section scrolls into view (history-horizontal.js)
+        historySwiper.autoplay.stop();
     });
 
     // --------------------------

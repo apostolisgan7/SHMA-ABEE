@@ -113,6 +113,8 @@ export function initHistory() {
                         seen.add(slide);
                         animateSlideContent(slide, 0.25 + i * 0.14);
                     });
+
+                    swiper?.autoplay?.start();
                 },
             });
         }

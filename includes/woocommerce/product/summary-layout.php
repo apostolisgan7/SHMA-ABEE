@@ -31,30 +31,56 @@ $default_open = $is_variable ? 'tech' : ($has_simple_attributes ? 'tech' : ($sam
 
     <!-- ΠΡΟΪΟΝΤΑ ΙΔΙΑΣ ΚΑΤΗΓΟΡΙΑΣ -->
     <?php if ($same_products) : ?>
-        <div class="rv-accordion-item">
-            <button @click="open = open === 'related' ? null : 'related'"
-                    :aria-expanded="open === 'related'">
-                <span>Προϊόντα ίδιας κατηγορίας</span>
-                <div class="rv-accordion-arrow">
-                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black"
-                              stroke-width="1.82386"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+        <?php
+        $related_list = function () use ($same_products) {
+            ?>
+            <ul class="products">
+                <?php
+                foreach ($same_products as $post_obj) {
+                    set_query_var('product_post', $post_obj);
+                    get_template_part('template-parts/items/item-product');
+                }
+                ?>
+            </ul>
+            <?php
+        };
+        ?>
+        <?php if (!$is_variable) : ?>
+            <!-- Simple products: always open, not collapsible -->
+            <div class="rv-accordion-item rv-accordion-item--static">
+                <div class="rv-accordion-header">
+                    <span>Συνδυάζεται με</span>
+                    <div class="rv-accordion-arrow">
+                        <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black"
+                                  stroke-width="1.82386"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </div>
-            </button>
-
-            <div class="rv-products--list-only" x-show="open === 'related'" x-collapse>
-                <ul class="products">
-                    <?php
-                    foreach ($same_products as $post_obj) {
-                        set_query_var('product_post', $post_obj);
-                        get_template_part('template-parts/items/item-product');
-                    }
-                    ?>
-                </ul>
+                <div class="rv-products--list-only">
+                    <?php $related_list(); ?>
+                </div>
             </div>
-        </div>
+        <?php else : ?>
+            <div class="rv-accordion-item">
+                <button @click="open = open === 'related' ? null : 'related'"
+                        :aria-expanded="open === 'related'">
+                    <span>Συνδυάζεται με</span>
+                    <div class="rv-accordion-arrow">
+                        <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.911796 5.62592L5.62484 0.911926L10.3379 5.62592" stroke="black"
+                                  stroke-width="1.82386"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <div class="rv-products--list-only" x-show="open === 'related'" x-collapse>
+                    <?php $related_list(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
     <?php endif; ?>
 
     <!-- ΤΕΧΝΙΚΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ -->

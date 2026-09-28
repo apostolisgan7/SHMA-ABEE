@@ -203,6 +203,7 @@
       .hero-box__icon {
         background: $secondary-color;
       }
+
       .hero-box__image {
         img {
           filter: brightness(0.9) blur(1px);
@@ -224,6 +225,9 @@
   }
   @media (max-width: 1200px) {
     .home-hero {
+      &__content {
+        max-width: 700px;
+      }
 
       &__boxes {
         position: static;

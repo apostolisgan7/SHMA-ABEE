@@ -1,7 +1,16 @@
 <?php
 /**
  * The Template for displaying product archives
+ *
+ * Custom theme override. The core `woocommerce_shop_loop_header` hook (8.6.0)
+ * is intentionally not fired: rv_show_pages_hero() already renders the title.
+ *
+ * @see     https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 8.6.0
  */
+
+defined('ABSPATH') || exit;
 
 get_header();
 ?>
@@ -30,6 +39,7 @@ get_header();
                                     if (wc_get_loop_prop('total')) {
                                         while (have_posts()) {
                                             the_post();
+                                            do_action('woocommerce_shop_loop');
                                             wc_get_template_part('content', 'product');
                                         }
                                     }

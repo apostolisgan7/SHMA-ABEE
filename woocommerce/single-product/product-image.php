@@ -1,7 +1,23 @@
 <?php
+/**
+ * Single Product Image
+ *
+ * Custom theme override (Swiper gallery). The core 11.x video gallery and the
+ * `woocommerce_product_thumbnails` hook are intentionally not used here —
+ * videos are handled by includes/woocommerce/product/video-box.php.
+ *
+ * @see     https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 11.1.0
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 global $product;
+
+if ( ! $product instanceof WC_Product ) {
+    return;
+}
 
 $featured_id = $product->get_image_id();
 $gallery_ids = $product->get_gallery_image_ids();

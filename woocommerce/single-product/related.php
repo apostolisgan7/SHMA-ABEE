@@ -3,21 +3,36 @@
  * Related Products
  *
  * @package WooCommerce\Templates
- * @version 3.9.0
+ * @version 10.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-if ( $related_products ) : ?>
+if ( $related_products ) :
+    /**
+     * Ensure all images of related products are lazy loaded by increasing the
+     * current media count to WordPress's lazy loading threshold if needed.
+     * Because wp_increase_content_media_count() is a private function, we
+     * check for its existence before use.
+     */
+    if ( function_exists( 'wp_increase_content_media_count' ) ) {
+        $content_media_count = wp_increase_content_media_count( 0 );
+        if ( $content_media_count < wp_omit_loading_attr_threshold() ) {
+            wp_increase_content_media_count( wp_omit_loading_attr_threshold() - $content_media_count );
+        }
+    }
+
+    $heading = apply_filters( 'woocommerce_product_related_products_heading', __( 'Σχετικά Προϊόντα', 'ruined' ) );
+    ?>
 
     <section class="rv-related-products">
         <div class="rv-related-products__inner">
 
             <div class="rv-related-products__head">
                 <h2 class="rv-related-products__title">
-                    <?php echo esc_html__( 'Σχετικά Προϊόντα', 'ruined' ); ?>
+                    <?php echo esc_html( $heading ); ?>
                 </h2>
 
                 <div class="rv-rp__navwrap">
@@ -40,7 +55,7 @@ if ( $related_products ) : ?>
                         <div class="swiper-slide">
                             <?php
                             $post_object = get_post( $related_product->get_id() );
-                            setup_postdata( $GLOBALS['post'] =& $post_object );
+                            setup_postdata( $GLOBALS['post'] = $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
 
                             set_query_var('product_post', $post_object);
                             get_template_part( 'template-parts/items/item', 'product' );

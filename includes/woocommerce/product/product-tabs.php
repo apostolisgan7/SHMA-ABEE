@@ -17,6 +17,11 @@ if ($product) {
 
     foreach ($attributes as $attribute) {
 
+        // Hidden attributes are skipped in the table, so they must not count here either.
+        if (!$attribute->get_visible()) {
+            continue;
+        }
+
         if ($attribute->is_taxonomy()) {
             $terms = wc_get_product_terms(
                     $product->get_id(),
@@ -46,15 +51,17 @@ $diagram = get_field('schediagramma');
 $has_diagram = $diagram && is_array($diagram);
 $has_left = $has_manuals || $has_diagram;
 
-$has_tech = $has_attributes || $has_left;
-
 
 /* --------------------------------
-CHECK DESCRIPTION TAB
+CHECK DESCRIPTION
 -------------------------------- */
 
 $description = trim(get_the_content());
 $has_desc = !empty($description);
+
+// The description is rendered inside the tech tab, so it alone is enough to show it.
+$has_tech = $has_attributes || $has_left || $has_desc;
+$tech_tab_label = ($has_attributes || $has_left) ? 'Τεχνικά Χαρακτηριστικά' : 'Περιγραφή';
 
 
 /* --------------------------------
@@ -69,10 +76,10 @@ $has_projects = !empty($projects);
 IF NOTHING EXISTS → STOP
 -------------------------------- */
 
-if (!$has_tech && !$has_desc && !$has_projects) {
+if (!$has_tech && !$has_projects) {
     return;
 }
-$default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
+$default_tab = $has_tech ? 'tech' : 'projects';
 ?>
 
 <?php if ($product->is_type('variable') && $has_attributes) :
@@ -119,7 +126,7 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
     <div class="rv-tabs-nav">
         <?php if ($has_tech): ?>
             <button @click="tab='tech'; $dispatch('rv-tab-changed')" :class="{active: tab==='tech'}">
-                Τεχνικά Χαρακτηριστικά
+                <?php echo esc_html($tech_tab_label); ?>
             </button>
         <?php endif; ?>
 
@@ -211,7 +218,7 @@ $default_tab = $has_tech ? 'tech' : ($has_desc ? 'desc' : 'projects');
                         </div>
                     <?php endif; ?>
 
-                    <?php if ($product) :
+                    <?php if ($product && $has_attributes) :
 
                         $attributes = $product->get_attributes();
 

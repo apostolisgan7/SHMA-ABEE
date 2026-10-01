@@ -14,19 +14,20 @@
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 10.0.0
+ * @version 11.0.0
  */
 
 defined('ABSPATH') || exit;
 
 do_action('woocommerce_before_mini_cart'); ?>
 
-<?php if (!WC()->cart->is_empty()) : ?>
+<?php if (WC()->cart && !WC()->cart->is_empty()) : ?>
 
     <ul class="mini-cart" data-lenis-prevent>
         <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) :
-            $product = $cart_item['data'];
-            if (!$product || !$product->exists()) continue;
+            $product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+            $visible = apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key);
+            if (!($product instanceof WC_Product) || !$product->exists() || $cart_item['quantity'] <= 0 || !$visible) continue;
             ?>
 
             <li class="mini-cart__item" data-key="<?php echo esc_attr($cart_item_key); ?>">

@@ -69,6 +69,14 @@ function sigma_ajax_login() {
         wp_send_json_error([ 'html' => ob_get_clean() ]);
     }
 
+    // 🛡 Cloudflare Turnstile
+    $ts_error = sigma_turnstile_error();
+    if ( $ts_error ) {
+        wp_send_json_error([
+            'html' => '<ul class="woocommerce-error" role="alert"><li>' . esc_html( $ts_error ) . '</li></ul>'
+        ], 400);
+    }
+
     $creds = [
         'user_login'    => sanitize_text_field( $_POST['username'] ),
         'user_password' => $_POST['password'],

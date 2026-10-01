@@ -30,6 +30,15 @@ function sigma_ajax_register() {
         ], 429);
     }
 
+    // 🍯 Honeypot / timing / Turnstile / success limit — before any validation or VIES call
+    $spam_msg = sigma_registration_trap_error() ?? sigma_turnstile_error() ?? sigma_registration_success_limit_error();
+    if ( $spam_msg ) {
+        sigma_rate_limit_hit( $rl_key, 600 );
+        wp_send_json_error([
+            'html' => '<ul class="woocommerce-error"><li>' . esc_html( $spam_msg ) . '</li></ul>'
+        ], 400);
+    }
+
     $errors = new WP_Error();
 
     // Sanitize and validate customer type

@@ -181,6 +181,8 @@ function sigma_auth_register_form() {
         </label>
     </div>
 
+    <?php sigma_turnstile_widget(); ?>
+
     <p class="woocommerce-form-row form-row submit_btn_row">
         <?php
         rv_button_arrow( [

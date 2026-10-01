@@ -93,6 +93,8 @@ function sigma_auth_login_form() {
 		<?php
 		// extra hooks της φόρμας login
 		do_action( 'woocommerce_login_form' );
+
+		sigma_turnstile_widget();
 		?>
 
 		<p class="form-row submit_btn_row">

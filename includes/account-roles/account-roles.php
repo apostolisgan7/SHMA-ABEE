@@ -10,4 +10,6 @@ require_once __DIR__ . '/admin-registrations.php';
 require_once __DIR__ . '/auth/ajax-login.php';
 require_once __DIR__ . '/auth/ajax-register.php';
 require_once __DIR__ . '/auth/ajax-check-vat.php';
+require_once __DIR__ . '/auth/anti-spam.php';
+require_once __DIR__ . '/auth/turnstile.php';
 

@@ -1,7 +1,10 @@
 import gsap from 'gsap';
+import { initTurnstile } from './auth-turnstile.js';
 
 export function initLogin(overlay, modal, loginForm, ajaxUrl) {
     if (!loginForm) return;
+
+    const turnstile = initTurnstile(loginForm);
 
     function showError(emailField, html) {
         emailField.nextElementSibling?.classList?.contains('woocommerce-error') && emailField.nextElementSibling.remove();
@@ -32,10 +35,13 @@ export function initLogin(overlay, modal, loginForm, ajaxUrl) {
         loginForm.classList.add('is-loading');
 
         try {
+            if (turnstile) formData.set('cf-turnstile-response', await turnstile.getToken());
+
             const res  = await fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData });
             const data = await res.json();
 
             if (!data.success) {
+                turnstile?.reset();
                 loginForm.classList.remove('is-loading');
                 const emailField = loginForm.querySelector('#username')?.closest('.form-row');
                 if (emailField) showError(emailField, data.data.html);
@@ -51,6 +57,7 @@ export function initLogin(overlay, modal, loginForm, ajaxUrl) {
             });
         } catch (err) {
             console.error('AJAX Login error:', err);
+            turnstile?.reset();
             loginForm.classList.remove('is-loading');
             const emailField = loginForm.querySelector('#username')?.closest('.form-row');
             if (emailField) showError(emailField, '<ul class="woocommerce-error" role="alert"><li>Παρουσιάστηκε σφάλμα. Παρακαλώ προσπαθήστε ξανά.</li></ul>');

@@ -1,7 +1,10 @@
 import gsap from 'gsap';
+import { initTurnstile } from './auth-turnstile.js';
 
 export function initRegister(overlay, modal, registerForm, ajaxUrl) {
     if (!registerForm) return;
+
+    const turnstile = initTurnstile(registerForm);
 
     registerForm.addEventListener('submit', async e => {
         e.preventDefault();
@@ -16,6 +19,8 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
         formData.append('nonce', registerForm.querySelector('input[name="nonce"]')?.value || '');
 
         try {
+            if (turnstile) formData.set('cf-turnstile-response', await turnstile.getToken());
+
             const res  = await fetch(ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData });
 
             let data;
@@ -37,6 +42,7 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
             registerForm.classList.remove('is-loading');
 
             if (!data.success) {
+                turnstile?.reset();
                 registerForm.insertAdjacentHTML('afterbegin', data.data?.html || '<ul class="woocommerce-error"><li>Παρουσιάστηκε σφάλμα. Δοκίμασε ξανά.</li></ul>');
 
                 const temp = document.createElement('div');
@@ -101,6 +107,7 @@ export function initRegister(overlay, modal, registerForm, ajaxUrl) {
             }
         } catch (err) {
             console.error('AJAX Register error:', err);
+            turnstile?.reset();
             registerForm.classList.remove('is-loading');
             registerForm.insertAdjacentHTML('afterbegin', '<ul class="woocommerce-error"><li>Παρουσιάστηκε σφάλμα σύνδεσης. Δοκίμασε ξανά.</li></ul>');
         }

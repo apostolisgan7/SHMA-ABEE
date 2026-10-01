@@ -89,7 +89,18 @@ function sigma_ajax_login() {
     if ( is_wp_error( $user ) ) {
         sigma_rate_limit_hit( $rl_key, 600 );
 
-        wc_add_notice( $user->get_error_message(), 'error' );
+        // Wrong email / username / password → one generic Greek message, so the
+        // form never reveals which emails have an account (Wordfence or not).
+        // Other errors (pending/rejected account, Wordfence lockout) pass through.
+        $credential_errors = [ 'invalid_username', 'invalid_email', 'incorrect_password' ];
+        $message = array_intersect( $user->get_error_codes(), $credential_errors )
+            ? sprintf(
+                __( 'Το email ή ο κωδικός που δώσατε δεν είναι σωστά. <a href="%s">Ξεχάσατε τον κωδικό σας;</a>', 'ruined' ),
+                esc_url( wc_lostpassword_url() )
+            )
+            : $user->get_error_message();
+
+        wc_add_notice( $message, 'error' );
         ob_start();
         wc_print_notices();
         wp_send_json_error([ 'html' => ob_get_clean() ]);

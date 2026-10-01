@@ -14,6 +14,19 @@ function showInlineError(msg, where) {
 }
 
 export function initValidation(overlay, { getPasswordStrength }) {
+    // The submit "button" is an <a>, so the browser won't submit on Enter by itself.
+    // Pressing Enter in a field clicks it instead, running the same validation.
+    overlay.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' || e.isComposing) return;
+        if (!(e.target instanceof HTMLInputElement)) return;
+
+        const submitBtn = e.target.closest('form')?.querySelector('.sigma-auth-submit');
+        if (!submitBtn) return;
+
+        e.preventDefault();
+        submitBtn.click();
+    });
+
     overlay.addEventListener('click', e => {
         const submitBtn = e.target.closest('.sigma-auth-submit');
         if (!submitBtn) return;

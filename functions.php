@@ -40,6 +40,7 @@ $includes = [
     'includes/woocommerce/configurations.php',       // WooCommerce customizations
     'includes/woocommerce/load-more.php',       // WooCommerce load more
     'includes/woocommerce/catalog-menu-sync.php',       // Catalog Menu category sync
+    'includes/woocommerce/variation-icons.php',         // Positional swatch icons (Πάχος/Διάσταση Α-Β-Γ)
     'pages-hero.php',
 ];
 

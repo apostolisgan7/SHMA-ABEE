@@ -26,6 +26,7 @@ add_action('widgets_init', function() {
 $includes = [
     'includes/theme-setup.php',       // Theme setup and features
     'includes/vite.php',              // Vite asset loading
+    'includes/analytics.php',         // Google Tag Manager (production only)
     'includes/admin.php',             // Admin area customizations
     'includes/admin-docs.php',        // Admin-only "Τεκμηρίωση" viewer (renders woocommerce-admin-docs.md)
     'includes/shortcodes.php',        // Custom shortcodes

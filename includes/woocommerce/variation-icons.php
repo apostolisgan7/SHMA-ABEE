@@ -15,8 +15,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// taxonomy => file prefix
+// taxonomy => file prefix (Πάχος is "thickness" on live, "pachos-alouminiou" on local)
 const RUINED_POSITIONAL_ICON_ATTRIBUTES = [
+    'pa_thickness'         => 'pachos',
     'pa_pachos-alouminiou' => 'pachos',
     'pa_dimension'         => 'diastasi',
 ];

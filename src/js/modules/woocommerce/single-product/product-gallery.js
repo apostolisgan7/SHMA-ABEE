@@ -367,10 +367,50 @@ function initVariationHandlers() {
         'reset_data.rv',
         'form.variations_form',
         function () {
-            pendingVariationImage = null;
-            restoreOriginalImage();
+            // WooCommerce also fires reset_data on a partial selection. If the
+            // options picked so far already decide the image (e.g. only
+            // "Ανακλαστική Μεμβράνη" changes it), show it without waiting for
+            // the remaining attributes.
+            pendingVariationImage = getPartialSelectionImage(this);
+
+            if (pendingVariationImage) {
+                applyVariationImage();
+            } else {
+                restoreOriginalImage();
+            }
         }
     );
+}
+
+/**
+ * Image shared by every variation that matches the options chosen so far,
+ * or null if nothing is chosen, the image still depends on an unchosen
+ * attribute, or variations are loaded via AJAX (no data-product_variations).
+ */
+function getPartialSelectionImage(form) {
+    let variations;
+    try {
+        variations = JSON.parse(form.dataset.product_variations || 'false');
+    } catch { return null; }
+    if (!Array.isArray(variations)) return null;
+
+    const chosen = {};
+    form.querySelectorAll('select[name^="attribute_"]').forEach(select => {
+        if (select.value) chosen[select.name] = select.value;
+    });
+    if (!Object.keys(chosen).length) return null;
+
+    const matching = variations.filter(v =>
+        Object.entries(chosen).every(([name, value]) => {
+            const attr = v.attributes?.[name];
+            return !attr || attr === value; // '' = "any" on the variation
+        })
+    );
+
+    const image = matching[0]?.image;
+    if (!image?.src) return null;
+
+    return matching.every(v => v.image?.src === image.src) ? image : null;
 }
 
 

@@ -84,31 +84,57 @@ function initProductGallery() {
 
     observeGalleryReplacement();
 
-    // Apply variation image AFTER gallery rebuild
-    if (pendingVariationImage) {
-        requestAnimationFrame(() => {
-            const img = document.querySelector(
-                '.rv-gallery-main .swiper-slide-active img'
-            );
+    // Apply variation image AFTER gallery rebuild.
+    // No sync `pendingVariationImage` check here: when YITH serves a variation
+    // gallery from its cache it replaces the gallery synchronously inside its
+    // own found_variation handler — before ours has set the new variation —
+    // so the value is only reliable by the next frame.
+    applyVariationImage();
+}
 
-            if (!img) return;
+/* =========================
+   VARIATION IMAGE → FIRST SLIDE
+========================= */
+function applyVariationImage() {
+    requestAnimationFrame(() => {
+        const image = pendingVariationImage;
+        if (!image?.src || !mainSwiper) return;
 
-            if (!img.dataset.originalSrc) {
-                img.dataset.originalSrc = img.src;
-                img.dataset.originalSrcset = img.srcset;
-                img.dataset.originalDataSrc = img.dataset.src;
-            }
+        mainSwiper.slideToLoop(0, 0);
 
-            img.src = pendingVariationImage.src;
-            img.srcset = pendingVariationImage.src;
-            img.dataset.src =
-                pendingVariationImage.full_src || pendingVariationImage.src;
+        const img = mainSwiper.el.querySelector('.swiper-slide[data-swiper-slide-index="0"] img')
+            || mainSwiper.el.querySelector('.swiper-slide img');
 
-            img.decode?.().catch(() => {});
-            smartUpdate();
-        });
-    }
+        if (!img) return;
 
+        if (!img.dataset.originalSrc) {
+            img.dataset.originalSrc = img.src;
+            img.dataset.originalSrcset = img.srcset;
+            img.dataset.originalDataSrc = img.dataset.src || '';
+        }
+
+        img.src = image.src;
+        img.srcset = image.src;
+        img.dataset.src = image.full_src || image.src;
+
+        img.decode?.().catch(() => {});
+        smartUpdate();
+    });
+}
+
+function restoreOriginalImage() {
+    document.querySelectorAll('.rv-gallery-main img[data-original-src]').forEach(img => {
+        img.src = img.dataset.originalSrc;
+        img.srcset = img.dataset.originalSrcset || '';
+        if (img.dataset.originalDataSrc) {
+            img.dataset.src = img.dataset.originalDataSrc;
+        } else {
+            delete img.dataset.src;
+        }
+        delete img.dataset.originalSrc;
+        delete img.dataset.originalSrcset;
+        delete img.dataset.originalDataSrc;
+    });
 }
 
 /* =========================
@@ -327,6 +353,12 @@ function initVariationHandlers() {
             // Targeted preload: YITH's AJAX takes ~300ms — enough to cache
             const preload = new Image();
             preload.src = variation.image.src;
+
+            // Also apply to the current gallery: covers YITH's cached path
+            // (gallery already rebuilt before this handler ran) and products
+            // where YITH doesn't swap the gallery at all. If YITH's AJAX
+            // rebuilds it afterwards, initProductGallery() applies it again.
+            applyVariationImage();
         }
     );
 
@@ -336,6 +368,7 @@ function initVariationHandlers() {
         'form.variations_form',
         function () {
             pendingVariationImage = null;
+            restoreOriginalImage();
         }
     );
 }

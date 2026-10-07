@@ -38,7 +38,7 @@ function ruined_positional_icon_url(string $prefix, int $position): ?string {
 /**
  * Term slugs used for variations, in the same order the dropdown/swatches render them.
  */
-function ruined_variation_term_order(WC_Product $product, string $taxonomy): array {
+function ruined_variation_term_order(WC_Product_Variable $product, string $taxonomy): array {
     static $cache = [];
     $key = $product->get_id() . '|' . $taxonomy;
 
@@ -52,8 +52,10 @@ function ruined_variation_term_order(WC_Product $product, string $taxonomy): arr
 }
 
 // Runs after YITH's per-product override (priority 10) so the positional icon wins.
+// YITH also runs this filter for simple products that merely list the attribute;
+// only variable products have get_variation_attributes(), so skip the rest.
 add_filter('yith_wccl_create_custom_attributes_term_attr', function ($attr, $taxonomy, $term, $product) {
-    if (!isset(RUINED_POSITIONAL_ICON_ATTRIBUTES[$taxonomy]) || !$product instanceof WC_Product) {
+    if (!isset(RUINED_POSITIONAL_ICON_ATTRIBUTES[$taxonomy]) || !$product instanceof WC_Product_Variable) {
         return $attr;
     }
 

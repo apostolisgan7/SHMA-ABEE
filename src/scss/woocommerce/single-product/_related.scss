@@ -43,6 +43,43 @@
   &__carousel {
     position: relative;
 
+    // Must mirror the Swiper breakpoints in swipers-handler.js (min-width, window based)
+    --rp-spv: 1.3;
+    --rp-gap: 16px;
+
+    @media (min-width: 560px) {
+      --rp-spv: 2;
+    }
+    @media (min-width: 880px) {
+      --rp-spv: 3;
+      --rp-gap: 20px;
+    }
+    @media (min-width: 1200px) {
+      --rp-spv: 4;
+      --rp-gap: 24px;
+    }
+
+    // Before Swiper initializes, swiper.css makes every slide 100% wide, so the
+    // first card renders huge until JS runs. Size the slides exactly like
+    // Swiper will, so there's no jump on init (also covers a single related item).
+    &:not(.swiper-initialized) {
+      overflow: hidden;
+
+      .swiper-wrapper {
+        display: flex;
+      }
+    }
+
+    &:not(.swiper-initialized) .swiper-slide {
+      flex-shrink: 0;
+      width:calc((100% - (var(--rp-spv) - 1) * var(--rp-gap)) / var(--rp-spv));
+      margin-right: var(--rp-gap);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
     .rv-product-card__title {
       font-size: clamp(19px, 1.4vw, 24px);
     }

@@ -27,6 +27,16 @@ if ( $related_products ) :
     $heading = apply_filters( 'woocommerce_product_related_products_heading', __( 'Σχετικά Προϊόντα', 'ruined' ) );
     ?>
 
+    <?php
+    // Inline on purpose: keeps the carousel hidden from the very first paint
+    // (theme CSS is injected by JS in Vite dev mode) until Swiper has built it,
+    // then fades it in — no full-width card flash before init.
+    ?>
+    <style>
+        .rv-related-products__carousel:not(.swiper-initialized){visibility:hidden;opacity:0}
+        .rv-related-products__carousel.swiper-initialized{visibility:visible;opacity:1;transition:opacity .3s ease}
+    </style>
+
     <section class="rv-related-products">
         <div class="rv-related-products__inner">
 

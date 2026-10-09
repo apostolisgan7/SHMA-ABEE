@@ -10,10 +10,13 @@ import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
 import {shopHeader} from './modules/woocommerce/grid-view';
 import './modules/woocommerce/shop-sorting';
+import {rvBlog} from './modules/blog';
+import {initPostLightbox} from './modules/post-lightbox';
 
 Alpine.plugin(collapse);
 window.Alpine = Alpine;
 Alpine.data('shopHeader', shopHeader);
+Alpine.data('rvBlog', rvBlog);
 
 // Import Utils
 import {initSmoothScroll} from './utils/smooth-scroll';
@@ -93,6 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize Swipers and product components
     initSwipers();
     initBackToTop();
+    initPostLightbox();
     initVideoPopup();
     // Initialize Lenis for smooth scrolling
     const lenis = initSmoothScroll();

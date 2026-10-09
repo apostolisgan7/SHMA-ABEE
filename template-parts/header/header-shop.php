@@ -8,6 +8,12 @@
 <?php
 if (function_exists('is_product') && is_product()) {
     $header_color = 'black';
+} elseif (is_home() && get_option('page_for_posts')) {
+    // Posts page: get_field() without an ID has no post context here, so read it from the page itself.
+    $header_color = get_field('header_color', (int) get_option('page_for_posts')) ?: 'black';
+} elseif (is_singular('post') || is_category() || is_tag() || is_author() || is_date() || is_search()) {
+    // Blog single/archives have a light background, no ACF page to read from.
+    $header_color = 'black';
 } else {
     $header_color = get_field('header_color') ?: 'white';
 }

@@ -37,6 +37,7 @@ $includes = [
     'includes/account-roles/account-roles.php',       // Custom Forms for login
     'includes/blocks.php',            // Custom Gutenberg blocks
     'includes/services.php',          // Services archive/breadcrumb consolidation
+    'includes/blog.php',              // Blog listing: AJAX category tabs, load more, featured post
     'includes/woocommerce/configurations.php',       // WooCommerce customizations
     'includes/woocommerce/load-more.php',       // WooCommerce load more
     'includes/woocommerce/catalog-menu-sync.php',       // Catalog Menu category sync

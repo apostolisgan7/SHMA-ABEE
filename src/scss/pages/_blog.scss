@@ -136,12 +136,12 @@
 
   a {
     padding: 10px 22px;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 500;
-    color: #555;
-    background: #fff;
+    color: $primary-color;
+    background: transparent;
     border: 1px solid #ddd;
-    border-radius: 2px;
+    border-radius: 5px;
     text-decoration: none;
     transition: all .25s ease;
 
@@ -225,6 +225,7 @@
 
     &:hover {
       color: $secondary-color;
+      background: transparent;
     }
   }
 
@@ -373,6 +374,39 @@
 
     &__image {
       order: -1;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  // Category tabs: one line, horizontal swipe
+  .rv-blog-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 14px;
+    margin-right: -1.5rem;
+    padding-right: 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: #111 #ddd;
+
+    &::-webkit-scrollbar {
+      height: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #ddd;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #111;
+      border-radius: 4px;
+    }
+
+    a {
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
   }
 }

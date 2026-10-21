@@ -85,10 +85,14 @@
 
 .mega-item {
   margin-bottom: 1.5rem;
+
+  @media (max-width: 1550px) {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .mega-parent {
-  font-size: clamp(20px, 1.7vw, 30px);
+  font-size: clamp(20px, 1.4vw, 30px);
   font-weight: 300;
   color: #222;
   display: block;

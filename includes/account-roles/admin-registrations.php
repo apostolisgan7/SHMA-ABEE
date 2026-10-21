@@ -16,6 +16,32 @@ add_action( 'admin_menu', function () {
 } );
 
 // -------------------------------------------------------
+// 1b. Παραλήπτες ειδοποίησης νέας εγγραφής (ένα ή περισσότερα email).
+//     Κενό → πέφτει πίσω στο admin_email του WordPress.
+// -------------------------------------------------------
+function sigma_get_registration_notify_emails(): array {
+    $raw    = (string) get_option( 'sigma_registration_notify_emails', '' );
+    $emails = array_filter( array_map( 'sanitize_email', preg_split( '/[,\s;]+/', $raw ) ), 'is_email' );
+
+    return $emails ? array_values( array_unique( $emails ) ) : [ get_option( 'admin_email' ) ];
+}
+
+add_action( 'admin_post_sigma_save_notify_emails', function () {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Unauthorized', 403 );
+    }
+    check_admin_referer( 'sigma_save_notify_emails' );
+
+    $raw    = sanitize_text_field( wp_unslash( $_POST['sigma_notify_emails'] ?? '' ) );
+    $emails = array_filter( array_map( 'sanitize_email', preg_split( '/[,\s;]+/', $raw ) ), 'is_email' );
+
+    update_option( 'sigma_registration_notify_emails', implode( ', ', array_unique( $emails ) ) );
+
+    wp_safe_redirect( add_query_arg( 'notify_saved', '1', admin_url( 'users.php?page=sigma-registrations' ) ) );
+    exit;
+} );
+
+// -------------------------------------------------------
 // 2. AJAX: approve / reject
 // -------------------------------------------------------
 add_action( 'wp_ajax_sigma_update_status', 'sigma_ajax_update_status' );
@@ -111,6 +137,21 @@ function sigma_registrations_page() {
     <div class="wrap sigma-reg-wrap">
         <h1>Κατάλογος Πελατών</h1>
         <p class="sigma-reg-subtitle">Λίστα πελατών που έχουν κάνει αίτηση εγγραφής.</p>
+
+        <?php if ( isset( $_GET['notify_saved'] ) ) : ?>
+            <div class="notice notice-success is-dismissible"><p>Τα email ειδοποίησης αποθηκεύτηκαν.</p></div>
+        <?php endif; ?>
+
+        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin:16px 0 24px;">
+            <input type="hidden" name="action" value="sigma_save_notify_emails">
+            <?php wp_nonce_field( 'sigma_save_notify_emails' ); ?>
+            <label for="sigma_notify_emails"><strong>Email ειδοποίησης νέων εγγραφών</strong></label><br>
+            <input type="text" id="sigma_notify_emails" name="sigma_notify_emails" class="regular-text" style="min-width:420px;"
+                   value="<?php echo esc_attr( get_option( 'sigma_registration_notify_emails', '' ) ); ?>"
+                   placeholder="<?php echo esc_attr( get_option( 'admin_email' ) ); ?>">
+            <button type="submit" class="button button-primary">Αποθήκευση</button>
+            <p class="description">Ένα ή περισσότερα email χωρισμένα με κόμμα. Αν μείνει κενό, χρησιμοποιείται το email διαχειριστή του site.</p>
+        </form>
 
         <?php if ( empty( $users ) ) : ?>
             <div class="sigma-reg-empty">Δεν υπάρχουν εγγραφές ακόμα.</div>

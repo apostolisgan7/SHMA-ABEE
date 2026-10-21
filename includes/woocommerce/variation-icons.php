@@ -51,6 +51,38 @@ function ruined_variation_term_order(WC_Product_Variable $product, string $taxon
     return $cache[$key];
 }
 
+/**
+ * Dimensions ("110 × 110", "60x90", …) always listed from smallest to largest.
+ * Sorts by the numbers in the term, so the positional icons stay consistent too.
+ */
+add_filter('woocommerce_get_product_terms', function ($terms, $product_id, $taxonomy, $args) {
+    if ($taxonomy !== 'pa_dimension' || !is_array($terms) || count($terms) < 2) {
+        return $terms;
+    }
+
+    $numbers = function ($term) {
+        $text = is_object($term) ? $term->name : (string) $term;
+        preg_match_all('/\d+(?:[.,]\d+)?/', $text, $m);
+        return array_map(fn ($n) => (float) str_replace(',', '.', $n), $m[0]);
+    };
+
+    usort($terms, fn ($a, $b) => $numbers($a) <=> $numbers($b));
+
+    return $terms;
+}, 10, 4);
+
+/**
+ * "Διάσταση" → "Διάσταση (Υ × Μ)" everywhere the label is shown (height first, then length).
+ * Done on display only: the stored attribute name stays "Διάσταση", so CSV imports and the
+ * ERP bridge keep matching it.
+ */
+add_filter('woocommerce_attribute_label', function ($label, $name) {
+    if ($name === 'pa_dimension' && strpos($label, '(Υ × Μ)') === false) {
+        return $label . ' (Υ × Μ)';
+    }
+    return $label;
+}, 10, 2);
+
 // Runs after YITH's per-product override (priority 10) so the positional icon wins.
 // YITH also runs this filter for simple products that merely list the attribute;
 // only variable products have get_variation_attributes(), so skip the rest.

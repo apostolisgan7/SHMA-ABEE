@@ -166,7 +166,7 @@ function sigma_ajax_register() {
     update_user_meta($user_id, '_sigma_newsletter_optin', $newsletter_optin ? '1' : '0');
 
     // 2. Ειδοποίηση στον Διαχειριστή (Email)
-    $admin_email  = get_option( 'admin_email' );
+    $admin_email  = sigma_get_registration_notify_emails();
     $site_name    = get_bloginfo( 'name' );
     $contact_name = trim( $first_name . ' ' . $last_name );
     $entity_name  = $type === 'company'

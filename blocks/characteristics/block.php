@@ -39,7 +39,7 @@ $items = get_field('characteristics');
                             $target = $item_link['target'] ?? '_self';
                             ?>
 
-                            <li class="block-service-characteristics__item"
+                            <li class="block-service-characteristics__item<?= $url ? ' block-service-characteristics__item--link' : ''; ?>"
                                     <?php if ($url): ?>
                                         role="link"
                                         tabindex="0"

@@ -152,9 +152,19 @@ $default_tab = $has_tech ? 'tech' : 'projects';
                             <?php foreach ($manuals as $row):
 
                                 $file  = $row['file'];
-                                $title = $row['title'];
+                                $title = trim((string) $row['title']);
 
                                 if (!$file) continue;
+
+                                // No manual title: use the file name after the first "_" (05-13-0125_Manual.pdf -> Manual)
+                                if ($title === '') {
+                                    $base  = pathinfo($file['filename'] ?? rawurldecode(basename($file['url'])), PATHINFO_FILENAME);
+                                    $title = trim(str_replace('_', ' ', strpos($base, '_') !== false ? substr($base, strpos($base, '_') + 1) : $base), ' -');
+                                }
+
+                                // Uppercase file names lose their accents/grammar, so map known ones
+                                $manual_labels = ['ΠΙΣΤΟΠΟΙΗΣΗ' => 'Πιστοποιητικού'];
+                                $title = $manual_labels[mb_strtoupper($title)] ?? $title;
                                 ?>
 
                                 <a href="<?php echo esc_url($file['url']); ?>" target="_blank" rel="noopener">
@@ -162,12 +172,11 @@ $default_tab = $has_tech ? 'tech' : 'projects';
                                     <div class="rv-manual-wrap">
 
                                         <div class="rv-manual-icon">
-                                            <?php echo esc_html(mb_substr($title, 0, 1)); ?>
+                                            <?php echo esc_html(mb_strtoupper(mb_substr($title, 0, 1))); ?>
                                         </div>
 
                                         <div class="rv-manual-meta">
-                                            <strong><?php esc_html_e( 'Λήψη Εγχειριδίου', 'ruined' ); ?></strong>
-                                            <span><?php echo esc_html($title); ?></span>
+                                            <strong><?php echo esc_html__( 'Λήψη', 'ruined' ) . ' ' . esc_html($title); ?></strong>
                                         </div>
 
                                     </div>

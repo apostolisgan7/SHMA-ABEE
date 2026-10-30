@@ -132,6 +132,12 @@
         p, a {
           font-size: 12px;
         }
+
+        // Home | deepest category | product: hide the middle levels
+        p > a:not(:first-of-type):not(:last-of-type),
+        p > span.separator:not(:first-of-type):not(:nth-last-of-type(2)) {
+          display: none;
+        }
       }
     }
     .single_top_wrapper {

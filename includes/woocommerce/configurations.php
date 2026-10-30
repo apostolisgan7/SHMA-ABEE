@@ -936,3 +936,83 @@ add_filter('yith_wcan_is_filter_relevant', function ($is_relevant, $filter) {
     return (bool) array_intersect($current_cat_ids, array_keys($filter->get_terms_options()));
 }, 10, 2);
 
+
+// Rank Math breadcrumbs default to the first term alphabetically, which cuts the
+// category tree. Use the deepest assigned category instead.
+add_filter('rank_math/frontend/breadcrumb/main_term', function ($term, $terms) {
+    $deepest = $term;
+    $max     = -1;
+    foreach ((array) $terms as $t) {
+        $depth = count(get_ancestors($t->term_id, $t->taxonomy, 'taxonomy'));
+        if ($depth > $max) {
+            $max     = $depth;
+            $deepest = $t;
+        }
+    }
+    return $deepest;
+}, 10, 2);
+
+/**
+ * Hide product categories that have no published product (in themselves or their
+ * children) from the frontend. Term counts are unreliable: the ERP sync leaves
+ * products pending without recounting, so hide_empty alone still shows them.
+ * Frontend GET renders only, so syncs (cron, REST, CLI, POST) still see every term.
+ */
+function ruined_is_frontend_render() {
+    return ! is_admin()
+        && ! wp_doing_cron()
+        && ! defined('REST_REQUEST')
+        && ! defined('WP_CLI')
+        && isset($_SERVER['REQUEST_METHOD']) && 'GET' === $_SERVER['REQUEST_METHOD'];
+}
+
+function ruined_visible_product_cat_ids() {
+    static $visible = null;
+
+    if (null !== $visible) {
+        return $visible;
+    }
+
+    global $wpdb;
+
+    $direct = $wpdb->get_col(
+        "SELECT DISTINCT tt.term_id
+         FROM {$wpdb->term_relationships} tr
+         JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id AND tt.taxonomy = 'product_cat'
+         JOIN {$wpdb->posts} p ON p.ID = tr.object_id AND p.post_type = 'product' AND p.post_status = 'publish'"
+    );
+
+    $visible = [];
+    foreach ($direct as $term_id) {
+        $visible[(int) $term_id] = true;
+        foreach (get_ancestors((int) $term_id, 'product_cat', 'taxonomy') as $ancestor_id) {
+            $visible[(int) $ancestor_id] = true;
+        }
+    }
+
+    return $visible;
+}
+
+add_filter('get_terms', function ($terms, $taxonomies, $args) {
+    if (! ruined_is_frontend_render() || ['product_cat'] !== array_values((array) $taxonomies) || ! empty($args['object_ids'])) {
+        return $terms;
+    }
+
+    $visible = ruined_visible_product_cat_ids();
+
+    return array_values(array_filter($terms, function ($term) use ($visible) {
+        return ! ($term instanceof WP_Term) || isset($visible[$term->term_id]);
+    }));
+}, 10, 3);
+
+add_filter('wp_get_nav_menu_items', function ($items) {
+    if (! ruined_is_frontend_render()) {
+        return $items;
+    }
+
+    $visible = ruined_visible_product_cat_ids();
+
+    return array_values(array_filter((array) $items, function ($item) use ($visible) {
+        return 'taxonomy' !== $item->type || 'product_cat' !== $item->object || isset($visible[(int) $item->object_id]);
+    }));
+});

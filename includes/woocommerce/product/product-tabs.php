@@ -161,10 +161,6 @@ $default_tab = $has_tech ? 'tech' : 'projects';
                                     $base  = pathinfo($file['filename'] ?? rawurldecode(basename($file['url'])), PATHINFO_FILENAME);
                                     $title = trim(str_replace('_', ' ', strpos($base, '_') !== false ? substr($base, strpos($base, '_') + 1) : $base), ' -');
                                 }
-
-                                // Uppercase file names lose their accents/grammar, so map known ones
-                                $manual_labels = ['ΠΙΣΤΟΠΟΙΗΣΗ' => 'Πιστοποιητικού'];
-                                $title = $manual_labels[mb_strtoupper($title)] ?? $title;
                                 ?>
 
                                 <a href="<?php echo esc_url($file['url']); ?>" target="_blank" rel="noopener">

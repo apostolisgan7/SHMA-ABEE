@@ -281,6 +281,12 @@
   justify-content: space-between;
 }
 
+// Category arrows sit at top: 0 (20px tall) while the label row is 15px * 2.2 line-height
+// tall, so they looked too high. Center them on the first row of their item.
+.yith-wcan-filters .yith-wcan-filter .filter-items .filter-item.hierarchy-collapsable > .toggle-handle {
+  top: calc(15px * 2.2 / 2 - 10px);
+}
+
 
 @media (max-width: 993px) {
   .yith-wcan-filters.filters-modal {

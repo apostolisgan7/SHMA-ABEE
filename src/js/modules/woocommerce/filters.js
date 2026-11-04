@@ -67,15 +67,33 @@ export function initProductCatExclusiveFilter() {
     }, true);
 }
 
+// The current category's own filter item starts closed; open it (children stay closed)
+// so its sub-categories are visible. Same classes + inline display YITH's toggle uses.
+function openActiveFilterCategories() {
+    document.querySelectorAll('.yith-wcan-filter[data-taxonomy="product_cat"] li.filter-item.active.hierarchy-collapsable.closed').forEach(li => {
+        const list = li.querySelector(':scope > ul');
+        if (!list) return;
+        li.classList.replace('closed', 'opened');
+        list.style.display = 'block';
+    });
+}
+
 let _yithInitCount = 0;
 
 export function initFilters() {
     moveModalToBody();
     initYithModalCloseHandler();
     initArchiveHeaderFiltersToggle();
+    // YITH sets its own open/closed state (and may re-render the filters) while it
+    // initialises, so keep re-applying for the first few seconds
+    openActiveFilterCategories();
+    const filtersObserver = new MutationObserver(openActiveFilterCategories);
+    filtersObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+    setTimeout(() => filtersObserver.disconnect(), 4000);
 
     if (typeof jQuery !== 'undefined') {
         jQuery(document).on('yith_wcan_init_shortcodes', () => {
+            openActiveFilterCategories();
             _yithInitCount++;
             if (_yithInitCount === 1) return;
 

@@ -102,7 +102,7 @@ function sigma_save_admin_entity_fields($user_id) {
             $user_info = get_userdata($user_id);
             $to = $user_info->user_email;
             $subject = __( 'Ο λογαριασμός σας εγκρίθηκε!', 'ruined' );
-            $message = sprintf( __( 'Γεια σας, ο λογαριασμός σας στο %s εγκρίθηκε επιτυχώς. Μπορείτε πλέον να συνδεθείτε χρησιμοποιώντας τα στοιχεία σας.', 'ruined' ), get_bloginfo('name') );
+            $message = sprintf( __( 'Γεια σας, ο λογαριασμός σας στο %s εγκρίθηκε επιτυχώς. Μπορείτε πλέον να συνδεθείτε χρησιμοποιώντας τα στοιχεία σας.', 'ruined' ), 'ΣΗΜΑ' );
 
             wp_mail($to, $subject, $message);
         }

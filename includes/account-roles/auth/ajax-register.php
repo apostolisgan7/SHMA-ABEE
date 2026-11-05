@@ -167,7 +167,7 @@ function sigma_ajax_register() {
 
     // 2. Ειδοποίηση στον Διαχειριστή (Email)
     $admin_email  = sigma_get_registration_notify_emails();
-    $site_name    = get_bloginfo( 'name' );
+    $site_name    = 'ΣΗΜΑ'; // χωρίς "ΑΒΕΕ" στα emails (αίτημα πελάτη)
     $contact_name = trim( $first_name . ' ' . $last_name );
     $entity_name  = $type === 'company'
         ? ( isset( $company_name ) ? $company_name : '—' )

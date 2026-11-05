@@ -79,7 +79,7 @@ function sigma_ajax_update_status() {
 // 3. Approval email (HTML)
 // -------------------------------------------------------
 function sigma_send_approval_email( $user ) {
-    $site_name = get_bloginfo( 'name' );
+    $site_name = 'ΣΗΜΑ';
     $login_url = wc_get_page_permalink( 'myaccount' );
 
     $entity_name = get_user_meta( $user->ID, 'company_name', true )

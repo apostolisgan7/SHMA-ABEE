@@ -61,7 +61,7 @@ $has_desc = !empty($description);
 
 // The description is rendered inside the tech tab, so it alone is enough to show it.
 $has_tech = $has_attributes || $has_left || $has_desc;
-$tech_tab_label = ($has_attributes || $has_left) ? 'Τεχνικά Χαρακτηριστικά' : 'Περιγραφή';
+$tech_tab_label = ($has_attributes || $has_left) ? 'Τεχνικά Χαρακτηριστικά' : 'Πληροφορίες Προϊόντος';
 
 
 /* --------------------------------
@@ -147,7 +147,7 @@ $default_tab = $has_tech ? 'tech' : 'projects';
                 <div class="rv-tech-left">
                     <?php if ($has_manuals): ?>
                         <div class="rv-manuals">
-                            <h3>Τεχνικοί Κατάλογοι</h3>
+                            <h3>Τεχνικά Έγγραφα</h3>
 
                             <?php foreach ($manuals as $row):
 
@@ -161,9 +161,13 @@ $default_tab = $has_tech ? 'tech' : 'projects';
                                     $base  = pathinfo($file['filename'] ?? rawurldecode(basename($file['url'])), PATHINFO_FILENAME);
                                     $title = trim(str_replace('_', ' ', strpos($base, '_') !== false ? substr($base, strpos($base, '_') + 1) : $base), ' -');
                                 }
+
+                                // File names are bare words (Manual, ΠΙΣΤΟΠΟΙΗΣΗ): map known ones to the genitive for "Λήψη …"
+                                $manual_labels = ['MANUAL' => 'Τεχνικού Φυλλαδίου', 'ΠΙΣΤΟΠΟΙΗΣΗ' => 'Πιστοποιητικού'];
+                                $title = $manual_labels[mb_strtoupper($title)] ?? $title;
                                 ?>
 
-                                <a href="<?php echo esc_url($file['url']); ?>" target="_blank" rel="noopener">
+                                <a <?php echo rv_file_link_attrs($file['url']); ?>>
 
                                     <div class="rv-manual-wrap">
 
@@ -216,7 +220,7 @@ $default_tab = $has_tech ? 'tech' : 'projects';
                         $raw_desc = get_post_field('post_content', get_the_ID());
                     ?>
                         <div class="rv-description-block">
-                            <h3><?php echo esc_html__('Περιγραφή', 'woocommerce'); ?></h3>
+                            <h3>Πληροφορίες Προϊόντος</h3>
                             <div class="rv-description-inner">
                                 <?php echo wpautop(wp_kses_post($raw_desc)); ?>
                             </div>

@@ -31,6 +31,14 @@ $all_ids = array_values(array_filter(array_merge([$featured_id], $gallery_ids)))
 if ( empty( $all_ids ) ) {
     $all_ids[] = 'placeholder';
 }
+
+// Guests see the first image only; the rest are just counted ("+N") and never reach the HTML.
+$is_guest    = !is_user_logged_in();
+$guest_extra = $is_guest ? count($all_ids) - 1 : 0;
+$locked_thumb_id = $is_guest ? ($all_ids[1] ?? null) : null; // shown blurred behind the "+N"
+if ($is_guest) {
+    $all_ids = array_slice($all_ids, 0, 1);
+}
 ?>
 
 <div class="woocommerce-product-gallery woocommerce-product-gallery--with-swiper">
@@ -112,8 +120,17 @@ if ( empty( $all_ids ) ) {
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
+                <?php if ($guest_extra > 0) : ?>
+                    <div class="swiper-slide rv-gallery-thumb--more rv-gallery-thumb--locked js-auth-modal-trigger"
+                         role="button" tabindex="0"
+                         title="<?php esc_attr_e('Πρέπει να συνδεθείτε για να δείτε όλες τις φωτογραφίες', 'ruined'); ?>">
+                        <?php if ($locked_thumb_id) echo wp_get_attachment_image($locked_thumb_id, 'thumbnail', false, ['class' => 'thumb-slide-image']); ?>
+                        <span class="rv-gallery-thumb-count" data-hover="<?php esc_attr_e('Σύνδεση', 'ruined'); ?>">+<?php echo esc_html($guest_extra); ?></span>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
+        <?php if (!$is_guest) : ?>
         <div class="zoom-wrapper">
             <button type="button" class="rv-gallery-zoom" aria-label="<?php esc_attr_e('Μεγέθυνση', 'ruined'); ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -121,6 +138,7 @@ if ( empty( $all_ids ) ) {
                 </svg>
             </button>
         </div>
+        <?php endif; ?>
     </div>
 
 </div>

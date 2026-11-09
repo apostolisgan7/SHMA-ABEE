@@ -32,6 +32,7 @@ $includes = [
     'includes/shortcodes.php',        // Custom shortcodes
     'includes/utilities.php',         // Utility functions
     'includes/translations.php',      // Site-wide English -> Greek string overrides
+    'includes/protected-files.php',   // Members-only PDF gate
     'includes/acf.php',               // Advanced Custom Fields configuration
     'includes/account-roles/login_forms.php',       // Custom Forms for login
     'includes/account-roles/account-roles.php',       // Custom Forms for login

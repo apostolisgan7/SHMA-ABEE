@@ -316,6 +316,9 @@ function initFancybox() {
         // "+N" overflow badge: open the full gallery (all images) instead of
         // just switching the main slider to the 4th thumb, since the hidden
         // images beyond it have no other visible thumb to click.
+        // Guests: the locked "+N" opens the login modal (its own trigger), not the gallery.
+        if (e.target.closest('.rv-gallery-thumb--locked')) return;
+
         if (e.target.closest('.rv-gallery-thumb-count')) {
             e.preventDefault();
             e.stopPropagation();

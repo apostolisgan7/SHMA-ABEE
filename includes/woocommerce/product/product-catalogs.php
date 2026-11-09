@@ -43,10 +43,7 @@ if (empty($catalogs)) {
                                     class="catalog-item"
                                     data-image="<?php echo esc_url($item['image__gif']['url'] ?? ''); ?>"
                             >
-                                <a
-                                        href="<?php echo esc_url($item['catalog']['url'] ?? '#'); ?>"
-                                        target="_blank"
-                                >
+                                <a <?php echo rv_file_link_attrs($item['catalog']['url'] ?? '#'); ?>>
                                     <span class="icon">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">

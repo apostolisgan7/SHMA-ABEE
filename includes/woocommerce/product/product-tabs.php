@@ -162,9 +162,6 @@ $default_tab = $has_tech ? 'tech' : 'projects';
                                     $title = trim(str_replace('_', ' ', strpos($base, '_') !== false ? substr($base, strpos($base, '_') + 1) : $base), ' -');
                                 }
 
-                                // File names are bare words (Manual, ΠΙΣΤΟΠΟΙΗΣΗ): map known ones to the genitive for "Λήψη …"
-                                $manual_labels = ['MANUAL' => 'Τεχνικού Φυλλαδίου', 'ΠΙΣΤΟΠΟΙΗΣΗ' => 'Πιστοποιητικού'];
-                                $title = $manual_labels[mb_strtoupper($title)] ?? $title;
                                 ?>
 
                                 <a <?php echo rv_file_link_attrs($file['url']); ?>>

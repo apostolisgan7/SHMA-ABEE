@@ -71,7 +71,8 @@ export function initModal(overlay, modal, { setInitialPillPosition, refreshPassw
     // event here keeps it from ever reaching YITH's listener.
     document.addEventListener('click', (e) => {
         if (document.body.classList.contains('logged-in')) return;
-        const btn = e.target.closest('.add-request-quote-button');
+        // Same for choosing a product variation (Διάσταση / Μεμβράνη / Πάχος).
+        const btn = e.target.closest('.add-request-quote-button, form.variations_form table.variations');
         if (!btn) return;
         e.preventDefault();
         e.stopImmediatePropagation();

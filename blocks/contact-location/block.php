@@ -94,14 +94,14 @@ if (!empty($block['align']))     $classes .= ' align' . $block['align'];
 
                 <!-- RIGHT -->
                 <div class="block-contact-location__media">
-                    <?php if (!empty($image['url'])): ?>
-                        <img
-                            class="block-contact-location__image"
-                            src="<?= esc_url($image['url']); ?>"
-                            alt="<?= esc_attr($image['alt'] ?? $title ?? ''); ?>"
-                            loading="lazy"
-                        >
-                    <?php endif; ?>
+                    <iframe
+                        class="block-contact-location__image"
+                        src="https://www.google.com/maps?q=%CE%A3%CE%97%CE%9C%CE%91+%CE%91.%CE%92.%CE%95.%CE%95.+%CE%9B%CE%B5%CF%85%CE%BA%CE%AC%CE%B4%CE%BF%CF%82+2+%CE%9C%CE%BF%CF%83%CF%87%CE%AC%CF%84%CE%BF&ll=37.9628462,23.6946991&z=17&hl=el&output=embed"
+                        title="<?= esc_attr($loc_title ?: 'ΣΗΜΑ'); ?>"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen
+                    ></iframe>
                 </div>
 
             </div>

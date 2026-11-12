@@ -6,7 +6,7 @@ if (!$product) return;
 
 <div class="rv-mobile-sticky-wrap">
     <button class="rv-mobile-sticky-btn" aria-expanded="false">
-        <span>Αίτηση Προσφοράς</span>
+        <span>Αίτημα Προσφοράς</span>
     </button>
 </div>
 

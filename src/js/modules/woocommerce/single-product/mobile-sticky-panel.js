@@ -81,7 +81,7 @@ export function initMobileStickyPanel() {
         panel.classList.remove('is-open');
         panel.setAttribute('aria-hidden', 'true');
         stickyBtn.setAttribute('aria-expanded', 'false');
-        stickyBtn.querySelector('span').textContent = 'Αίτηση Προσφοράς';
+        stickyBtn.querySelector('span').textContent = 'Αίτημα Προσφοράς';
         unlockBodyScroll();
         initSmoothScroll();
         isOpen = false;

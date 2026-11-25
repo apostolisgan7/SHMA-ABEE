@@ -138,4 +138,6 @@ $default_open = $is_variable ? 'tech' : ($has_simple_attributes ? 'tech' : ($sam
     <?php if (!$is_variable) : ?>
         <?php woocommerce_template_single_add_to_cart(); ?>
     <?php endif; ?>
+
+    <p class="rv-availability-note" style="margin:12px 0 24px;font-size:12px;line-height:1.3;opacity:.7">* Η διαθεσιμότητα του προϊόντος ελέγχεται και επιβεβαιώνεται από την εταιρεία μας, μετά την υποβολή αιτήματος προσφοράς.</p>
 </div>

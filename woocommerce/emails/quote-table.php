@@ -185,3 +185,4 @@ $show_permalinks = apply_filters( 'ywraq_list_show_product_permalinks', true, 'p
 
 do_action( 'yith_ywraq_email_after_raq_table', $order );
 ?>
+<p style="margin:12px 0;font-size:11px;opacity:.7">* Η διαθεσιμότητα του προϊόντος ελέγχεται και επιβεβαιώνεται από την εταιρεία μας, μετά την υποβολή αιτήματος προσφοράς.</p>

@@ -342,6 +342,7 @@ $accept_button_text = ( YITH_Request_Quote()->enabled_checkout() && $order->get_
 			<?php endif ?>
 		</tfoot>
 	</table>
+	<p style="margin:12px 0;font-size:11px;opacity:.7">* Η διαθεσιμότητα του προϊόντος ελέγχεται και επιβεβαιώνεται από την εταιρεία μας, μετά την υποβολή αιτήματος προσφοράς.</p>
 	<!-- END QUOTE DETAILS -->
 
 

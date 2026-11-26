@@ -177,6 +177,7 @@ if ( $enable_custom_text && ! empty( $message_before ) ) :
 <?php endif ?>
 
 <?php do_action( 'yith_ywraq_email_after_raq_table', $order ); ?>
+<p style="margin:12px 0;font-size:11px;opacity:.7">* Η διαθεσιμότητα του προϊόντος ελέγχεται και επιβεβαιώνεται από την εταιρεία μας, μετά την υποβολή αιτήματος προσφοράς.</p>
 
 <?php if ( $enable_custom_text && ! empty( $message_after ) ) : ?>
 	<div class="after-list">

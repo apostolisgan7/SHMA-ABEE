@@ -39,7 +39,7 @@ get_header();
                             <?php echo get_avatar($author_id, 56, '', '', ['class' => 'rv-post-card__avatar']); ?>
                             <div>
                                 <strong>ΣΗΜΑ</strong>
-                                <span><?php printf(esc_html__('Χρόνος Ανάγνωσης: %d λεπτά', 'ruined'), rv_reading_time()); ?></span>
+                                <span><?php $n = rv_reading_time(); printf(esc_html__('Χρόνος Ανάγνωσης: %d %s', 'ruined'), $n, $n === 1 ? 'λεπτό' : 'λεπτά'); ?></span>
                             </div>
                         </div>
                     </header>

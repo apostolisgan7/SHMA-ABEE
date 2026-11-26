@@ -1016,3 +1016,8 @@ add_filter('wp_get_nav_menu_items', function ($items) {
         return 'taxonomy' !== $item->type || 'product_cat' !== $item->object || isset($visible[(int) $item->object_id]);
     }));
 });
+
+// Availability note under the quote request list.
+add_action( 'ywraq_after_list_table', function () {
+    echo '<p class="rv-availability-note" style="margin:12px 0;font-size:12px;opacity:.7">* Η διαθεσιμότητα του προϊόντος ελέγχεται και επιβεβαιώνεται από την εταιρεία μας, μετά την υποβολή αιτήματος προσφοράς.</p>';
+} );

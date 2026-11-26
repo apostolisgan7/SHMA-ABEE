@@ -536,6 +536,7 @@ $shop_phone   = 'Τηλέφωνο: 21 0483 1996';
 		</tbody>
 	</table>
 </div>
+<p style="margin:12px 0;font-size:11px;color:#666;">* Η διαθεσιμότητα του προϊόντος ελέγχεται και επιβεβαιώνεται από την εταιρεία μας, μετά την υποβολή αιτήματος προσφοράς.</p>
 <div class="pdf-footer">
 	<?php echo esc_html( get_bloginfo( 'name' ) ); ?>
 </div>

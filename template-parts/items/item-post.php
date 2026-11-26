@@ -34,7 +34,7 @@ $author_id = (int) get_post_field('post_author', $post_id);
             <div class="rv-post-card__foot">
                 <span class="rv-post-card__author">
                     <?php echo get_avatar($author_id, 32, '', '', ['class' => 'rv-post-card__avatar']); ?>
-                    <span><?php echo esc_html(get_the_author_meta('display_name', $author_id)); ?></span>
+                    <span>ΣΗΜΑ</span>
                 </span>
                 <span class="rv-post-card__btn" aria-hidden="true">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" role="img" aria-hidden="true">
